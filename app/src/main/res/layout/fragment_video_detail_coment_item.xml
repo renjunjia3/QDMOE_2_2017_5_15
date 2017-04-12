@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+    <com.joooonho.SelectableRoundedImageView
+        android:id="@+id/headImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/ic_user_avatar"
+        android:scaleType="centerCrop"
+        app:sriv_border_color="@color/colorAccent"
+        app:sriv_border_width="2dip"
+        app:sriv_oval="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的名字"
+            android:textColor="#333333"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:text=""
+            android:textColor="#989898"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="5分钟之前"
+            android:textColor="#989898"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:src="@drawable/ic_hot_commend"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_big" />
+
+</LinearLayout>

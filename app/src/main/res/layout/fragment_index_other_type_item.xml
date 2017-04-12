@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="#DA322C"
+            android:ellipsize="end"
+            android:lines="1"
+            android:padding="5dp"
+            android:text="HD"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_middle" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/play_time"
+        android:ellipsize="end"
+        android:lines="1"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="标题"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_big" />
+
+    <TextView
+        android:id="@+id/play_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="1000次播放"
+        android:textColor="#999999"
+        android:textSize="@dimen/text_size_small" />
+
+</LinearLayout>

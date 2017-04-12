@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_back" />
+
+
+    <wiki.scene.statuslib.StatusViewLayout
+        android:id="@+id/statusViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:id="@+id/detail_player"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:scaleType="centerCrop" />
+
+                        <ImageView
+                            android:id="@+id/play_video"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/jc_click_play_selector" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/commend_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_commend"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="#333333"
+                            android:textSize="@dimen/text_size_middle" />
+
+                        <TextView
+                            android:id="@+id/zan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_zan"
+                            android:drawablePadding="3dp"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="#333333"
+                            android:textSize="@dimen/text_size_big"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/fravetor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/download"
+                            android:drawableLeft="@drawable/ic_collect"
+                            android:gravity="center_vertical"
+                            android:text="收藏"
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:id="@+id/download"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="10dp"
+                            android:drawableLeft="@drawable/ic_download"
+                            android:gravity="center_vertical"
+                            android:text="下载"
+                            android:textColor="#333333" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/open_vip1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_video_detail_open_vip" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/open_vip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/white"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="5dp"
+                            android:paddingTop="10dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_screen_shot"
+                                android:drawablePadding="3dp"
+                                android:gravity="center_vertical"
+                                android:text="视频截图"
+                                android:textColor="#333333"
+                                android:textSize="@dimen/text_size_big" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:drawablePadding="3dp"
+                                android:drawableRight="@drawable/ic_arrow_right"
+                                android:gravity="center_vertical"
+                                android:text="成为VIP"
+                                android:textColor="#666666" />
+                        </RelativeLayout>
+
+                        <com.cyldf.cyldfxv.ui.view.CustomeGridView
+                            android:id="@+id/screenShotGridView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/white"
+                            android:horizontalSpacing="10dp"
+                            android:numColumns="2"
+                            android:padding="10dp"
+                            android:verticalSpacing="10dp" />
+
+                        <TextView
+                            android:id="@+id/aboutCommendTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_about_commend"
+                            android:drawablePadding="3dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="相关推荐"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/text_size_big" />
+
+                        <com.cyldf.cyldfxv.ui.view.CustomeGridView
+                            android:id="@+id/aboutCommendGridView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/white"
+                            android:horizontalSpacing="10dp"
+                            android:numColumns="3"
+                            android:padding="10dp"
+                            android:verticalSpacing="10dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#D1D1D1" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:padding="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/ic_langyou_commend"
+                                    android:drawablePadding="3dp"
+                                    android:gravity="center_vertical"
+                                    android:text="狼友热评"
+                                    android:textColor="#333333"
+                                    android:textSize="@dimen/text_size_big" />
+
+                                <TextView
+                                    android:id="@+id/addVip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:drawablePadding="3dp"
+                                    android:gravity="center_vertical"
+                                    android:text="加入会员"
+                                    android:textColor="@color/colorAccent" />
+                            </RelativeLayout>
+
+                            <com.cyldf.cyldfxv.ui.view.CustomListView
+                                android:id="@+id/comment_listView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:background="@android:color/white"
+                                android:divider="#F1F1F1"
+                                android:dividerHeight="1dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:scrollbars="none" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#D1D1D1"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/sendComment"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/sendComment"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_commend_edit_text"
+                    android:gravity="center_vertical"
+                    android:hint="快来说说你的感想吧"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <ImageView
+                    android:id="@+id/sendComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_btn_send" />
+            </RelativeLayout>
+        </LinearLayout>
+    </wiki.scene.statuslib.StatusViewLayout>
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <wiki.scene.statuslib.StatusViewLayout
+        android:id="@+id/statusViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.cyldf.cyldfxv.pull_loadmore.PtrClassicFrameLayout
+            android:id="@+id/ptr_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.cyldf.cyldfxv.ui.view.NewBanner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        app:indicator_drawable_selected="@drawable/shape_banner_indicator_selected"
+                        app:indicator_drawable_unselected="@drawable/shape_banner_indicator_unselected" />
+
+                    <include layout="@layout/item_index_hot_recommend_type_free" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D1D1D1" />
+
+                    <include layout="@layout/item_index_hot_recommend_type_vip" />
+
+                    <include layout="@layout/item_index_hot_recommend_type_vip_recommend" />
+
+                    <include layout="@layout/item_index_hot_recommend_type_hot" />
+
+                    <include layout="@layout/recycler_footer" />
+                </LinearLayout>
+            </ScrollView>
+
+        </com.cyldf.cyldfxv.pull_loadmore.PtrClassicFrameLayout>
+    </wiki.scene.statuslib.StatusViewLayout>
+
+
+</LinearLayout>
