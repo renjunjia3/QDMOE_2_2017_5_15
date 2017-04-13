@@ -73,7 +73,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="HD"
+                    android:text="试看"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_middle" />
             </RelativeLayout>
@@ -136,7 +136,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="HD"
+                    android:text="试看"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_middle" />
             </RelativeLayout>
@@ -199,7 +199,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="HD"
+                    android:text="试看"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_middle" />
             </RelativeLayout>
@@ -274,7 +274,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="HD"
+                    android:text="试看"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_middle" />
             </RelativeLayout>
@@ -337,7 +337,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="HD"
+                    android:text="试看"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_middle" />
             </RelativeLayout>
@@ -400,7 +400,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="HD"
+                    android:text="试看"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_middle" />
             </RelativeLayout>

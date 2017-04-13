@@ -541,32 +541,32 @@ public class HotRecommendFragment extends BaseFragment {
             Glide.with(this).load(freeList.get(0).getThumb()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(freeImage1);
             freeName1.setText(freeList.get(0).getTitle());
             freePlayTime1.setText(freeList.get(0).getHits() + "次播放");
-            freeTag1.setText(freeList.get(0).getAttr());
+            //freeTag1.setText(freeList.get(0).getAttr());
 
             Glide.with(this).load(freeList.get(1).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(freeImage2);
             freeName2.setText(freeList.get(1).getTitle());
             freePlayTime2.setText(freeList.get(1).getHits() + "次播放");
-            freeTag2.setText(freeList.get(1).getAttr());
+            //freeTag2.setText(freeList.get(1).getAttr());
 
             Glide.with(this).load(freeList.get(2).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(freeImage3);
             freeName3.setText(freeList.get(2).getTitle());
             freePlayTime3.setText(freeList.get(2).getHits() + "次播放");
-            freeTag3.setText(freeList.get(2).getAttr());
+            //freeTag3.setText(freeList.get(2).getAttr());
 
             Glide.with(this).load(freeList.get(3).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(freeImage4);
             freeName4.setText(freeList.get(3).getTitle());
             freePlayTime4.setText(freeList.get(3).getHits() + "次播放");
-            freeTag4.setText(freeList.get(3).getAttr());
+            //freeTag4.setText(freeList.get(3).getAttr());
 
             Glide.with(this).load(freeList.get(4).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(freeImage5);
             freeName5.setText(freeList.get(4).getTitle());
             freePlayTime5.setText(freeList.get(4).getHits() + "次播放");
-            freeTag5.setText(freeList.get(4).getAttr());
+            //freeTag5.setText(freeList.get(4).getAttr());
 
             Glide.with(this).load(freeList.get(5).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(freeImage6);
             freeName6.setText(freeList.get(5).getTitle());
             freePlayTime6.setText(freeList.get(5).getHits() + "次播放");
-            freeTag6.setText(freeList.get(5).getAttr());
+            //freeTag6.setText(freeList.get(5).getAttr());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -594,32 +594,32 @@ public class HotRecommendFragment extends BaseFragment {
             Glide.with(this).load(vipList.get(1).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(vipImage1);
             vipName1.setText(vipList.get(1).getTitle());
             vipPlayTime1.setText(vipList.get(1).getHits() + "次播放");
-            vipTag1.setText(vipList.get(1).getAttr());
+            //vipTag1.setText(vipList.get(1).getAttr());
 
             Glide.with(this).load(vipList.get(2).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(vipImage2);
             vipName2.setText(vipList.get(2).getTitle());
             vipPlayTime2.setText(vipList.get(2).getHits() + "次播放");
-            vipTag2.setText(vipList.get(2).getAttr());
+            //vipTag2.setText(vipList.get(2).getAttr());
 
             Glide.with(this).load(vipList.get(3).getThumb()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(vipImage3);
             vipName3.setText(vipList.get(3).getTitle());
             vipPlayTime3.setText(vipList.get(3).getHits() + "次播放");
-            vipTag3.setText(vipList.get(3).getAttr());
+            //vipTag3.setText(vipList.get(3).getAttr());
 
             Glide.with(this).load(vipList.get(4).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(vipImage4);
             vipName4.setText(vipList.get(4).getTitle());
             vipPlayTime4.setText(vipList.get(4).getHits() + "次播放");
-            vipTag4.setText(vipList.get(4).getAttr());
+            //vipTag4.setText(vipList.get(4).getAttr());
 
             Glide.with(this).load(vipList.get(5).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(vipImage5);
             vipName5.setText(vipList.get(5).getTitle());
             vipPlayTime5.setText(vipList.get(5).getHits() + "次播放");
-            vipTag5.setText(vipList.get(5).getAttr());
+            //vipTag5.setText(vipList.get(5).getAttr());
 
             Glide.with(this).load(vipList.get(6).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(vipImage6);
             vipName6.setText(vipList.get(6).getTitle());
             vipPlayTime6.setText(vipList.get(6).getHits() + "次播放");
-            vipTag6.setText(vipList.get(6).getAttr());
+            //vipTag6.setText(vipList.get(6).getAttr());
         } catch (Exception e) {
             e.printStackTrace();
         }
