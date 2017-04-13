@@ -2,6 +2,7 @@ package com.cyldf.cyldfxv.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,16 @@ import com.cyldf.cyldfxv.util.ScreenUtils;
 import com.cyldf.cyldfxv.util.ViewUtils;
 
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.VideoInfo;
 
 /**
- * Created by scene on 2017/3/14.
+ * Case By:
+ * package:
+ * Author：scene on 2017/4/13 10:03
  */
 
 public class IndexItemAdapter extends BaseAdapter {
@@ -31,8 +35,9 @@ public class IndexItemAdapter extends BaseAdapter {
     private Context context;
     private List<VideoInfo> list;
 
-    private static ScreenUtils screenUtils;
+    private ScreenUtils screenUtils;
     private LayoutInflater inflater;
+    private String colors[] = {"#3399FF", "#FF3300", "#00CC66", "#9966FF"};
 
     public IndexItemAdapter(Context context, List<VideoInfo> list) {
         this.context = context;
@@ -70,10 +75,11 @@ public class IndexItemAdapter extends BaseAdapter {
         final VideoInfo info = list.get(position);
         holder.name.setText(info.getTitle());
         holder.tag.setText(info.getAttr());
+        holder.tag.setBackgroundColor(Color.parseColor(colors[new Random().nextInt(4)]));
         int height = (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(40f)) * 210f / 3f / 150f);
         ViewUtils.setViewHeightByViewGroup(holder.image, height);
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(holder.image);
-        holder.playTime.setText(info.getHits()+"次播放");
+        holder.playTime.setText(info.getHits() + "次播放");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

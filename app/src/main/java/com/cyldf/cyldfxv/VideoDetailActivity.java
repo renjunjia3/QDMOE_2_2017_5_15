@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -16,9 +18,10 @@ import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.cyldf.cyldfxv.adapter.CommentAdapter;
 import com.cyldf.cyldfxv.adapter.IndexItemAdapter;
-import com.cyldf.cyldfxv.adapter.ScreenShotAdapter;
+import com.cyldf.cyldfxv.adapter.ScreenShotRecyclerViewAdapter;
 import com.cyldf.cyldfxv.app.App;
 import com.cyldf.cyldfxv.bean.CommentInfo;
+import com.cyldf.cyldfxv.itemdecoration.ScreenShotItemDecoration;
 import com.cyldf.cyldfxv.pay.PayUtil;
 import com.cyldf.cyldfxv.ui.dialog.FullVideoPayDialog;
 import com.cyldf.cyldfxv.ui.dialog.FunctionPayDialog;
@@ -27,6 +30,7 @@ import com.cyldf.cyldfxv.ui.view.CustomListView;
 import com.cyldf.cyldfxv.ui.view.CustomeGridView;
 import com.cyldf.cyldfxv.util.API;
 import com.cyldf.cyldfxv.util.NetWorkUtils;
+import com.cyldf.cyldfxv.util.ScreenUtils;
 import com.cyldf.cyldfxv.util.SharedPreferencesUtil;
 import com.cyldf.cyldfxv.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -46,9 +50,10 @@ import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
 
 /**
- * Created by scene on 2017/3/17.
+ * Case By:视频详情
+ * package:com.cyldf.cyldfxv
+ * Author：scene on 2017/4/13 10:02
  */
-
 public class VideoDetailActivity extends AppCompatActivity {
 
     public static final String ARG_VIDEO_INFO = "arg_video_info";
@@ -60,8 +65,6 @@ public class VideoDetailActivity extends AppCompatActivity {
     TextView fravetor;
     @BindView(R.id.open_vip)
     RelativeLayout openVip;
-    @BindView(R.id.screenShotGridView)
-    CustomeGridView screenShotGridView;
     @BindView(R.id.comment_listView)
     CustomListView commentListView;
     @BindView(R.id.detail_player)
@@ -80,12 +83,12 @@ public class VideoDetailActivity extends AppCompatActivity {
     TextView aboutCommendTextView;
     @BindView(R.id.sendComment)
     ImageView sendComment;
+    @BindView(R.id.screenShotRecyclerView)
+    RecyclerView screenShotRecyclerView;
 
     private Unbinder unbinder;
 
     private VideoInfo videoInfo;
-
-    private ScreenShotAdapter screenShotAdapter;
 
     private String commentJSONStr;
     private List<CommentInfo> commentInfoList;
@@ -105,6 +108,9 @@ public class VideoDetailActivity extends AppCompatActivity {
     private FullVideoPayDialog.Builder fullVideoDialogBuilder;
     private FunctionPayDialog functionPayDialog;
     private FunctionPayDialog.Builder functionPayDialogBuilder;
+
+    //视频截图
+    ScreenShotRecyclerViewAdapter screenShotRecyclerViewAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,15 +158,22 @@ public class VideoDetailActivity extends AppCompatActivity {
         commendNumber.setText((random.nextInt(1000) + 580) + "");
         toolbarTitle.setText(videoInfo.getTitle());
         zan.setText(videoInfo.getHits() + "");
-        screenShotAdapter = new ScreenShotAdapter(this, videoInfo.getImages());
-        screenShotGridView.setAdapter(screenShotAdapter);
+        //评论列表
         commentAdapter = new CommentAdapter(this, commentInfoList);
         commentListView.setAdapter(commentAdapter);
         Glide.with(this).load(videoInfo.getImages().get(0)).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(detailPlayer);
-
+        //相关推荐
         videoRelateAdapter = new IndexItemAdapter(VideoDetailActivity.this, videoRelateList);
         aboutCommendGridView.setAdapter(videoRelateAdapter);
         getRecomendVideo();
+        //视频截图
+        screenShotRecyclerViewAdapter = new ScreenShotRecyclerViewAdapter(VideoDetailActivity.this, videoInfo.getImages());
+        screenShotRecyclerView.setHasFixedSize(true);
+        screenShotRecyclerView.addItemDecoration(new ScreenShotItemDecoration((int) ScreenUtils.instance(VideoDetailActivity.this).dip2px(10)));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        screenShotRecyclerView.setLayoutManager(layoutManager);
+        screenShotRecyclerView.setAdapter(screenShotRecyclerViewAdapter);
     }
 
     @Override

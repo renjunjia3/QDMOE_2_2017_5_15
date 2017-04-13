@@ -1,5 +1,6 @@
 package com.cyldf.cyldfxv.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.cyldf.cyldfxv.util.ScreenUtils;
 import com.cyldf.cyldfxv.util.ViewUtils;
 
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +33,8 @@ public class VideoListAdapter extends BaseRecyclerAdapter {
     private List<VideoInfo> list;
 
     private static ScreenUtils screenUtils;
+
+    private String colors[] = {"#3399FF", "#FF3300", "#00CC66", "#9966FF"};
 
     public VideoListAdapter(BaseFragment baseFragment, List<VideoInfo> list) {
         super(baseFragment);
@@ -58,7 +62,8 @@ public class VideoListAdapter extends BaseRecyclerAdapter {
         VideoInfo videoInfo = list.get(position);
         mHolder.name.setText(videoInfo.getTitle());
         mHolder.tag.setText(videoInfo.getAttr());
-        mHolder.playTime.setText(videoInfo.getHits()+"次播放");
+        mHolder.tag.setBackgroundColor(Color.parseColor(colors[new Random().nextInt(4)]));
+        mHolder.playTime.setText(videoInfo.getHits() + "次播放");
         Glide.with(baseFragment).load(videoInfo.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(mHolder.image);
     }
 
