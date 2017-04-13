@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cyldf.cyldfxv">
+    package="com.heuewo.hiaodoipo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -23,7 +23,7 @@
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
     <application
-        android:name="com.cyldf.cyldfxv.app.App"
+        android:name="com.heuewo.hiaodoipo.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -36,7 +36,7 @@
             android:value="GlideModule" />
 
         <activity
-            android:name="com.cyldf.cyldfxv.LuncherActivity"
+            android:name="com.heuewo.hiaodoipo.LuncherActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,11 +45,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.cyldf.cyldfxv.MainActivity"
+            android:name="com.heuewo.hiaodoipo.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.cyldf.cyldfxv.VideoDetailActivity"
+            android:name="com.heuewo.hiaodoipo.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
@@ -92,7 +92,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.cyldf.cyldfxv.wxapi.WXPayEntryActivity"
+            android:name="com.heuewo.hiaodoipo.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
         <!-- 支付配置参数结束 -->
