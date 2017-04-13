@@ -9,7 +9,7 @@
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@drawable/bg_index_top_tab"
+        android:background="#000000"
         app:tabIndicatorColor="#F5CD0B"
         app:tabMode="scrollable"
         app:tabPaddingEnd="10dp"

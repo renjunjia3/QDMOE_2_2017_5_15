@@ -151,14 +151,14 @@ public class JCFullScreenActivity extends Activity {
                     intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_FULLVIDEO);
                     setResult(RESULT_OK, intent);
                     finish();
-                } else if (isVIP == 0 && videoInfo.getVip() == 0 && tryCount <= 4 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30000) {
+                } else if (isVIP == 0 && videoInfo.getVip() == 0 && tryCount <= VideoConfig.TRY_COUNT_TIME && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30000) {
                     //可以试看的视频 试看次数不够了
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
                     intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_FULLVIDEO);
                     setResult(RESULT_OK, intent);
                     finish();
-                } else if (isVIP == 0 && videoInfo.getVip() == 0 && tryCount > 4) {
+                } else if (isVIP == 0 && videoInfo.getVip() == 0 && tryCount > VideoConfig.TRY_COUNT_TIME) {
                     //可以试看的视频 试看次数不够了
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());

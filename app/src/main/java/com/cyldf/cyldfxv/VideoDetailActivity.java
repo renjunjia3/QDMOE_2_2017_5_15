@@ -45,6 +45,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import fm.jiecao.jcvideoplayer_lib.JCFullScreenActivity;
+import fm.jiecao.jcvideoplayer_lib.VideoConfig;
 import fm.jiecao.jcvideoplayer_lib.VideoInfo;
 import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
@@ -125,14 +126,14 @@ public class VideoDetailActivity extends AppCompatActivity {
             fullVideoDialog.show();
             clickWantPay();
         } else {
-            if (App.ISVIP == 0 && App.TRY_COUNT >= 4) {
+            if (App.ISVIP == 0 && App.TRY_COUNT >= VideoConfig.TRY_COUNT_TIME) {
                 fullVideoDialog.show();
                 clickWantPay();
             }
         }
-        if (App.ISVIP == 0) {
-            ToastUtils.getInstance(this).showToast("剩余试看次数：" + (4 - App.TRY_COUNT > 0 ? 4 - App.TRY_COUNT : 0) + "次");
-        }
+//        if (App.ISVIP == 0) {
+//            ToastUtils.getInstance(this).showToast("剩余试看次数：" + (4 - App.TRY_COUNT > 0 ? 4 - App.TRY_COUNT : 0) + "次");
+//        }
     }
 
     protected void initToolbarNav(Toolbar toolbar) {
@@ -283,7 +284,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         if (videoInfo.getVip() == 1 && App.ISVIP == 0) {
             functionPayDialog.show();
             clickWantPay();
-        } else if (App.ISVIP == 0 && App.TRY_COUNT >= 4) {
+        } else if (App.ISVIP == 0 && App.TRY_COUNT >= VideoConfig.TRY_COUNT_TIME) {
             functionPayDialog.show();
             clickWantPay();
         } else {

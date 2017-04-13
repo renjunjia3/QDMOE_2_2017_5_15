@@ -66,10 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="每人最多有3次优惠机会"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:visibility="gone" />
+            android:text="限时特惠，活动结束后将不会出现"
+            android:textColor="#EAFB22"
+            android:textSize="@dimen/text_size_middle" />
     </LinearLayout>
 
     <Button
