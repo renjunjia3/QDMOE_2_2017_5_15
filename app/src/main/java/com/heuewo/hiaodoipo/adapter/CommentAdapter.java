@@ -8,11 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.joooonho.SelectableRoundedImageView;
 import com.heuewo.hiaodoipo.R;
 import com.heuewo.hiaodoipo.bean.CommentInfo;
+import com.joooonho.SelectableRoundedImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -28,33 +27,12 @@ public class CommentAdapter extends BaseAdapter {
     private List<CommentInfo> list;
     private LayoutInflater inflater;
     private Random random;
-    private List<Integer> imageResIds;
 
     public CommentAdapter(Activity activity, List<CommentInfo> list) {
         this.activity = activity;
         this.list = list;
         inflater = LayoutInflater.from(activity);
         random = new Random();
-        imageResIds = new ArrayList<>();
-        imageResIds.add(R.drawable.head1);
-        imageResIds.add(R.drawable.head2);
-        imageResIds.add(R.drawable.head3);
-        imageResIds.add(R.drawable.head4);
-        imageResIds.add(R.drawable.head5);
-        imageResIds.add(R.drawable.head6);
-        imageResIds.add(R.drawable.head7);
-        imageResIds.add(R.drawable.head8);
-        imageResIds.add(R.drawable.head9);
-        imageResIds.add(R.drawable.head10);
-        imageResIds.add(R.drawable.head11);
-        imageResIds.add(R.drawable.head12);
-        imageResIds.add(R.drawable.head13);
-        imageResIds.add(R.drawable.head14);
-        imageResIds.add(R.drawable.head15);
-        imageResIds.add(R.drawable.head16);
-        imageResIds.add(R.drawable.head17);
-        imageResIds.add(R.drawable.head18);
-        imageResIds.add(R.drawable.head19);
     }
 
     @Override
@@ -86,7 +64,7 @@ public class CommentAdapter extends BaseAdapter {
         viewHolder.name.setText("VIP" + (random.nextInt(10000) + 10000));
         viewHolder.content.setText(info.getText());
         viewHolder.time.setText(info.getTime());
-        Glide.with(activity).load(imageResIds.get(random.nextInt(19))).asBitmap().centerCrop().placeholder(R.drawable.ic_user_avatar).error(R.drawable.ic_user_avatar).into(viewHolder.headImage);
+        Glide.with(activity).load(info.getAvatar()).asBitmap().centerCrop().placeholder(R.drawable.ic_user_avatar).error(R.drawable.ic_user_avatar).into(viewHolder.headImage);
         return convertView;
     }
 

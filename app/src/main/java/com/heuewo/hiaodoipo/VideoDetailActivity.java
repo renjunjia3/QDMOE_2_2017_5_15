@@ -3,6 +3,7 @@ package com.heuewo.hiaodoipo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -86,6 +88,8 @@ public class VideoDetailActivity extends AppCompatActivity {
     ImageView sendComment;
     @BindView(R.id.screenShotRecyclerView)
     RecyclerView screenShotRecyclerView;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
 
     private Unbinder unbinder;
 
@@ -150,10 +154,6 @@ public class VideoDetailActivity extends AppCompatActivity {
         commendNumber.setText((random.nextInt(1000) + 580) + "");
         toolbarTitle.setText(videoInfo.getTitle());
         zan.setText(videoInfo.getHits() + "");
-        //评论列表
-        commentInfoList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this, commentInfoList);
-        commentListView.setAdapter(commentAdapter);
         Glide.with(this).load(videoInfo.getImages().get(0)).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(detailPlayer);
         //相关推荐
         videoRelateAdapter = new IndexItemAdapter(VideoDetailActivity.this, videoRelateList);
@@ -390,9 +390,13 @@ public class VideoDetailActivity extends AppCompatActivity {
                     for (int j = 0; j < 10; j++) {
                         comemnts.add(temps.get(j));
                     }
-                    commentInfoList.clear();
+                    commentInfoList = new ArrayList<>();
                     commentInfoList.addAll(comemnts);
-                    commentAdapter.notifyDataSetChanged();
+                    commentAdapter = new CommentAdapter(VideoDetailActivity.this, commentInfoList);
+                    commentListView.setAdapter(commentAdapter);
+                    detailPlayer.setFocusable(true);
+                    detailPlayer.setFocusableInTouchMode(true);
+                    detailPlayer.requestFocus();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -400,4 +404,9 @@ public class VideoDetailActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
