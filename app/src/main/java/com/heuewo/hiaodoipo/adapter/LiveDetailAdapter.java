@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.heuewo.hiaodoipo.R;
+import com.heuewo.hiaodoipo.bean.CommentInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +25,14 @@ import butterknife.ButterKnife;
 
 public class LiveDetailAdapter extends BaseAdapter {
     private Context context;
-    private List<String> datas = new ArrayList<>();
+    private List<CommentInfo> datas;
 
     private Random random;
 
-    public LiveDetailAdapter(Context context) {
+    public LiveDetailAdapter(Context context, List<CommentInfo> datas) {
         this.context = context;
         random = new Random();
-        String[] list = context.getResources().getStringArray(R.array.live_array);
-        for (int i = 0; i < list.length - 30; i++) {
-            datas.add(list[random.nextInt(list.length - 1)]);
-        }
+        this.datas = datas;
 
     }
 
@@ -63,7 +61,7 @@ public class LiveDetailAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.content.setText(datas.get(position));
+        viewHolder.content.setText(datas.get(position).getText());
         viewHolder.name.setText("VIP" + random.nextInt(100000) + ":");
         viewHolder.level.setText(random.nextInt(70) + "");
         return convertView;

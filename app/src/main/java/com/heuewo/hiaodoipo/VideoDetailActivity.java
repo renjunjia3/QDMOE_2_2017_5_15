@@ -91,7 +91,6 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     private VideoInfo videoInfo;
 
-    private String commentJSONStr;
     private List<CommentInfo> commentInfoList;
     private Random random;
     private CommentAdapter commentAdapter;
@@ -148,18 +147,11 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     private void initView() {
         random = new Random();
-        int count = random.nextInt(10) + 10;
-        commentJSONStr = getString(R.string.str_comment_json);
-        List<CommentInfo> tempCommentList = JSON.parseArray(commentJSONStr, CommentInfo.class);
-        int tempListSize = tempCommentList.size();
-        commentInfoList = new ArrayList<>();
-        for (int i = 0; i < count && i < tempListSize; i++) {
-            commentInfoList.add(tempCommentList.get(i));
-        }
         commendNumber.setText((random.nextInt(1000) + 580) + "");
         toolbarTitle.setText(videoInfo.getTitle());
         zan.setText(videoInfo.getHits() + "");
         //评论列表
+        commentInfoList = new ArrayList<>();
         commentAdapter = new CommentAdapter(this, commentInfoList);
         commentListView.setAdapter(commentAdapter);
         Glide.with(this).load(videoInfo.getImages().get(0)).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(detailPlayer);
@@ -175,6 +167,8 @@ public class VideoDetailActivity extends AppCompatActivity {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         screenShotRecyclerView.setLayoutManager(layoutManager);
         screenShotRecyclerView.setAdapter(screenShotRecyclerViewAdapter);
+        //获取评论的数据
+        getCommentData();
     }
 
     @Override
@@ -372,9 +366,38 @@ public class VideoDetailActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     protected void onResume() {
         super.onResume();
     }
+
+    /**
+     * Case By:获取评论的数据
+     * Author: scene on 2017/4/13 18:48
+     */
+    private void getCommentData() {
+        OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_COMMENT).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                try {
+                    List<CommentInfo> temps = JSON.parseArray(s, CommentInfo.class);
+                    List<CommentInfo> comemnts = new ArrayList<CommentInfo>();
+                    for (int j = 0; j < 10; j++) {
+                        comemnts.add(temps.get(j));
+                    }
+                    commentInfoList.clear();
+                    commentInfoList.addAll(comemnts);
+                    commentAdapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }

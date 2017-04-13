@@ -7,15 +7,16 @@ import java.io.Serializable;
  */
 
 public class CommentInfo implements Serializable {
-    String content;
+    String avatar;
     String time;
+    String text;
 
-    public String getContent() {
-        return content;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getTime() {
@@ -24,5 +25,22 @@ public class CommentInfo implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentInfo{" +
+                "avatar='" + avatar + '\'' +
+                ", time='" + time + '\'' +
+                ", text='" + text + '\'' +
+                '}';
     }
 }

@@ -34,4 +34,8 @@ public class API {
     public static final String GET_DUANDAI_INFO = "pay/get_token_msm";
     //短代支付提交成功信息
     public static final String NOTIFY_SMS = "pay/notify_sms";
+    //获取视频详情评论资源
+    public static final String VIDEO_COMMENT = "video/comment";
+    //获取直播详情的评论
+    public static final String LIVE_COMMENT = "video/live_comment";
 }

@@ -84,7 +84,7 @@ public class CommentAdapter extends BaseAdapter {
         }
         CommentInfo info = list.get(position);
         viewHolder.name.setText("VIP" + (random.nextInt(10000) + 10000));
-        viewHolder.content.setText(info.getContent());
+        viewHolder.content.setText(info.getText());
         viewHolder.time.setText(info.getTime());
         Glide.with(activity).load(imageResIds.get(random.nextInt(19))).asBitmap().centerCrop().placeholder(R.drawable.ic_user_avatar).error(R.drawable.ic_user_avatar).into(viewHolder.headImage);
         return convertView;

@@ -108,7 +108,7 @@
                     android:paddingTop="2dp"
                     android:text="VIP"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -173,7 +173,7 @@
                     android:paddingTop="2dp"
                     android:text="VIP"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -236,7 +236,7 @@
                     android:paddingTop="2dp"
                     android:text="VIP"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -311,7 +311,7 @@
                     android:paddingTop="2dp"
                     android:text="VIP"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -374,7 +374,7 @@
                     android:paddingTop="2dp"
                     android:text="VIP"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -437,7 +437,7 @@
                     android:paddingTop="2dp"
                     android:text="VIP"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 

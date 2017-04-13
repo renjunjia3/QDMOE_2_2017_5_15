@@ -43,23 +43,34 @@
             android:text=""
             android:textColor="#989898"
             android:textSize="@dimen/text_size_middle" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_weight="1"
             android:text="5分钟之前"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="right"
             android:textColor="#989898"
             android:textSize="@dimen/text_size_small" />
-    </RelativeLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:src="@drawable/ic_hot_commend"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size_big" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_hot_commend"
+            android:layout_marginRight="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

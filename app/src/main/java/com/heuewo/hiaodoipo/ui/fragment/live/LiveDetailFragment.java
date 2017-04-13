@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
+import com.heuewo.hiaodoipo.bean.CommentInfo;
+import com.heuewo.hiaodoipo.util.API;
 import com.joooonho.SelectableRoundedImageView;
 import com.heuewo.hiaodoipo.R;
 import com.heuewo.hiaodoipo.adapter.LiveDetailAdapter;
@@ -23,6 +26,8 @@ import com.heuewo.hiaodoipo.pay.PayUtil;
 import com.heuewo.hiaodoipo.ui.dialog.LivePayDialog;
 import com.heuewo.hiaodoipo.ui.fragment.MainFragment;
 import com.heuewo.hiaodoipo.ui.view.NoTouchListView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +38,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * Case By:直播详情
@@ -80,6 +86,8 @@ public class LiveDetailFragment extends BaseFragment {
     private Timer timer;
 
     private List<Integer> videoResId = new ArrayList<>();
+
+    private List<CommentInfo> list;
 
     public static LiveDetailFragment newInstance(LiveInfo liveInfo) {
         LiveDetailFragment fragment = new LiveDetailFragment();
@@ -138,7 +146,9 @@ public class LiveDetailFragment extends BaseFragment {
         piao.setText("映票：" + (random.nextInt(5000) + 8541) + "\t>");
         hao.setText("映号：" + random.nextInt(8000) + random.nextInt(8000));
 
-        adapter = new LiveDetailAdapter(_mActivity);
+        //评论
+        list = new ArrayList<>();
+        adapter = new LiveDetailAdapter(_mActivity, list);
         listView.setAdapter(adapter);
         timer = new Timer();
         timer.schedule(new MyTask(), 1000, 1000);
@@ -153,6 +163,8 @@ public class LiveDetailFragment extends BaseFragment {
         mediaPlayer = MediaPlayer.create(_mActivity, notification);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+
+        getCommentData();
     }
 
 
@@ -230,5 +242,29 @@ public class LiveDetailFragment extends BaseFragment {
         timer.cancel();
         mediaPlayer.stop();
         super.onDestroyView();
+    }
+
+
+    /**
+     * Case By:获取评论的数据
+     * Author: scene on 2017/4/13 18:48
+     */
+    private void getCommentData() {
+        OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_COMMENT).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                try {
+                    list.addAll(JSON.parseArray(s, CommentInfo.class));
+                    adapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

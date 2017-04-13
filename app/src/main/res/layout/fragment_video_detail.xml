@@ -5,7 +5,10 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_back" />
+    <include
+        layout="@layout/toolbar_back"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
 
     <wiki.scene.statuslib.StatusViewLayout

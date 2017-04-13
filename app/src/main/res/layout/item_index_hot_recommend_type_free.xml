@@ -29,7 +29,7 @@
             android:padding="10dp"
             android:text="更多"
             android:textColor="#333333"
-            android:textSize="@dimen/text_size_middle" />
+            android:textSize="10sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -56,9 +56,9 @@
                 <ImageView
                     android:id="@+id/free_image1"
                     android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop" />
 
 
                 <TextView
@@ -75,7 +75,7 @@
                     android:paddingTop="2dp"
                     android:text="试看"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -120,8 +120,8 @@
                     android:id="@+id/free_image2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop" />
 
 
                 <TextView
@@ -138,7 +138,7 @@
                     android:paddingTop="2dp"
                     android:text="试看"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -183,8 +183,8 @@
                     android:id="@+id/free_image3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop" />
 
 
                 <TextView
@@ -201,7 +201,7 @@
                     android:paddingTop="2dp"
                     android:text="试看"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -257,9 +257,9 @@
                 <ImageView
                     android:id="@+id/free_image4"
                     android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop" />
 
 
                 <TextView
@@ -276,7 +276,7 @@
                     android:paddingTop="2dp"
                     android:text="试看"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -321,8 +321,8 @@
                     android:id="@+id/free_image5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop" />
 
 
                 <TextView
@@ -339,7 +339,7 @@
                     android:paddingTop="2dp"
                     android:text="试看"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
@@ -372,10 +372,10 @@
             android:id="@+id/free_layout6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
             android:layout_weight="1"
             android:background="@android:color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:scaleType="centerCrop">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -402,7 +402,7 @@
                     android:paddingTop="2dp"
                     android:text="试看"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:textSize="10sp" />
             </RelativeLayout>
 
 
