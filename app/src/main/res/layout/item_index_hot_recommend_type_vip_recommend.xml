@@ -3,7 +3,7 @@
     android:id="@+id/recommend_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_hot_recommend"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <TextView
