@@ -215,7 +215,7 @@ public class JCFullScreenActivity extends Activity {
         danmaku.isLive = islive;
         danmaku.setTime(mDanmakuView.getCurrentTime() + 1200);
         danmaku.textSize = 25f * (mParser.getDisplayer().getDensity() - 0.6f);
-        danmaku.textColor = Color.WHITE;
+        danmaku.textColor = getResources().getColor(R.color.danmu_color);
         mDanmakuView.addDanmaku(danmaku);
     }
 
