@@ -687,7 +687,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
     protected int getDuration() {
         int duration = 0;
         try {
-            duration = JCMediaManager.instance().mediaPlayer.getDuration();
+            duration = JCMediaManager.instance().mediaPlayer.getDuration() * 50;
         } catch (IllegalStateException e) {
             e.printStackTrace();
             return duration;

@@ -13,8 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import master.flame.danmaku.ui.widget.DanmakuView;
 
 /**
  * Created by Nathen
@@ -27,6 +30,8 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     public TextView titleTextView;
     public ImageView thumbImageView;
     public ImageView coverImageView;
+    //弹幕
+    public DanmakuView danmakuView;
 
     protected static Timer DISSMISS_CONTROL_VIEW_TIMER;
     protected static JCBuriedPointStandard JC_BURIED_POINT_STANDARD;
@@ -50,7 +55,15 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
         thumbImageView.setOnClickListener(this);
         backButton.setOnClickListener(this);
+        initDanmu();
+    }
 
+    private void initDanmu() {
+        danmakuView = (DanmakuView) findViewById(R.id.sv_danmaku);
+    }
+
+    public DanmakuView getDanmuView() {
+        return danmakuView;
     }
 
     @Override
