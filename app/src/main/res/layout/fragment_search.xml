@@ -18,8 +18,10 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:background="@drawable/bg_search_edit_text"
+            android:ellipsize="end"
             android:gravity="center_vertical"
-            android:hint="请输入关键词进行搜索"
+            android:hint="开通VIP可任意搜索种子"
+            android:lines="1"
             android:paddingLeft="10dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
