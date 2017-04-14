@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.heuewo.hiaodoipo.pull_loadmore.PtrClassicFrameLayout
+        <com.dhuadhuei.hdeuji.pull_loadmore.PtrClassicFrameLayout
             android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -26,7 +26,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <com.heuewo.hiaodoipo.ui.view.NewBanner
+                    <com.dhuadhuei.hdeuji.ui.view.NewBanner
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
@@ -50,7 +50,7 @@
                 </LinearLayout>
             </ScrollView>
 
-        </com.heuewo.hiaodoipo.pull_loadmore.PtrClassicFrameLayout>
+        </com.dhuadhuei.hdeuji.pull_loadmore.PtrClassicFrameLayout>
     </wiki.scene.statuslib.StatusViewLayout>
 
 
