@@ -158,7 +158,7 @@
                 android:textSize="@dimen/text_size_large" />
         </LinearLayout>
 
-        <com.dhuadhuei.hdeuji.ui.view.NoTouchListView
+        <com.cyldf.cyldfxv.ui.view.NoTouchListView
             android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="80dp"

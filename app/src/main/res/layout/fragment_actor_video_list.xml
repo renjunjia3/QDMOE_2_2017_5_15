@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white">
 
-        <com.dhuadhuei.hdeuji.pull_loadmore.PtrClassicFrameLayout
+        <com.cyldf.cyldfxv.pull_loadmore.PtrClassicFrameLayout
             android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-        </com.dhuadhuei.hdeuji.pull_loadmore.PtrClassicFrameLayout>
+        </com.cyldf.cyldfxv.pull_loadmore.PtrClassicFrameLayout>
 
     </wiki.scene.statuslib.StatusViewLayout>
 

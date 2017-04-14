@@ -4,24 +4,31 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ImageSpan;
+import android.text.TextPaint;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.alibaba.fastjson.JSON;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,8 +38,10 @@ import master.flame.danmaku.danmaku.loader.android.DanmakuLoaderFactory;
 import master.flame.danmaku.danmaku.model.BaseDanmaku;
 import master.flame.danmaku.danmaku.model.DanmakuTimer;
 import master.flame.danmaku.danmaku.model.IDisplayer;
+import master.flame.danmaku.danmaku.model.android.AndroidDisplayer;
 import master.flame.danmaku.danmaku.model.android.DanmakuContext;
 import master.flame.danmaku.danmaku.model.android.Danmakus;
+import master.flame.danmaku.danmaku.model.android.ViewCacheStuffer;
 import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
 import master.flame.danmaku.danmaku.parser.IDataSource;
 import master.flame.danmaku.danmaku.util.SystemClock;
@@ -57,6 +66,7 @@ public class JCFullScreenActivity extends Activity {
     public static final String PARAM_TRY_COUNT = "try_count";
     public static final String PARAM_IS_VIP = "is_vip";
     public static final String PARAM_IS_SPEED = "is_speed";
+    public static final String PARAM_STR_COMMENT = "str_comment";
 
 
     private static VideoInfo videoInfo;
@@ -79,10 +89,18 @@ public class JCFullScreenActivity extends Activity {
     private BaseDanmakuParser mParser;
     private DanmakuContext mContext;
     private DanmakuView mDanmakuView;
+    private int mIconWidth;
+    private Timer timer = new Timer();
+    private List<CommentInfo> commentInfoList;
+    private int countTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .memoryCacheSizePercentage(13).build(); // default
+        ImageLoader.getInstance().init(config);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -120,22 +138,17 @@ public class JCFullScreenActivity extends Activity {
         initDanmuConfig();
 
         if (isVIP == 1) {
-            mJcVideoPlayer.text1.setVisibility(View.GONE);
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
-            mJcVideoPlayer.text4.setVisibility(View.GONE);
         } else {
-            mJcVideoPlayer.text1.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
-            mJcVideoPlayer.text4.setVisibility(View.VISIBLE);
         }
     }
 
     /**
      * 初始化配置
      */
-
     private void initDanmuConfig() {
         mDanmakuView = mJcVideoPlayer.getDanmuView();
         // 设置最大显示行数
@@ -146,12 +159,68 @@ public class JCFullScreenActivity extends Activity {
         overlappingEnablePair.put(BaseDanmaku.TYPE_SCROLL_RL, true);
         overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_TOP, true);
         mContext = DanmakuContext.create();
-        mContext.setDanmakuStyle(IDisplayer.DANMAKU_STYLE_STROKEN, 6)
-                .setDuplicateMergingEnabled(false)
-                .setScrollSpeedFactor(1.2f)
-                .setScaleTextSize(1.2f)
+        mIconWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, getResources().getDisplayMetrics());
+        mContext.setDanmakuBold(true);
+        mContext.setDanmakuStyle(IDisplayer.DANMAKU_STYLE_STROKEN, 3).setDuplicateMergingEnabled(false).setScrollSpeedFactor(1.2f).setScaleTextSize(1.2f)
+                .setCacheStuffer(new ViewCacheStuffer<MyViewHolder>() {
+
+                    @Override
+                    public MyViewHolder onCreateViewHolder(int viewType) {
+                        Log.e("DFM", "onCreateViewHolder:" + viewType);
+                        return new MyViewHolder(View.inflate(getApplicationContext(), R.layout.layout_view_cache, null));
+                    }
+
+                    @Override
+                    public void onBindViewHolder(int viewType, MyViewHolder viewHolder, BaseDanmaku danmaku, AndroidDisplayer.DisplayerConfig displayerConfig, TextPaint paint) {
+                        if (paint != null)
+                            viewHolder.mText.getPaint().set(paint);
+                        viewHolder.mText.setText(danmaku.text);
+                        viewHolder.mText.setTextColor(danmaku.textColor);
+                        viewHolder.mText.setTextSize(TypedValue.COMPLEX_UNIT_PX, danmaku.textSize);
+                        Bitmap bitmap = null;
+                        MyImageWare imageWare = (MyImageWare) danmaku.tag;
+                        if (imageWare != null) {
+                            bitmap = imageWare.bitmap;
+                        }
+                        if (bitmap != null) {
+                            viewHolder.mIcon.setImageBitmap(bitmap);
+                        } else {
+                            viewHolder.mIcon.setImageResource(R.drawable.jc_back);
+                        }
+                    }
+
+                    @Override
+                    public void releaseResource(BaseDanmaku danmaku) {
+                        MyImageWare imageWare = (MyImageWare) danmaku.tag;
+                        if (imageWare != null) {
+                            ImageLoader.getInstance().cancelDisplayTask(imageWare);
+                        }
+                        danmaku.setTag(null);
+                        Log.e("DFM", "releaseResource url:" + danmaku.text);
+                    }
+
+
+                    @Override
+                    public void prepare(BaseDanmaku danmaku, boolean fromWorkerThread) {
+                        if (danmaku.isTimeOut()) {
+                            return;
+                        }
+                        MyImageWare imageWare = (MyImageWare) danmaku.tag;
+                        if (imageWare == null) {
+                            String avatar = "";
+                            imageWare = new MyImageWare(avatar, danmaku, mIconWidth, mIconWidth, mDanmakuView);
+                            danmaku.setTag(imageWare);
+                        }
+                        if (danmaku.text.toString().contains("textview")) {
+                            Log.e("DFM", "onAsyncLoadResource======>" + danmaku.tag + "url:" + imageWare.getImageUri());
+                        }
+                        ImageLoader.getInstance().displayImage(imageWare.getImageUri(), imageWare);
+                    }
+
+                }, null)
                 .setMaximumLines(maxLinesPair)
-                .preventOverlapping(overlappingEnablePair).setDanmakuMargin(40);
+                .preventOverlapping(overlappingEnablePair);
+
         if (mDanmakuView != null) {
             mParser = createParser(this.getResources().openRawResource(R.raw.comments));
             mDanmakuView.setCallback(new master.flame.danmaku.controller.DrawHandler.Callback() {
@@ -178,7 +247,39 @@ public class JCFullScreenActivity extends Activity {
             mDanmakuView.enableDanmakuDrawingCache(true);
         }
         timer = new Timer();
-        timer.schedule(new AsyncAddTask(), 0, 30);
+        timer.schedule(new AsyncAddTask(), 0, 5000);
+
+        mJcVideoPlayer.closeDanmu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mDanmakuView != null) {
+                    if (mDanmakuView.isShown()) {
+                        mDanmakuView.hide();
+                        mJcVideoPlayer.closeDanmu.setImageResource(R.drawable.ic_show_danmu);
+                    } else {
+                        mDanmakuView.show();
+                        mJcVideoPlayer.closeDanmu.setImageResource(R.drawable.ic_close_danmu);
+                    }
+                }
+            }
+        });
+    }
+
+    private void addDanmaKuShowTextAndImage(CommentInfo commentInfo) {
+        BaseDanmaku danmaku = mContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
+        if (danmaku == null || mDanmakuView == null) {
+            return;
+        }
+        danmaku.text = commentInfo.getText();
+        danmaku.setTag(new MyImageWare(commentInfo.getAvatar(), danmaku, mIconWidth, mIconWidth, mDanmakuView));
+        danmaku.padding = 5;
+        danmaku.priority = 0;  // 一定会显示, 一般用于本机发送的弹幕
+        danmaku.isLive = false;
+        danmaku.setTime(mDanmakuView.getCurrentTime());
+        danmaku.textSize = 20f * (mParser.getDisplayer().getDensity() - 0.6f);
+        danmaku.textColor = Color.WHITE;
+        danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
+        mDanmakuView.addDanmaku(danmaku);
     }
 
     private BaseDanmakuParser createParser(InputStream stream) {
@@ -207,67 +308,18 @@ public class JCFullScreenActivity extends Activity {
 
     }
 
-    Timer timer = new Timer();
 
     class AsyncAddTask extends TimerTask {
 
         @Override
         public void run() {
-            for (int i = 0; i < 50; i++) {
-                addDanmaKuShowTextAndImage(true);
-                SystemClock.sleep(1000);
+            countTime++;
+            for (int i = 4 * countTime; i < commentInfoList.size() && i < 4 * countTime + 4; i++) {
+                SystemClock.sleep(500);
+                addDanmaKuShowTextAndImage(commentInfoList.get(i));
             }
         }
     }
-
-    private void addDanmaku(boolean islive) {
-        BaseDanmaku danmaku = mContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
-        if (danmaku == null || mDanmakuView == null) {
-            return;
-        }
-        danmaku.text = "这就是一条测试，至于你信不信，反正我是信了";
-        danmaku.padding = 5;
-        // 优先级，>0为高优先级不会被过滤器过滤，会被各种过滤器过滤并隐藏显示
-        danmaku.priority = 0;
-        danmaku.isLive = islive;
-        danmaku.setTime(mDanmakuView.getCurrentTime() + 1200);
-        danmaku.textSize = 25f * (mParser.getDisplayer().getDensity() - 0.6f);
-        danmaku.textColor = getResources().getColor(R.color.danmu_color);
-        mDanmakuView.addDanmaku(danmaku);
-    }
-
-    private void addDanmaKuShowTextAndImage(boolean islive) {
-        BaseDanmaku danmaku = mContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
-        Drawable drawable = getResources().getDrawable(R.drawable.jc_back);
-        drawable.setBounds(0, 0, 100, 100);
-        SpannableStringBuilder spannable = createSpannable(drawable);
-        danmaku.text = spannable;
-        danmaku.padding = 5;
-        danmaku.priority = 1;  // 一定会显示, 一般用于本机发送的弹幕
-        danmaku.isLive = islive;
-        danmaku.setTime(mDanmakuView.getCurrentTime() + 1200);
-        danmaku.textSize = 20f * (mParser.getDisplayer().getDensity() - 0.6f);
-        danmaku.textColor = Color.WHITE;
-        danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
-        danmaku.underlineColor = Color.GREEN;
-        mDanmakuView.addDanmaku(danmaku);
-    }
-
-    /**
-     * 创建图文混排模式
-     * @param drawable
-     * @return
-     */
-    private SpannableStringBuilder createSpannable(Drawable drawable) {
-        String text = "bitmap";
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text);
-        ImageSpan span = new ImageSpan(drawable);//ImageSpan.ALIGN_BOTTOM);
-        spannableStringBuilder.setSpan(span, 0, text.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        spannableStringBuilder.append("图文混排");
-        spannableStringBuilder.setSpan(new BackgroundColorSpan(Color.parseColor("#8A2233B1")), 0, spannableStringBuilder.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        return spannableStringBuilder;
-    }
-
 
     private void initData() {
         Intent intent = getIntent();
@@ -281,26 +333,34 @@ public class JCFullScreenActivity extends Activity {
         URL = videoInfo.getUrl();
         DIRECT_FULLSCREEN = true;
         VIDEO_PLAYER_CLASS = JCVideoPlayerStandard.class;
+        try {
+            commentInfoList = JSON.parseArray(SharedPreferencesUtil.getString(JCFullScreenActivity.this, PARAM_STR_COMMENT, "[]"), CommentInfo.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (commentInfoList == null) {
+                commentInfoList = new ArrayList<>();
+            }
+        }
     }
 
 
     @Override
     public void onBackPressed() {
-        mJcVideoPlayer.backFullscreen();
         if (mDanmakuView != null) {
             mDanmakuView.release();
             mDanmakuView = null;
         }
+        mJcVideoPlayer.backFullscreen();
     }
 
 
     @Override
     protected void onPause() {
-        super.onPause();
-        JCVideoPlayer.releaseAllVideos();
         if (mDanmakuView != null && mDanmakuView.isPrepared()) {
             mDanmakuView.pause();
         }
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 
     @Override
@@ -313,12 +373,12 @@ public class JCFullScreenActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (mDanmakuView != null) {
-            // dont forget release!
             mDanmakuView.release();
             mDanmakuView = null;
         }
+        ImageLoader.getInstance().destroy();
+        super.onDestroy();
     }
 
     TimerTask timerTask = new TimerTask() {
