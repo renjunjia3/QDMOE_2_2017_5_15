@@ -21,7 +21,7 @@ import com.dhuadhuei.hdeuji.adapter.CommentAdapter;
 import com.dhuadhuei.hdeuji.adapter.IndexItemAdapter;
 import com.dhuadhuei.hdeuji.adapter.ScreenShotRecyclerViewAdapter;
 import com.dhuadhuei.hdeuji.app.App;
-import com.dhuadhuei.hdeuji.bean.CommentInfo;
+import fm.jiecao.jcvideoplayer_lib.CommentInfo;
 import com.dhuadhuei.hdeuji.itemdecoration.ScreenShotItemDecoration;
 import com.dhuadhuei.hdeuji.pay.PayUtil;
 import com.dhuadhuei.hdeuji.ui.dialog.FullVideoPayDialog;

@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.dhuadhuei.hdeuji.R;
-import com.dhuadhuei.hdeuji.bean.CommentInfo;
+import fm.jiecao.jcvideoplayer_lib.CommentInfo;
 
 import java.util.List;
 import java.util.Random;

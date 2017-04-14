@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dhuadhuei.hdeuji.R;
-import com.dhuadhuei.hdeuji.bean.CommentInfo;
+import fm.jiecao.jcvideoplayer_lib.CommentInfo;
 import com.joooonho.SelectableRoundedImageView;
 
 import java.util.List;

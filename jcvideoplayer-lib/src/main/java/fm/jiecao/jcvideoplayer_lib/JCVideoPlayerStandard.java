@@ -32,6 +32,10 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     public ImageView coverImageView;
     //弹幕
     public DanmakuView danmakuView;
+    public TextView text1;
+    public TextView text2;
+    public TextView text3;
+    public TextView text4;
 
     protected static Timer DISSMISS_CONTROL_VIEW_TIMER;
     protected static JCBuriedPointStandard JC_BURIED_POINT_STANDARD;
@@ -53,6 +57,10 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
         thumbImageView = (ImageView) findViewById(R.id.thumb);
         coverImageView = (ImageView) findViewById(R.id.cover);
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
+        text1= (TextView) findViewById(R.id.text1);
+        text2= (TextView) findViewById(R.id.text2);
+        text3= (TextView) findViewById(R.id.text3);
+        text4= (TextView) findViewById(R.id.text4);
         thumbImageView.setOnClickListener(this);
         backButton.setOnClickListener(this);
         initDanmu();

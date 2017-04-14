@@ -3,12 +3,11 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
-        applicationId "com.dhuadhuei.hdeuji"
+        applicationId "com.cyldf.cyldfxv"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
         versionName rootProject.versionName
-
         ndk {
             //设置支持的SO库架构
             abiFilters 'armeabi', 'armeabi-v7a', 'x86'
@@ -63,7 +62,6 @@ dependencies {
     compile files('libs/okhttputils-2_6_2.jar')
     //轮播图
     //最新版本
-    compile files('libs/fastjson-1.2.28.odps.jar')
     //圆角图片
     //权限
     //支付sdk

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
-import com.dhuadhuei.hdeuji.bean.CommentInfo;
+import fm.jiecao.jcvideoplayer_lib.CommentInfo;
 import com.dhuadhuei.hdeuji.util.API;
 import com.joooonho.SelectableRoundedImageView;
 import com.dhuadhuei.hdeuji.R;

@@ -5,10 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -113,6 +118,18 @@ public class JCFullScreenActivity extends Activity {
         mTimer = new Timer();
         mTimer.schedule(timerTask, 50, 50);
         initDanmuConfig();
+
+        if (isVIP == 1) {
+            mJcVideoPlayer.text1.setVisibility(View.GONE);
+            mJcVideoPlayer.text2.setVisibility(View.GONE);
+            mJcVideoPlayer.text3.setVisibility(View.GONE);
+            mJcVideoPlayer.text4.setVisibility(View.GONE);
+        } else {
+            mJcVideoPlayer.text1.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text4.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -197,7 +214,7 @@ public class JCFullScreenActivity extends Activity {
         @Override
         public void run() {
             for (int i = 0; i < 50; i++) {
-                addDanmaku(true);
+                addDanmaKuShowTextAndImage(true);
                 SystemClock.sleep(1000);
             }
         }
@@ -218,6 +235,39 @@ public class JCFullScreenActivity extends Activity {
         danmaku.textColor = getResources().getColor(R.color.danmu_color);
         mDanmakuView.addDanmaku(danmaku);
     }
+
+    private void addDanmaKuShowTextAndImage(boolean islive) {
+        BaseDanmaku danmaku = mContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
+        Drawable drawable = getResources().getDrawable(R.drawable.jc_back);
+        drawable.setBounds(0, 0, 100, 100);
+        SpannableStringBuilder spannable = createSpannable(drawable);
+        danmaku.text = spannable;
+        danmaku.padding = 5;
+        danmaku.priority = 1;  // 一定会显示, 一般用于本机发送的弹幕
+        danmaku.isLive = islive;
+        danmaku.setTime(mDanmakuView.getCurrentTime() + 1200);
+        danmaku.textSize = 20f * (mParser.getDisplayer().getDensity() - 0.6f);
+        danmaku.textColor = Color.WHITE;
+        danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
+        danmaku.underlineColor = Color.GREEN;
+        mDanmakuView.addDanmaku(danmaku);
+    }
+
+    /**
+     * 创建图文混排模式
+     * @param drawable
+     * @return
+     */
+    private SpannableStringBuilder createSpannable(Drawable drawable) {
+        String text = "bitmap";
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text);
+        ImageSpan span = new ImageSpan(drawable);//ImageSpan.ALIGN_BOTTOM);
+        spannableStringBuilder.setSpan(span, 0, text.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.append("图文混排");
+        spannableStringBuilder.setSpan(new BackgroundColorSpan(Color.parseColor("#8A2233B1")), 0, spannableStringBuilder.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        return spannableStringBuilder;
+    }
+
 
     private void initData() {
         Intent intent = getIntent();

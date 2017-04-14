@@ -1,4 +1,4 @@
-package com.dhuadhuei.hdeuji.bean;
+package fm.jiecao.jcvideoplayer_lib;
 
 import java.io.Serializable;
 
