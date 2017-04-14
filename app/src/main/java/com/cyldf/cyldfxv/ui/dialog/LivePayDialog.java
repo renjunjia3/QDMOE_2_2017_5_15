@@ -84,6 +84,9 @@ public class LivePayDialog extends Dialog {
                             aliPayClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
                         }
                     }
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
                 }
             });
             layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {

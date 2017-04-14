@@ -6,15 +6,23 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.cyldf.cyldfxv.R;
+import com.cyldf.cyldfxv.adapter.SearchAdapter;
 import com.cyldf.cyldfxv.app.App;
 import com.cyldf.cyldfxv.base.BaseFragment;
+import com.cyldf.cyldfxv.base.SearchInfo;
 import com.cyldf.cyldfxv.pay.PayUtil;
 import com.cyldf.cyldfxv.ui.dialog.FunctionPayDialog;
-import com.cyldf.cyldfxv.ui.fragment.MainFragment;
-import com.cyldf.cyldfxv.util.ToastUtils;
+import com.liangfeizc.flowlayout.FlowLayout;
 
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -23,8 +31,19 @@ import butterknife.OnClick;
  */
 
 public class SearchFragment extends BaseFragment {
+    @BindView(R.id.listview)
+    ListView listview;
+
     private FunctionPayDialog dialog;
     private FunctionPayDialog.Builder builder;
+
+    private String[] tags;
+    //标签
+    private View tagView;
+    private TextView tag;
+    //内容
+    private SearchAdapter adapter;
+    private List<SearchInfo> lists;
 
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
@@ -37,7 +56,26 @@ public class SearchFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
         initDialog();
+        tags = getResources().getStringArray(R.array.search_tag);
         return view;
+    }
+
+    @Override
+    protected void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        addHead();
+        if (App.ISVIP == 0) {
+            addFooter();
+        }
+        lists = JSON.parseArray(getString(R.string.str_json_seach), SearchInfo.class);
+        adapter = new SearchAdapter(getContext(), lists);
+        listview.setAdapter(adapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dialog.show();
+            }
+        });
     }
 
     private void initDialog() {
@@ -54,25 +92,57 @@ public class SearchFragment extends BaseFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                ;
                 PayUtil.getInstance().payByAliPay(_mActivity, 1, 0);
             }
         });
         dialog = builder.create();
     }
 
-    @OnClick({R.id.search, R.id.hot1, R.id.hot2, R.id.hot3, R.id.hot4, R.id.hot5, R.id.hot6, R.id.hot7, R.id.hot8, R.id.hot9, R.id.hot10})
-    public void onClickItem() {
-        if (App.ISVIP == 0) {
-            dialog.show();
-            MainFragment.clickWantPay();
-        } else {
-            ToastUtils.getInstance(_mActivity).showToast("该功能完善中，敬请期待");
+    private void addHead() {
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_header_view, null);
+        listview.addHeaderView(v);
+        addTagView(v);
+    }
+
+    private void addFooter() {
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_footer_view, null);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+        listview.addFooterView(v);
+    }
+
+    /**
+     * Case By:加载tag
+     * Author: scene on 2017/4/14 16:49
+     */
+    private void addTagView(View v) {
+        FlowLayout flowLayout = (FlowLayout) v.findViewById(R.id.flow_layout);
+        for (int i = 0; i < tags.length; i++) {
+            tagView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_tag_item, null);
+            tag = (TextView) tagView.findViewById(R.id.tag);
+            tag.setText(tags[i]);
+            tagView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.show();
+                }
+            });
+            flowLayout.addView(tagView);
         }
+    }
+
+    @OnClick(R.id.search)
+    public void onClickSearch() {
+        dialog.show();
     }
 
     @OnClick(R.id.cancel)
     public void onClickCancel() {
         _mActivity.onBackPressed();
     }
+
 }

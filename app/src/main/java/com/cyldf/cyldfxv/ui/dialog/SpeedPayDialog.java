@@ -69,6 +69,9 @@ public class SpeedPayDialog extends Dialog {
                     } else {
                         type = 2;
                     }
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
                 }
             });
             layout.findViewById(R.id.open_vip).setOnClickListener(new View.OnClickListener() {
