@@ -49,16 +49,12 @@ import okhttp3.Call;
 public class LiveDetailFragment extends BaseFragment {
     public static final String PARAMS_LIVE_INFO = "live_info";
 
-    @BindView(R.id.bg)
-    ImageView bg;
     @BindView(R.id.head1)
     SelectableRoundedImageView head1;
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.hits)
     TextView hits;
-    @BindView(R.id.guanzhu)
-    TextView guanzhu;
     @BindView(R.id.head2)
     SelectableRoundedImageView head2;
     @BindView(R.id.head3)
