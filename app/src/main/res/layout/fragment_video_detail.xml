@@ -166,7 +166,7 @@
                             android:textColor="#333333"
                             android:textSize="@dimen/text_size_big" />
 
-                        <com.cyldf.cyldfxv.ui.view.CustomeGridView
+                        <com.hfaufhreu.hjfeuio.ui.view.CustomeGridView
                             android:id="@+id/aboutCommendGridView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
                                     android:textColor="@color/colorAccent" />
                             </RelativeLayout>
 
-                            <com.cyldf.cyldfxv.ui.view.CustomListView
+                            <com.hfaufhreu.hjfeuio.ui.view.CustomListView
                                 android:id="@+id/comment_listView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

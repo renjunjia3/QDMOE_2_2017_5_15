@@ -6,7 +6,7 @@
     android:clipChildren="false">
 
 
-    <com.cyldf.cyldfxv.ui.view.ChildViewPager
+    <com.hfaufhreu.hjfeuio.ui.view.ChildViewPager
         android:id="@+id/bannerViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
