@@ -7,18 +7,14 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <!--<ProgressBar
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/loading_progressBar"
+        style="@style/Widget.MaterialProgressBar.ProgressBar.NoPadding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />-->
-
-    <wiki.scene.statuslib.SmoothRoundProgressBar
-        android:id="@+id/loading_progressBar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        app:cpb_duration="1200" />
+        android:indeterminate="true"
+        app:mpb_indeterminateTint="#999999" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -5,12 +5,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
+import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import wiki.scene.statuslib.StatusViewLayout;
 
 /**
  * Case By:试看专区
@@ -19,10 +23,14 @@ import butterknife.Unbinder;
  */
 
 public class TrySeeFragment extends BaseMainFragment {
-    private Unbinder unbinder;
+    @BindView(R.id.statusViewLayout)
+    StatusViewLayout statusViewLayout;
+    @BindView(R.id.ptr_layout)
+    PtrClassicFrameLayout ptrLayout;
+    @BindView(R.id.listview)
+    ListView listView;
 
     public static TrySeeFragment newInstance() {
-
         Bundle args = new Bundle();
         TrySeeFragment fragment = new TrySeeFragment();
         fragment.setArguments(args);
@@ -40,12 +48,11 @@ public class TrySeeFragment extends BaseMainFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-
+        statusViewLayout.showContent();
     }
 
     @Override
     public void onDestroyView() {
-        unbinder.unbind();
         super.onDestroyView();
     }
 }

@@ -18,4 +18,5 @@ android {
 
 dependencies {
     provided 'com.android.support:appcompat-v7:'+rootProject.appcompat
+    compile 'me.zhanghai.android.materialprogressbar:library:1.4.1'
 }

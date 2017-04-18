@@ -36,7 +36,7 @@ public class StatusViewLayout extends RelativeLayout {
 
     private List<View> contentViews = new ArrayList<>();
 
-    public enum LAYOUT_TYPE {
+    private enum LAYOUT_TYPE {
 
         /**
          * 正在加载

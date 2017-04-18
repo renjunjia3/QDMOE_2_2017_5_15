@@ -23,8 +23,6 @@ public abstract class BaseMainFragment extends BaseFragment {
 
     /**
      * 处理回退事件
-     *
-     * @return
      */
     @Override
     public boolean onBackPressedSupport() {
@@ -36,7 +34,7 @@ public abstract class BaseMainFragment extends BaseFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            PayUtil.getInstance().payByWeChat(_mActivity, 1, 0, true);
+                            PayUtil.getInstance().payByWeChat(_mActivity, PayUtil.VIP_TYPE_2, 0);
                         }
                     });
 
@@ -44,7 +42,7 @@ public abstract class BaseMainFragment extends BaseFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            PayUtil.getInstance().payByAliPay(_mActivity, 1, 0, true);
+                            PayUtil.getInstance().payByAliPay(_mActivity, PayUtil.VIP_TYPE_2, 0);
                         }
                     });
                 }

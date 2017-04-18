@@ -2,6 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     android:orientation="vertical">
-    
+
+    <wiki.scene.statuslib.StatusViewLayout
+        android:id="@+id/statusViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout
+            android:id="@+id/ptr_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp" />
+
+        </com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout>
+
+    </wiki.scene.statuslib.StatusViewLayout>
 </LinearLayout>

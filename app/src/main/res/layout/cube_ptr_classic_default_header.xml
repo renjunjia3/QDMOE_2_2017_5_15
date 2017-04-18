@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -45,13 +46,14 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ptr_rotate_arrow" />
 
-            <ProgressBar
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
                 android:id="@+id/ptr_classic_header_rotate_view_progressbar"
-                style="?android:attr/progressBarStyleSmallInverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminateDrawable="@drawable/shape_loading_progress_bg"
-                android:layout_gravity="center" />
+                android:indeterminate="true"
+                android:layout_gravity="center"
+                app:mpb_indeterminateTint="#999999"
+                style="@style/Widget.MaterialProgressBar.ProgressBar.Small" />
         </FrameLayout>
     </RelativeLayout>
 
