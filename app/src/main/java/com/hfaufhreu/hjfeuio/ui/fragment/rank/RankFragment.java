@@ -1,4 +1,4 @@
-package com.hfaufhreu.hjfeuio.ui.fragment.vip;
+package com.hfaufhreu.hjfeuio.ui.fragment.rank;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,24 +8,22 @@ import android.view.ViewGroup;
 
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
-import com.hfaufhreu.hjfeuio.ui.fragment.mine.MineFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Case By:黄金会员专区
+ * Case By:排行榜
  * package:com.hfaufhreu.hjfeuio.ui.fragment.vip
  * Author：scene on 2017/4/17 10:17
  */
 
-public class GlodVipFragment extends BaseMainFragment {
+public class RankFragment extends BaseMainFragment {
     private Unbinder unbinder;
 
-    public static GlodVipFragment newInstance() {
-
+    public static RankFragment newInstance() {
         Bundle args = new Bundle();
-        GlodVipFragment fragment = new GlodVipFragment();
+        RankFragment fragment = new RankFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,7 +31,7 @@ public class GlodVipFragment extends BaseMainFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_glod_vip, container, false);
+        View view = inflater.inflate(R.layout.fragment_black_glod_vip, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }

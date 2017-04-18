@@ -50,6 +50,7 @@
                 style="?android:attr/progressBarStyleSmallInverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:indeterminateDrawable="@drawable/shape_loading_progress_bg"
                 android:layout_gravity="center" />
         </FrameLayout>
     </RelativeLayout>

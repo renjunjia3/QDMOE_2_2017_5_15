@@ -29,6 +29,16 @@
                 android:text="QVOD"
                 android:textAppearance="@style/Toolbar_TextAppearance_White" />
 
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/Toolbar_TextAppearance_White" />
+
             <LinearLayout
                 android:id="@+id/search"
                 android:layout_width="match_parent"
@@ -40,7 +50,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingBottom="3dp"
-                android:paddingTop="3dp">
+                android:paddingTop="3dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"

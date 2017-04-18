@@ -38,4 +38,6 @@ public class API {
     public static final String VIDEO_COMMENT = "video/comment";
     //获取直播详情的评论
     public static final String LIVE_COMMENT = "video/live_comment";
+    //获取福利社数据
+    public static final String BBS_LIST="bbs";
 }

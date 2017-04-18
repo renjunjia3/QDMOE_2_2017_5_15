@@ -1,4 +1,4 @@
-package com.hfaufhreu.hjfeuio.ui.fragment.index;
+package com.hfaufhreu.hjfeuio.ui.fragment.magnet;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -8,15 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.adapter.SearchAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
-import com.hfaufhreu.hjfeuio.base.BaseFragment;
+import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
 import com.hfaufhreu.hjfeuio.base.SearchInfo;
+import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.ui.dialog.FunctionPayDialog;
+import com.hfaufhreu.hjfeuio.ui.fragment.mine.AgreementFragment;
+import com.liangfeizc.flowlayout.FlowLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -25,40 +31,28 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Administrator on 2017/3/24.
+ * Case By: 磁力链首页
+ * package:
+ * Author：scene on 2017/4/18 11:42
  */
-
-public class SearchResultFragment extends BaseFragment {
-    public static final String PARAMS_SEARCH_TAG_POSITION = "params_search_tag_position";
+public class MagnetFragment extends BaseMainFragment {
     @BindView(R.id.listview)
     ListView listview;
 
     private FunctionPayDialog dialog;
     private FunctionPayDialog.Builder builder;
 
+    private String[] tags;
+    //标签
+    private View tagView;
+    private TextView tag;
     //内容
     private SearchAdapter adapter;
     private List<SearchInfo> lists;
 
-    //标签下标
-    private int position = 0;
-
-
-    public static SearchResultFragment newInstance(int position) {
-        SearchResultFragment fragment = new SearchResultFragment();
-        Bundle args = new Bundle();
-        args.putInt(PARAMS_SEARCH_TAG_POSITION, position);
-        fragment.setArguments(args);
+    public static MagnetFragment newInstance() {
+        MagnetFragment fragment = new MagnetFragment();
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            position = args.getInt(PARAMS_SEARCH_TAG_POSITION);
-        }
     }
 
     @Nullable
@@ -67,42 +61,18 @@ public class SearchResultFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
         initDialog();
+        tags = getResources().getStringArray(R.array.search_tag);
         return view;
     }
 
     @Override
-    protected void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        addHead();
         if (App.isVip == 0) {
             addFooter();
         }
-        switch (position) {
-            case 0:
-                lists = JSON.parseArray(getString(R.string.search_tag_1), SearchInfo.class);
-                break;
-            case 1:
-                lists = JSON.parseArray(getString(R.string.search_tag_2), SearchInfo.class);
-                break;
-            case 2:
-                lists = JSON.parseArray(getString(R.string.search_tag_3), SearchInfo.class);
-                break;
-            case 3:
-                lists = JSON.parseArray(getString(R.string.search_tag_4), SearchInfo.class);
-                break;
-            case 4:
-                lists = JSON.parseArray(getString(R.string.search_tag_5), SearchInfo.class);
-                break;
-            case 5:
-                lists = JSON.parseArray(getString(R.string.search_tag_6), SearchInfo.class);
-                break;
-            case 6:
-                lists = JSON.parseArray(getString(R.string.search_tag_7), SearchInfo.class);
-                break;
-            case 7:
-                lists = JSON.parseArray(getString(R.string.search_tag_8), SearchInfo.class);
-                break;
-        }
-
+        lists = JSON.parseArray(getString(R.string.str_json_seach), SearchInfo.class);
         adapter = new SearchAdapter(getContext(), lists);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -133,6 +103,12 @@ public class SearchResultFragment extends BaseFragment {
         dialog = builder.create();
     }
 
+    private void addHead() {
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_header_view, null);
+        listview.addHeaderView(v);
+        addTagView(v);
+    }
+
     private void addFooter() {
         View v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_footer_view, null);
         v.setOnClickListener(new View.OnClickListener() {
@@ -144,14 +120,31 @@ public class SearchResultFragment extends BaseFragment {
         listview.addFooterView(v);
     }
 
-    @OnClick(R.id.search)
+    /**
+     * Case By:加载tag
+     * Author: scene on 2017/4/14 16:49
+     */
+    private void addTagView(View v) {
+        FlowLayout flowLayout = (FlowLayout) v.findViewById(R.id.flow_layout);
+        for (int i = 0; i < tags.length; i++) {
+            tagView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_search_tag_item, null);
+            tag = (TextView) tagView.findViewById(R.id.tag);
+            tag.setText(tags[i]);
+            final int finalI = i;
+            tagView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new StartBrotherEvent(MagnetResultFragment.newInstance(finalI)));
+                }
+            });
+            flowLayout.addView(tagView);
+        }
+    }
+
+    @OnClick({R.id.search, R.id.btn_search})
     public void onClickSearch() {
         dialog.show();
     }
 
-    @OnClick(R.id.cancel)
-    public void onClickCancel() {
-        _mActivity.onBackPressed();
-    }
 
 }

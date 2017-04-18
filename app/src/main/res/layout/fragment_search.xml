@@ -5,9 +5,10 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/black"
+        android:background="#3c4353"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -26,14 +27,26 @@
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/cancel"
+        <TextView
+            android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/ic_btn_cancel" />
+            android:background="@drawable/shape_btn_white_blod_round"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="3dp"
+            android:text="搜索"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_small" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#585d69" />
 
     <ListView
         android:id="@+id/listview"

@@ -31,12 +31,12 @@ public class ScreenUtils {
 
     public float dip2px(float dip) {
         float density = getDensity(mCtx);
-        return (int) (dip * density + 0.5);
+        return dip * density + 0.5f;
     }
 
-    public float dp2px(float dp) {
+    public int dp2px(float dp) {
         float density = getDensity(mCtx);
-        return dp * density + 0.5f;
+        return (int) (dp * density + 0.5);
     }
 
     public float px2dip(float px) {
