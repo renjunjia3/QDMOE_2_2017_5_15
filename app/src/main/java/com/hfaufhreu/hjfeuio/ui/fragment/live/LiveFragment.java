@@ -99,7 +99,7 @@ public class LiveFragment extends BaseMainFragment {
         footerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (App.ISVIP == 1) {
+                if (App.isVip == 1) {
                     ToastUtils.getInstance(_mActivity).showToast("该功能完善中，敬请期待");
                 } else {
                     if (builder == null) {
@@ -134,31 +134,8 @@ public class LiveFragment extends BaseMainFragment {
         adapter.setItemClickListener(new BaseRecyclerAdapter.ItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
-                if (App.ISVIP == 0) {
+                if (App.isVip == 0) {
                     EventBus.getDefault().post(new StartBrotherEvent(LiveDetailFragment.newInstance(lists.get(position))));
-
-//                    if (builder == null) {
-//                        builder = new LivePayDialog.Builder(_mActivity);
-//                        builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                dialog.dismiss();
-//                                PayUtil.getInstance().payByWeChat(getContext(), 1, 0);
-//                            }
-//                        });
-//
-//                        builder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                PayUtil.getInstance().payByAliPay(getContext(), 1, 0);
-//                            }
-//                        });
-//                    }
-//                    if (dialog == null) {
-//                        dialog = builder.create();
-//                    }
-//                    dialog.show();
-//                    MainFragment.clickWantPay();
                 } else {
                     Intent intent = new Intent();
                     intent.setAction("android.intent.action.VIEW");

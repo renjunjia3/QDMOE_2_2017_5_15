@@ -1,4 +1,4 @@
-package fm.jiecao.jcvideoplayer_lib;
+package com.hfaufhreu.hjfeuio.video;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,11 +28,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hfaufhreu.hjfeuio.R;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 /**
  * Manage MediaPlayer
@@ -461,12 +464,12 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
     protected void showProgressDialog(float deltaX) {
         if (mProgressDialog == null) {
-            View localView = LayoutInflater.from(getContext()).inflate(fm.jiecao.jcvideoplayer_lib.R.layout.jc_progress_dialog, null);
-            mDialogProgressBar = ((ProgressBar) localView.findViewById(fm.jiecao.jcvideoplayer_lib.R.id.duration_progressbar));
-            mDialogCurrentTime = ((TextView) localView.findViewById(fm.jiecao.jcvideoplayer_lib.R.id.tv_current));
-            mDialogTotalTime = ((TextView) localView.findViewById(fm.jiecao.jcvideoplayer_lib.R.id.tv_duration));
-            mDialogIcon = ((ImageView) localView.findViewById(fm.jiecao.jcvideoplayer_lib.R.id.duration_image_tip));
-            mProgressDialog = new Dialog(getContext(), fm.jiecao.jcvideoplayer_lib.R.style.jc_style_dialog_progress);
+            View localView = LayoutInflater.from(getContext()).inflate(R.layout.jc_progress_dialog, null);
+            mDialogProgressBar = ((ProgressBar) localView.findViewById(R.id.duration_progressbar));
+            mDialogCurrentTime = ((TextView) localView.findViewById(R.id.tv_current));
+            mDialogTotalTime = ((TextView) localView.findViewById(R.id.tv_duration));
+            mDialogIcon = ((ImageView) localView.findViewById(R.id.duration_image_tip));
+            mProgressDialog = new Dialog(getContext(), R.style.jc_style_dialog_progress);
             mProgressDialog.setContentView(localView);
             mProgressDialog.getWindow().addFlags(Window.FEATURE_ACTION_BAR);
             mProgressDialog.getWindow().addFlags(32);
@@ -474,7 +477,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
             mProgressDialog.getWindow().setLayout(-2, -2);
             WindowManager.LayoutParams localLayoutParams = mProgressDialog.getWindow().getAttributes();
             localLayoutParams.gravity = 49;
-            localLayoutParams.y = getResources().getDimensionPixelOffset(fm.jiecao.jcvideoplayer_lib.R.dimen.jc_progress_dialog_margin_top);
+            localLayoutParams.y = getResources().getDimensionPixelOffset(R.dimen.jc_progress_dialog_margin_top);
             mProgressDialog.getWindow().setAttributes(localLayoutParams);
         }
         if (!mProgressDialog.isShowing()) {

@@ -1,10 +1,12 @@
-package fm.jiecao.jcvideoplayer_lib;
+package com.hfaufhreu.hjfeuio.video;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import com.hfaufhreu.hjfeuio.R;
 
 /**
  * Manage UI

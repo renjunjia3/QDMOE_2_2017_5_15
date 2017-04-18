@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fm.jiecao.jcvideoplayer_lib;
+package com.hfaufhreu.hjfeuio.video;
 
 import android.graphics.Color;
 import android.text.TextUtils;

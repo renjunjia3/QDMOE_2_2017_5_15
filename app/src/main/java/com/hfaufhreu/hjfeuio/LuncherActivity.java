@@ -53,4 +53,8 @@ public class LuncherActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 }

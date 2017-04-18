@@ -96,7 +96,7 @@ public class ActorFragment extends BaseMainFragment {
         footerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (App.ISVIP == 1) {
+                if (App.isVip == 1) {
                     ToastUtils.getInstance(_mActivity).showToast("该功能完善中，敬请期待");
                 } else {
                     if (builder == null) {
@@ -138,7 +138,7 @@ public class ActorFragment extends BaseMainFragment {
             @Override
             public void onItemClickListener(int position) {
 
-                if (App.ISVIP == 1) {
+                if (App.isVip == 1) {
                     EventBus.getDefault().post(new StartBrotherEvent(ActorVideoListFragment.newInstance(list.get(position).getId(), list.get(position).getActor_name())));
                 } else {
                     if (builder == null) {

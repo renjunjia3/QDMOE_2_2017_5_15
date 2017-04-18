@@ -6,7 +6,7 @@ import android.content.Context;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.config.PayConfig;
 import com.hfaufhreu.hjfeuio.util.API;
-import fm.jiecao.jcvideoplayer_lib.SharedPreferencesUtil;
+import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.lessen.paysdk.pay.PayCallBack;
 import com.lessen.paysdk.pay.PayTool;
@@ -21,8 +21,9 @@ import java.util.TreeMap;
 import okhttp3.Call;
 
 /**
- * 支付
- * Created by scene on 2017/3/20.
+ * Case By: 支付工具类
+ * package:
+ * Author：scene on 2017/4/18 9:30
  */
 public class PayUtil {
     private ProgressDialog dialog;
@@ -117,16 +118,13 @@ public class PayUtil {
                         public void onResult(int i, String s) {
                             if (i == 0) {
                                 ToastUtils.getInstance(context).showToast("支付成功");
-                                if (type == 1) {
-                                    SharedPreferencesUtil.putInt(context, App.ISVIP_KEY, 1);
-                                    App.ISVIP = 1;
-                                } else {
-                                    SharedPreferencesUtil.putInt(context, App.ISSPEED_KEY, 1);
-                                    App.ISSPEED = 1;
-                                }
+                                SharedPreferencesUtil.putInt(context, App.ISVIP_KEY, type);
+                                App.isVip = type;
 
                             } else {
-                                ToastUtils.getInstance(context).showToast(s);
+                                if (!s.isEmpty()) {
+                                    ToastUtils.getInstance(context).showToast(s);
+                                }
                             }
                         }
                     });

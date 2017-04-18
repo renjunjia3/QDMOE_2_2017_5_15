@@ -29,7 +29,7 @@ public abstract class BaseMainFragment extends BaseFragment {
     @Override
     public boolean onBackPressedSupport() {
         if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
-            if (App.ISVIP == 0) {
+            if (App.isVip == 0) {
                 if (builder == null) {
                     builder = new BackOpenVipDialog.Builder(_mActivity);
                     builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {

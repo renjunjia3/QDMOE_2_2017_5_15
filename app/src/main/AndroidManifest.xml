@@ -55,6 +55,10 @@
             android:name="com.hfaufhreu.hjfeuio.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hfaufhreu.hjfeuio.video.JCFullScreenActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
 
         <!-- 商户在从发发啦商户申请获得商户号 -->
         <meta-data
@@ -98,8 +102,14 @@
             android:name="com.hfaufhreu.hjfeuio.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
-        <!-- 支付配置参数结束 -->
 
+        <!-- 支付配置参数结束 -->
+        <!--配置渠道-->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${CHANNEL_ID}">
+
+        </meta-data>
     </application>
 
 </manifest>

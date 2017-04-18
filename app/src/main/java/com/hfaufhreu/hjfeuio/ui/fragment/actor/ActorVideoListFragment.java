@@ -17,6 +17,7 @@ import com.hfaufhreu.hjfeuio.VideoDetailActivity;
 import com.hfaufhreu.hjfeuio.adapter.VideoListAdapter;
 import com.hfaufhreu.hjfeuio.base.BaseBackFragment;
 import com.hfaufhreu.hjfeuio.base.BaseRecyclerAdapter;
+import com.hfaufhreu.hjfeuio.bean.VideoInfo;
 import com.hfaufhreu.hjfeuio.itemdecoration.IndexOtherTypeItemDecoration;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
@@ -32,7 +33,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fm.jiecao.jcvideoplayer_lib.VideoInfo;
 import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
 
@@ -121,6 +121,7 @@ public class ActorVideoListFragment extends BaseBackFragment {
             public void onItemClickListener(int position) {
                 Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, mList.get(position));
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_INDEX, false);
                 _mActivity.startActivity(intent);
             }
         });

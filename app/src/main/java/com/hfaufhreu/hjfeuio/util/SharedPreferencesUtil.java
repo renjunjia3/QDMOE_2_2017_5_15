@@ -1,4 +1,4 @@
-package fm.jiecao.jcvideoplayer_lib;
+package com.hfaufhreu.hjfeuio.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

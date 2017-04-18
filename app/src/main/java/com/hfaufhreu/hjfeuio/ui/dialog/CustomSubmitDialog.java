@@ -46,24 +46,6 @@ public class CustomSubmitDialog extends Dialog {
             return this;
         }
 
-
-        public Builder setTitle(int title) {
-            this.title = (String) context.getText(title);
-            return this;
-        }
-
-
-        public Builder setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder setContentView(View v) {
-            this.contentView = v;
-            return this;
-        }
-
-
         public Builder setButtonText(int buttonTextId, DialogInterface.OnClickListener listener) {
             this.buttonText = (String) context.getText(buttonTextId);
             this.positiveButtonClickListener = listener;
@@ -83,9 +65,7 @@ public class CustomSubmitDialog extends Dialog {
             View layout = inflater.inflate(R.layout.dialog_submit, null);
             dialog.addContentView(layout, new LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-            ((TextView) layout.findViewById(R.id.title)).setText(title);
             ((TextView) layout.findViewById(R.id.submit)).setText(buttonText);
-
             ViewUtils.setViewHeightByViewGroup(layout, (int) (ScreenUtils.instance(context).getScreenWidth() * 0.9f));
 
             if (positiveButtonClickListener != null) {

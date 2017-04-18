@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.base.BaseFragment;
 import com.hfaufhreu.hjfeuio.base.BaseRecyclerAdapter;
+import com.hfaufhreu.hjfeuio.bean.VideoInfo;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.hfaufhreu.hjfeuio.util.ViewUtils;
 
@@ -20,7 +21,6 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fm.jiecao.jcvideoplayer_lib.VideoInfo;
 
 /**
  * 视频列表每行3个适配器

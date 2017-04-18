@@ -1,4 +1,4 @@
-package fm.jiecao.jcvideoplayer_lib;
+package com.hfaufhreu.hjfeuio.video;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -26,7 +26,7 @@ public class JCMediaManager implements MediaPlayer.OnPreparedListener, MediaPlay
     public static String TAG = JCVideoPlayer.TAG;
 
     public MediaPlayer mediaPlayer;
-    private static JCMediaManager JCMediaManager;
+    private static com.hfaufhreu.hjfeuio.video.JCMediaManager JCMediaManager;
     public int currentVideoWidth = 0;
     public int currentVideoHeight = 0;
     public JCMediaPlayerListener listener;
@@ -40,7 +40,7 @@ public class JCMediaManager implements MediaPlayer.OnPreparedListener, MediaPlay
     MediaHandler mMediaHandler;
     Handler mainThreadHandler;
 
-    public static JCMediaManager instance() {
+    public static com.hfaufhreu.hjfeuio.video.JCMediaManager instance() {
         if (JCMediaManager == null) {
             JCMediaManager = new JCMediaManager();
         }
@@ -76,14 +76,14 @@ public class JCMediaManager implements MediaPlayer.OnPreparedListener, MediaPlay
                         Method method = clazz.getDeclaredMethod("setDataSource", String.class, Map.class);
                         method.invoke(mediaPlayer, ((FuckBean) msg.obj).url, ((FuckBean) msg.obj).mapHeadData);
                         mediaPlayer.setLooping(((FuckBean) msg.obj).looping);
-                        mediaPlayer.setOnPreparedListener(JCMediaManager.this);
-                        mediaPlayer.setOnCompletionListener(JCMediaManager.this);
-                        mediaPlayer.setOnBufferingUpdateListener(JCMediaManager.this);
+                        mediaPlayer.setOnPreparedListener(com.hfaufhreu.hjfeuio.video.JCMediaManager.this);
+                        mediaPlayer.setOnCompletionListener(com.hfaufhreu.hjfeuio.video.JCMediaManager.this);
+                        mediaPlayer.setOnBufferingUpdateListener(com.hfaufhreu.hjfeuio.video.JCMediaManager.this);
                         mediaPlayer.setScreenOnWhilePlaying(true);
-                        mediaPlayer.setOnSeekCompleteListener(JCMediaManager.this);
-                        mediaPlayer.setOnErrorListener(JCMediaManager.this);
-                        mediaPlayer.setOnInfoListener(JCMediaManager.this);
-                        mediaPlayer.setOnVideoSizeChangedListener(JCMediaManager.this);
+                        mediaPlayer.setOnSeekCompleteListener(com.hfaufhreu.hjfeuio.video.JCMediaManager.this);
+                        mediaPlayer.setOnErrorListener(com.hfaufhreu.hjfeuio.video.JCMediaManager.this);
+                        mediaPlayer.setOnInfoListener(com.hfaufhreu.hjfeuio.video.JCMediaManager.this);
+                        mediaPlayer.setOnVideoSizeChangedListener(com.hfaufhreu.hjfeuio.video.JCMediaManager.this);
                         mediaPlayer.prepareAsync();
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();

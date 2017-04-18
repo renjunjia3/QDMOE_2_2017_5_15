@@ -73,7 +73,7 @@ public class SearchResultFragment extends BaseFragment {
     @Override
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        if (App.ISVIP == 0) {
+        if (App.isVip == 0) {
             addFooter();
         }
         switch (position) {

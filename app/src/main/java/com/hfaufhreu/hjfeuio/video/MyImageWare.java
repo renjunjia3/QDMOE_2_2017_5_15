@@ -1,4 +1,4 @@
-package fm.jiecao.jcvideoplayer_lib;
+package com.hfaufhreu.hjfeuio.video;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

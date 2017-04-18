@@ -111,7 +111,7 @@ public class MineFragment extends BaseMainFragment {
      */
     @OnClick(R.id.open_vip)
     public void onClickOpenVip() {
-        if (App.ISVIP == 1) {
+        if (App.isVip == 1) {
             ToastUtils.getInstance(_mActivity).showToast("您已经是VIP了");
         } else {
             fullVideoPayDialog.show();
@@ -124,7 +124,7 @@ public class MineFragment extends BaseMainFragment {
      */
     @OnClick({R.id.view_record, R.id.fravoter, R.id.offline_video})
     public void onClick(View view) {
-        if (App.ISVIP == 1) {
+        if (App.isVip == 1) {
             ToastUtils.getInstance(_mActivity).showToast("该功能完善中，敬请期待");
         } else {
             dialog.show();
@@ -153,7 +153,6 @@ public class MineFragment extends BaseMainFragment {
     @OnClick(R.id.check_update)
     public void onClickCheckUpdate() {
         CustomSubmitDialog.Builder builder = new CustomSubmitDialog.Builder(_mActivity);
-        builder.setTitle("检查更新");
         builder.setMessage("当前已经是最新版本");
         builder.setButtonText("确定", new DialogInterface.OnClickListener() {
             @Override

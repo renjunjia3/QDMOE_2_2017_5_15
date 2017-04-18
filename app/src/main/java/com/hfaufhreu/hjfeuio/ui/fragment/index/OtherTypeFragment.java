@@ -17,6 +17,7 @@ import com.hfaufhreu.hjfeuio.adapter.VideoListAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseFragment;
 import com.hfaufhreu.hjfeuio.base.BaseRecyclerAdapter;
+import com.hfaufhreu.hjfeuio.bean.VideoInfo;
 import com.hfaufhreu.hjfeuio.itemdecoration.IndexOtherTypeItemDecoration;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
@@ -35,7 +36,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fm.jiecao.jcvideoplayer_lib.VideoInfo;
 import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
 
@@ -100,7 +100,7 @@ public class OtherTypeFragment extends BaseFragment {
         footerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (App.ISVIP == 1) {
+                if (App.isVip == 1) {
                     ToastUtils.getInstance(_mActivity).showToast("该功能完善中，敬请期待");
                 } else {
                     dialog.show();
@@ -135,6 +135,7 @@ public class OtherTypeFragment extends BaseFragment {
             public void onItemClickListener(int position) {
                 Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, mList.get(position));
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_INDEX, false);
                 _mActivity.startActivity(intent);
             }
         });

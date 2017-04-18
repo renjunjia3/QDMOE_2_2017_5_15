@@ -21,9 +21,8 @@ import com.hfaufhreu.hjfeuio.adapter.CommentAdapter;
 import com.hfaufhreu.hjfeuio.adapter.IndexItemAdapter;
 import com.hfaufhreu.hjfeuio.adapter.ScreenShotRecyclerViewAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
-
-import fm.jiecao.jcvideoplayer_lib.CommentInfo;
-
+import com.hfaufhreu.hjfeuio.bean.CommentInfo;
+import com.hfaufhreu.hjfeuio.bean.VideoInfo;
 import com.hfaufhreu.hjfeuio.itemdecoration.ScreenShotItemDecoration;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.ui.dialog.FullVideoPayDialog;
@@ -34,10 +33,10 @@ import com.hfaufhreu.hjfeuio.ui.view.CustomeGridView;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
-
-import fm.jiecao.jcvideoplayer_lib.SharedPreferencesUtil;
-
+import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
+import com.hfaufhreu.hjfeuio.video.JCFullScreenActivity;
+import com.hfaufhreu.hjfeuio.video.VideoConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -49,9 +48,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import fm.jiecao.jcvideoplayer_lib.JCFullScreenActivity;
-import fm.jiecao.jcvideoplayer_lib.VideoConfig;
-import fm.jiecao.jcvideoplayer_lib.VideoInfo;
 import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
 
@@ -63,6 +59,7 @@ import wiki.scene.statuslib.StatusViewLayout;
 public class VideoDetailActivity extends AppCompatActivity {
 
     public static final String ARG_VIDEO_INFO = "arg_video_info";
+    public static final String ARG_IS_ENTER_FROM_INDEX = "is_enter_from_index";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.zan)
@@ -97,6 +94,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     private Unbinder unbinder;
 
     private VideoInfo videoInfo;
+    private Boolean isEnterFromIndex = false;
 
     private List<CommentInfo> commentInfoList;
     private Random random;
@@ -125,21 +123,11 @@ public class VideoDetailActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_video_detail);
         unbinder = ButterKnife.bind(this);
         videoInfo = (VideoInfo) getIntent().getSerializableExtra(ARG_VIDEO_INFO);
+        isEnterFromIndex = getIntent().getBooleanExtra(ARG_IS_ENTER_FROM_INDEX, false);
+
         initToolbarNav(toolbar);
         initView();
         initDialog();
-        if (videoInfo.getVip() == 1 && App.ISVIP != 1) {
-            fullVideoDialog.show();
-            clickWantPay();
-        } else {
-            if (App.ISVIP == 0 && App.TRY_COUNT >= VideoConfig.TRY_COUNT_TIME) {
-                fullVideoDialog.show();
-                clickWantPay();
-            }
-        }
-//        if (App.ISVIP == 0) {
-//            ToastUtils.getInstance(this).showToast("剩余试看次数：" + (4 - App.TRY_COUNT > 0 ? 4 - App.TRY_COUNT : 0) + "次");
-//        }
     }
 
     protected void initToolbarNav(Toolbar toolbar) {
@@ -242,7 +230,7 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     @OnClick({R.id.zan, R.id.fravetor, R.id.open_vip, R.id.addVip, R.id.open_vip1, R.id.sendComment, R.id.download, R.id.commend_number})
     public void onClick(View v) {
-        if (App.ISVIP == 0) {
+        if (App.isVip == 0) {
             if (v.getId() == R.id.open_vip1) {
                 fullVideoDialog.show();
             } else {
@@ -278,22 +266,15 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.play_video)
     public void onClickPlayVideo() {
-        if (videoInfo.getVip() == 1 && App.ISVIP == 0) {
-            functionPayDialog.show();
-            clickWantPay();
-        } else if (App.ISVIP == 0 && App.TRY_COUNT >= VideoConfig.TRY_COUNT_TIME) {
+        if (!isEnterFromIndex && App.isVip == 0) {
+            //不是首页进来自己也不是VIP，弹出开通会员的提示
             functionPayDialog.show();
             clickWantPay();
         } else {
-            App.TRY_COUNT += 1;
             Intent intent = new Intent(VideoDetailActivity.this, JCFullScreenActivity.class);
             intent.putExtra(JCFullScreenActivity.PARAM_VIDEO_INFO, videoInfo);
             intent.putExtra(JCFullScreenActivity.PARAM_CURRENT_TIME, currentTime);
-            intent.putExtra(JCFullScreenActivity.PARAM_IS_VIP, App.ISVIP);
-            intent.putExtra(JCFullScreenActivity.PARAM_IS_SPEED, App.ISSPEED);
-            intent.putExtra(JCFullScreenActivity.PARAM_TRY_COUNT, App.TRY_COUNT);
             startActivityForResult(intent, 101);
-            SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.TRY_COUNT);
         }
 
     }
@@ -389,7 +370,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             public void onResponse(String s, int i) {
                 try {
                     List<CommentInfo> temps = JSON.parseArray(s, CommentInfo.class);
-                    List<CommentInfo> comemnts = new ArrayList<CommentInfo>();
+                    List<CommentInfo> comemnts = new ArrayList<>();
                     for (int j = 0; j < 10; j++) {
                         comemnts.add(temps.get(j));
                     }

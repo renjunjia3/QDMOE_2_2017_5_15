@@ -1,4 +1,4 @@
-package fm.jiecao.jcvideoplayer_lib;
+package com.hfaufhreu.hjfeuio.video;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -19,6 +18,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.alibaba.fastjson.JSON;
+import com.hfaufhreu.hjfeuio.R;
+import com.hfaufhreu.hjfeuio.bean.CommentInfo;
+import com.hfaufhreu.hjfeuio.bean.VideoInfo;
+import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -166,7 +169,7 @@ public class JCFullScreenActivity extends Activity {
 
                     @Override
                     public MyViewHolder onCreateViewHolder(int viewType) {
-                        Log.e("DFM", "onCreateViewHolder:" + viewType);
+                        //Log.e("DFM", "onCreateViewHolder:" + viewType);
                         return new MyViewHolder(View.inflate(getApplicationContext(), R.layout.layout_view_cache, null));
                     }
 
@@ -185,7 +188,7 @@ public class JCFullScreenActivity extends Activity {
                         if (bitmap != null) {
                             viewHolder.mIcon.setImageBitmap(bitmap);
                         } else {
-                            viewHolder.mIcon.setImageResource(R.drawable.jc_back);
+                            viewHolder.mIcon.setImageResource(R.drawable.ic_user_avatar);
                         }
                     }
 

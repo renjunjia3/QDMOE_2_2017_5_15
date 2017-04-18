@@ -22,6 +22,7 @@ import com.hfaufhreu.hjfeuio.VideoDetailActivity;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseFragment;
 import com.hfaufhreu.hjfeuio.bean.IndexInfo;
+import com.hfaufhreu.hjfeuio.bean.VideoInfo;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
@@ -50,7 +51,6 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import fm.jiecao.jcvideoplayer_lib.VideoInfo;
 import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
 
@@ -751,6 +751,7 @@ public class HotRecommendFragment extends BaseFragment {
             default:
                 break;
         }
+        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_INDEX, true);
         _mActivity.startActivity(intent);
     }
 
@@ -849,7 +850,7 @@ public class HotRecommendFragment extends BaseFragment {
      */
     @OnClick({R.id.free_more, R.id.vip_more, R.id.hot_more, R.id.footerImage})
     public void onClickMore() {
-        if (App.ISVIP == 1) {
+        if (App.isVip == 1) {
             ToastUtils.getInstance(_mActivity).showToast("该功能完善中，敬请期待");
         } else {
             if (builder == null) {

@@ -64,7 +64,7 @@ public class SearchFragment extends BaseFragment {
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         addHead();
-        if (App.ISVIP == 0) {
+        if (App.isVip == 0) {
             addFooter();
         }
         lists = JSON.parseArray(getString(R.string.str_json_seach), SearchInfo.class);

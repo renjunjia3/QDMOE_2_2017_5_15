@@ -3,8 +3,6 @@ package com.hfaufhreu.hjfeuio.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import fm.jiecao.jcvideoplayer_lib.VideoInfo;
-
 /**
  * Created by 首页 热门推荐 on 2017/3/15.
  */

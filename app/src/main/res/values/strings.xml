@@ -18,6 +18,12 @@
     <string name="vip_old_money">￥76</string>
 
 
+  <string name="tips_not_wifi">You are currently using the mobile network, the player will continue to consume traffic</string>
+  <string name="tips_not_wifi_confirm">Resume</string>
+  <string name="tips_not_wifi_cancel">Stop play</string>
+  <string name="no_url">No mUrl</string>
+
+
     <string name="disclaime">\t1、一切移动客户端用户在下载并浏览皮皮乐科技软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本站，或直接、间接使用本站资料者，均被视为自愿接受本网站相关声明和用户服务协议的约束。
 \n\t2、皮皮乐科技转载的内容并不代表皮皮乐科技之意见及观点，也不意味着本站赞同其观点或证实其内容的真实性。
 \n\t3、皮皮乐科技转载的文字、图片、音视频等资料均由本站用户提供，其真实性、准确性和合法性由信息发布人负责。皮皮乐科技不提供任何保证，并不承担任何法律责任。

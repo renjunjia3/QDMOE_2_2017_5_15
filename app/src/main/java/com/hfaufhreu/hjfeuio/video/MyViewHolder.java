@@ -1,8 +1,10 @@
-package fm.jiecao.jcvideoplayer_lib;
+package com.hfaufhreu.hjfeuio.video;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hfaufhreu.hjfeuio.R;
 
 import master.flame.danmaku.danmaku.model.android.ViewCacheStuffer;
 

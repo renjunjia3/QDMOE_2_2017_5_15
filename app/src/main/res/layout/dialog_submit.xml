@@ -5,20 +5,6 @@
     android:background="@drawable/shape_bg_round_corner_white"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="15dp"
-        android:text="检查更新"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_size_big" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#EF8DC0" />
 
     <TextView
         android:id="@+id/content"
@@ -33,15 +19,39 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#EF8DC0" />
+        android:background="#DDDDDD" />
 
-    <TextView
-        android:id="@+id/submit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:text="确定"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_size_large" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="确定"
+            android:textColor="#317EF3"
+            android:textSize="@dimen/text_size_large" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="取消"
+            android:textColor="#317EF3"
+            android:textSize="@dimen/text_size_large" />
+    </LinearLayout>
+
 </LinearLayout>

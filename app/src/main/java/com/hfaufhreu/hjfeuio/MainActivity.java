@@ -17,13 +17,17 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.bean.UserInfo;
+import com.hfaufhreu.hjfeuio.event.ChangeTabEvent;
 import com.hfaufhreu.hjfeuio.ui.fragment.MainFragment;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.hfaufhreu.hjfeuio.util.DateUtils;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
-import fm.jiecao.jcvideoplayer_lib.SharedPreferencesUtil;
+import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.ref.WeakReference;
 import java.util.Random;
@@ -52,6 +56,7 @@ public class MainActivity extends SupportActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
         if (savedInstanceState == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
         }
@@ -126,15 +131,13 @@ public class MainActivity extends SupportActivity {
 
     private void loginAndRegister() {
 
-        App.TRY_COUNT = SharedPreferencesUtil.getInt(MainActivity.this, App.TRY_COUNT_KEY, 0);
 
         TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         App.IMEI = tm.getDeviceId();
         long lastLoginTime = SharedPreferencesUtil.getLong(MainActivity.this, App.LAST_LOGIN_TIME, 0);
         if (!DateUtils.isDifferentDay(System.currentTimeMillis(), lastLoginTime)) {
             App.USER_ID = SharedPreferencesUtil.getInt(MainActivity.this, App.USERID_KEY, 0);
-            App.ISSPEED = SharedPreferencesUtil.getInt(MainActivity.this, App.ISSPEED_KEY, 0);
-            App.ISVIP = SharedPreferencesUtil.getInt(MainActivity.this, App.ISVIP_KEY, 0);
+            App.isVip = SharedPreferencesUtil.getInt(MainActivity.this, App.ISVIP_KEY, 0);
             return;
         }
         OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER + App.CHANNEL_ID + "/" + App.IMEI).build()
@@ -150,11 +153,9 @@ public class MainActivity extends SupportActivity {
                         try {
                             UserInfo info = JSON.parseObject(s, UserInfo.class);
                             App.USER_ID = info.getUser_id();
-                            App.ISVIP = info.getIs_vip();
-                            App.ISSPEED = info.getIs_jiasu();
+                            App.isVip = info.getIs_vip();
                             SharedPreferencesUtil.putInt(MainActivity.this, App.USERID_KEY, App.USER_ID);
-                            SharedPreferencesUtil.putInt(MainActivity.this, App.ISSPEED_KEY, App.ISSPEED);
-                            SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.ISVIP);
+                            SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
                             SharedPreferencesUtil.putLong(MainActivity.this, App.LAST_LOGIN_TIME, System.currentTimeMillis());
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -167,6 +168,7 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -177,6 +179,12 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Subscribe
+    public void changeTab(ChangeTabEvent changeTabEvent) {
+        popTo(MainFragment.class, true);
+        loadRootFragment(R.id.fl_container, MainFragment.newInstance());
     }
 
 

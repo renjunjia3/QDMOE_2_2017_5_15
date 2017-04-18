@@ -9,12 +9,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
-import fm.jiecao.jcvideoplayer_lib.CommentInfo;
+import com.hfaufhreu.hjfeuio.bean.CommentInfo;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.joooonho.SelectableRoundedImageView;
 import com.hfaufhreu.hjfeuio.R;
@@ -181,7 +180,7 @@ public class LiveDetailFragment extends BaseFragment {
 
     @OnClick({R.id.msg, R.id.email, R.id.share, R.id.liwu, R.id.piao, R.id.hao, R.id.head1, R.id.head2, R.id.head3, R.id.head4, R.id.guanzhu, R.id.open_vip})
     public void onClickBtn() {
-        if (App.ISVIP == 0) {
+        if (App.isVip == 0) {
             if (builder == null) {
                 builder = new LivePayDialog.Builder(_mActivity);
                 builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {

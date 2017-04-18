@@ -10,14 +10,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.alibaba.fastjson.JSON;
-import com.hfaufhreu.hjfeuio.bean.PayResultInfo;
-import com.hfaufhreu.hjfeuio.config.PayConfig;
-import com.sdky.jzp.SdkPay;
-import com.sdky.jzp.data.CheckOrder;
-import com.skpay.NINESDK;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseFragment;
+import com.hfaufhreu.hjfeuio.bean.PayResultInfo;
+import com.hfaufhreu.hjfeuio.config.PayConfig;
+import com.hfaufhreu.hjfeuio.event.ChangeTabEvent;
 import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.event.TabSelectedEvent;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
@@ -28,11 +26,15 @@ import com.hfaufhreu.hjfeuio.ui.fragment.index.SearchFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.live.LiveFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.mine.HotLineFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.mine.MineFragment;
+import com.hfaufhreu.hjfeuio.ui.fragment.vip.GlodVipFragment;
 import com.hfaufhreu.hjfeuio.ui.view.BottomBar;
 import com.hfaufhreu.hjfeuio.ui.view.BottomBarTab;
 import com.hfaufhreu.hjfeuio.util.API;
-import fm.jiecao.jcvideoplayer_lib.SharedPreferencesUtil;
+import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
+import com.sdky.jzp.SdkPay;
+import com.sdky.jzp.data.CheckOrder;
+import com.skpay.NINESDK;
 import com.skpay.codelib.utils.encryption.MD5Encoder;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -51,8 +53,11 @@ import butterknife.OnClick;
 import me.yokeyword.fragmentation.SupportFragment;
 import okhttp3.Call;
 
+
 /**
- * Created by scene on 2017/3/15.
+ * Case By: 主Fragment
+ * package:com.hfaufhreu.hjfeuio.ui.fragment
+ * Author：scene on 2017/4/18 9:06
  */
 
 public class MainFragment extends BaseFragment {
@@ -72,7 +77,7 @@ public class MainFragment extends BaseFragment {
     FrameLayout flContainer;
 
     private SupportFragment[] mFragments = new SupportFragment[4];
-    private String strTabs[] = {"首页", "人气女优", "女神直播", "我的"};
+    private String strTabs[] = {"首页", "人气女优", "女神直播", "我的", "黄金会员"};
 
 
     private FullVideoPayDialog functionPayDialog;
@@ -92,7 +97,11 @@ public class MainFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         if (savedInstanceState == null) {
-            mFragments[INDEX] = IndexFragment.newInstance();
+            if (App.isVip == 1) {
+                mFragments[INDEX] = GlodVipFragment.newInstance();
+            } else {
+                mFragments[INDEX] = IndexFragment.newInstance();
+            }
             mFragments[ACTOR] = ActorFragment.newInstance();
             mFragments[LIVE] = LiveFragment.newInstance();
             mFragments[MINE] = MineFragment.newInstance();
@@ -120,11 +129,14 @@ public class MainFragment extends BaseFragment {
 
     private void initView() {
         EventBus.getDefault().register(this);
-
-        mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, strTabs[0]))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_actor, strTabs[1]))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_live, strTabs[2]))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_mine, strTabs[3]));
+        if (App.isVip == 1) {
+            mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, strTabs[4]));
+        } else {
+            mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, strTabs[0]));
+        }
+        mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_actor, strTabs[1]));
+        mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_live, strTabs[2]));
+        mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_mine, strTabs[3]));
 
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
@@ -181,7 +193,7 @@ public class MainFragment extends BaseFragment {
         if (v.getId() == R.id.search) {
             EventBus.getDefault().post(new StartBrotherEvent(SearchFragment.newInstance()));
         } else {
-            if (App.ISVIP == 0) {
+            if (App.isVip == 0) {
                 if (builder == null) {
                     builder = new FullVideoPayDialog.Builder(_mActivity);
                     builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {

@@ -10,9 +10,51 @@ android {
         versionName rootProject.versionName
         ndk {
             //设置支持的SO库架构
-            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+            abiFilters 'armeabi', 'armeabi-v7a','x86_64'
         }
     }
+    productFlavors {
+        NNY_1001 {
+            manifestPlaceholders = [CHANNEL_ID: 1008]
+        }
+        NNY_1002 {
+            manifestPlaceholders = [CHANNEL_ID: 1009]
+        }
+        NNY_1003 {
+            manifestPlaceholders = [CHANNEL_ID: 1010]
+        }
+        NNY_1004 {
+            manifestPlaceholders = [CHANNEL_ID: 1013]
+        }
+        NNY_1005 {
+            manifestPlaceholders = [CHANNEL_ID: 1015]
+        }
+        NNY_1006 {
+            manifestPlaceholders = [CHANNEL_ID: 1016]
+        }
+        NNY_1007 {
+            manifestPlaceholders = [CHANNEL_ID: 1017]
+        }
+        NNY_1008 {
+            manifestPlaceholders = [CHANNEL_ID: 1018]
+        }
+        NNY_1009 {
+            manifestPlaceholders = [CHANNEL_ID: 1019]
+        }
+        NNY_1010 {
+            manifestPlaceholders = [CHANNEL_ID: 1020]
+        }
+        NNY_1011 {
+            manifestPlaceholders = [CHANNEL_ID: 1021]
+        }
+        NNY_1012 {
+            manifestPlaceholders = [CHANNEL_ID: 1022]
+        }
+
+    }
+
+
+
 
     signingConfigs {
         release {
@@ -39,10 +81,10 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def file = output.outputFile
-            output.outputFile = new File(file.parent, "QDMOE_" + rootProject.versionName + ".apk")
+            def flavorFlag = "${variant.productFlavors.get(0).name}"
+            output.outputFile = new File(file.parent, flavorFlag+".apk")
         }
     }
-
 
 }
 
@@ -54,7 +96,6 @@ dependencies {
     compile 'com.android.support:design:' + rootProject.appcompat
     compile project(':fragmentation')
     compile project(':statuslib')
-    compile project(':jcvideoplayer-lib')
     // EventBus
     //butterknife
     //Glide
@@ -79,4 +120,10 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.liangfeizc:flowlayout:1.0.0@aar'
+
+    compile 'com.github.ctiao:DanmakuFlameMaster:0.7.4'
+    compile 'com.github.ctiao:ndkbitmap-armv7a:0.7.4'
+
+    compile 'com.alibaba:fastjson:1.2.31'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }

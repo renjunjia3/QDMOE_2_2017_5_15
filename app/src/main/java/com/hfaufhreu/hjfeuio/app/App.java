@@ -1,10 +1,11 @@
 package com.hfaufhreu.hjfeuio.app;
 
 import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.hfaufhreu.hjfeuio.R;
-import fm.jiecao.jcvideoplayer_lib.SharedPreferencesUtil;
+import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -21,17 +22,12 @@ public class App extends Application {
     public static String IMEI = "";
     public static int CHANNEL_ID = 0;
     public static int USER_ID = 0;
-    public static int ISVIP = 0;
-    public static int ISSPEED = 0;
-
-    public static int TRY_COUNT = 0;
+    public static int isVip = 0;
 
     //用户id
     public static final String USERID_KEY = "user_id";
     public static final String ISVIP_KEY = "is_vip";
-    public static final String ISSPEED_KEY = "is_speed";
 
-    public static final String TRY_COUNT_KEY = "try_count";
 
     //上一次的登录时间
     public static final String LAST_LOGIN_TIME = "last_login_time";
@@ -39,7 +35,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        CHANNEL_ID = getResources().getInteger(R.integer.channel_id);
+        CHANNEL_ID = getChannelName();
         USER_ID = SharedPreferencesUtil.getInt(this, USERID_KEY, 0);
 
         Fragmentation.builder()
@@ -66,5 +62,26 @@ public class App extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
+    }
+
+
+    private int getChannelName() {
+        int resultData = 0;
+        try {
+            PackageManager packageManager = getPackageManager();
+            if (packageManager != null) {
+                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+                if (applicationInfo != null) {
+                    if (applicationInfo.metaData != null) {
+                        resultData = applicationInfo.metaData.getInt("CHANNEL");
+                    }
+                }
+
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return resultData;
     }
 }
