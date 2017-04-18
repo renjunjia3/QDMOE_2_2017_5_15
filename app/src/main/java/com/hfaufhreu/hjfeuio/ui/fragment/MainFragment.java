@@ -20,6 +20,7 @@ import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.event.TabSelectedEvent;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.ui.dialog.FullVideoPayDialog;
+import com.hfaufhreu.hjfeuio.ui.dialog.SubmitAndCancelDialog;
 import com.hfaufhreu.hjfeuio.ui.fragment.bbs.BBSFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.film.FilmFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.magnet.MagnetFragment;
@@ -89,7 +90,12 @@ public class MainFragment extends BaseFragment {
 
 
     private FullVideoPayDialog functionPayDialog;
-    private FullVideoPayDialog.Builder builder;
+    private FullVideoPayDialog.Builder funcationPayBuilder;
+
+    //提示框
+    private SubmitAndCancelDialog submitAndCancelDialog;
+    private SubmitAndCancelDialog.Builder submitAndCancelBuilder;
+
 
     //短代支付
     public SdkPay sdkPay;
@@ -276,6 +282,9 @@ public class MainFragment extends BaseFragment {
             }
         }
         name.setText(tabNames.get(0));
+        //这个值是暂时写的需要删除的
+        App.isVip = 1;
+        initPayDialog();
         initView();
         getDuandaiToken();
         return view;
@@ -397,27 +406,7 @@ public class MainFragment extends BaseFragment {
             EventBus.getDefault().post(new StartBrotherEvent(MagnetFragment.newInstance()));
         } else {
             if (App.isVip == 0) {
-                if (builder == null) {
-                    builder = new FullVideoPayDialog.Builder(_mActivity);
-                    builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            PayUtil.getInstance().payByWeChat(_mActivity, 1, 0);
-                        }
-                    });
 
-                    builder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            PayUtil.getInstance().payByAliPay(_mActivity, 1, 0);
-                        }
-                    });
-                }
-                if (functionPayDialog == null) {
-                    functionPayDialog = builder.create();
-                }
                 functionPayDialog.show();
                 clickWantPay();
             } else {
@@ -426,6 +415,36 @@ public class MainFragment extends BaseFragment {
         }
 
     }
+
+
+    /**
+     * Case By:初始化支付的dialog
+     * Author: scene on 2017/4/18 18:52
+     */
+    private void initPayDialog() {
+        if (funcationPayBuilder == null) {
+            funcationPayBuilder = new FullVideoPayDialog.Builder(_mActivity);
+            funcationPayBuilder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    PayUtil.getInstance().payByWeChat(_mActivity, 1, 0);
+                }
+            });
+
+            funcationPayBuilder.setAliPayClickListener(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    PayUtil.getInstance().payByAliPay(_mActivity, 1, 0);
+                }
+            });
+        }
+        if (functionPayDialog == null) {
+            functionPayDialog = funcationPayBuilder.create();
+        }
+    }
+
 
     /**
      * 弹出支付窗口之后调用

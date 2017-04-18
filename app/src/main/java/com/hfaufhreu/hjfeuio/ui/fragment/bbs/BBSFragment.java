@@ -111,7 +111,7 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
                 @Override
                 public void onError(Call call, Exception e, int i) {
                     if (isShowLoading) {
-                        statusViewLayout.showFailed(reTryListener);
+                        statusViewLayout.showFailed(retryListener);
                     } else {
                         ptrLayout.refreshComplete();
                     }
@@ -127,7 +127,7 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
                         ptrLayout.refreshComplete();
                     } catch (Exception e) {
                         if (isShowLoading) {
-                            statusViewLayout.showFailed(reTryListener);
+                            statusViewLayout.showFailed(retryListener);
                         } else {
                             ptrLayout.refreshComplete();
                         }
@@ -136,7 +136,7 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
             });
         } else {
             if (isShowLoading) {
-                statusViewLayout.showNetError(reTryListener);
+                statusViewLayout.showNetError(retryListener);
             } else {
                 ptrLayout.refreshComplete();
             }
@@ -145,23 +145,9 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
 
     }
 
-    View.OnClickListener reTryListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            getBBSData(true);
-        }
-    };
-
-    @Override
-    public void onDestroyView() {
-        if (call != null) {
-            call.cancel();
-        }
-        super.onDestroyView();
-    }
 
     /**
-     * Case By:
+     * Case By:列表的点击事件
      * Author: scene on 2017/4/18 13:52
      *
      * @param position 下标
@@ -174,5 +160,20 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
             //升级到钻石VIP
         }
     }
+
+    @Override
+    public void onDestroyView() {
+        if (call != null) {
+            call.cancel();
+        }
+        super.onDestroyView();
+    }
+
+    View.OnClickListener retryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getBBSData(true);
+        }
+    };
 
 }
