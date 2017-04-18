@@ -26,8 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_toolbar_logo"
-                android:text="QVOD"
-                android:textAppearance="@style/Toolbar_TextAppearance_White" />
+                android:text="QVOD" />
 
             <TextView
                 android:id="@+id/name"
@@ -71,16 +70,17 @@
             <ImageView
                 android:id="@+id/vip"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingRight="10dp"
-                android:src="@drawable/ic_toolbar_vip" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/ic_toolbar_user_gray" />
 
             <ImageView
                 android:id="@+id/complaint"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingRight="10dp"
-                android:src="@drawable/ic_toolbar_complaint" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_toolbar_user_tousu" />
 
 
         </LinearLayout>

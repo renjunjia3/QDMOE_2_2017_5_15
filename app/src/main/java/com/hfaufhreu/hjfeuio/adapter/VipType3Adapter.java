@@ -19,7 +19,6 @@ import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.hfaufhreu.hjfeuio.util.ViewUtils;
 
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,16 +29,15 @@ import butterknife.ButterKnife;
  * Author：scene on 2017/4/13 10:03
  */
 
-public class IndexItemAdapter extends BaseAdapter {
+public class VipType3Adapter extends BaseAdapter {
 
     private Context context;
     private List<VideoInfo> list;
 
     private ScreenUtils screenUtils;
     private LayoutInflater inflater;
-    private String colors[] = {"#3399FF", "#FF3300", "#00CC66", "#9966FF"};
 
-    public IndexItemAdapter(Context context, List<VideoInfo> list) {
+    public VipType3Adapter(Context context, List<VideoInfo> list) {
         this.context = context;
         this.list = list;
 
@@ -74,8 +72,10 @@ public class IndexItemAdapter extends BaseAdapter {
         }
         final VideoInfo info = list.get(position);
         holder.name.setText(info.getTitle());
-        holder.tag.setBackgroundColor(Color.parseColor(colors[new Random().nextInt(4)]));
-        int height = (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(40f)) * 210f / 3f / 150f);
+        if(info.getTag_color()!=null&&!info.getTag_color().isEmpty()){
+            holder.tag.setBackgroundColor(Color.parseColor(info.getTag_color()));
+        }
+        int height = (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(30f)) * 9f / 2f / 16f);
         ViewUtils.setViewHeightByViewGroup(holder.image, height);
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(holder.image);
         holder.playTime.setText(info.getHits() + "次播放");

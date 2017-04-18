@@ -408,21 +408,21 @@ public class JCFullScreenActivity extends Activity {
         public void handleMessage(Message msg) {
             final Activity activity = mActivityReference.get();
             if (activity != null) {
-                if (videoInfo.getVip() == 1 && isVIP == 0) {
+                if (isVIP == 0) {
                     //Vip视频
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
                     intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_FULLVIDEO);
                     setResult(RESULT_OK, intent);
                     finish();
-                } else if (isVIP == 0 && videoInfo.getVip() == 0 && tryCount <= VideoConfig.TRY_COUNT_TIME && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30000) {
+                } else if (isVIP == 0  && tryCount <= VideoConfig.TRY_COUNT_TIME && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30000) {
                     //可以试看的视频 试看次数不够了
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
                     intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_FULLVIDEO);
                     setResult(RESULT_OK, intent);
                     finish();
-                } else if (isVIP == 0 && videoInfo.getVip() == 0 && tryCount > VideoConfig.TRY_COUNT_TIME) {
+                } else if (isVIP == 0  && tryCount > VideoConfig.TRY_COUNT_TIME) {
                     //可以试看的视频 试看次数不够了
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());

@@ -7,8 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
 import com.hfaufhreu.hjfeuio.R;
+import com.hfaufhreu.hjfeuio.adapter.TrySeeAdapter;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
+import com.hfaufhreu.hjfeuio.bean.TrySeeContentInfo;
+import com.hfaufhreu.hjfeuio.bean.VideoInfo;
+import com.hfaufhreu.hjfeuio.bean.VipInfo;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
@@ -52,6 +57,13 @@ public class TrySeeFragment extends BaseMainFragment {
     //接口回调
     private RequestCall getDataCall;
 
+    //adapter
+    private TrySeeAdapter adapter;
+    private List<TrySeeContentInfo> lists;
+
+    //banner
+    private View bannerView;
+
     public static TrySeeFragment newInstance() {
         Bundle args = new Bundle();
         TrySeeFragment fragment = new TrySeeFragment();
@@ -75,6 +87,7 @@ public class TrySeeFragment extends BaseMainFragment {
         getTrySeeData(true);
     }
 
+
     private void initView() {
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
@@ -83,6 +96,10 @@ public class TrySeeFragment extends BaseMainFragment {
                 getTrySeeData(false);
             }
         });
+        bannerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_banner, null);
+        lists = new ArrayList<>();
+        adapter = new TrySeeAdapter(getContext(), lists);
+        listView.setAdapter(adapter);
     }
 
     /**
@@ -90,17 +107,22 @@ public class TrySeeFragment extends BaseMainFragment {
      * Author: scene on 2017/4/18 18:09
      * 需要在数据获取到之后再调用 不然会有异常 但是不会崩溃
      */
-    private void initBanner() {
-        if (banner == null) {
-            View bannerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_banner, null);
-            if (listView.getHeaderViewsCount() > 0) {
-                listView.removeHeaderView(bannerView);
-            }
-            listView.addHeaderView(bannerView);
-            banner = (NewBanner) bannerView.findViewById(R.id.banner);
-        } else {
-            banner.releaseBanner();
+    private void initBanner(List<VideoInfo> bannerList) {
+        if (bannerList == null || bannerList.size() == 0) {
+            return;
         }
+        bannerImageUrls.clear();
+        bannerTitles.clear();
+        for (VideoInfo info : bannerList) {
+            bannerImageUrls.add(info.getThumb());
+            bannerTitles.add(info.getTitle());
+        }
+        if(listView.getHeaderViewsCount()>0){
+            listView.removeHeaderView(bannerView);
+        }
+        listView.addHeaderView(bannerView);
+        banner = (NewBanner) bannerView.findViewById(R.id.banner);
+        banner.releaseBanner();
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器
@@ -132,12 +154,13 @@ public class TrySeeFragment extends BaseMainFragment {
      *
      * @param isShowLoad 是否需要显示loading页
      */
+
     private void getTrySeeData(final boolean isShowLoad) {
         if (NetWorkUtils.isNetworkConnected(getContext())) {
             if (isShowLoad) {
                 statusViewLayout.showLoading();
             }
-            getDataCall = OkHttpUtils.get().url(API.URL_PRE).build();
+            getDataCall = OkHttpUtils.get().url(API.URL_PRE + API.VIP_INDEX + 1).build();
             getDataCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
@@ -151,16 +174,21 @@ public class TrySeeFragment extends BaseMainFragment {
                 @Override
                 public void onResponse(String s, int i) {
                     try {
-
-
+                        VipInfo vipInfo = JSON.parseObject(s, VipInfo.class);
+                        initBanner(vipInfo.getBanner());
+                        lists.clear();
+                        lists.addAll(vipInfo.getOther());
+                        adapter.notifyDataSetChanged();
+                        if (isShowLoad) {
+                            statusViewLayout.showContent();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
-                    } finally {
                         if (isShowLoad) {
                             statusViewLayout.showFailed(retryListener);
-                        } else {
-                            ptrLayout.refreshComplete();
                         }
+                    } finally {
+                        ptrLayout.refreshComplete();
                     }
                 }
             });

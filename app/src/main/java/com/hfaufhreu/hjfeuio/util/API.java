@@ -39,5 +39,8 @@ public class API {
     //获取直播详情的评论
     public static final String LIVE_COMMENT = "video/live_comment";
     //获取福利社数据
-    public static final String BBS_LIST="bbs";
+    public static final String BBS_LIST = "bbs";
+
+    //获取会员首页的数据[1 => '体验', 2 => '黄金', 3 => '钻石', 4 => '黑金', 5 => '排行']
+    public static final String VIP_INDEX = "position/";
 }

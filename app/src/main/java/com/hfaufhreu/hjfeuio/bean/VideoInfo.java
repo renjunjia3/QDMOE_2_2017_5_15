@@ -9,30 +9,37 @@ import java.util.List;
  */
 
 public class VideoInfo implements Serializable {
-    int id;
-    String title;
     String thumb;
-    List<String> images;//截图
-    int cate_id;//分类ID
-    int actor_id;//女优id
-    String url;//视频地址
-    String attr;//属性
-    int hot;//1:热门
-    int vip;//1:会员才能看
-    int try_view;//1:可以试看
-    int hits;//人气
-    int slider;//是否是幻灯片
-    String created_at;//创建时间
-    String updated_at;//修改时间
-    String slider_thumb;//幻灯片缩略图
-    String description;//简介
+    String tag;
+    String tag_color;
+    String title;
+    String url;
+    int video_id;
+    String description;
+    int hits;
 
-    public int getId() {
-        return id;
+    public String getThumb() {
+        return thumb;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getTag_color() {
+        return tag_color;
+    }
+
+    public void setTag_color(String tag_color) {
+        this.tag_color = tag_color;
     }
 
     public String getTitle() {
@@ -43,38 +50,6 @@ public class VideoInfo implements Serializable {
         this.title = title;
     }
 
-    public String getThumb() {
-        return thumb;
-    }
-
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
-    }
-
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
-
-    public int getCate_id() {
-        return cate_id;
-    }
-
-    public void setCate_id(int cate_id) {
-        this.cate_id = cate_id;
-    }
-
-    public int getActor_id() {
-        return actor_id;
-    }
-
-    public void setActor_id(int actor_id) {
-        this.actor_id = actor_id;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -83,36 +58,20 @@ public class VideoInfo implements Serializable {
         this.url = url;
     }
 
-    public String getAttr() {
-        return attr;
+    public int getVideo_id() {
+        return video_id;
     }
 
-    public void setAttr(String attr) {
-        this.attr = attr;
+    public void setVideo_id(int video_id) {
+        this.video_id = video_id;
     }
 
-    public int getHot() {
-        return hot;
+    public String getDescription() {
+        return description;
     }
 
-    public void setHot(int hot) {
-        this.hot = hot;
-    }
-
-    public int getVip() {
-        return vip;
-    }
-
-    public void setVip(int vip) {
-        this.vip = vip;
-    }
-
-    public int getTry_view() {
-        return try_view;
-    }
-
-    public void setTry_view(int try_view) {
-        this.try_view = try_view;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getHits() {
@@ -123,43 +82,17 @@ public class VideoInfo implements Serializable {
         this.hits = hits;
     }
 
-    public int getSlider() {
-        return slider;
-    }
-
-    public void setSlider(int slider) {
-        this.slider = slider;
-    }
-
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
-
-    public String getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public String getSlider_thumb() {
-        return slider_thumb;
-    }
-
-    public void setSlider_thumb(String slider_thumb) {
-        this.slider_thumb = slider_thumb;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public String toString() {
+        return "VideoInfo{" +
+                "thumb='" + thumb + '\'' +
+                ", tag='" + tag + '\'' +
+                ", tag_color='" + tag_color + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", video_id=" + video_id +
+                ", description='" + description + '\'' +
+                ", hits=" + hits +
+                '}';
     }
 }

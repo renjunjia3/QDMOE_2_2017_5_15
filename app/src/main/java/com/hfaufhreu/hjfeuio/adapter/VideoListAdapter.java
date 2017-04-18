@@ -61,7 +61,6 @@ public class VideoListAdapter extends BaseRecyclerAdapter {
         Holder mHolder = (Holder) holder;
         VideoInfo videoInfo = list.get(position);
         mHolder.name.setText(videoInfo.getTitle());
-        mHolder.tag.setText(videoInfo.getAttr());
         mHolder.tag.setBackgroundColor(Color.parseColor(colors[new Random().nextInt(4)]));
         mHolder.playTime.setText(videoInfo.getHits() + "次播放");
         Glide.with(baseFragment).load(videoInfo.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(mHolder.image);

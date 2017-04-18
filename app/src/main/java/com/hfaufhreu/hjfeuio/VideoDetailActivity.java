@@ -145,19 +145,11 @@ public class VideoDetailActivity extends AppCompatActivity {
         commendNumber.setText((random.nextInt(1000) + 580) + "");
         toolbarTitle.setText(videoInfo.getTitle());
         zan.setText(videoInfo.getHits() + "");
-        Glide.with(this).load(videoInfo.getImages().get(0)).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(detailPlayer);
+        Glide.with(this).load(videoInfo.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(detailPlayer);
         //相关推荐
         videoRelateAdapter = new IndexItemAdapter(VideoDetailActivity.this, videoRelateList);
         aboutCommendGridView.setAdapter(videoRelateAdapter);
         getRecomendVideo();
-        //视频截图
-        screenShotRecyclerViewAdapter = new ScreenShotRecyclerViewAdapter(VideoDetailActivity.this, videoInfo.getImages());
-        screenShotRecyclerView.setHasFixedSize(true);
-        screenShotRecyclerView.addItemDecoration(new ScreenShotItemDecoration((int) ScreenUtils.instance(VideoDetailActivity.this).dip2px(10)));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        screenShotRecyclerView.setLayoutManager(layoutManager);
-        screenShotRecyclerView.setAdapter(screenShotRecyclerViewAdapter);
         //获取评论的数据
         getCommentData();
     }
@@ -176,14 +168,14 @@ public class VideoDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 2, videoInfo.getId());
+                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 2, videoInfo.getVideo_id());
             }
         });
         speedPayDialogBuilder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 2, videoInfo.getId());
+                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 2, videoInfo.getVideo_id());
             }
         });
 
@@ -194,14 +186,14 @@ public class VideoDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 1, videoInfo.getId());
+                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 1, videoInfo.getVideo_id());
             }
         });
         fullVideoDialogBuilder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 1, videoInfo.getId());
+                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 1, videoInfo.getVideo_id());
             }
         });
 
@@ -212,7 +204,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 1, videoInfo.getId());
+                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 1, videoInfo.getVideo_id());
 
             }
         });
@@ -220,7 +212,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 1, videoInfo.getId());
+                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 1, videoInfo.getVideo_id());
             }
         });
 
@@ -309,7 +301,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     public void getRecomendVideo() {
         statusViewLayout.showLoading();
         if (NetWorkUtils.isNetworkConnected(VideoDetailActivity.this)) {
-            OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_RELATED + videoInfo.getId()).build().execute(new StringCallback() {
+            OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_RELATED + videoInfo.getVideo_id()).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
                     aboutCommendTextView.setVisibility(View.GONE);
