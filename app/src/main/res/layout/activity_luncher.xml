@@ -11,20 +11,4 @@
         android:background="@drawable/bg_luncher_1"
         android:scaleType="centerCrop" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_luncher_logo"
-        android:visibility="gone" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:src="@drawable/ic_luncher_text"
-        android:visibility="gone" />
 </RelativeLayout>

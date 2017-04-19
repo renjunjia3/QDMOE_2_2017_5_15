@@ -116,20 +116,7 @@ public class LiveDetailFragment extends BaseFragment {
     }
 
     private void initView() {
-        imageResIds.add(R.drawable.head1);
-        imageResIds.add(R.drawable.head3);
-        imageResIds.add(R.drawable.head4);
-        imageResIds.add(R.drawable.head5);
-        imageResIds.add(R.drawable.head6);
-        imageResIds.add(R.drawable.head7);
-        imageResIds.add(R.drawable.head8);
-        imageResIds.add(R.drawable.head10);
-        imageResIds.add(R.drawable.head11);
-        imageResIds.add(R.drawable.head12);
-        imageResIds.add(R.drawable.head13);
-        imageResIds.add(R.drawable.head16);
-        imageResIds.add(R.drawable.head18);
-        imageResIds.add(R.drawable.head19);
+        imageResIds.add(R.drawable.ic_user_avatar);
         Random random = new Random();
 
         Glide.with(this).load(liveInfo.getAvatar()).asBitmap().centerCrop().placeholder(R.drawable.ic_user_avatar).error(R.drawable.ic_user_avatar).into(head1);
