@@ -43,4 +43,7 @@ public class API {
 
     //获取会员首页的数据[1 => '体验', 2 => '黄金', 3 => '钻石', 4 => '黑金', 5 => '排行']
     public static final String VIP_INDEX = "position/";
+
+    //片库首页
+    public static final String FILM_INDEX="cate";
 }

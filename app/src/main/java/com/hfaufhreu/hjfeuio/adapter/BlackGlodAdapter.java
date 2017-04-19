@@ -32,7 +32,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.R;
@@ -71,7 +71,7 @@ public class BlackGlodAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_black_glod_vip_item, null);
+        RelativeLayout linearLayout = (RelativeLayout) LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_black_glod_vip_item, null);
         ImageView image = (ImageView) linearLayout.findViewById(R.id.image);
         linearLayout.setId(R.id.item_id);
         Glide.with(container.getContext()).load(list.get(position).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(image);
@@ -89,7 +89,7 @@ public class BlackGlodAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        LinearLayout view = (LinearLayout) object;
+        RelativeLayout view = (RelativeLayout) object;
         container.removeView(view);
     }
 
