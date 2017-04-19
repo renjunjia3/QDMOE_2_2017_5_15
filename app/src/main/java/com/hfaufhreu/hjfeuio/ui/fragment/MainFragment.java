@@ -109,7 +109,7 @@ public class MainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         unbinder = ButterKnife.bind(this, view);
-        App.isVip=2;
+       // App.isVip=2;
         if (savedInstanceState == null) {
             tabNames.clear();
             fragments.clear();
