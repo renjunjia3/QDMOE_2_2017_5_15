@@ -39,11 +39,17 @@ public class TrySeeAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private static ScreenUtils screenUtils;
 
+    private OnItemClickListener onItemClickListener;
+
     public TrySeeAdapter(Context context, List<TrySeeContentInfo> lists) {
         this.context = context;
         this.lists = lists;
         inflater = LayoutInflater.from(context);
         screenUtils = ScreenUtils.instance(context);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -62,7 +68,7 @@ public class TrySeeAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder1 viewHolder1 = null;
         ViewHolder2 viewHolder2 = null;
         ViewHolder3 viewHolder3 = null;
@@ -96,6 +102,14 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder3.recommendName.setText(info.getData().get(0).getTitle());
                 viewHolder3.recommendSynop.setText(info.getData().get(0).getDescription());
                 Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(viewHolder3.recommendImage);
+                viewHolder3.recommendLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 0);
+                        }
+                    }
+                });
             }
         } else if (getItemViewType(position) == TYPE_VERTICAL) {
             viewHolder1.name.setText(info.getTitle());
@@ -109,6 +123,15 @@ public class TrySeeAdapter extends BaseAdapter {
                 if (info.getData().get(0).getTag_color() != null && !info.getData().get(0).getTag_color().isEmpty()) {
                     viewHolder1.vipTag1.setBackgroundColor(Color.parseColor(info.getData().get(0).getTag_color()));
                 }
+                viewHolder1.vipLayout1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 0);
+                        }
+                    }
+                });
+
 
                 viewHolder1.vipName2.setText(info.getData().get(1).getTitle());
                 viewHolder1.vipPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
@@ -119,6 +142,14 @@ public class TrySeeAdapter extends BaseAdapter {
                     viewHolder1.vipTag2.setBackgroundColor(Color.parseColor(info.getData().get(1).getTag_color()));
                 }
                 Glide.with(context).load(info.getData().get(1).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage2);
+                viewHolder1.vipLayout2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 1);
+                        }
+                    }
+                });
 
 
                 viewHolder1.vipName3.setText(info.getData().get(2).getTitle());
@@ -130,7 +161,14 @@ public class TrySeeAdapter extends BaseAdapter {
                     viewHolder1.vipTag3.setBackgroundColor(Color.parseColor(info.getData().get(2).getTag_color()));
                 }
                 Glide.with(context).load(info.getData().get(2).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage3);
-
+                viewHolder1.vipLayout3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 2);
+                        }
+                    }
+                });
 
                 viewHolder1.vipName4.setText(info.getData().get(3).getTitle());
                 viewHolder1.vipPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
@@ -141,7 +179,14 @@ public class TrySeeAdapter extends BaseAdapter {
                     viewHolder1.vipTag4.setBackgroundColor(Color.parseColor(info.getData().get(3).getTag_color()));
                 }
                 Glide.with(context).load(info.getData().get(3).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage4);
-
+                viewHolder1.vipLayout4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 3);
+                        }
+                    }
+                });
 
                 viewHolder1.vipName5.setText(info.getData().get(4).getTitle());
                 viewHolder1.vipPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
@@ -152,6 +197,15 @@ public class TrySeeAdapter extends BaseAdapter {
                     viewHolder1.vipTag5.setBackgroundColor(Color.parseColor(info.getData().get(4).getTag_color()));
                 }
                 Glide.with(context).load(info.getData().get(4).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage5);
+                viewHolder1.vipLayout5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 4);
+                        }
+                    }
+                });
+
 
                 viewHolder1.vipName6.setText(info.getData().get(5).getTitle());
                 viewHolder1.vipPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
@@ -162,7 +216,14 @@ public class TrySeeAdapter extends BaseAdapter {
                     viewHolder1.vipTag6.setBackgroundColor(Color.parseColor(info.getData().get(5).getTag_color()));
                 }
                 Glide.with(context).load(info.getData().get(5).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage6);
-
+                viewHolder1.vipLayout6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 5);
+                        }
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -174,32 +235,82 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage1);
+                viewHolder2.hotLayout1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 0);
+                        }
+                    }
+                });
 
                 viewHolder2.hotName2.setText(info.getData().get(1).getTitle());
-                viewHolder2.hotPlayTime2.setText(info.getData().get(1).getHits()+ "次播放");
+                viewHolder2.hotPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(1).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage2);
+                viewHolder2.hotLayout2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 1);
+                        }
+                    }
+                });
 
                 viewHolder2.hotName3.setText(info.getData().get(2).getTitle());
-                viewHolder2.hotPlayTime3.setText(info.getData().get(2).getHits()+ "次播放");
+                viewHolder2.hotPlayTime3.setText(info.getData().get(2).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(2).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage3);
+                viewHolder2.hotLayout3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 2);
+                        }
+                    }
+                });
+
 
                 viewHolder2.hotName4.setText(info.getData().get(3).getTitle());
-                viewHolder2.hotPlayTime4.setText(info.getData().get(3).getHits()+ "次播放");
+                viewHolder2.hotPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(3).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage4);
+                viewHolder2.hotLayout4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 3);
+                        }
+                    }
+                });
+
 
                 viewHolder2.hotName5.setText(info.getData().get(4).getTitle());
-                viewHolder2.hotPlayTime5.setText(info.getData().get(4).getHits()+ "次播放");
+                viewHolder2.hotPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(4).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage5);
+                viewHolder2.hotLayout5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 4);
+                        }
+                    }
+                });
+
 
                 viewHolder2.hotName6.setText(info.getData().get(5).getTitle());
-                viewHolder2.hotPlayTime6.setText(info.getData().get(5).getHits()+ "次播放");
+                viewHolder2.hotPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(5).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage6);
-
+                viewHolder2.hotLayout6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onTrySeeItemClick(position, 5);
+                        }
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -414,4 +525,9 @@ public class TrySeeAdapter extends BaseAdapter {
             ViewUtils.setViewHeightByViewGroup(hotImage6, height);
         }
     }
+
+    public interface OnItemClickListener {
+        void onTrySeeItemClick(int position, int childPosition);
+    }
+
 }

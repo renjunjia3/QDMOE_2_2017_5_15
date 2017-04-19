@@ -10,7 +10,7 @@ android {
         versionName rootProject.versionName
         ndk {
             //设置支持的SO库架构
-            abiFilters 'armeabi', 'armeabi-v7a','x86_64'
+            abiFilters 'armeabi', 'armeabi-v7a'
         }
     }
     productFlavors {
@@ -117,7 +117,6 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.9'
     compile 'com.joooonho:selectableroundedimageview:1.0.1'
     compile 'com.mylhyl:acp:1.1.7'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.liangfeizc:flowlayout:1.0.0@aar'
 
@@ -126,4 +125,10 @@ dependencies {
 
     compile 'com.alibaba:fastjson:1.2.31'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    //水平的图片
+    compile ('com.alibaba.android:ultraviewpager:1.0.1@aar') {
+        transitive = true
+    }
+    //评星条
+    compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
 }

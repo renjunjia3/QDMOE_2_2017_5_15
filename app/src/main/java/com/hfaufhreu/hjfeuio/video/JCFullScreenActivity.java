@@ -124,9 +124,9 @@ public class JCFullScreenActivity extends Activity {
         mJcVideoPlayer.mIfCurrentIsFullscreen = true;
         mJcVideoPlayer.mIfFullscreenIsDirectly = DIRECT_FULLSCREEN;
         mJcVideoPlayer.setUp(URL, videoInfo.getTitle());
+        JCMediaManager.instance().mediaPlayer.seekTo(10000);
         mJcVideoPlayer.setStateAndUi(CURRENT_STATE);
         mJcVideoPlayer.addTextureView();
-
         if (mJcVideoPlayer.mIfFullscreenIsDirectly) {
             mJcVideoPlayer.startButton.performClick();
         } else {
@@ -381,6 +381,7 @@ public class JCFullScreenActivity extends Activity {
             mDanmakuView = null;
         }
         ImageLoader.getInstance().destroy();
+        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -408,21 +409,14 @@ public class JCFullScreenActivity extends Activity {
         public void handleMessage(Message msg) {
             final Activity activity = mActivityReference.get();
             if (activity != null) {
-                if (isVIP == 0) {
-                    //Vip视频
-                    Intent intent = new Intent();
-                    intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
-                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_FULLVIDEO);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else if (isVIP == 0  && tryCount <= VideoConfig.TRY_COUNT_TIME && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30000) {
+                if (isVIP == 0 && tryCount <= VideoConfig.TRY_COUNT_TIME && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30000) {
                     //可以试看的视频 试看次数不够了
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
                     intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_FULLVIDEO);
                     setResult(RESULT_OK, intent);
                     finish();
-                } else if (isVIP == 0  && tryCount > VideoConfig.TRY_COUNT_TIME) {
+                } else if (isVIP == 0 && tryCount > VideoConfig.TRY_COUNT_TIME) {
                     //可以试看的视频 试看次数不够了
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,11 +18,9 @@ import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.adapter.CommentAdapter;
 import com.hfaufhreu.hjfeuio.adapter.IndexItemAdapter;
-import com.hfaufhreu.hjfeuio.adapter.ScreenShotRecyclerViewAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.bean.CommentInfo;
 import com.hfaufhreu.hjfeuio.bean.VideoInfo;
-import com.hfaufhreu.hjfeuio.itemdecoration.ScreenShotItemDecoration;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.ui.dialog.FullVideoPayDialog;
 import com.hfaufhreu.hjfeuio.ui.dialog.FunctionPayDialog;
@@ -32,11 +29,9 @@ import com.hfaufhreu.hjfeuio.ui.view.CustomListView;
 import com.hfaufhreu.hjfeuio.ui.view.CustomeGridView;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
-import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.hfaufhreu.hjfeuio.video.JCFullScreenActivity;
-import com.hfaufhreu.hjfeuio.video.VideoConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -59,7 +54,7 @@ import wiki.scene.statuslib.StatusViewLayout;
 public class VideoDetailActivity extends AppCompatActivity {
 
     public static final String ARG_VIDEO_INFO = "arg_video_info";
-    public static final String ARG_IS_ENTER_FROM_INDEX = "is_enter_from_index";
+    public static final String ARG_IS_ENTER_FROM_TRY_SEE = "is_enter_from_try_see";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.zan)
@@ -94,7 +89,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     private Unbinder unbinder;
 
     private VideoInfo videoInfo;
-    private Boolean isEnterFromIndex = false;
+    private Boolean isEnterFromTrySee = false;
 
     private List<CommentInfo> commentInfoList;
     private Random random;
@@ -114,16 +109,13 @@ public class VideoDetailActivity extends AppCompatActivity {
     private FunctionPayDialog functionPayDialog;
     private FunctionPayDialog.Builder functionPayDialogBuilder;
 
-    //视频截图
-    ScreenShotRecyclerViewAdapter screenShotRecyclerViewAdapter;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_video_detail);
         unbinder = ButterKnife.bind(this);
         videoInfo = (VideoInfo) getIntent().getSerializableExtra(ARG_VIDEO_INFO);
-        isEnterFromIndex = getIntent().getBooleanExtra(ARG_IS_ENTER_FROM_INDEX, false);
+        isEnterFromTrySee = getIntent().getBooleanExtra(ARG_IS_ENTER_FROM_TRY_SEE, false);
 
         initToolbarNav(toolbar);
         initView();
@@ -153,13 +145,6 @@ public class VideoDetailActivity extends AppCompatActivity {
         //获取评论的数据
         getCommentData();
     }
-
-    @Override
-    protected void onDestroy() {
-        unbinder.unbind();
-        super.onDestroy();
-    }
-
 
     private void initDialog() {
 
@@ -258,7 +243,7 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.play_video)
     public void onClickPlayVideo() {
-        if (!isEnterFromIndex && App.isVip == 0) {
+        if (!isEnterFromTrySee && App.isVip == 0) {
             //不是首页进来自己也不是VIP，弹出开通会员的提示
             functionPayDialog.show();
             clickWantPay();
@@ -381,9 +366,18 @@ public class VideoDetailActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onDestroy() {
+        unbinder.unbind();
+        super.onDestroy();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
     }
+
+
 }

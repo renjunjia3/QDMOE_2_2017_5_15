@@ -703,7 +703,7 @@ public class HotRecommendFragment extends BaseFragment {
             default:
                 break;
         }
-        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_INDEX, true);
+        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, true);
         _mActivity.startActivity(intent);
     }
 

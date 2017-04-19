@@ -109,6 +109,7 @@ public class MainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         unbinder = ButterKnife.bind(this, view);
+        App.isVip=2;
         if (savedInstanceState == null) {
             tabNames.clear();
             fragments.clear();
@@ -281,7 +282,11 @@ public class MainFragment extends BaseFragment {
                     break;
             }
         }
-        name.setText(tabNames.get(0));
+        try {
+            name.setText(tabNames.get(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initPayDialog();
         initView();
         getDuandaiToken();
@@ -291,17 +296,16 @@ public class MainFragment extends BaseFragment {
 
     private void initView() {
         EventBus.getDefault().register(this);
-
         switch (App.isVip) {
             case 0:
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(4)));
                 break;
             case 1:
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see, tabNames.get(0)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));

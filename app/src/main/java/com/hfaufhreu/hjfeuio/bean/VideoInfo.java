@@ -1,7 +1,6 @@
 package com.hfaufhreu.hjfeuio.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 视频信息
@@ -9,14 +8,15 @@ import java.util.List;
  */
 
 public class VideoInfo implements Serializable {
-    String thumb;
-    String tag;
-    String tag_color;
-    String title;
-    String url;
-    int video_id;
-    String description;
-    int hits;
+    private String thumb;
+    private String tag;
+    private String tag_color;
+    private String title;
+    private String url;
+    private int video_id;
+    private String description;
+    private int hits;
+    private int score;
 
     public String getThumb() {
         return thumb;
@@ -82,6 +82,14 @@ public class VideoInfo implements Serializable {
         this.hits = hits;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "VideoInfo{" +
@@ -93,6 +101,7 @@ public class VideoInfo implements Serializable {
                 ", video_id=" + video_id +
                 ", description='" + description + '\'' +
                 ", hits=" + hits +
+                ", score=" + score +
                 '}';
     }
 }

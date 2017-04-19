@@ -135,7 +135,7 @@ public class OtherTypeFragment extends BaseFragment {
             public void onItemClickListener(int position) {
                 Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, mList.get(position));
-                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_INDEX, false);
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
                 _mActivity.startActivity(intent);
             }
         });

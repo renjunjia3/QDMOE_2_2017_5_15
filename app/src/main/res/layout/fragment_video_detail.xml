@@ -105,6 +105,7 @@
                         android:id="@+id/open_vip1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:background="@drawable/bg_video_detail_open_vip" />
 
                     <LinearLayout
@@ -150,6 +151,7 @@
                             android:id="@+id/screenShotRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
+                            android:visibility="gone"
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="10dp"
                             android:scrollbars="none" />

@@ -1,5 +1,6 @@
 package com.hfaufhreu.hjfeuio.ui.fragment.vip;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.hfaufhreu.hjfeuio.R;
+import com.hfaufhreu.hjfeuio.VideoDetailActivity;
 import com.hfaufhreu.hjfeuio.adapter.TrySeeAdapter;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
 import com.hfaufhreu.hjfeuio.bean.TrySeeContentInfo;
@@ -17,10 +19,10 @@ import com.hfaufhreu.hjfeuio.bean.VipInfo;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
-import com.hfaufhreu.hjfeuio.ui.view.NewBanner;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.hfaufhreu.hjfeuio.util.GlideImageLoader;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
+import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -50,7 +52,7 @@ public class TrySeeFragment extends BaseMainFragment {
     ListView listView;
 
     //banner
-    private NewBanner banner;
+    private Banner banner;
     private List<String> bannerImageUrls = new ArrayList<>();
     private List<String> bannerTitles = new ArrayList<>();
 
@@ -89,6 +91,7 @@ public class TrySeeFragment extends BaseMainFragment {
 
 
     private void initView() {
+        ptrLayout.disableWhenHorizontalMove(true);
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
@@ -100,6 +103,12 @@ public class TrySeeFragment extends BaseMainFragment {
         lists = new ArrayList<>();
         adapter = new TrySeeAdapter(getContext(), lists);
         listView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new TrySeeAdapter.OnItemClickListener() {
+            @Override
+            public void onTrySeeItemClick(int position, int childPosition) {
+                toVideoDetail(lists.get(position).getData().get(childPosition));
+            }
+        });
     }
 
     /**
@@ -107,7 +116,7 @@ public class TrySeeFragment extends BaseMainFragment {
      * Author: scene on 2017/4/18 18:09
      * 需要在数据获取到之后再调用 不然会有异常 但是不会崩溃
      */
-    private void initBanner(List<VideoInfo> bannerList) {
+    private void initBanner(final List<VideoInfo> bannerList) {
         if (bannerList == null || bannerList.size() == 0) {
             return;
         }
@@ -117,11 +126,11 @@ public class TrySeeFragment extends BaseMainFragment {
             bannerImageUrls.add(info.getThumb());
             bannerTitles.add(info.getTitle());
         }
-        if(listView.getHeaderViewsCount()>0){
+        if (listView.getHeaderViewsCount() > 0) {
             listView.removeHeaderView(bannerView);
         }
         listView.addHeaderView(bannerView);
-        banner = (NewBanner) bannerView.findViewById(R.id.banner);
+        banner = (Banner) bannerView.findViewById(R.id.banner);
         banner.releaseBanner();
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
@@ -139,12 +148,9 @@ public class TrySeeFragment extends BaseMainFragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-//                Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
-//                intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, bannerLists.get(position));
-//                _mActivity.startActivity(intent);
+                toVideoDetail(bannerList.get(position));
             }
         });
-
         banner.start();
     }
 
@@ -201,6 +207,19 @@ public class TrySeeFragment extends BaseMainFragment {
                 ptrLayout.refreshComplete();
             }
         }
+    }
+
+    /**
+     * Case By:跳转到视频详情页
+     * Author: scene on 2017/4/19 9:33
+     *
+     * @param videoInfo 视频信息
+     */
+    private void toVideoDetail(VideoInfo videoInfo) {
+        Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
+        intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
+        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, true);
+        _mActivity.startActivity(intent);
     }
 
 
