@@ -32,8 +32,8 @@ import butterknife.Unbinder;
  */
 
 public class MineFragment extends BaseMainFragment {
-    @BindView(R.id.user_name)
-    TextView userName;
+    @BindView(R.id.vip_id)
+    TextView vipId;
 
     private FunctionPayDialog dialog;
     private FunctionPayDialog.Builder builder;
@@ -66,7 +66,7 @@ public class MineFragment extends BaseMainFragment {
     }
 
     private void initView() {
-        userName.setText("VIP" + App.USER_ID);
+        vipId.setText("ID:" + App.USER_ID);
         builder = new FunctionPayDialog.Builder(_mActivity);
         builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
             @Override
@@ -122,9 +122,9 @@ public class MineFragment extends BaseMainFragment {
     /**
      * 观看记录,我的收藏，离线视频
      */
-    @OnClick({R.id.view_record, R.id.fravoter, R.id.offline_video})
+    @OnClick({R.id.shoucang, R.id.download, R.id.lishi})
     public void onClick(View view) {
-        if (App.isVip == 1) {
+        if (App.isVip > 1) {
             ToastUtils.getInstance(_mActivity).showToast("该功能完善中，敬请期待");
         } else {
             dialog.show();
@@ -133,40 +133,50 @@ public class MineFragment extends BaseMainFragment {
     }
 
     /**
-     * 免责声明，用户协议
+     * 用户协议
      */
-    @OnClick({R.id.disclaime, R.id.agreement})
+    @OnClick({R.id.xieyi})
     public void onClickAgreementAndDisclaime(View view) {
         switch (view.getId()) {
-            case R.id.agreement:
+            case R.id.xieyi:
                 EventBus.getDefault().post(new StartBrotherEvent(AgreementFragment.newInstance(AgreementFragment.TYPE_AGREEMENT)));
-                break;
-            case R.id.disclaime:
-                EventBus.getDefault().post(new StartBrotherEvent(AgreementFragment.newInstance(AgreementFragment.TYPE_DISCLAIME)));
                 break;
         }
     }
 
     /**
-     * 检查更新
+     * 检查更新,清除缓存
      */
-    @OnClick(R.id.check_update)
-    public void onClickCheckUpdate() {
-        CustomSubmitDialog.Builder builder = new CustomSubmitDialog.Builder(_mActivity);
-        builder.setMessage("当前已经是最新版本");
-        builder.setButtonText("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.create().show();
+    @OnClick({R.id.update, R.id.huancun})
+    public void onClickCheckUpdate(View view) {
+        if (view.getId() == R.id.update) {
+            CustomSubmitDialog.Builder builder = new CustomSubmitDialog.Builder(_mActivity);
+            builder.setMessage("当前已经是最新版本");
+            builder.setButtonText("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        } else {
+            CustomSubmitDialog.Builder builder = new CustomSubmitDialog.Builder(_mActivity);
+            builder.setMessage("缓存清理成功");
+            builder.setButtonText("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        }
+
     }
 
     /**
      * 投诉热线
      */
-    @OnClick(R.id.hot_line)
+    @OnClick(R.id.tousu)
     public void onClickHotLine() {
         EventBus.getDefault().post(new StartBrotherEvent(HotLineFragment.newInstance()));
     }

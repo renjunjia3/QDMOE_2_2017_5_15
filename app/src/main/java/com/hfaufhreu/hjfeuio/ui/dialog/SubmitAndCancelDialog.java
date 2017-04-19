@@ -56,7 +56,7 @@ public class SubmitAndCancelDialog extends Dialog {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final SubmitAndCancelDialog dialog = new SubmitAndCancelDialog(context, R.style.Dialog);
-            View layout = inflater.inflate(R.layout.dialog_submit, null);
+            View layout = inflater.inflate(R.layout.dialog_submit_cancel, null);
             dialog.addContentView(layout, new LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
             ((TextView) layout.findViewById(R.id.submit)).setText(submitButtonText);

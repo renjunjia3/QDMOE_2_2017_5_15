@@ -30,12 +30,28 @@
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:padding="15dp"
             android:text="确定"
             android:textColor="#317EF3"
             android:textSize="@dimen/text_size_large" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="取消"
+            android:textColor="#317EF3"
+            android:textSize="@dimen/text_size_large" />
     </LinearLayout>
 
 </LinearLayout>
