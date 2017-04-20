@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -16,6 +17,7 @@ import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.adapter.RankAdapter;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
 import com.hfaufhreu.hjfeuio.bean.RankInfo;
+import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
@@ -25,6 +27,8 @@ import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,43 +100,83 @@ public class RankFragment extends BaseMainFragment {
         list = new ArrayList<>();
         adapter = new RankAdapter(getContext(), list);
         listview.setAdapter(adapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(list.get(position - 1).getId(), position + 4, list.get(position - 1).getActor_name())));
+                }
+            }
+        });
+        addheader();
     }
 
-    private void addheader(List<RankInfo> rankInfoList) {
-        if (headerView == null) {
-            headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_rank_header, null);
-            image1 = (ImageView) headerView.findViewById(R.id.image_1);
 
-            image2 = (ImageView) headerView.findViewById(R.id.image_2);
+    private void addheader() {
+        headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_rank_header, null);
+        ScreenUtils screenUtils = ScreenUtils.instance(getContext());
+        image1 = (ImageView) headerView.findViewById(R.id.image_1);
+        RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        int height1 = (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(70)) * 8f / 3f / 5f);
+        layoutParams1.height = height1;
+        image1.setLayoutParams(layoutParams1);
 
-            image3 = (ImageView) headerView.findViewById(R.id.image_3);
+        image2 = (ImageView) headerView.findViewById(R.id.image_2);
+        image2.setLayoutParams(layoutParams1);
 
-            name1 = (TextView) headerView.findViewById(R.id.name_1);
-            name2 = (TextView) headerView.findViewById(R.id.name_2);
-            name3 = (TextView) headerView.findViewById(R.id.name_3);
-            number1 = (TextView) headerView.findViewById(R.id.number_1);
-            number2 = (TextView) headerView.findViewById(R.id.number_2);
-            number3 = (TextView) headerView.findViewById(R.id.number_3);
-        }
-        if (listview.getHeaderViewsCount() > 0) {
-            listview.removeHeaderView(headerView);
-        }
+        image3 = (ImageView) headerView.findViewById(R.id.image_3);
+        image3.setLayoutParams(layoutParams1);
+
+        name1 = (TextView) headerView.findViewById(R.id.name_1);
+        name2 = (TextView) headerView.findViewById(R.id.name_2);
+        name3 = (TextView) headerView.findViewById(R.id.name_3);
+        number1 = (TextView) headerView.findViewById(R.id.number_1);
+        number2 = (TextView) headerView.findViewById(R.id.number_2);
+        number3 = (TextView) headerView.findViewById(R.id.number_3);
+
+        listview.addHeaderView(headerView);
+
+    }
+
+    /**
+     * Case By:绑定headerView
+     * Author: scene on 2017/4/20 10:20
+     */
+    private void bindHeaderView(final List<RankInfo> rankInfoList) {
         switch (rankInfoList.size()) {
             case 3:
                 name3.setText(rankInfoList.get(2).getActor_name());
                 number3.setText(rankInfoList.get(2).getVotes() + "票");
                 Glide.with(getContext()).load(rankInfoList.get(2).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(image3);
+                headerView.findViewById(R.id.video_layout3).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(rankInfoList.get(2).getId(), 3, rankInfoList.get(2).getActor_name())));
+                    }
+                });
             case 2:
                 name2.setText(rankInfoList.get(1).getActor_name());
                 number2.setText(rankInfoList.get(1).getVotes() + "票");
                 Glide.with(getContext()).load(rankInfoList.get(1).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(image2);
+                headerView.findViewById(R.id.video_layout2).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(rankInfoList.get(1).getId(), 2, rankInfoList.get(1).getActor_name())));
+                    }
+                });
             case 1:
                 name1.setText(rankInfoList.get(0).getActor_name());
                 number1.setText(rankInfoList.get(0).getVotes() + "票");
                 Glide.with(getContext()).load(rankInfoList.get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(image1);
+                headerView.findViewById(R.id.video_layout1).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(rankInfoList.get(0).getId(), 1, rankInfoList.get(0).getActor_name())));
+                    }
+                });
                 break;
         }
-        listview.addHeaderView(headerView);
+
 
     }
 
@@ -168,7 +212,7 @@ public class RankFragment extends BaseMainFragment {
                             }
                         }
                         adapter.notifyDataSetChanged();
-                        addheader(headerList);
+                        bindHeaderView(headerList);
                         if (isShowLoad) {
                             statusViewLayout.showContent();
                         } else {

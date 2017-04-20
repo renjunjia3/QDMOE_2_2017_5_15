@@ -1,7 +1,6 @@
 package com.hfaufhreu.hjfeuio.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +22,18 @@ import butterknife.ButterKnife;
 /**
  * Case By:
  * package:com.hfaufhreu.hjfeuio.adapter
- * Author：scene on 2017/4/19 11:06
+ * Author：scene on 2017/4/20 09:03
  */
 
-public class GlodVipItemAdapter extends BaseAdapter {
-
+public class RankVideoListAdapter extends BaseAdapter {
     private Context context;
     private List<VideoInfo> list;
     private LayoutInflater inflater;
 
-    public GlodVipItemAdapter(Context context, List<VideoInfo> list) {
+    public RankVideoListAdapter(Context context, List<VideoInfo> list) {
         this.context = context;
         this.list = list;
-        inflater = LayoutInflater.from(context);
+        inflater=LayoutInflater.from(context);
     }
 
     @Override
@@ -55,49 +53,36 @@ public class GlodVipItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-
+        RankVideoListViewHolder viewHolder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_glod_vip_item_item, null);
-            viewHolder = new ViewHolder(convertView);
+            convertView = inflater.inflate(R.layout.fragment_rank_video_list_item, null);
+            viewHolder = new RankVideoListViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (RankVideoListViewHolder) convertView.getTag();
         }
         VideoInfo info = list.get(position);
         viewHolder.title.setText(info.getTitle());
         viewHolder.playCount.setText(info.getHits() + "次");
-        if (info.getTag() == null || info.getTag().isEmpty()) {
-            viewHolder.tag.setVisibility(View.GONE);
-        } else {
-            viewHolder.tag.setVisibility(View.VISIBLE);
-            viewHolder.tag.setText(info.getTag());
-        }
-
-        if (info.getTag_color() == null || info.getTag_color().isEmpty()) {
-            viewHolder.tag.setBackgroundColor(Color.parseColor("#02adfd"));
-        } else {
-            viewHolder.tag.setBackgroundColor(Color.parseColor(info.getTag_color()));
-        }
-
+        viewHolder.tag.setVisibility(View.GONE);
         ViewUtils.setViewHeightByViewGroup(viewHolder.image, (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(9)) * 9f / 2f / 16f));
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder.image);
         return convertView;
     }
 
-    static class ViewHolder {
+    static class RankVideoListViewHolder {
         @BindView(R.id.image)
         ImageView image;
+        @BindView(R.id.tag)
+        TextView tag;
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.update_number)
         TextView updateNumber;
         @BindView(R.id.play_count)
         TextView playCount;
-        @BindView(R.id.tag)
-        TextView tag;
 
-        ViewHolder(View view) {
+        RankVideoListViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }

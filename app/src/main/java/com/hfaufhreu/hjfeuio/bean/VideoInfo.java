@@ -17,6 +17,7 @@ public class VideoInfo implements Serializable {
     private String description;
     private int hits;
     private int score;
+    private int update_number;
 
     public String getThumb() {
         return thumb;
@@ -90,6 +91,14 @@ public class VideoInfo implements Serializable {
         this.score = score;
     }
 
+    public int getUpdate_number() {
+        return update_number;
+    }
+
+    public void setUpdate_number(int update_number) {
+        this.update_number = update_number;
+    }
+
     @Override
     public String toString() {
         return "VideoInfo{" +
@@ -102,6 +111,7 @@ public class VideoInfo implements Serializable {
                 ", description='" + description + '\'' +
                 ", hits=" + hits +
                 ", score=" + score +
+                ", update_number=" + update_number +
                 '}';
     }
 }

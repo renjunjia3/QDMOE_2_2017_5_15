@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_back" />
+
+    <wiki.scene.statuslib.StatusViewLayout
+        android:id="@+id/statusViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout
+            android:id="@+id/ptr_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.hfaufhreu.hjfeuio.pull_loadmore.loadmore.GridViewWithHeaderAndFooter
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:horizontalSpacing="3dp"
+                android:numColumns="2"
+                android:verticalSpacing="3dp" />
+
+        </com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout>
+    </wiki.scene.statuslib.StatusViewLayout>
+
+</LinearLayout>

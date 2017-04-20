@@ -46,4 +46,6 @@ public class API {
 
     //片库首页
     public static final String FILM_INDEX="cate";
+    //每隔30s调用一次
+    public static final String UPLOAD_INFP="video/stay/";
 }

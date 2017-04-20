@@ -25,6 +25,7 @@ import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -79,6 +80,7 @@ public class MainActivity extends SupportActivity {
         random = new Random();
         mTimer = new Timer();
         mTimer.schedule(timerTask, random.nextInt(2000) + 1000 * 30, random.nextInt(60 * 1000) + 30 * 1000);
+        startUpLoad();
     }
 
     private void showNoticeToast(int id) {
@@ -165,11 +167,6 @@ public class MainActivity extends SupportActivity {
                 });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -187,5 +184,57 @@ public class MainActivity extends SupportActivity {
         loadRootFragment(R.id.fl_container, MainFragment.newInstance());
     }
 
+    /**
+     * Case By:上传使用信息每隔10s
+     * Author: scene on 2017/4/20 10:25
+     */
+    private RequestCall upLoadUserInfoCall;
+    private Thread thread;
+    private boolean isWork = true;
+
+    private void startUpLoad() {
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (isWork) {
+                        Thread.sleep(30000);
+                        upLoadUseInfo();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        thread.start();
+    }
+
+    private void upLoadUseInfo() {
+        upLoadUserInfoCall = OkHttpUtils.get().url(API.URL_PRE + API.UPLOAD_INFP + App.IMEI).build();
+        upLoadUserInfoCall.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (upLoadUserInfoCall != null) {
+            upLoadUserInfoCall.cancel();
+        }
+        if (isWork) {
+            isWork = false;
+        }
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
 }

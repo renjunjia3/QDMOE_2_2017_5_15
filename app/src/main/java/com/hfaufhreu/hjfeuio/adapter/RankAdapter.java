@@ -68,6 +68,7 @@ public class RankAdapter extends BaseAdapter {
         rankViewHolder.votes.setText(info.getVotes()+"票");
         rankViewHolder.number.setText("NO" + (position + 4));
         rankViewHolder.progressBar.setProgress(info.getPercent());
+        rankViewHolder.tag.setText(info.getTag());
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(rankViewHolder.image);
         return convertView;
     }
