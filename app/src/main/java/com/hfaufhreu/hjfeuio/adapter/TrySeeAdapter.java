@@ -119,9 +119,14 @@ public class TrySeeAdapter extends BaseAdapter {
                 Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage1);
                 if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
                     viewHolder1.vipTag1.setText(info.getData().get(0).getTag());
+                    viewHolder1.vipTag1.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder1.vipTag1.setVisibility(View.GONE);
                 }
                 if (info.getData().get(0).getTag_color() != null && !info.getData().get(0).getTag_color().isEmpty()) {
                     viewHolder1.vipTag1.setBackgroundColor(Color.parseColor(info.getData().get(0).getTag_color()));
+                } else {
+                    viewHolder1.vipTag1.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
                 viewHolder1.vipLayout1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -137,9 +142,14 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder1.vipPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
                 if (info.getData().get(1).getTag() != null && !info.getData().get(1).getTag().isEmpty()) {
                     viewHolder1.vipTag2.setText(info.getData().get(1).getTag());
+                    viewHolder1.vipTag2.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder1.vipTag2.setVisibility(View.GONE);
                 }
                 if (info.getData().get(1).getTag_color() != null && !info.getData().get(1).getTag_color().isEmpty()) {
                     viewHolder1.vipTag2.setBackgroundColor(Color.parseColor(info.getData().get(1).getTag_color()));
+                } else {
+                    viewHolder1.vipTag2.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
                 Glide.with(context).load(info.getData().get(1).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage2);
                 viewHolder1.vipLayout2.setOnClickListener(new View.OnClickListener() {
@@ -151,14 +161,18 @@ public class TrySeeAdapter extends BaseAdapter {
                     }
                 });
 
-
                 viewHolder1.vipName3.setText(info.getData().get(2).getTitle());
                 viewHolder1.vipPlayTime3.setText(info.getData().get(2).getHits() + "次播放");
                 if (info.getData().get(2).getTag() != null && !info.getData().get(2).getTag().isEmpty()) {
                     viewHolder1.vipTag3.setText(info.getData().get(2).getTag());
+                    viewHolder1.vipTag3.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder1.vipTag3.setVisibility(View.GONE);
                 }
                 if (info.getData().get(2).getTag_color() != null && !info.getData().get(2).getTag_color().isEmpty()) {
                     viewHolder1.vipTag3.setBackgroundColor(Color.parseColor(info.getData().get(2).getTag_color()));
+                } else {
+                    viewHolder1.vipTag3.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
                 Glide.with(context).load(info.getData().get(2).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage3);
                 viewHolder1.vipLayout3.setOnClickListener(new View.OnClickListener() {
@@ -174,9 +188,14 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder1.vipPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
                 if (info.getData().get(3).getTag() != null && !info.getData().get(3).getTag().isEmpty()) {
                     viewHolder1.vipTag4.setText(info.getData().get(3).getTag());
+                    viewHolder1.vipTag4.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder1.vipTag4.setVisibility(View.GONE);
                 }
                 if (info.getData().get(3).getTag_color() != null && !info.getData().get(3).getTag_color().isEmpty()) {
                     viewHolder1.vipTag4.setBackgroundColor(Color.parseColor(info.getData().get(3).getTag_color()));
+                } else {
+                    viewHolder1.vipTag4.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
                 Glide.with(context).load(info.getData().get(3).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage4);
                 viewHolder1.vipLayout4.setOnClickListener(new View.OnClickListener() {
@@ -192,9 +211,14 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder1.vipPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
                 if (info.getData().get(4).getTag() != null && !info.getData().get(4).getTag().isEmpty()) {
                     viewHolder1.vipTag5.setText(info.getData().get(4).getTag());
+                    viewHolder1.vipTag5.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder1.vipTag5.setVisibility(View.GONE);
                 }
                 if (info.getData().get(4).getTag_color() != null && !info.getData().get(4).getTag_color().isEmpty()) {
                     viewHolder1.vipTag5.setBackgroundColor(Color.parseColor(info.getData().get(4).getTag_color()));
+                } else {
+                    viewHolder1.vipTag5.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
                 Glide.with(context).load(info.getData().get(4).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage5);
                 viewHolder1.vipLayout5.setOnClickListener(new View.OnClickListener() {
@@ -205,15 +229,18 @@ public class TrySeeAdapter extends BaseAdapter {
                         }
                     }
                 });
-
-
                 viewHolder1.vipName6.setText(info.getData().get(5).getTitle());
                 viewHolder1.vipPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
                 if (info.getData().get(5).getTag() != null && !info.getData().get(5).getTag().isEmpty()) {
                     viewHolder1.vipTag6.setText(info.getData().get(5).getTag());
+                    viewHolder1.vipTag6.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder1.vipTag6.setVisibility(View.GONE);
                 }
                 if (info.getData().get(5).getTag_color() != null && !info.getData().get(5).getTag_color().isEmpty()) {
                     viewHolder1.vipTag6.setBackgroundColor(Color.parseColor(info.getData().get(5).getTag_color()));
+                } else {
+                    viewHolder1.vipTag6.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
                 Glide.with(context).load(info.getData().get(5).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage6);
                 viewHolder1.vipLayout6.setOnClickListener(new View.OnClickListener() {
@@ -235,6 +262,19 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage1);
+                if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
+                    viewHolder2.tag1.setText(info.getData().get(0).getTag());
+                    viewHolder2.tag1.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder2.tag1.setVisibility(View.GONE);
+                }
+
+                if (info.getData().get(0).getTag_color() != null && !info.getData().get(0).getTag_color().isEmpty()) {
+                    viewHolder2.tag1.setBackgroundColor(Color.parseColor(info.getData().get(0).getTag_color()));
+                } else {
+                    viewHolder2.tag1.setBackgroundColor(Color.parseColor("FF33CC"));
+                }
+
                 viewHolder2.hotLayout1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -248,6 +288,17 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(1).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage2);
+                if (info.getData().get(1).getTag() != null && !info.getData().get(1).getTag().isEmpty()) {
+                    viewHolder2.tag2.setText(info.getData().get(1).getTag());
+                    viewHolder2.tag2.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder2.tag2.setVisibility(View.GONE);
+                }
+                if (info.getData().get(1).getTag_color() != null && !info.getData().get(1).getTag_color().isEmpty()) {
+                    viewHolder2.tag2.setBackgroundColor(Color.parseColor(info.getData().get(1).getTag_color()));
+                } else {
+                    viewHolder2.tag2.setBackgroundColor(Color.parseColor("FF33CC"));
+                }
                 viewHolder2.hotLayout2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -261,6 +312,17 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotPlayTime3.setText(info.getData().get(2).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(2).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage3);
+                if (info.getData().get(2).getTag() != null && !info.getData().get(2).getTag().isEmpty()) {
+                    viewHolder2.tag3.setText(info.getData().get(2).getTag());
+                    viewHolder2.tag3.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder2.tag3.setVisibility(View.GONE);
+                }
+                if (info.getData().get(2).getTag_color() != null && !info.getData().get(2).getTag_color().isEmpty()) {
+                    viewHolder2.tag3.setBackgroundColor(Color.parseColor(info.getData().get(2).getTag_color()));
+                } else {
+                    viewHolder2.tag3.setBackgroundColor(Color.parseColor("FF33CC"));
+                }
                 viewHolder2.hotLayout3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -275,6 +337,17 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(3).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage4);
+                if (info.getData().get(3).getTag() != null && !info.getData().get(3).getTag().isEmpty()) {
+                    viewHolder2.tag4.setText(info.getData().get(3).getTag());
+                    viewHolder2.tag4.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder2.tag4.setVisibility(View.GONE);
+                }
+                if (info.getData().get(3).getTag_color() != null && !info.getData().get(3).getTag_color().isEmpty()) {
+                    viewHolder2.tag4.setBackgroundColor(Color.parseColor(info.getData().get(3).getTag_color()));
+                } else {
+                    viewHolder2.tag4.setBackgroundColor(Color.parseColor("FF33CC"));
+                }
                 viewHolder2.hotLayout4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -289,6 +362,17 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(4).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage5);
+                if (info.getData().get(4).getTag() != null && !info.getData().get(4).getTag().isEmpty()) {
+                    viewHolder2.tag5.setText(info.getData().get(4).getTag());
+                    viewHolder2.tag5.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder2.tag5.setVisibility(View.GONE);
+                }
+                if (info.getData().get(4).getTag_color() != null && !info.getData().get(4).getTag_color().isEmpty()) {
+                    viewHolder2.tag5.setBackgroundColor(Color.parseColor(info.getData().get(4).getTag_color()));
+                } else {
+                    viewHolder2.tag5.setBackgroundColor(Color.parseColor("FF33CC"));
+                }
                 viewHolder2.hotLayout5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -303,6 +387,17 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(5).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage6);
+                if (info.getData().get(5).getTag() != null && !info.getData().get(5).getTag().isEmpty()) {
+                    viewHolder2.tag6.setText(info.getData().get(5).getTag());
+                    viewHolder2.tag6.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder2.tag6.setVisibility(View.GONE);
+                }
+                if (info.getData().get(5).getTag_color() != null && !info.getData().get(5).getTag_color().isEmpty()) {
+                    viewHolder2.tag6.setBackgroundColor(Color.parseColor(info.getData().get(5).getTag_color()));
+                } else {
+                    viewHolder2.tag6.setBackgroundColor(Color.parseColor("FF33CC"));
+                }
                 viewHolder2.hotLayout6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -513,6 +608,18 @@ public class TrySeeAdapter extends BaseAdapter {
         LinearLayout hotLayout6;
         @BindView(R.id.hot_layout)
         LinearLayout hotLayout;
+        @BindView(R.id.tag1)
+        TextView tag1;
+        @BindView(R.id.tag2)
+        TextView tag2;
+        @BindView(R.id.tag3)
+        TextView tag3;
+        @BindView(R.id.tag4)
+        TextView tag4;
+        @BindView(R.id.tag5)
+        TextView tag5;
+        @BindView(R.id.tag6)
+        TextView tag6;
 
         ViewHolder2(View view) {
             ButterKnife.bind(this, view);

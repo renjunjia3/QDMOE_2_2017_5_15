@@ -39,38 +39,6 @@
             android:textSize="@dimen/text_size_middle" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/vip_layoutTop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
-
-        <ImageView
-            android:id="@+id/vip_imageTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop" />
-
-
-        <TextView
-            android:id="@+id/vip_nameTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/vip_imageTop"
-            android:layout_weight="1"
-            android:background="#66000000"
-            android:ellipsize="end"
-            android:lines="1"
-            android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="5dp"
-            android:text=""
-            android:textColor="@android:color/white" />
-
-    </RelativeLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -113,7 +81,6 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="VIP"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
             </RelativeLayout>
@@ -130,7 +97,7 @@
                 android:paddingTop="5dp"
                 android:text=""
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/vip_play_time1"
@@ -139,7 +106,7 @@
                 android:layout_alignParentBottom="true"
                 android:text=""
                 android:textColor="#999999"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <View
@@ -178,7 +145,6 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="VIP"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
             </RelativeLayout>
@@ -194,7 +160,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/vip_play_time2"
@@ -202,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:textColor="#999999"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <View
@@ -241,7 +207,6 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="VIP"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
             </RelativeLayout>
@@ -257,7 +222,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/vip_play_time3"
@@ -265,13 +230,45 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:textColor="#999999"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <View
             android:layout_width="3dp"
             android:layout_height="0dp" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/vip_layoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <ImageView
+            android:id="@+id/vip_imageTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
+
+
+        <TextView
+            android:id="@+id/vip_nameTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/vip_imageTop"
+            android:layout_weight="1"
+            android:background="#66000000"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:text=""
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -316,7 +313,6 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="VIP"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
             </RelativeLayout>
@@ -332,7 +328,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/vip_play_time4"
@@ -340,7 +336,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:textColor="#999999"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <View
@@ -379,7 +375,6 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="VIP"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
             </RelativeLayout>
@@ -395,7 +390,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/vip_play_time5"
@@ -403,7 +398,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:textColor="#999999"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <View
@@ -442,7 +437,6 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="2dp"
-                    android:text="VIP"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
             </RelativeLayout>
@@ -458,7 +452,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/vip_play_time6"
@@ -466,7 +460,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:textColor="#999999"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <View
