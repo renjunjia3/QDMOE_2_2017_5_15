@@ -1,6 +1,5 @@
 package com.hfaufhreu.hjfeuio.ui.fragment.magnet;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,9 +16,8 @@ import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
 import com.hfaufhreu.hjfeuio.base.SearchInfo;
 import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
-import com.hfaufhreu.hjfeuio.pay.PayUtil;
-import com.hfaufhreu.hjfeuio.ui.dialog.FunctionPayDialog;
-import com.hfaufhreu.hjfeuio.ui.fragment.mine.AgreementFragment;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
+import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.liangfeizc.flowlayout.FlowLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,9 +36,6 @@ import butterknife.OnClick;
 public class MagnetFragment extends BaseMainFragment {
     @BindView(R.id.listview)
     ListView listview;
-
-    private FunctionPayDialog dialog;
-    private FunctionPayDialog.Builder builder;
 
     private String[] tags;
     //标签
@@ -78,29 +73,19 @@ public class MagnetFragment extends BaseMainFragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dialog.show();
+                if (App.isVip == 0) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为会员功能，请成为会员后使用", App.isVip, true);
+                } else if (App.isVip == 1) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为钻石会员功能，请升级钻石会员后使用", App.isVip, true);
+                } else {
+                    ToastUtils.getInstance(getContext()).showToast("该功能完善中，敬请期待");
+                }
             }
         });
     }
 
     private void initDialog() {
-        builder = new FunctionPayDialog.Builder(_mActivity);
-        builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByWeChat(_mActivity, 1, 0);
-            }
-        });
 
-        builder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByAliPay(_mActivity, 1, 0);
-            }
-        });
-        dialog = builder.create();
     }
 
     private void addHead() {
@@ -114,7 +99,13 @@ public class MagnetFragment extends BaseMainFragment {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                if (App.isVip == 0) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为会员功能，请成为会员后使用", App.isVip, true);
+                } else if (App.isVip == 1) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为钻石会员功能，请升级钻石会员后使用", App.isVip, true);
+                } else {
+                    ToastUtils.getInstance(getContext()).showToast("该功能完善中，敬请期待");
+                }
             }
         });
         listview.addFooterView(v);
@@ -143,7 +134,13 @@ public class MagnetFragment extends BaseMainFragment {
 
     @OnClick({R.id.search, R.id.btn_search})
     public void onClickSearch() {
-        dialog.show();
+        if (App.isVip == 0) {
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为会员功能，请成为会员后使用", App.isVip, true);
+        } else if (App.isVip == 1) {
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为钻石会员功能，请升级钻石会员后使用", App.isVip, true);
+        } else {
+            ToastUtils.getInstance(getContext()).showToast("该功能完善中，敬请期待");
+        }
     }
 
 

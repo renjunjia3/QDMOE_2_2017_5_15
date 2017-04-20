@@ -11,10 +11,13 @@ import android.support.annotation.StyleRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hfaufhreu.hjfeuio.R;
+import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.hfaufhreu.hjfeuio.util.ViewUtils;
 
@@ -39,36 +42,59 @@ public class GlodVipDialog extends Dialog {
 
     public static class Builder {
         private Context context;
-        private OnClickListener aliPayClickListener;
-        private OnClickListener weChatPayClickListener;
+        private int videoId;
+
         private int type = 1;
+        private int vip_type = 1;
 
-        public Builder(Context context) {
+        public Builder(Context context, int videoId) {
             this.context = context;
-        }
-
-        public void setAliPayClickListener(OnClickListener aliPayClickListener) {
-            this.aliPayClickListener = aliPayClickListener;
-        }
-
-        public void setWeChatPayClickListener(OnClickListener weChatPayClickListener) {
-            this.weChatPayClickListener = weChatPayClickListener;
+            this.videoId = videoId;
         }
 
         public GlodVipDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final GlodVipDialog dialog = new GlodVipDialog(context, R.style.Dialog);
-            View layout = inflater.inflate(R.layout.dialog_full_video_pay, null);
-            ((TextView) layout.findViewById(R.id.oldPrice)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            View layout = inflater.inflate(R.layout.dialog_glod_vip, null);
+            ((TextView) layout.findViewById(R.id.glod_old_price)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            ((TextView) layout.findViewById(R.id.diamond_old_price)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            final ImageView glodChoosed = (ImageView) layout.findViewById(R.id.glod_choosed);
+            final ImageView diamondChoosed = (ImageView) layout.findViewById(R.id.diamond_choosed);
+            ImageView image = (ImageView) layout.findViewById(R.id.image);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth()-ScreenUtils.instance(context).dip2px(50)) * 9f / 16f);
+            image.setLayoutParams(layoutParams);
+            layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            layout.findViewById(R.id.layout_type_glod).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    vip_type = 1;
+                    glodChoosed.setImageResource(R.drawable.ic_vip_type_choosed);
+                    diamondChoosed.setImageResource(R.drawable.ic_vip_type_unchoosed);
+                }
+            });
+            layout.findViewById(R.id.layout_type_diamond).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    vip_type = 3;
+                    glodChoosed.setImageResource(R.drawable.ic_vip_type_unchoosed);
+                    diamondChoosed.setImageResource(R.drawable.ic_vip_type_choosed);
+                }
+            });
 
             ((RadioGroup) layout.findViewById(R.id.radio_group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
-                    if (checkedId == R.id.weChatPay) {
+                    if (checkedId == R.id.type_wechat) {
                         type = 1;
                     } else {
                         type = 2;
@@ -79,25 +105,14 @@ public class GlodVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        if (weChatPayClickListener != null) {
-                            weChatPayClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
-                        }
+                        PayUtil.getInstance().payByWeChat(context, dialog, vip_type, videoId);
                     } else {
-                        if (aliPayClickListener != null) {
-                            aliPayClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
-                        }
+                        PayUtil.getInstance().payByAliPay(context, dialog, vip_type, videoId);
                     }
-                    if (dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
+
                 }
             });
-            layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
+
             ViewUtils.setViewHeightByViewGroup(layout, (int) (ScreenUtils.instance(context).getScreenWidth() * 0.9f));
             dialog.setContentView(layout);
             dialog.setCanceledOnTouchOutside(false);

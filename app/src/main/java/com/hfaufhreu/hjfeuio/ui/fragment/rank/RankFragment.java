@@ -100,7 +100,7 @@ public class RankFragment extends BaseMainFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(list.get(position - 1).getId(), position + 4, list.get(position - 1).getActor_name())));
+                    EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(list.get(position - 1).getId(), position + 3, list.get(position - 1).getActor_name())));
                 }
             }
         });
@@ -119,11 +119,11 @@ public class RankFragment extends BaseMainFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int number = 0;
                 if (position == 0) {
-                    number = 1;
+                    number = 2;
                 } else if (position == 1) {
-                    number = 0;
+                    number = 1;
                 } else {
-                    number = position;
+                    number = 3;
                 }
                 EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(headerList.get(position).getId(), number, headerList.get(position).getActor_name())));
             }

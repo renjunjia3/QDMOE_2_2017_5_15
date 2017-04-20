@@ -1,6 +1,5 @@
 package com.hfaufhreu.hjfeuio;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,20 +20,16 @@ import com.hfaufhreu.hjfeuio.adapter.IndexItemAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.bean.CommentInfo;
 import com.hfaufhreu.hjfeuio.bean.VideoInfo;
-import com.hfaufhreu.hjfeuio.pay.PayUtil;
-import com.hfaufhreu.hjfeuio.ui.dialog.FullVideoPayDialog;
-import com.hfaufhreu.hjfeuio.ui.dialog.FunctionPayDialog;
-import com.hfaufhreu.hjfeuio.ui.dialog.SpeedPayDialog;
 import com.hfaufhreu.hjfeuio.ui.view.CustomListView;
 import com.hfaufhreu.hjfeuio.ui.view.CustomeGridView;
 import com.hfaufhreu.hjfeuio.util.API;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
 import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.hfaufhreu.hjfeuio.video.JCFullScreenActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-import com.zhy.http.okhttp.request.RequestCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,16 +95,6 @@ public class VideoDetailActivity extends AppCompatActivity {
     private List<VideoInfo> videoRelateList = new ArrayList<>();
     private IndexItemAdapter videoRelateAdapter;
 
-
-    //支付框
-    //加速支付对话框
-    private SpeedPayDialog speedPayDialog;
-    private SpeedPayDialog.Builder speedPayDialogBuilder;
-    private FullVideoPayDialog fullVideoDialog;
-    private FullVideoPayDialog.Builder fullVideoDialogBuilder;
-    private FunctionPayDialog functionPayDialog;
-    private FunctionPayDialog.Builder functionPayDialogBuilder;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +105,6 @@ public class VideoDetailActivity extends AppCompatActivity {
 
         initToolbarNav(toolbar);
         initView();
-        initDialog();
         enterVideoDetail();
     }
 
@@ -148,80 +132,13 @@ public class VideoDetailActivity extends AppCompatActivity {
         getCommentData();
     }
 
-    private void initDialog() {
-
-        speedPayDialogBuilder = new SpeedPayDialog.Builder(VideoDetailActivity.this);
-        speedPayDialogBuilder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 2, videoInfo.getVideo_id());
-            }
-        });
-        speedPayDialogBuilder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 2, videoInfo.getVideo_id());
-            }
-        });
-
-        speedPayDialog = speedPayDialogBuilder.create();
-
-        fullVideoDialogBuilder = new FullVideoPayDialog.Builder(VideoDetailActivity.this);
-        fullVideoDialogBuilder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 1, videoInfo.getVideo_id());
-            }
-        });
-        fullVideoDialogBuilder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 1, videoInfo.getVideo_id());
-            }
-        });
-
-        fullVideoDialog = fullVideoDialogBuilder.create();
-
-        functionPayDialogBuilder = new FunctionPayDialog.Builder(VideoDetailActivity.this);
-        functionPayDialogBuilder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByAliPay(VideoDetailActivity.this, 1, videoInfo.getVideo_id());
-
-            }
-        });
-        functionPayDialogBuilder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByWeChat(VideoDetailActivity.this, 1, videoInfo.getVideo_id());
-            }
-        });
-
-        functionPayDialog = functionPayDialogBuilder.create();
-
-    }
 
     @OnClick({R.id.zan, R.id.fravetor, R.id.open_vip, R.id.addVip, R.id.open_vip1, R.id.sendComment, R.id.download, R.id.commend_number})
     public void onClick(View v) {
         if (App.isVip == 0) {
-            if (v.getId() == R.id.open_vip1) {
-                fullVideoDialog.show();
-            } else {
-                functionPayDialog.show();
-            }
-            clickWantPay();
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "该功能为会员功能，请成为会员后使用", App.isVip, true, videoInfo.getVideo_id());
         } else {
-            if (v.getId() == R.id.open_vip1) {
-                ToastUtils.getInstance(VideoDetailActivity.this).showToast("您已经是VIP了！");
-            } else {
-                ToastUtils.getInstance(VideoDetailActivity.this).showToast("该功能完善中，敬请期待");
-            }
+            ToastUtils.getInstance(VideoDetailActivity.this).showToast("该功能完善中，敬请期待");
         }
     }
 
@@ -247,8 +164,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     public void onClickPlayVideo() {
         if (!isEnterFromTrySee && App.isVip == 0) {
             //不是首页进来自己也不是VIP，弹出开通会员的提示
-            functionPayDialog.show();
-            clickWantPay();
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看体验，请成为会员继续观看", App.isVip, true, videoInfo.getVideo_id());
         } else {
             Intent intent = new Intent(VideoDetailActivity.this, JCFullScreenActivity.class);
             intent.putExtra(JCFullScreenActivity.PARAM_VIDEO_INFO, videoInfo);
@@ -267,14 +183,8 @@ public class VideoDetailActivity extends AppCompatActivity {
             currentTime = data.getLongExtra(JCFullScreenActivity.PARAM_CURRENT_TIME, 0L);
             int dialogType = data.getIntExtra(JCFullScreenActivity.PARAM_DIALOG_TYPE, 0);
             switch (dialogType) {
-                case JCFullScreenActivity.DIALOG_TYPE_SPEED:
-                    speedPayDialog.show();
-                    break;
-                case JCFullScreenActivity.DIALOG_TYPE_FULLVIDEO:
-                    fullVideoDialog.show();
-                    break;
-                case JCFullScreenActivity.DIALOG_TYPE_FUNCATION:
-                    functionPayDialog.show();
+                case JCFullScreenActivity.DIALOG_TYPE_GLOD:
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "非会员只能试看体验，请成为会员继续观看", App.isVip, true, videoInfo.getVideo_id());
                     break;
             }
 

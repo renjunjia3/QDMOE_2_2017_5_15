@@ -19,8 +19,10 @@ import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
 import com.hfaufhreu.hjfeuio.util.API;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
+import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -78,6 +80,13 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
 
     private void initView() {
         ptrLayout.setLastUpdateTimeRelateObject(this);
+        ptrLayout.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                getBBSData(false);
+            }
+        });
+
         lists = new ArrayList<>();
         adapter = new BBSAdapter(getContext(), lists);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
@@ -86,12 +95,7 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
         recyclerView.addItemDecoration(new CustomItemDecotation(screenUtils.dp2px(10f), screenUtils.dp2px(10), 2, true));
         recyclerView.setAdapter(adapter);
 
-        ptrLayout.setPtrHandler(new PtrDefaultHandler() {
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                getBBSData(false);
-            }
-        });
+        adapter.setBbsItemOnClickListener(this);
 
     }
 
@@ -155,9 +159,11 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
     @Override
     public void onBBsItemOnClick(int position) {
         if (App.isVip == 0) {
-            //开通黄金VIP或者钻石VIP
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为会员功能，请成为会员后使用", App.isVip, true);
         } else if (App.isVip == 1) {
-            //升级到钻石VIP
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为钻石会员功能，请升级钻石会员后使用", App.isVip, true);
+        } else {
+            ToastUtils.getInstance(getContext()).showToast("该功能完善中，敬请期待");
         }
     }
 

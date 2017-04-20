@@ -3,6 +3,7 @@ package com.hfaufhreu.hjfeuio.ui.fragment.mine;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,8 @@ import android.widget.TextView;
 
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.app.App;
-import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
+import com.hfaufhreu.hjfeuio.base.BaseBackFragment;
 import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
-import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.ui.dialog.CustomSubmitDialog;
 import com.hfaufhreu.hjfeuio.ui.dialog.GlodVipDialog;
 import com.hfaufhreu.hjfeuio.ui.fragment.MainFragment;
@@ -29,18 +29,22 @@ import butterknife.OnClick;
  * 我的
  */
 
-public class MineFragment extends BaseMainFragment {
+public class Mine2Fragment extends BaseBackFragment {
     @BindView(R.id.vip_id)
     TextView vipId;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
 
-
+    //升级到黄金或者钻石会员
     private GlodVipDialog glodVipDialog;
     private GlodVipDialog.Builder glodVipDialogBuilder;
 
-    public static MineFragment newInstance() {
+    public static Mine2Fragment newInstance() {
 
         Bundle args = new Bundle();
-        MineFragment fragment = new MineFragment();
+        Mine2Fragment fragment = new Mine2Fragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,14 +52,16 @@ public class MineFragment extends BaseMainFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine2, container, false);
         unbinder = ButterKnife.bind(this, view);
+        toolbarTitle.setText("我的");
+        initToolbarNav(toolbar);
         return view;
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    protected void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         initView();
     }
 
@@ -88,10 +94,8 @@ public class MineFragment extends BaseMainFragment {
         }
 
 
-
         glodVipDialogBuilder = new GlodVipDialog.Builder(getContext(), 0);
         glodVipDialog = glodVipDialogBuilder.create();
-
     }
 
     /**
@@ -170,7 +174,6 @@ public class MineFragment extends BaseMainFragment {
 
     @Override
     public void onDestroyView() {
-        unbinder.unbind();
         super.onDestroyView();
     }
 }

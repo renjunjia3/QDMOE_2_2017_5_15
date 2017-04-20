@@ -2,6 +2,7 @@ package com.hfaufhreu.hjfeuio.video;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -21,6 +22,7 @@ import com.alibaba.fastjson.JSON;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.bean.CommentInfo;
 import com.hfaufhreu.hjfeuio.bean.VideoInfo;
+import com.hfaufhreu.hjfeuio.ui.dialog.SubmitAndCancelDialog;
 import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,25 +61,24 @@ import master.flame.danmaku.ui.widget.DanmakuView;
 public class JCFullScreenActivity extends Activity {
 
     private final Handler mHandler = new MyHandler(this);
-    public static final int DIALOG_TYPE_FULLVIDEO = 0;
-    public static final int DIALOG_TYPE_FUNCATION = 1;
-    public static final int DIALOG_TYPE_SPEED = 2;
+    public static final int DIALOG_TYPE_GLOD = 0;//黄金
+    public static final int DIALOG_TYPE_DIAMOND = 1;//砖石
+    public static final int DIALOG_TYPE_VPN = 2;//VPN海外会员
+    public static final int DIALOG_TYPE_OVERSEA_FLIM = 3;//海外片库
+    public static final int DIALOG_TYPE_BLACK_GLOD = 4;//黑金
+    public static final int DIALOG_TYPE_OVERSEA_SPEED = 5;//海外加速
+    public static final int DIALOG_TYPE_OVERSEA_SNAP = 6;//海外急速
 
     public static final String PARAM_CURRENT_TIME = "current_time";
     public static final String PARAM_DIALOG_TYPE = "dialog_type";
     public static final String PARAM_VIDEO_INFO = "video_info";
-    public static final String PARAM_TRY_COUNT = "try_count";
     public static final String PARAM_IS_VIP = "is_vip";
-    public static final String PARAM_IS_SPEED = "is_speed";
     public static final String PARAM_STR_COMMENT = "str_comment";
 
 
     private static VideoInfo videoInfo;
-    private static long currentTime = 0;
     private static Timer mTimer;
     private static int isVIP = 0;
-    private static int tryCount = 0;
-    private static int isSpeed = 0;
 
 
     private JCVideoPlayerStandard mJcVideoPlayer;
@@ -96,6 +97,11 @@ public class JCFullScreenActivity extends Activity {
     private Timer timer = new Timer();
     private List<CommentInfo> commentInfoList;
     private int countTime = 0;
+
+    //对话框
+    private SubmitAndCancelDialog submitAndCancelDialog;
+    private SubmitAndCancelDialog.Builder submitAndCancelDialogBuilder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,13 +145,14 @@ public class JCFullScreenActivity extends Activity {
         mTimer.schedule(timerTask, 50, 50);
         initDanmuConfig();
 
-        if (isVIP == 1) {
+        if (isVIP > 0) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
         } else {
             mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
         }
+        submitAndCancelDialogBuilder = new SubmitAndCancelDialog.Builder(JCFullScreenActivity.this);
     }
 
     /**
@@ -326,10 +333,7 @@ public class JCFullScreenActivity extends Activity {
     private void initData() {
         Intent intent = getIntent();
         videoInfo = (VideoInfo) intent.getSerializableExtra(PARAM_VIDEO_INFO);
-        currentTime = intent.getLongExtra(PARAM_CURRENT_TIME, 0);
         isVIP = intent.getIntExtra(PARAM_IS_VIP, 0);
-        tryCount = intent.getIntExtra(PARAM_TRY_COUNT, 0);
-        isSpeed = intent.getIntExtra(PARAM_IS_SPEED, 0);
 
         CURRENT_STATE = JCVideoPlayer.CURRENT_STATE_NORMAL;
         URL = videoInfo.getUrl();
@@ -381,6 +385,8 @@ public class JCFullScreenActivity extends Activity {
         }
         ImageLoader.getInstance().destroy();
         mHandler.removeCallbacksAndMessages(null);
+        timerTask.cancel();
+        mTimer.cancel();
         super.onDestroy();
     }
 
@@ -408,44 +414,214 @@ public class JCFullScreenActivity extends Activity {
         public void handleMessage(Message msg) {
             final Activity activity = mActivityReference.get();
             if (activity != null) {
-                if (isVIP == 0 && tryCount <= VideoConfig.TRY_COUNT_TIME && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30000) {
-                    //可以试看的视频 试看次数不够了
+                if (isVIP == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 10 * 1000) {
+                    //不是会员，试看时长大于30s 弹出看通会员的界面
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
-                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_FULLVIDEO);
+                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_GLOD);
                     setResult(RESULT_OK, intent);
                     finish();
-                } else if (isVIP == 0 && tryCount > VideoConfig.TRY_COUNT_TIME) {
-                    //可以试看的视频 试看次数不够了
-                    Intent intent = new Intent();
-                    intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
-                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_FULLVIDEO);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    if (isSpeed == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 40000) {//需要提示加速
-                        mJcVideoPlayer.loadingProgressBar.setVisibility(View.VISIBLE);
-                        JCMediaManager.instance().releaseMediaPlayer();
-                        if (!countDownFlag) {
-                            countDownFlag = true;
-                            new CountDownTimer(8000, 8000) {
-
-                                public void onTick(long millisUntilFinished) {
-
-                                }
-
-                                public void onFinish() {
-                                    Intent intent = new Intent();
-                                    intent.putExtra(PARAM_CURRENT_TIME, (long) mJcVideoPlayer.getCurrentPositionWhenPlaying());
-                                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_SPEED);
-                                    setResult(RESULT_OK, intent);
-                                    finish();
-                                }
-
-                            }.start();
+                } else if (isVIP == 1 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 55 * 1000) {
+                    submitAndCancelDialogBuilder.setSubmitButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            submitAndCancelDialog.dismiss();
                         }
+                    });
+                    submitAndCancelDialogBuilder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            submitAndCancelDialog.dismiss();
+                        }
+                    });
+                    submitAndCancelDialog = submitAndCancelDialogBuilder.create();
+                    submitAndCancelDialog.show();
+                    submitAndCancelDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            //黄金会员试看超过55s 弹出开通砖石会员界面
+                            Intent intent = new Intent();
+                            intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
+                            intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    });
+
+                } else if (isVIP == 2 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 65 * 1000) {
+
+                    submitAndCancelDialogBuilder.setSubmitButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            submitAndCancelDialog.dismiss();
+                        }
+                    });
+                    submitAndCancelDialogBuilder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            submitAndCancelDialog.dismiss();
+                        }
+                    });
+                    submitAndCancelDialog = submitAndCancelDialogBuilder.create();
+                    submitAndCancelDialog.show();
+                    submitAndCancelDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            //砖石会员试看超过65s，提示开通VPN海外会员
+                            Intent intent = new Intent();
+                            intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
+                            intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_VPN);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    });
+
+                } else if (isVIP == 3 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 75 * 1000) {
+
+                    submitAndCancelDialogBuilder.setSubmitButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            submitAndCancelDialog.dismiss();
+                        }
+                    });
+                    submitAndCancelDialogBuilder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            submitAndCancelDialog.dismiss();
+                        }
+                    });
+                    submitAndCancelDialog = submitAndCancelDialogBuilder.create();
+                    submitAndCancelDialog.show();
+                    submitAndCancelDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            //开通VPN之后播放时长超过75s，提示开通海外片库
+                            Intent intent = new Intent();
+                            intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
+                            intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_OVERSEA_FLIM);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    });
+
+                } else if (isVIP == 4 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 120 * 1000) {
+
+                    submitAndCancelDialogBuilder.setSubmitButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            submitAndCancelDialog.dismiss();
+                        }
+                    });
+                    submitAndCancelDialogBuilder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            submitAndCancelDialog.dismiss();
+                        }
+                    });
+                    submitAndCancelDialog = submitAndCancelDialogBuilder.create();
+                    submitAndCancelDialog.show();
+                    submitAndCancelDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            //开通海外片库后播放2分钟 弹出黑金会员
+                            Intent intent = new Intent();
+                            intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
+                            intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_BLACK_GLOD);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    });
+
+                } else if (isVIP == 5 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 180 * 1000) {
+
+                    //黑金会员播放3分钟后弹出加速通道
+                    mJcVideoPlayer.loadingProgressBar.setVisibility(View.VISIBLE);
+                    JCMediaManager.instance().releaseMediaPlayer();
+                    if (!countDownFlag) {
+                        countDownFlag = true;
+                        new CountDownTimer(10 * 1000, 10 * 1000) {
+
+                            public void onTick(long millisUntilFinished) {
+                            }
+
+                            public void onFinish() {
+                                submitAndCancelDialogBuilder.setSubmitButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        submitAndCancelDialog.dismiss();
+                                    }
+                                });
+                                submitAndCancelDialogBuilder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        submitAndCancelDialog.dismiss();
+                                    }
+                                });
+                                submitAndCancelDialog = submitAndCancelDialogBuilder.create();
+                                submitAndCancelDialog.show();
+                                submitAndCancelDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        Intent intent = new Intent();
+                                        intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
+                                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_OVERSEA_SPEED);
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+                                    }
+                                });
+
+
+                            }
+
+                        }.start();
+                    }
+
+                } else if (isVIP == 6 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 200 * 1000) {
+                    //开通海外片库后播放200s 弹出急速通道
+
+                    mJcVideoPlayer.loadingProgressBar.setVisibility(View.VISIBLE);
+                    JCMediaManager.instance().releaseMediaPlayer();
+                    if (!countDownFlag) {
+                        countDownFlag = true;
+                        new CountDownTimer(5 * 1000, 5 * 1000) {
+
+                            public void onTick(long millisUntilFinished) {
+                            }
+
+                            public void onFinish() {
+
+                                submitAndCancelDialogBuilder.setSubmitButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        submitAndCancelDialog.dismiss();
+                                    }
+                                });
+                                submitAndCancelDialogBuilder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        submitAndCancelDialog.dismiss();
+                                    }
+                                });
+                                submitAndCancelDialog = submitAndCancelDialogBuilder.create();
+                                submitAndCancelDialog.show();
+                                submitAndCancelDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        Intent intent = new Intent();
+                                        intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
+                                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_OVERSEA_SNAP);
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+                                    }
+                                });
+
+                            }
+
+                        }.start();
                     }
                 }
+
+
             }
         }
     }

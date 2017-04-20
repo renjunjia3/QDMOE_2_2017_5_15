@@ -1,6 +1,5 @@
 package com.hfaufhreu.hjfeuio.ui.fragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -15,13 +14,12 @@ import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseFragment;
 import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.event.TabSelectedEvent;
-import com.hfaufhreu.hjfeuio.pay.PayUtil;
-import com.hfaufhreu.hjfeuio.ui.dialog.FullVideoPayDialog;
 import com.hfaufhreu.hjfeuio.ui.dialog.SubmitAndCancelDialog;
 import com.hfaufhreu.hjfeuio.ui.fragment.bbs.BBSFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.film.FilmFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.magnet.MagnetFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.mine.HotLineFragment;
+import com.hfaufhreu.hjfeuio.ui.fragment.mine.Mine2Fragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.mine.MineFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.rank.RankFragment;
 import com.hfaufhreu.hjfeuio.ui.fragment.vip.BlackGlodVipFragment;
@@ -31,7 +29,6 @@ import com.hfaufhreu.hjfeuio.ui.fragment.vip.TrySeeFragment;
 import com.hfaufhreu.hjfeuio.ui.view.BottomBar;
 import com.hfaufhreu.hjfeuio.ui.view.BottomBarTab;
 import com.hfaufhreu.hjfeuio.util.API;
-import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -76,9 +73,6 @@ public class MainFragment extends BaseFragment {
     private List<SupportFragment> fragments = new ArrayList<>();
     private List<String> tabNames = new ArrayList<>();
 
-
-    private FullVideoPayDialog functionPayDialog;
-    private FullVideoPayDialog.Builder funcationPayBuilder;
 
     //提示框
     private SubmitAndCancelDialog submitAndCancelDialog;
@@ -230,39 +224,39 @@ public class MainFragment extends BaseFragment {
                     fragments.add(findChildFragment(DiamondVipFragment.class));
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
-                    fragments.add(findChildFragment(BBSFragment.class));
+                    fragments.add(findChildFragment(RankFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 3:
                     fragments.add(findChildFragment(DiamondVipFragment.class));
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
-                    fragments.add(findChildFragment(BBSFragment.class));
+                    fragments.add(findChildFragment(RankFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 4:
                     fragments.add(findChildFragment(DiamondVipFragment.class));
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
-                    fragments.add(findChildFragment(BBSFragment.class));
+                    fragments.add(findChildFragment(RankFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 5:
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
-                    fragments.add(findChildFragment(BBSFragment.class));
+                    fragments.add(findChildFragment(RankFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 6:
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
-                    fragments.add(findChildFragment(BBSFragment.class));
+                    fragments.add(findChildFragment(RankFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 7:
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
-                    fragments.add(findChildFragment(BBSFragment.class));
+                    fragments.add(findChildFragment(RankFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
             }
@@ -285,53 +279,53 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(4)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(4)));
                 break;
             case 1:
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(4)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(4)));
                 break;
             case 2:
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(4)));
                 break;
             case 3:
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(4)));
                 break;
             case 4:
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(4)));
                 break;
             case 5:
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
                 break;
             case 6:
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
                 break;
             case 7:
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(3)));
                 break;
         }
@@ -385,18 +379,17 @@ public class MainFragment extends BaseFragment {
         EventBus.getDefault().post(new StartBrotherEvent(HotLineFragment.newInstance()));
     }
 
-    @OnClick({R.id.search, R.id.vip})
+    @OnClick({R.id.search, R.id.to_user})
     public void onClickTop(View v) {
         if (v.getId() == R.id.search) {
             EventBus.getDefault().post(new StartBrotherEvent(MagnetFragment.newInstance()));
         } else {
-            if (App.isVip == 0) {
-
-                functionPayDialog.show();
-                clickWantPay();
+            if (fragments.get(fragments.size() - 1) instanceof MineFragment) {
+                mBottomBar.setCurrentItem(fragments.size() - 1);
             } else {
-                ToastUtils.getInstance(_mActivity).showToast("您已经是VIP了");
+                EventBus.getDefault().post(new StartBrotherEvent(Mine2Fragment.newInstance()));
             }
+
         }
 
     }
@@ -407,27 +400,7 @@ public class MainFragment extends BaseFragment {
      * Author: scene on 2017/4/18 18:52
      */
     private void initPayDialog() {
-        if (funcationPayBuilder == null) {
-            funcationPayBuilder = new FullVideoPayDialog.Builder(_mActivity);
-            funcationPayBuilder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    PayUtil.getInstance().payByWeChat(_mActivity, 1, 0);
-                }
-            });
 
-            funcationPayBuilder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    PayUtil.getInstance().payByAliPay(_mActivity, 1, 0);
-                }
-            });
-        }
-        if (functionPayDialog == null) {
-            functionPayDialog = funcationPayBuilder.create();
-        }
     }
 
 

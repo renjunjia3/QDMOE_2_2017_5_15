@@ -1,7 +1,5 @@
 package com.hfaufhreu.hjfeuio.ui.fragment.magnet;
 
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,8 +16,8 @@ import com.hfaufhreu.hjfeuio.adapter.SearchAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseFragment;
 import com.hfaufhreu.hjfeuio.base.SearchInfo;
-import com.hfaufhreu.hjfeuio.pay.PayUtil;
-import com.hfaufhreu.hjfeuio.ui.dialog.FunctionPayDialog;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
+import com.hfaufhreu.hjfeuio.util.ToastUtils;
 
 import java.util.List;
 
@@ -40,9 +38,6 @@ public class MagnetResultFragment extends BaseFragment {
     TextView btnSearch;
     @BindView(R.id.search_layout)
     LinearLayout searchLayout;
-
-    private FunctionPayDialog dialog;
-    private FunctionPayDialog.Builder builder;
 
     //内容
     private SearchAdapter adapter;
@@ -118,29 +113,19 @@ public class MagnetResultFragment extends BaseFragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dialog.show();
+                if (App.isVip == 0) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为会员功能，请成为会员后使用", App.isVip, true);
+                } else if (App.isVip == 1) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为钻石会员功能，请升级钻石会员后使用", App.isVip, true);
+                } else {
+                    ToastUtils.getInstance(getContext()).showToast("该功能完善中，敬请期待");
+                }
             }
         });
     }
 
     private void initDialog() {
-        builder = new FunctionPayDialog.Builder(_mActivity);
-        builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByWeChat(_mActivity, 1, 0);
-            }
-        });
 
-        builder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                PayUtil.getInstance().payByAliPay(_mActivity, 1, 0);
-            }
-        });
-        dialog = builder.create();
     }
 
     private void addFooter() {
@@ -148,7 +133,7 @@ public class MagnetResultFragment extends BaseFragment {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+
             }
         });
         listview.addFooterView(v);
@@ -156,7 +141,13 @@ public class MagnetResultFragment extends BaseFragment {
 
     @OnClick(R.id.search)
     public void onClickSearch() {
-        dialog.show();
+        if (App.isVip == 0) {
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为会员功能，请成为会员后使用", App.isVip, true);
+        } else if (App.isVip == 1) {
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为钻石会员功能，请升级钻石会员后使用", App.isVip, true);
+        } else {
+            ToastUtils.getInstance(getContext()).showToast("该功能完善中，敬请期待");
+        }
     }
 
     @OnClick(R.id.btn_search)

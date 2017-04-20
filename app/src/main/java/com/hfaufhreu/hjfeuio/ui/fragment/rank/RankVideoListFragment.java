@@ -142,9 +142,6 @@ public class RankVideoListFragment extends BaseBackFragment {
         actorName = (TextView) headerView.findViewById(R.id.actor_name);
         age = (TextView) headerView.findViewById(R.id.age);
         description = (TextView) headerView.findViewById(R.id.description);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.height = (int) (ScreenUtils.instance(getContext()).getScreenWidth() * 9f / 16f);
-        image.setLayoutParams(layoutParams);
         gridView.addHeaderView(headerView);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
