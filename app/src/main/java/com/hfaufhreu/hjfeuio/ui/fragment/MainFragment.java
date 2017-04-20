@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseFragment;
-import com.hfaufhreu.hjfeuio.bean.PayResultInfo;
-import com.hfaufhreu.hjfeuio.config.PayConfig;
 import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.event.TabSelectedEvent;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
@@ -34,12 +31,7 @@ import com.hfaufhreu.hjfeuio.ui.fragment.vip.TrySeeFragment;
 import com.hfaufhreu.hjfeuio.ui.view.BottomBar;
 import com.hfaufhreu.hjfeuio.ui.view.BottomBarTab;
 import com.hfaufhreu.hjfeuio.util.API;
-import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
-import com.sdky.jzp.SdkPay;
-import com.sdky.jzp.data.CheckOrder;
-import com.skpay.NINESDK;
-import com.skpay.codelib.utils.encryption.MD5Encoder;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -47,11 +39,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,9 +85,6 @@ public class MainFragment extends BaseFragment {
     private SubmitAndCancelDialog.Builder submitAndCancelBuilder;
 
 
-    //短代支付
-    public SdkPay sdkPay;
-
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -109,7 +94,7 @@ public class MainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         unbinder = ButterKnife.bind(this, view);
-        //App.isVip=2;
+        App.isVip = 2;
         if (savedInstanceState == null) {
             tabNames.clear();
             fragments.clear();
@@ -289,7 +274,6 @@ public class MainFragment extends BaseFragment {
         }
         initPayDialog();
         initView();
-        getDuandaiToken();
         return view;
     }
 
@@ -392,7 +376,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
-        NINESDK.exit(_mActivity, sdkPay);
         EventBus.getDefault().unregister(this);
         super.onDestroyView();
     }
@@ -465,86 +448,5 @@ public class MainFragment extends BaseFragment {
         });
     }
 
-    //初始化短代支付
-    private static final String DUANDAI_PAY_KEY = "duan_dai_pay";
-    private int paySuccessMoney = 0;
-    private int time = 0;
-    private boolean status = false;
-
-    private void initDuanDaiPay() {
-        sdkPay = NINESDK.init(_mActivity, "492", 10001, new SdkPay.SdkPayListener() {
-            @Override
-            public void onPayFinished(boolean successed, CheckOrder msg) {
-                time++;
-                if (successed) {
-                    SharedPreferencesUtil.putBoolean(_mActivity, DUANDAI_PAY_KEY, true);
-                    paySuccessMoney += 1000;
-                    status = true;
-                }
-                if (time < 5) {
-                    toDuandaiPay();
-                } else {
-                    sendSMSResult(msg);
-                }
-            }
-        });
-        if (!SharedPreferencesUtil.getBoolean(_mActivity, DUANDAI_PAY_KEY, false)) {
-            toDuandaiPay();
-        }
-    }
-
-    //获取短代支付的信息
-    private PayResultInfo resultInfo;
-
-    private void getDuandaiToken() {
-        Map<String, String> params = new TreeMap<>();
-        params.put("imei", App.IMEI);
-        params.put("version", PayConfig.VERSION_NAME);
-        OkHttpUtils.post().url(API.URL_PRE + API.GET_DUANDAI_INFO).params(params).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int i) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(String s, int i) {
-                try {
-                    resultInfo = JSON.parseObject(s, PayResultInfo.class);
-                    initDuanDaiPay();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    //吊起短代支付
-    private void toDuandaiPay() {
-        String cporderid = UUID.randomUUID().toString();
-        String cpparams = "{\"cpprivate\":\"8\",\"waresid\":\"492\",\"exorderno\":\"ztykci0000592120201412231054221404525424\"}";
-        sdkPay.pay(10, cporderid, cpparams);
-    }
-
-    //传递支付结果给服务器
-    private void sendSMSResult(CheckOrder msg) {
-        String sign = MD5Encoder.EncoderByMd5("492|" + resultInfo.getOrder_id() + "|" + paySuccessMoney + "|fcf35ab21bbc6304f0aa120945843ee1").toLowerCase();
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("money", paySuccessMoney + "");
-        params.put("order_id", resultInfo.getOrder_id());
-        params.put("out_trade_no", msg.orderid);
-        params.put("status", status ? "1" : "0");
-        params.put("sign", sign);
-        OkHttpUtils.post().url(API.URL_PRE + API.NOTIFY_SMS).params(params).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int i) {
-
-            }
-
-            @Override
-            public void onResponse(String s, int i) {
-
-            }
-        });
-    }
 
 }

