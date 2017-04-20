@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -88,7 +89,7 @@ public class GlodVipFragment extends BaseMainFragment {
                 getGlodVipData(false);
             }
         });
-        list=new ArrayList<>();
+        list = new ArrayList<>();
         adapter = new GlodVipAdpter(getContext(), list);
         listview.setAdapter(adapter);
         adapter.setOnGlodVipItemClickListener(new GlodVipAdpter.OnGlodVipItemClickListener() {
@@ -110,8 +111,8 @@ public class GlodVipFragment extends BaseMainFragment {
         final VideoInfo info = headerLists.get(0);
         if (headerView == null) {
             headerView = new ImageView(getContext());
-            ViewGroup.LayoutParams layoutparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutparams.height=(int) (ScreenUtils.instance(getContext()).getScreenWidth() * 9f / 16f);
+            AbsListView.LayoutParams layoutparams = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
+            layoutparams.height = (int) (ScreenUtils.instance(getContext()).getScreenWidth() * 9f / 16f);
             headerView.setLayoutParams(layoutparams);
         }
         if (listview.getHeaderViewsCount() > 0) {
@@ -197,11 +198,12 @@ public class GlodVipFragment extends BaseMainFragment {
 
     @Override
     public void onDestroyView() {
-        if(getDataCall!=null){
+        if (getDataCall != null) {
             getDataCall.cancel();
         }
         super.onDestroyView();
     }
+
     //重试监听
     View.OnClickListener retryListener = new View.OnClickListener() {
         @Override

@@ -6,24 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.adapter.RankAdapter;
+import com.hfaufhreu.hjfeuio.adapter.RankHeaderAdapter;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
 import com.hfaufhreu.hjfeuio.bean.RankInfo;
 import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
+import com.hfaufhreu.hjfeuio.ui.view.CustomeGridView;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
-import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -60,11 +57,10 @@ public class RankFragment extends BaseMainFragment {
     private List<RankInfo> list;
     private RankAdapter adapter;
 
-
+    //headerview
     private View headerView;
-    private ImageView image1, image2, image3;
-    private TextView name1, name2, name3;
-    private TextView number1, number2, number3;
+    private CustomeGridView gridView;
+    private RankHeaderAdapter headerAdapter;
 
     public static RankFragment newInstance() {
         Bundle args = new Bundle();
@@ -96,7 +92,7 @@ public class RankFragment extends BaseMainFragment {
                 getData(false);
             }
         });
-        headerList = new ArrayList<>();
+
         list = new ArrayList<>();
         adapter = new RankAdapter(getContext(), list);
         listview.setAdapter(adapter);
@@ -113,71 +109,26 @@ public class RankFragment extends BaseMainFragment {
 
 
     private void addheader() {
+        headerList = new ArrayList<>();
         headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_rank_header, null);
-        ScreenUtils screenUtils = ScreenUtils.instance(getContext());
-        image1 = (ImageView) headerView.findViewById(R.id.image_1);
-        RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        int height1 = (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(70)) * 8f / 3f / 5f);
-        layoutParams1.height = height1;
-        image1.setLayoutParams(layoutParams1);
-
-        image2 = (ImageView) headerView.findViewById(R.id.image_2);
-        image2.setLayoutParams(layoutParams1);
-
-        image3 = (ImageView) headerView.findViewById(R.id.image_3);
-        image3.setLayoutParams(layoutParams1);
-
-        name1 = (TextView) headerView.findViewById(R.id.name_1);
-        name2 = (TextView) headerView.findViewById(R.id.name_2);
-        name3 = (TextView) headerView.findViewById(R.id.name_3);
-        number1 = (TextView) headerView.findViewById(R.id.number_1);
-        number2 = (TextView) headerView.findViewById(R.id.number_2);
-        number3 = (TextView) headerView.findViewById(R.id.number_3);
-
+        gridView = (CustomeGridView) headerView.findViewById(R.id.headGridView);
+        headerAdapter = new RankHeaderAdapter(getContext(), headerList);
+        gridView.setAdapter(headerAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int number = 0;
+                if (position == 0) {
+                    number = 1;
+                } else if (position == 1) {
+                    number = 0;
+                } else {
+                    number = position;
+                }
+                EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(headerList.get(position).getId(), number, headerList.get(position).getActor_name())));
+            }
+        });
         listview.addHeaderView(headerView);
-
-    }
-
-    /**
-     * Case By:绑定headerView
-     * Author: scene on 2017/4/20 10:20
-     */
-    private void bindHeaderView(final List<RankInfo> rankInfoList) {
-        switch (rankInfoList.size()) {
-            case 3:
-                name3.setText(rankInfoList.get(2).getActor_name());
-                number3.setText(rankInfoList.get(2).getVotes() + "票");
-                Glide.with(getContext()).load(rankInfoList.get(2).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(image3);
-                headerView.findViewById(R.id.video_layout3).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(rankInfoList.get(2).getId(), 3, rankInfoList.get(2).getActor_name())));
-                    }
-                });
-            case 2:
-                name2.setText(rankInfoList.get(1).getActor_name());
-                number2.setText(rankInfoList.get(1).getVotes() + "票");
-                Glide.with(getContext()).load(rankInfoList.get(1).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(image2);
-                headerView.findViewById(R.id.video_layout2).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(rankInfoList.get(1).getId(), 2, rankInfoList.get(1).getActor_name())));
-                    }
-                });
-            case 1:
-                name1.setText(rankInfoList.get(0).getActor_name());
-                number1.setText(rankInfoList.get(0).getVotes() + "票");
-                Glide.with(getContext()).load(rankInfoList.get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(image1);
-                headerView.findViewById(R.id.video_layout1).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new StartBrotherEvent(RankVideoListFragment.newInstance(rankInfoList.get(0).getId(), 1, rankInfoList.get(0).getActor_name())));
-                    }
-                });
-                break;
-        }
-
-
     }
 
 
@@ -206,13 +157,17 @@ public class RankFragment extends BaseMainFragment {
                         list.clear();
                         for (int i = 0; i < tempList.size(); i++) {
                             if (i < 3) {
-                                headerList.add(tempList.get(i));
+                                if (i == 1) {
+                                    headerList.add(0, tempList.get(i));
+                                } else {
+                                    headerList.add(tempList.get(i));
+                                }
                             } else {
                                 list.add(tempList.get(i));
                             }
                         }
+                        headerAdapter.notifyDataSetChanged();
                         adapter.notifyDataSetChanged();
-                        bindHeaderView(headerList);
                         if (isShowLoad) {
                             statusViewLayout.showContent();
                         } else {
