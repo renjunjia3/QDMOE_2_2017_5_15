@@ -34,6 +34,7 @@ import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.hfaufhreu.hjfeuio.video.JCFullScreenActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +121,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         initToolbarNav(toolbar);
         initView();
         initDialog();
+        enterVideoDetail();
     }
 
     protected void initToolbarNav(Toolbar toolbar) {
@@ -362,6 +364,20 @@ public class VideoDetailActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+    private void enterVideoDetail() {
+        OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_CLIECKED + App.IMEI + "/" + videoInfo.getVideo_id()).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+
             }
         });
     }

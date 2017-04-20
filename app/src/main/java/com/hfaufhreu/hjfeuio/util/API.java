@@ -45,7 +45,9 @@ public class API {
     public static final String VIP_INDEX = "position/";
 
     //片库首页
-    public static final String FILM_INDEX="cate";
+    public static final String FILM_INDEX = "cate";
     //每隔30s调用一次
-    public static final String UPLOAD_INFP="video/stay/";
+    public static final String UPLOAD_INFP = "video/stay/";
+    //进入视频详情页的时候调用
+    public static final String VIDEO_CLIECKED = "video/click/";
 }
