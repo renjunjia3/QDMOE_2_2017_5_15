@@ -64,7 +64,7 @@ public class DiamondVipDialog extends Dialog {
 
             ImageView image = (ImageView) layout.findViewById(R.id.image);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 9f / 16f);
+            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
             image.setLayoutParams(layoutParams);
             layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
                 @Override
