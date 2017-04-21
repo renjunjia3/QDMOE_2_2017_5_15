@@ -289,11 +289,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(String s, int i) {
                 try {
-                    List<CommentInfo> temps = JSON.parseArray(s, CommentInfo.class);
-                    List<CommentInfo> comemnts = new ArrayList<>();
-                    for (int j = 0; j < 10; j++) {
-                        comemnts.add(temps.get(j));
-                    }
+                    List<CommentInfo> comemnts = JSON.parseArray(s, CommentInfo.class);
                     commentInfoList = new ArrayList<>();
                     commentInfoList.addAll(comemnts);
                     commentAdapter = new CommentAdapter(VideoDetailActivity.this, commentInfoList);

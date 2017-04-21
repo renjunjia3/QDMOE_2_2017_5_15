@@ -47,7 +47,6 @@ import master.flame.danmaku.danmaku.model.android.Danmakus;
 import master.flame.danmaku.danmaku.model.android.ViewCacheStuffer;
 import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
 import master.flame.danmaku.danmaku.parser.IDataSource;
-import master.flame.danmaku.danmaku.util.SystemClock;
 import master.flame.danmaku.ui.widget.DanmakuView;
 
 /**
@@ -89,9 +88,7 @@ public class JCFullScreenActivity extends Activity {
     private DanmakuContext mContext;
     private DanmakuView mDanmakuView;
     private int mIconWidth;
-    private Timer timer = new Timer();
     private List<CommentInfo> commentInfoList;
-    private int countTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,10 +237,28 @@ public class JCFullScreenActivity extends Activity {
             mDanmakuView.showFPS(false);
             mDanmakuView.enableDanmakuDrawingCache(true);
         }
-        timer = new Timer();
-        timer.schedule(new AsyncAddTask(), 0, 5000);
 
-        mJcVideoPlayer.closeDanmu.setOnClickListener(new View.OnClickListener() {
+        new CountDownTimer(commentInfoList.size() * 1000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (count < commentInfoList.size()) {
+                    addDanmaKuShowTextAndImage(commentInfoList.get(count));
+                    count++;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
+
+
+        mJcVideoPlayer.closeDanmu.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
                 if (mDanmakuView != null) {
@@ -258,6 +273,8 @@ public class JCFullScreenActivity extends Activity {
             }
         });
     }
+
+    private int count = 0;
 
     private void addDanmaKuShowTextAndImage(CommentInfo commentInfo) {
         BaseDanmaku danmaku = mContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
@@ -300,19 +317,6 @@ public class JCFullScreenActivity extends Activity {
         parser.load(dataSource);
         return parser;
 
-    }
-
-
-    class AsyncAddTask extends TimerTask {
-
-        @Override
-        public void run() {
-            countTime++;
-            for (int i = 4 * countTime; i < commentInfoList.size() && i < 4 * countTime + 4; i++) {
-                SystemClock.sleep(500);
-                addDanmaKuShowTextAndImage(commentInfoList.get(i));
-            }
-        }
     }
 
     private void initData() {

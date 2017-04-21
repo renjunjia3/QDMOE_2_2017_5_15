@@ -9,7 +9,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:background="@drawable/bg_dialog_glod_top"
+            android:background="@drawable/dialig_vip_diamond_top"
             android:layout_height="wrap_content" />
         <ImageView
             android:id="@+id/close"

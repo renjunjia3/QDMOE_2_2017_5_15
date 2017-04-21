@@ -63,6 +63,7 @@
                         <ImageView
                             android:id="@+id/open_vip"
                             android:layout_width="wrap_content"
+                            android:padding="5dp"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_mine_update_vip" />
                     </LinearLayout>
