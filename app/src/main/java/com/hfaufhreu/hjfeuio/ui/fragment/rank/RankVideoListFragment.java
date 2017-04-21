@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.VideoDetailActivity;
 import com.hfaufhreu.hjfeuio.adapter.RankVideoListAdapter;
+import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseBackFragment;
 import com.hfaufhreu.hjfeuio.bean.RankInfo;
 import com.hfaufhreu.hjfeuio.bean.RankListInfo;
@@ -26,8 +27,10 @@ import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.loadmore.GridViewWithHeaderAndFooter;
 import com.hfaufhreu.hjfeuio.util.API;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
+import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -223,7 +226,7 @@ public class RankVideoListFragment extends BaseBackFragment {
         Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
         intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
         intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
-        _mActivity.startActivity(intent);
+        _mActivity.startActivityForResult(intent, 9999);
     }
 
     @Override

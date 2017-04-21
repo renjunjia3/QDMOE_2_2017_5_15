@@ -133,7 +133,13 @@ public class MagnetResultFragment extends BaseFragment {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (App.isVip == 0) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为会员功能，请成为会员后使用", App.isVip, true);
+                } else if (App.isVip == 1) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为钻石会员功能，请升级钻石会员后使用", App.isVip, true);
+                } else {
+                    ToastUtils.getInstance(getContext()).showToast("该功能完善中，敬请期待");
+                }
             }
         });
         listview.addFooterView(v);

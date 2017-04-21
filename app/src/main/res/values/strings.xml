@@ -14,11 +14,8 @@
     <string name="cube_ptr_minutes_ago">&#160;分钟之前</string>
     <string name="cube_ptr_hours_ago">&#160;小时之前</string>
 
-    <string name="vip_money">38</string>
-    <string name="vip_old_money">￥76</string>
 
-
-  <string name="tips_not_wifi">You are currently using the mobile network, the player will continue to consume traffic</string>
+    <string name="tips_not_wifi">You are currently using the mobile network, the player will continue to consume traffic</string>
   <string name="tips_not_wifi_confirm">Resume</string>
   <string name="tips_not_wifi_cancel">Stop play</string>
   <string name="no_url">No mUrl</string>

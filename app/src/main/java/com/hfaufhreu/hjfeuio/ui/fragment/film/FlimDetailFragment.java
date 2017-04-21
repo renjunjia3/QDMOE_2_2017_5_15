@@ -182,7 +182,7 @@ public class FlimDetailFragment extends BaseBackFragment {
         Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
         intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
         intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
-        _mActivity.startActivity(intent);
+        _mActivity.startActivityForResult(intent, 9999);
     }
 
     @Override

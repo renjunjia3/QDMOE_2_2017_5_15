@@ -38,12 +38,14 @@ public class BlackGlodVipDialog extends Dialog {
     public static class Builder {
         private Context context;
         private int videoId;
+        private boolean isVideoDetailPage;
 
         private int type = 1;
 
-        public Builder(Context context, int videoId) {
+        public Builder(Context context, int videoId, boolean isVideoDetailPage) {
             this.context = context;
             this.videoId = videoId;
+            this.isVideoDetailPage=isVideoDetailPage;
         }
 
         public BlackGlodVipDialog create() {
@@ -73,9 +75,9 @@ public class BlackGlodVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, dialog, 7, videoId);
+                        PayUtil.getInstance().payByWeChat(context, dialog, 7, videoId,isVideoDetailPage);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, dialog, 7, videoId);
+                        PayUtil.getInstance().payByAliPay(context, dialog, 7, videoId,isVideoDetailPage);
                     }
 
                 }

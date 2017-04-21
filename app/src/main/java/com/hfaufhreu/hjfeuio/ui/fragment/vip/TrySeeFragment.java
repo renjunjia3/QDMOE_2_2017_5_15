@@ -219,7 +219,7 @@ public class TrySeeFragment extends BaseMainFragment {
         Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
         intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
         intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, true);
-        _mActivity.startActivity(intent);
+        _mActivity.startActivityForResult(intent, 9999);
     }
 
 

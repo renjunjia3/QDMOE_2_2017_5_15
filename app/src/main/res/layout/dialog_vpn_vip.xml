@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_dialog_vip_dimond" />
+                android:src="@drawable/ic_dialog_vip_vpn" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="升级钻石会员"
+                    android:text="VPN海外会员"
                     android:textColor="#1e95c8"
                     android:textSize="@dimen/text_size_middle"
                     android:textStyle="bold" />
@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="海量成人电影大片（定期更新）"
+                    android:text="急速翻墙连接海外"
                     android:textColor="#1cb452"
                     android:textSize="@dimen/text_size_small" />
             </LinearLayout>

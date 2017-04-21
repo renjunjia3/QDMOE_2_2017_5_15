@@ -7,6 +7,7 @@ import android.content.Context;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.config.PayConfig;
 import com.hfaufhreu.hjfeuio.event.ChangeTabEvent;
+import com.hfaufhreu.hjfeuio.event.CloseVideoDetailEvent;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
@@ -77,42 +78,44 @@ public class PayUtil {
     /**
      * 微信去支付
      *
-     * @param context 上下文
-     * @param dialog  对话框
-     * @param type    开通的服务类型
-     * @param videoId 视频id
+     * @param context           上下文
+     * @param dialog            对话框
+     * @param type              开通的服务类型
+     * @param videoId           视频id
+     * @param isVideoDetailPage 当前是否在视频详情页
      */
-    public void payByWeChat(Context context, Dialog dialog, int type, int videoId) {
-        getOrderNo(context, dialog, type, true, videoId);
+    public void payByWeChat(Context context, Dialog dialog, int type, int videoId, boolean isVideoDetailPage) {
+        getOrderNo(context, dialog, type, true, videoId, isVideoDetailPage);
     }
 
     /**
      * 支付宝去支付
      *
-     * @param context 上下文
-     * @param dialog  对话框
-     * @param type    要开通的服务类型
-     * @param videoId 视频id
+     * @param context           上下文
+     * @param dialog            对话框
+     * @param type              要开通的服务类型
+     * @param videoId           视频id
+     * @param isVideoDetailPage 当前是否在视频详情页
      */
-    public void payByAliPay(Context context, Dialog dialog, int type, int videoId) {
-        getOrderNo(context, dialog, type, false, videoId);
+    public void payByAliPay(Context context, Dialog dialog, int type, int videoId, boolean isVideoDetailPage) {
+        getOrderNo(context, dialog, type, false, videoId, isVideoDetailPage);
     }
 
     /**
      * 从服务器获取订单号
      *
-     * @param context   上下文
-     * @param vipDialog 对话框
-     * @param type      1：vip，2：加速服务
-     * @param isWechat  支付类型true：微信，false：支付宝
-     * @param video_id  视频id
+     * @param context           上下文
+     * @param vipDialog         对话框
+     * @param type              1：vip，2：加速服务
+     * @param isWechat          支付类型true：微信，false：支付宝
+     * @param video_id          视频id
+     * @param isVideoDetailPage 当前是否在视频详情页
      */
-    private void getOrderNo(final Context context, final Dialog vipDialog, final int type, final boolean isWechat, int video_id) {
-        if (dialog != null && !dialog.isShowing()) {
-            dialog.show();
-        } else {
-            dialog = ProgressDialog.show(context, "", "订单提交中...");
+    private void getOrderNo(final Context context, final Dialog vipDialog, final int type, final boolean isWechat, int video_id, final boolean isVideoDetailPage) {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.cancel();
         }
+        dialog = ProgressDialog.show(context, "", "订单提交中...");
         Map<String, String> params = new TreeMap<>();
         params.put("imei", App.IMEI);
         switch (type) {
@@ -178,35 +181,37 @@ public class PayUtil {
                         @Override
                         public void onResult(int i, String s) {
                             if (i == 0) {
-                                ToastUtils.getInstance(context).showToast("支付成功");
                                 int isvipType = 0;
                                 switch (type) {
                                     case 1:
-                                        isvipType = 1;
-                                        break;
                                     case 2:
                                         isvipType = 1;
+                                        ToastUtils.getInstance(context).showToast("恭喜您成为黄金会员");
                                         break;
                                     case 3:
-                                        isvipType = 2;
-                                        break;
                                     case 4:
                                         isvipType = 2;
+                                        ToastUtils.getInstance(context).showToast("恭喜您成为钻石会员");
                                         break;
                                     case 5:
                                         isvipType = 3;
+                                        ToastUtils.getInstance(context).showToast("恭喜您成功注册VPN海外会员");
                                         break;
                                     case 6:
                                         isvipType = 4;
+                                        ToastUtils.getInstance(context).showToast("恭喜你进入海外片库，我们将携手为您服务");
                                         break;
                                     case 7:
                                         isvipType = 5;
+                                        ToastUtils.getInstance(context).showToast("恭喜您成为最牛逼的黑金会员");
                                         break;
                                     case 8:
                                         isvipType = 6;
+                                        ToastUtils.getInstance(context).showToast("恭喜您开通海外高速通道");
                                         break;
                                     case 9:
                                         isvipType = 7;
+                                        ToastUtils.getInstance(context).showToast("恭喜您开通海外双线通道");
                                         break;
                                     default:
                                         break;
@@ -217,7 +222,11 @@ public class PayUtil {
                                 if (vipDialog != null) {
                                     vipDialog.cancel();
                                 }
-                                EventBus.getDefault().post(new ChangeTabEvent(isvipType));
+                                if (isVideoDetailPage) {
+                                    EventBus.getDefault().post(new CloseVideoDetailEvent());
+                                } else {
+                                    EventBus.getDefault().post(new ChangeTabEvent(isvipType));
+                                }
                             } else {
                                 ToastUtils.getInstance(context).showToast("支付失败");
                             }

@@ -6,13 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
 import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
-import com.hfaufhreu.hjfeuio.pay.PayUtil;
 import com.hfaufhreu.hjfeuio.ui.dialog.CustomSubmitDialog;
 import com.hfaufhreu.hjfeuio.ui.dialog.GlodVipDialog;
 import com.hfaufhreu.hjfeuio.ui.fragment.MainFragment;
@@ -32,6 +32,8 @@ import butterknife.OnClick;
 public class MineFragment extends BaseMainFragment {
     @BindView(R.id.vip_id)
     TextView vipId;
+    @BindView(R.id.open_vip)
+    ImageView openVip;
 
 
     private GlodVipDialog glodVipDialog;
@@ -86,10 +88,12 @@ public class MineFragment extends BaseMainFragment {
                 vipId.setText("海超速速黑金会员" + App.USER_ID);
                 break;
         }
-
-
-
-        glodVipDialogBuilder = new GlodVipDialog.Builder(getContext(), 0);
+        if (App.isVip == 0 || App.isVip == 1) {
+            openVip.setVisibility(View.VISIBLE);
+        } else {
+            openVip.setVisibility(View.GONE);
+        }
+        glodVipDialogBuilder = new GlodVipDialog.Builder(getContext(), 0, false);
         glodVipDialog = glodVipDialogBuilder.create();
 
     }

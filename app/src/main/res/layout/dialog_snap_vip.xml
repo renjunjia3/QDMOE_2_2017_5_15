@@ -3,22 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:background="@drawable/bg_dialog_glod_top"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_glod_top" />
+
         <ImageView
             android:id="@+id/close"
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_dialog_close_white"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:padding="8dp"
-            android:layout_height="wrap_content" />
+            android:src="@drawable/ic_dialog_close_white" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_dialog_vip_dimond" />
+                android:src="@drawable/ic_dialog_vip_snap" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,7 +54,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="升级钻石会员"
+                    android:text="海外顶级双线宽带"
                     android:textColor="#1e95c8"
                     android:textSize="@dimen/text_size_middle"
                     android:textStyle="bold" />
@@ -58,7 +62,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="海量成人电影大片（定期更新）"
+                    android:text="最顶级宽带，解决网络差异"
                     android:textColor="#1cb452"
                     android:textSize="@dimen/text_size_small" />
             </LinearLayout>
@@ -71,8 +75,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="30元"
                     android:layout_gravity="center_horizontal"
+                    android:text="10元"
                     android:textColor="#db182c"
                     android:textSize="@dimen/text_size_big" />
 
@@ -80,7 +84,7 @@
                     android:id="@+id/diamond_old_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="原价：88元"
+                    android:text="原价：30元"
                     android:textColor="#999999"
                     android:textSize="10sp" />
             </LinearLayout>

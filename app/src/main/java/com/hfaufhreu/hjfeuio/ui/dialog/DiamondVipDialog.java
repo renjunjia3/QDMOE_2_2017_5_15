@@ -41,12 +41,14 @@ public class DiamondVipDialog extends Dialog {
     public static class Builder {
         private Context context;
         private int videoId;
+        private boolean isVideoDetailPage;
 
         private int type = 1;
 
-        public Builder(Context context, int videoId) {
+        public Builder(Context context, int videoId, boolean isVideoDetailPage) {
             this.context = context;
             this.videoId = videoId;
+            this.isVideoDetailPage = isVideoDetailPage;
         }
 
         public DiamondVipDialog create() {
@@ -62,7 +64,7 @@ public class DiamondVipDialog extends Dialog {
 
             ImageView image = (ImageView) layout.findViewById(R.id.image);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth()-ScreenUtils.instance(context).dip2px(50)) * 9f / 16f);
+            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 9f / 16f);
             image.setLayoutParams(layoutParams);
             layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,9 +88,9 @@ public class DiamondVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, dialog, 4, videoId);
+                        PayUtil.getInstance().payByWeChat(context, dialog, 4, videoId, isVideoDetailPage);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, dialog, 4, videoId);
+                        PayUtil.getInstance().payByAliPay(context, dialog, 4, videoId, isVideoDetailPage);
                     }
 
                 }

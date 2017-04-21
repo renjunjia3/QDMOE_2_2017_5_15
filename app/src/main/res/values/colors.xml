@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#282828</color>
     <color name="colorAccent">#282828</color>
 
-    <color name="tab_unselect">#FFFFFF</color>
-    <color name="tab_select">#9C8566</color>
+    <color name="tab_unselect">#837056</color>
+    <color name="tab_select">#F1D09E</color>
 
     <color name="black">#0D0D0D</color>
 

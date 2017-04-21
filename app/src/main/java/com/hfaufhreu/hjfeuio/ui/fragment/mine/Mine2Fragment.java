@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hfaufhreu.hjfeuio.R;
@@ -36,6 +37,8 @@ public class Mine2Fragment extends BaseBackFragment {
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.open_vip)
+    ImageView openVip;
 
     //升级到黄金或者钻石会员
     private GlodVipDialog glodVipDialog;
@@ -92,9 +95,12 @@ public class Mine2Fragment extends BaseBackFragment {
                 vipId.setText("海超速速黑金会员" + App.USER_ID);
                 break;
         }
-
-
-        glodVipDialogBuilder = new GlodVipDialog.Builder(getContext(), 0);
+        if (App.isVip == 0 || App.isVip == 1) {
+            openVip.setVisibility(View.VISIBLE);
+        } else {
+            openVip.setVisibility(View.GONE);
+        }
+        glodVipDialogBuilder = new GlodVipDialog.Builder(getContext(), 0, false);
         glodVipDialog = glodVipDialogBuilder.create();
     }
 

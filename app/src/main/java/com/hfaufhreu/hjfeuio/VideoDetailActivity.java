@@ -20,6 +20,8 @@ import com.hfaufhreu.hjfeuio.adapter.IndexItemAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.bean.CommentInfo;
 import com.hfaufhreu.hjfeuio.bean.VideoInfo;
+import com.hfaufhreu.hjfeuio.event.ChangeTabEvent;
+import com.hfaufhreu.hjfeuio.event.CloseVideoDetailEvent;
 import com.hfaufhreu.hjfeuio.ui.view.CustomListView;
 import com.hfaufhreu.hjfeuio.ui.view.CustomeGridView;
 import com.hfaufhreu.hjfeuio.util.API;
@@ -30,6 +32,9 @@ import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.hfaufhreu.hjfeuio.video.JCFullScreenActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +103,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.fragment_video_detail);
         unbinder = ButterKnife.bind(this);
         videoInfo = (VideoInfo) getIntent().getSerializableExtra(ARG_VIDEO_INFO);
@@ -295,6 +301,7 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         unbinder.unbind();
         super.onDestroy();
     }
@@ -302,6 +309,13 @@ public class VideoDetailActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
+    }
+
+    @Subscribe
+    public void closeVideoDetail(CloseVideoDetailEvent closeVideoDetailEvent) {
+        Intent intent = new Intent();
+        setResult(RESULT_OK,intent);
         finish();
     }
 
