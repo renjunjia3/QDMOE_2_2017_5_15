@@ -51,7 +51,7 @@ public class FlimAdapter extends RecyclerView.Adapter {
         FlimViewHolder viewHolder = (FlimViewHolder) holder;
         viewHolder.title.setText(info.getTitle());
         viewHolder.updateNumber.setText("更新至" + info.getUpdate_number() + "部");
-        int height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(20)) * 9f / 16f);
+        int height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(20))/2f);
         ViewUtils.setViewHeightByViewGroup(viewHolder.image, height);
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder.image);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

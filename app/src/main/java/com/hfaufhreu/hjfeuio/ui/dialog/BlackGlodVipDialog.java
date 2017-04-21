@@ -10,11 +10,14 @@ import android.support.annotation.StyleRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.pay.PayUtil;
+import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 
 
 /**
@@ -60,6 +63,16 @@ public class BlackGlodVipDialog extends Dialog {
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
+            ImageView image = (ImageView) layout.findViewById(R.id.image);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth()-ScreenUtils.instance(context).dip2px(50)) * 9f / 16f);
+            image.setLayoutParams(layoutParams);
+            layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
             ((RadioGroup) layout.findViewById(R.id.radio_group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {

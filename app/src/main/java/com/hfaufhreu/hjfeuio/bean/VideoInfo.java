@@ -14,6 +14,7 @@ public class VideoInfo implements Serializable {
     private String title;
     private String url;
     private int video_id;
+    private int id;
     private String description;
     private int hits;
     private int score;
@@ -60,7 +61,7 @@ public class VideoInfo implements Serializable {
     }
 
     public int getVideo_id() {
-        return video_id;
+        return video_id == 0 ? getId() : video_id;
     }
 
     public void setVideo_id(int video_id) {
@@ -97,6 +98,14 @@ public class VideoInfo implements Serializable {
 
     public void setUpdate_number(int update_number) {
         this.update_number = update_number;
+    }
+
+    public int getId() {
+        return id == 0 ? getVideo_id() : id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

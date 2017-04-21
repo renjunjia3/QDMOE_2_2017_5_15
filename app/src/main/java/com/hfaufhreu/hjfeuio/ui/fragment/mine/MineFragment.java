@@ -16,6 +16,7 @@ import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.ui.dialog.CustomSubmitDialog;
 import com.hfaufhreu.hjfeuio.ui.dialog.GlodVipDialog;
 import com.hfaufhreu.hjfeuio.ui.fragment.MainFragment;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -104,10 +105,9 @@ public class MineFragment extends BaseMainFragment {
     @OnClick(R.id.open_vip)
     public void onClickOpenVip() {
         if (App.isVip == 0) {
-            glodVipDialog.show();
-            MainFragment.clickWantPay();
-        } else {
-
+            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+        } else if (App.isVip == 1) {
+            DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
         }
     }
 
@@ -174,7 +174,6 @@ public class MineFragment extends BaseMainFragment {
 
     @Override
     public void onDestroyView() {
-        unbinder.unbind();
         super.onDestroyView();
     }
 }

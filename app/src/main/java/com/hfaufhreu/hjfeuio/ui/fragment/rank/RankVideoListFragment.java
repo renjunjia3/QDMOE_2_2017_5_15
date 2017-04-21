@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -17,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.VideoDetailActivity;
 import com.hfaufhreu.hjfeuio.adapter.RankVideoListAdapter;
-import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseBackFragment;
 import com.hfaufhreu.hjfeuio.bean.RankInfo;
 import com.hfaufhreu.hjfeuio.bean.RankListInfo;
@@ -27,10 +25,7 @@ import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.loadmore.GridViewWithHeaderAndFooter;
 import com.hfaufhreu.hjfeuio.util.API;
-import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
-import com.hfaufhreu.hjfeuio.util.ScreenUtils;
-import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -243,4 +238,12 @@ public class RankVideoListFragment extends BaseBackFragment {
             getData(true);
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 9999 && resultCode == RESULT_OK) {
+            _mActivity.onBackPressed();
+        }
+    }
 }

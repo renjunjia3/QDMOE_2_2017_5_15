@@ -153,7 +153,9 @@ public class FilmFragment extends BaseMainFragment {
 
     @Override
     public void onDestroyView() {
-        requestCall.cancel();
+        if(requestCall!=null){
+            requestCall.cancel();
+        }
         super.onDestroyView();
     }
 

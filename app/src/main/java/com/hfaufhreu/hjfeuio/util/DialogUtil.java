@@ -12,6 +12,7 @@ import com.hfaufhreu.hjfeuio.ui.dialog.RapidDoubletVipDialog;
 import com.hfaufhreu.hjfeuio.ui.dialog.SubmitAndCancelDialog;
 import com.hfaufhreu.hjfeuio.ui.dialog.VpnFlimVipDialog;
 import com.hfaufhreu.hjfeuio.ui.dialog.VpnVipDialog;
+import com.hfaufhreu.hjfeuio.ui.fragment.MainFragment;
 
 /**
  * Case By:对dialog的封装
@@ -164,6 +165,7 @@ public class DialogUtil {
         glodVipDialogBuilder = new GlodVipDialog.Builder(context, videoId, isVideoDetailPage);
         glodVipDialog = glodVipDialogBuilder.create();
         glodVipDialog.show();
+        MainFragment.clickWantPay();
     }
 
     /**
@@ -181,6 +183,7 @@ public class DialogUtil {
         diamondVipDialogBuilder = new DiamondVipDialog.Builder(context, videoId, isVideoDetailPage);
         diamondVipDialog = diamondVipDialogBuilder.create();
         diamondVipDialog.show();
+        MainFragment.clickWantPay();
     }
 
     /**
@@ -198,6 +201,7 @@ public class DialogUtil {
         vpnVipDialogBuilder = new VpnVipDialog.Builder(context, videoId, isVideoDetailPage);
         vpnVipDialog = vpnVipDialogBuilder.create();
         vpnVipDialog.show();
+        MainFragment.clickWantPay();
     }
 
     /**
@@ -215,6 +219,7 @@ public class DialogUtil {
         vpnFlimVipDialogBuilder = new VpnFlimVipDialog.Builder(context, videoId, isVideoDetailPage);
         vpnFlimVipDialog = vpnFlimVipDialogBuilder.create();
         vpnFlimVipDialog.show();
+        MainFragment.clickWantPay();
     }
 
     /**
@@ -232,6 +237,7 @@ public class DialogUtil {
         blackGlodVipDialogBuilder = new BlackGlodVipDialog.Builder(context, videoId, isVideoDetailPage);
         blackGlodVipDialog = blackGlodVipDialogBuilder.create();
         blackGlodVipDialog.show();
+        MainFragment.clickWantPay();
     }
 
     /**
@@ -249,6 +255,7 @@ public class DialogUtil {
         accelerationChannelVipDialogBuilder = new AccelerationChannelVipDialog.Builder(context, videoId, isVideoDetailPage);
         accelerationChannelVipDialog = accelerationChannelVipDialogBuilder.create();
         accelerationChannelVipDialog.show();
+        MainFragment.clickWantPay();
     }
 
     /**
@@ -266,5 +273,6 @@ public class DialogUtil {
         rapidDoubletVipDialogBuilder = new RapidDoubletVipDialog.Builder(context, videoId, isVideoDetailPage);
         rapidDoubletVipDialog = rapidDoubletVipDialogBuilder.create();
         rapidDoubletVipDialog.show();
+        MainFragment.clickWantPay();
     }
 }

@@ -180,7 +180,7 @@ public class PayUtil {
                     PayTool.payWork(context, isWechat ? PayTool.PayType.PAY_WX : PayTool.PayType.PAY_ALIPAY, payinfo, new PayCallBack() {
                         @Override
                         public void onResult(int i, String s) {
-                            if (i == 0) {
+//                            if (i == 0) {
                                 int isvipType = 0;
                                 switch (type) {
                                     case 1:
@@ -227,9 +227,9 @@ public class PayUtil {
                                 } else {
                                     EventBus.getDefault().post(new ChangeTabEvent(isvipType));
                                 }
-                            } else {
-                                ToastUtils.getInstance(context).showToast("支付失败");
-                            }
+//                            } else {
+//                                ToastUtils.getInstance(context).showToast("支付失败");
+//                            }
                         }
                     });
                 } catch (Exception e) {

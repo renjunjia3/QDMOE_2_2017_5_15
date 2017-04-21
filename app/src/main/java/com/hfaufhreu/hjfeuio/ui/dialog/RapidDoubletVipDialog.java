@@ -48,6 +48,7 @@ public class RapidDoubletVipDialog extends Dialog {
         public Builder(Context context, int videoId,boolean isVideoDetailPage) {
             this.context = context;
             this.videoId = videoId;
+            this.isVideoDetailPage=isVideoDetailPage;
         }
 
         public RapidDoubletVipDialog create() {
@@ -87,9 +88,9 @@ public class RapidDoubletVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, dialog, 5, videoId,isVideoDetailPage);
+                        PayUtil.getInstance().payByWeChat(context, dialog, 9, videoId,isVideoDetailPage);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, dialog, 5, videoId,isVideoDetailPage);
+                        PayUtil.getInstance().payByAliPay(context, dialog, 9, videoId,isVideoDetailPage);
                     }
 
                 }

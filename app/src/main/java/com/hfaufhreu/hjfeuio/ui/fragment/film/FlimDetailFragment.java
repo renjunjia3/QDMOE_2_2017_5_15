@@ -192,6 +192,14 @@ public class FlimDetailFragment extends BaseBackFragment {
         super.onDestroyView();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==9999&&resultCode==RESULT_OK){
+            _mActivity.onBackPressed();
+        }
+    }
+
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

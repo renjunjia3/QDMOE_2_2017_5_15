@@ -67,12 +67,16 @@
             </LinearLayout>
 
 
-            <ImageView
+            <TextView
                 android:id="@+id/to_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:src="@drawable/ic_toolbar_user_gray" />
+                android:background="@drawable/ic_toolbar_user"
+                android:paddingLeft="10dp"
+                android:paddingRight="3dp"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="#333333" />
 
             <ImageView
                 android:id="@+id/complaint"

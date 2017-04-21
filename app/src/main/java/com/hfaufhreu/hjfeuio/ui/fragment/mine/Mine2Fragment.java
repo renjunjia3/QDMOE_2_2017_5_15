@@ -15,8 +15,8 @@ import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseBackFragment;
 import com.hfaufhreu.hjfeuio.event.StartBrotherEvent;
 import com.hfaufhreu.hjfeuio.ui.dialog.CustomSubmitDialog;
-import com.hfaufhreu.hjfeuio.ui.dialog.GlodVipDialog;
 import com.hfaufhreu.hjfeuio.ui.fragment.MainFragment;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,10 +39,6 @@ public class Mine2Fragment extends BaseBackFragment {
     TextView toolbarTitle;
     @BindView(R.id.open_vip)
     ImageView openVip;
-
-    //升级到黄金或者钻石会员
-    private GlodVipDialog glodVipDialog;
-    private GlodVipDialog.Builder glodVipDialogBuilder;
 
     public static Mine2Fragment newInstance() {
 
@@ -100,8 +96,6 @@ public class Mine2Fragment extends BaseBackFragment {
         } else {
             openVip.setVisibility(View.GONE);
         }
-        glodVipDialogBuilder = new GlodVipDialog.Builder(getContext(), 0, false);
-        glodVipDialog = glodVipDialogBuilder.create();
     }
 
     /**
@@ -110,10 +104,9 @@ public class Mine2Fragment extends BaseBackFragment {
     @OnClick(R.id.open_vip)
     public void onClickOpenVip() {
         if (App.isVip == 0) {
-            glodVipDialog.show();
-            MainFragment.clickWantPay();
-        } else {
-
+            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+        } else if (App.isVip == 1) {
+            DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
         }
     }
 

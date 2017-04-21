@@ -20,7 +20,6 @@ import com.hfaufhreu.hjfeuio.adapter.IndexItemAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.bean.CommentInfo;
 import com.hfaufhreu.hjfeuio.bean.VideoInfo;
-import com.hfaufhreu.hjfeuio.event.ChangeTabEvent;
 import com.hfaufhreu.hjfeuio.event.CloseVideoDetailEvent;
 import com.hfaufhreu.hjfeuio.ui.view.CustomListView;
 import com.hfaufhreu.hjfeuio.ui.view.CustomeGridView;
@@ -190,8 +189,34 @@ public class VideoDetailActivity extends AppCompatActivity {
             int dialogType = data.getIntExtra(JCFullScreenActivity.PARAM_DIALOG_TYPE, 0);
             switch (dialogType) {
                 case JCFullScreenActivity.DIALOG_TYPE_GLOD:
+                    //黄金
                     DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "非会员只能试看体验，请成为会员继续观看", App.isVip, true, videoInfo.getVideo_id());
                     break;
+                case JCFullScreenActivity.DIALOG_TYPE_DIAMOND:
+                    //砖石
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "请升级钻石会员，观看完整影片", App.isVip, true, videoInfo.getVideo_id());
+                    break;
+                case JCFullScreenActivity.DIALOG_TYPE_VPN:
+                    //VPN
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "由于现法律不允许国内播放，请注册VPN翻墙观看，现仅需28元终身免费使用", App.isVip, true, videoInfo.getVideo_id());
+                    break;
+                case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_FLIM:
+                    //片库
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "海外视频提供商需收取3美金服务费。付费后海量视频终身免费观看", App.isVip, true, videoInfo.getVideo_id());
+                    break;
+                case JCFullScreenActivity.DIALOG_TYPE_BLACK_GLOD:
+                    //黑金会员
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "最后一次付费，您将得到您想要的，黑金会员，开放所有影片，你值得拥有！", App.isVip, true, videoInfo.getVideo_id());
+                    break;
+                case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_SPEED:
+                    //海外加速
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "网络太慢了！由于目前观看用户太多。你的国内线路宽带太低.是否需要切换到海外高速通道？", App.isVip, true, videoInfo.getVideo_id());
+                    break;
+                case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_SNAP:
+                    //海外双线
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "网络拥堵无法播放 开通海外双线？", App.isVip, true, videoInfo.getVideo_id());
+                    break;
+
             }
 
 
@@ -315,7 +340,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     @Subscribe
     public void closeVideoDetail(CloseVideoDetailEvent closeVideoDetailEvent) {
         Intent intent = new Intent();
-        setResult(RESULT_OK,intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
