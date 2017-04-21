@@ -3,13 +3,143 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:src="@drawable/dialog_wx_pay_close" />
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:background="@drawable/dialog_wx_pay_top"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_round_bg_white_big_corner"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="请按提示扫描二维码完成付费"
+            android:textColor="#00B44C"
+            android:textSize="@dimen/text_size_large" />
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/shape_round_bg_glod_big_corner"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="支付二维码已保存到您的相册！"
+            android:textColor="#333333"
+            android:textSize="@dimen/text_size_large" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_wx_pay_bottom"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_blue_cicle"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="进入微信后选择右上角“扫一扫”"
+                android:textColor="#5c5c5c"
+                android:textSize="@dimen/text_size_middle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_blue_cicle"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="在“扫一扫”右上角。进入相册"
+                android:textColor="#5c5c5c"
+                android:textSize="@dimen/text_size_middle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_blue_cicle"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="选中保存到相册的第一张二维码完成支付"
+                android:textColor="#5c5c5c"
+                android:textSize="@dimen/text_size_middle" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/toWeChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_round_bg_blue_big_corner"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="前往微信扫一扫"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_size_large" />
     </LinearLayout>
 </LinearLayout>

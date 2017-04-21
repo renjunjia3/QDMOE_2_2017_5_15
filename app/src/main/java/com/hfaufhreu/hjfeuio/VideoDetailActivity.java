@@ -1,12 +1,12 @@
 package com.hfaufhreu.hjfeuio;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -31,12 +31,16 @@ import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.hfaufhreu.hjfeuio.video.JCFullScreenActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -135,6 +139,9 @@ public class VideoDetailActivity extends AppCompatActivity {
         getRecomendVideo();
         //获取评论的数据
         getCommentData();
+
+        progressDialog = new ProgressDialog(VideoDetailActivity.this);
+        progressDialog.setMessage("加载中...");
     }
 
 
@@ -145,24 +152,6 @@ public class VideoDetailActivity extends AppCompatActivity {
         } else {
             ToastUtils.getInstance(VideoDetailActivity.this).showToast("该功能完善中，敬请期待");
         }
-    }
-
-
-    /**
-     * 弹出支付窗口之后调用
-     */
-    private void clickWantPay() {
-        OkHttpUtils.get().url(API.URL_PRE + API.PAY_CLICK + App.IMEI).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int i) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(String s, int i) {
-                Log.e("s", "sssss----->" + s);
-            }
-        });
     }
 
     @OnClick(R.id.play_video)
@@ -273,6 +262,9 @@ public class VideoDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (App.isNeedCheckOrder && App.orderIdInt != 0) {
+            checkOrder();
+        }
     }
 
     /**
@@ -324,6 +316,9 @@ public class VideoDetailActivity extends AppCompatActivity {
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         unbinder.unbind();
+        if (requestCall != null) {
+            requestCall.cancel();
+        }
         super.onDestroy();
     }
 
@@ -340,5 +335,49 @@ public class VideoDetailActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * 检查是否成功
+     */
+    private RequestCall requestCall;
+    private ProgressDialog progressDialog;
+
+    private void checkOrder() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("order_id", App.orderIdInt + "");
+        params.put("imei", App.IMEI);
+        requestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_ORDER).params(params).build();
+        requestCall.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                e.printStackTrace();
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    boolean status = jsonObject.getBoolean("status");
+                    if (status) {
+                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip + 1);
+                        App.isVip += 1;
+                        closeVideoDetail(new CloseVideoDetailEvent());
+                    }
+                    App.isNeedCheckOrder = false;
+                    App.orderIdInt = 0;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
 }

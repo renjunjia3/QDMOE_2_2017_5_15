@@ -1,9 +1,12 @@
 package com.hfaufhreu.hjfeuio.ui.dialog;
 
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
-import android.graphics.Paint;
-import android.support.annotation.IdRes;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -11,13 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.R;
-import com.hfaufhreu.hjfeuio.pay.PayUtil;
-import com.hfaufhreu.hjfeuio.util.ScreenUtils;
+import com.hfaufhreu.hjfeuio.util.DownLoadImageService;
+import com.hfaufhreu.hjfeuio.util.ImageDownLoadCallBack;
+
+import java.io.File;
 
 
 /**
@@ -40,15 +43,12 @@ public class WxQRCodePayDialog extends Dialog {
 
     public static class Builder {
         private Context context;
-        private int videoId;
-        private boolean isVideoDetailPage;
+        private String url;
+        ImageView imageView;
 
-        private int type = 1;
-
-        public Builder(Context context, int videoId, boolean isVideoDetailPage) {
+        public Builder(Context context, String url) {
             this.context = context;
-            this.videoId = videoId;
-            this.isVideoDetailPage = isVideoDetailPage;
+            this.url = url;
         }
 
         public WxQRCodePayDialog create() {
@@ -56,17 +56,60 @@ public class WxQRCodePayDialog extends Dialog {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final WxQRCodePayDialog dialog = new WxQRCodePayDialog(context, R.style.Dialog);
 
-            View layout = inflater.inflate(R.layout.dialog_vpn_vip, null);
+            View layout = inflater.inflate(R.layout.dialog_wx_qr_code_pay, null);
 
-            ((TextView) layout.findViewById(R.id.diamond_old_price)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            imageView = (ImageView) layout.findViewById(R.id.image);
+            layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dialog != null) {
+                        dialog.cancel();
+                    }
+                }
+            });
 
+            layout.findViewById(R.id.toWeChat).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                    intent.setAction(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setComponent(cmp);
+                    context.startActivity(intent);
+                    if (dialog != null) {
+                        dialog.cancel();
+                    }
+                }
+            });
+            Glide.with(context).load(url).asBitmap().centerCrop().into(imageView);
+            DownLoadImageService service = new DownLoadImageService(context, url, new ImageDownLoadCallBack() {
 
+                @Override
+                public void onDownLoadSuccess(File file) {
+
+                }
+
+                @Override
+                public void onDownLoadSuccess(Bitmap bitmap) {
+                }
+
+                @Override
+                public void onDownLoadFailed() {
+
+                }
+            });
+            //启动图片下载线程
+            new Thread(service).start();
             dialog.setContentView(layout);
             dialog.setCanceledOnTouchOutside(false);
             return dialog;
         }
+
     }
+
 
 }

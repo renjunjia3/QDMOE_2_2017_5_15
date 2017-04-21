@@ -1,6 +1,7 @@
 package com.hfaufhreu.hjfeuio;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ import com.zhy.http.okhttp.request.RequestCall;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -92,6 +94,8 @@ public class MainActivity extends SupportActivity {
         mTimer.schedule(timerTask, random.nextInt(2000) + 1000 * 30, random.nextInt(60 * 1000) + 30 * 1000);
         startUpLoad();
         getDuandaiToken();
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setMessage("加载中...");
     }
 
     private void showNoticeToast(int id) {
@@ -190,6 +194,10 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (App.isNeedCheckOrder && App.orderIdInt != 0) {
+            checkOrder();
+        }
+
     }
 
     @Subscribe
@@ -246,6 +254,9 @@ public class MainActivity extends SupportActivity {
         }
         if (upLoadUserInfoCall != null) {
             upLoadUserInfoCall.cancel();
+        }
+        if (requestCall != null) {
+            requestCall.cancel();
         }
         if (isWork) {
             isWork = false;
@@ -335,6 +346,51 @@ public class MainActivity extends SupportActivity {
             @Override
             public void onResponse(String s, int i) {
 
+            }
+        });
+    }
+
+    /**
+     * 检查是否成功
+     */
+    private RequestCall requestCall;
+    private ProgressDialog progressDialog;
+
+    private void checkOrder() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("order_id", App.orderIdInt + "");
+        params.put("imei", App.IMEI);
+        requestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_ORDER).params(params).build();
+        requestCall.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                e.printStackTrace();
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    boolean status = jsonObject.getBoolean("status");
+                    if (status) {
+                        SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip + 1);
+                        App.isVip += 1;
+                        changeTab(new ChangeTabEvent(App.isVip));
+                    }
+                    App.isNeedCheckOrder = false;
+                    App.orderIdInt = 0;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

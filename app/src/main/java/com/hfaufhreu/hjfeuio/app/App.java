@@ -24,6 +24,9 @@ public class App extends Application {
     public static int USER_ID = 0;
     public static int isVip = 0;
 
+    public static boolean isNeedCheckOrder = false;
+    public static int orderIdInt = 0;
+
     //用户id
     public static final String USERID_KEY = "user_id";
     public static final String ISVIP_KEY = "is_vip";
