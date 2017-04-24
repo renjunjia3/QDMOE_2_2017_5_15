@@ -8,6 +8,8 @@ import java.io.Serializable;
  */
 
 public class VideoInfo implements Serializable {
+    private boolean isTilteType;
+
     private String thumb;
     private String tag;
     private String tag_color;
@@ -19,6 +21,14 @@ public class VideoInfo implements Serializable {
     private int hits;
     private int score;
     private int update_number;
+
+    public boolean isTilteType() {
+        return isTilteType;
+    }
+
+    public void setTilteType(boolean tilteType) {
+        isTilteType = tilteType;
+    }
 
     public String getThumb() {
         return thumb;

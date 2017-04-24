@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="请升级会员开发更多影片资源"
+        android:text="请升级会员开放更多影片资源"
         android:textColor="#999999"
         android:textSize="@dimen/text_size_middle" />
 

@@ -275,12 +275,12 @@ public class MainFragment extends BaseFragment {
         return view;
     }
 
-
     private void initView() {
         EventBus.getDefault().register(this);
         switch (App.isVip) {
             case 0:
                 toUser.setText("游客");
+                vipIcon.setImageResource(0);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(2)));
