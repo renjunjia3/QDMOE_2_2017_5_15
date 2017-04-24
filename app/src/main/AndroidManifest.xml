@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.hfaufhreu.hjfeuio">
+    package="com.tdhtzpkmo.pxzol">
 
     <uses-sdk tools:overrideLibrary="com.liangfeizc.flowlayout" />
 
@@ -30,7 +30,7 @@
 
 
     <application
-        android:name="com.hfaufhreu.hjfeuio.app.App"
+        android:name="com.tdhtzpkmo.pxzol.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -43,7 +43,7 @@
             android:value="GlideModule" />
 
         <activity
-            android:name="com.hfaufhreu.hjfeuio.LuncherActivity"
+            android:name="com.tdhtzpkmo.pxzol.LuncherActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,19 +52,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hfaufhreu.hjfeuio.MainActivity"
+            android:name="com.tdhtzpkmo.pxzol.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hfaufhreu.hjfeuio.VideoDetailActivity"
+            android:name="com.tdhtzpkmo.pxzol.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hfaufhreu.hjfeuio.video.JCFullScreenActivity"
+            android:name="com.tdhtzpkmo.pxzol.video.JCFullScreenActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
 
-        <activity android:name="com.hfaufhreu.hjfeuio.AliPayActivity"/>
+        <activity android:name="com.tdhtzpkmo.pxzol.AliPayActivity"/>
 
         <!-- 商户在从发发啦商户申请获得商户号 -->
         <meta-data
@@ -105,7 +105,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.hfaufhreu.hjfeuio.wxapi.WXPayEntryActivity"
+            android:name="com.tdhtzpkmo.pxzol.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
 
