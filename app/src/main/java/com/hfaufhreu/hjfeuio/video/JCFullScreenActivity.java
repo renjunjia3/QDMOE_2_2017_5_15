@@ -132,12 +132,27 @@ public class JCFullScreenActivity extends Activity {
         mTimer.schedule(timerTask, 50, 50);
         initDanmuConfig();
 
-        if (App.isVip > 0) {
-            mJcVideoPlayer.text2.setVisibility(View.GONE);
-            mJcVideoPlayer.text3.setVisibility(View.GONE);
-        } else {
+        if (App.isVip == 0) {
             mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text2.setText("开通会员观看完整视频");
+            mJcVideoPlayer.text3.setText("开通会员观看完整视频");
+        } else if (App.isVip == 1) {
+            mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text2.setText("升级钻石观看超长视频");
+            mJcVideoPlayer.text3.setText("升级钻石观看超长视频");
+        } else if (App.isVip == 2) {
+            mJcVideoPlayer.text2.setVisibility(View.GONE);
+            mJcVideoPlayer.text3.setVisibility(View.GONE);
+        } else if (App.isVip == 3) {
+            mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text2.setText("升级黑金看你所想");
+            mJcVideoPlayer.text3.setText("升级黑金看你所想");
+        } else {
+            mJcVideoPlayer.text2.setVisibility(View.GONE);
+            mJcVideoPlayer.text3.setVisibility(View.GONE);
         }
     }
 
@@ -238,7 +253,7 @@ public class JCFullScreenActivity extends Activity {
             mDanmakuView.enableDanmakuDrawingCache(true);
         }
 
-        new CountDownTimer(commentInfoList.size() * 1000, 1000) {
+        new CountDownTimer(commentInfoList.size() * 3*1000, 2*1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -253,7 +268,6 @@ public class JCFullScreenActivity extends Activity {
 
             }
         }.start();
-
 
 
         mJcVideoPlayer.closeDanmu.setOnClickListener(new View.OnClickListener()

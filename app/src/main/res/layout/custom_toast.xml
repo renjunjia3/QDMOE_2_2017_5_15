@@ -8,7 +8,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#80000000"
+        android:background="#AA000000"
         android:drawableLeft="@drawable/ic_notice"
         android:drawablePadding="5dp"
         android:inAnimation="@anim/slide_in_top"

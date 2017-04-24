@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.VideoDetailActivity;
 import com.hfaufhreu.hjfeuio.adapter.GlodVipAdpter;
+import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
 import com.hfaufhreu.hjfeuio.bean.TrySeeContentInfo;
 import com.hfaufhreu.hjfeuio.bean.VideoInfo;
@@ -23,6 +24,7 @@ import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
 import com.hfaufhreu.hjfeuio.util.API;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -57,6 +59,7 @@ public class GlodVipFragment extends BaseMainFragment {
     private RequestCall getDataCall;
 
     private ImageView headerView;
+
 
     public static GlodVipFragment newInstance() {
         Bundle args = new Bundle();
@@ -98,7 +101,28 @@ public class GlodVipFragment extends BaseMainFragment {
                 toVideoDetail(list.get(position).getData().get(childPosition));
             }
         });
+
+        if (App.isVip < 1) {
+            View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+            //设置footerView的事件
+            footerView.findViewById(R.id.page1).setOnClickListener(pageClickListener);
+            footerView.findViewById(R.id.page2).setOnClickListener(pageClickListener);
+            footerView.findViewById(R.id.page3).setOnClickListener(pageClickListener);
+            footerView.findViewById(R.id.page4).setOnClickListener(pageClickListener);
+            footerView.findViewById(R.id.page5).setOnClickListener(pageClickListener);
+            footerView.findViewById(R.id.page_next).setOnClickListener(pageClickListener);
+            listview.addFooterView(footerView);
+        }
     }
+
+    private View.OnClickListener pageClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (App.isVip < 1) {
+                DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+            }
+        }
+    };
 
     /**
      * Case By:初始化Header

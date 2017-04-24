@@ -65,7 +65,8 @@ public class RankVideoListAdapter extends BaseAdapter {
         viewHolder.title.setText(info.getTitle());
         viewHolder.playCount.setText(info.getHits() + "次");
         viewHolder.tag.setVisibility(View.GONE);
-        ViewUtils.setViewHeightByViewGroup(viewHolder.image, (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(9)) * 9f / 2f / 16f));
+        int height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(3)) * 24f / 2f / 17f);
+        ViewUtils.setViewHeightByViewGroup(viewHolder.image,height);
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder.image);
         return convertView;
     }

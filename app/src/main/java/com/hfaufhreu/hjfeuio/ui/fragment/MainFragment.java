@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hfaufhreu.hjfeuio.R;
@@ -71,6 +72,8 @@ public class MainFragment extends BaseFragment {
     TextView name;
     @BindView(R.id.to_user)
     TextView toUser;
+    @BindView(R.id.vip_icon)
+    ImageView vipIcon;
 
     private List<SupportFragment> fragments = new ArrayList<>();
     private List<String> tabNames = new ArrayList<>();
@@ -286,6 +289,7 @@ public class MainFragment extends BaseFragment {
                 break;
             case 1:
                 toUser.setText("黄金会员");
+                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(2)));
@@ -294,6 +298,7 @@ public class MainFragment extends BaseFragment {
                 break;
             case 2:
                 toUser.setText("钻石会员");
+                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
@@ -302,6 +307,7 @@ public class MainFragment extends BaseFragment {
                 break;
             case 3:
                 toUser.setText("钻石会员");
+                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
@@ -310,6 +316,7 @@ public class MainFragment extends BaseFragment {
                 break;
             case 4:
                 toUser.setText("钻石会员");
+                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
@@ -318,6 +325,7 @@ public class MainFragment extends BaseFragment {
                 break;
             case 5:
                 toUser.setText("黑金会员");
+                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
@@ -325,6 +333,7 @@ public class MainFragment extends BaseFragment {
                 break;
             case 6:
                 toUser.setText("黑金会员");
+                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
@@ -332,6 +341,7 @@ public class MainFragment extends BaseFragment {
                 break;
             case 7:
                 toUser.setText("黑金会员");
+                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
