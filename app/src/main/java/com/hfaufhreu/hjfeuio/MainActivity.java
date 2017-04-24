@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,14 +17,14 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.bean.PayResultInfo;
-import com.hfaufhreu.hjfeuio.bean.UserInfo;
 import com.hfaufhreu.hjfeuio.config.PayConfig;
 import com.hfaufhreu.hjfeuio.event.ChangeTabEvent;
 import com.hfaufhreu.hjfeuio.ui.fragment.MainFragment;
 import com.hfaufhreu.hjfeuio.util.API;
-import com.hfaufhreu.hjfeuio.util.DateUtils;
+import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.ScreenUtils;
 import com.hfaufhreu.hjfeuio.util.SharedPreferencesUtil;
+import com.hfaufhreu.hjfeuio.util.ToastUtils;
 import com.sdky.jzp.SdkPay;
 import com.sdky.jzp.data.CheckOrder;
 import com.skpay.NINESDK;
@@ -73,7 +72,6 @@ public class MainActivity extends SupportActivity {
         if (savedInstanceState == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
         }
-        loginAndRegister();
         // 可以监听该Activity下的所有Fragment的18个 生命周期方法
         registerFragmentLifecycleCallbacks(new FragmentLifecycleCallbacks() {
 
@@ -145,44 +143,6 @@ public class MainActivity extends SupportActivity {
         return new DefaultHorizontalAnimator();
     }
 
-
-    private void loginAndRegister() {
-
-
-        TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
-        App.IMEI = tm.getDeviceId();
-        long lastLoginTime = SharedPreferencesUtil.getLong(MainActivity.this, App.LAST_LOGIN_TIME, 0);
-        if (!DateUtils.isDifferentDay(System.currentTimeMillis(), lastLoginTime)) {
-            App.USER_ID = SharedPreferencesUtil.getInt(MainActivity.this, App.USERID_KEY, 0);
-            App.isVip = SharedPreferencesUtil.getInt(MainActivity.this, App.ISVIP_KEY, 0);
-            return;
-        }
-        OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER + App.CHANNEL_ID + "/" + App.IMEI).build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int i) {
-                        e.printStackTrace();
-                        loginAndRegister();
-                    }
-
-                    @Override
-                    public void onResponse(String s, int i) {
-                        try {
-                            UserInfo info = JSON.parseObject(s, UserInfo.class);
-                            App.USER_ID = info.getUser_id();
-                            App.isVip = info.getIs_vip();
-                            SharedPreferencesUtil.putInt(MainActivity.this, App.USERID_KEY, App.USER_ID);
-                            SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                            SharedPreferencesUtil.putLong(MainActivity.this, App.LAST_LOGIN_TIME, System.currentTimeMillis());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            loginAndRegister();
-                        }
-                    }
-                });
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -202,6 +162,7 @@ public class MainActivity extends SupportActivity {
 
     @Subscribe
     public void changeTab(ChangeTabEvent changeTabEvent) {
+        DialogUtil.getInstance().cancelAllDialog();
         popTo(MainFragment.class, true);
         loadRootFragment(R.id.fl_container, MainFragment.newInstance());
     }
@@ -385,6 +346,33 @@ public class MainActivity extends SupportActivity {
                         SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip + 1);
                         App.isVip += 1;
                         changeTab(new ChangeTabEvent(App.isVip));
+
+                        switch (App.isVip) {
+                            case 1:
+                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成为黄金会员");
+                                break;
+                            case 2:
+                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成为钻石会员");
+                                break;
+                            case 3:
+                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成功注册VPN海外会员");
+                                break;
+                            case 4:
+                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜你进入海外片库，我们将携手为您服务");
+                                break;
+                            case 5:
+                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成为最牛逼的黑金会员");
+                                break;
+                            case 6:
+                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您开通海外高速通道");
+                                break;
+                            case 7:
+                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您开通海外双线通道");
+                                break;
+                            default:
+                                break;
+                        }
+
                     }
                     App.isNeedCheckOrder = false;
                     App.orderIdInt = 0;

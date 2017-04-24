@@ -275,4 +275,36 @@ public class DialogUtil {
         rapidDoubletVipDialog.show();
         MainFragment.clickWantPay();
     }
+
+    /**
+     * Case By:关闭所有的dialog
+     * Author: scene on 2017/4/24 9:34
+     */
+    public void cancelAllDialog() {
+
+        if (submitAndCancelDialog != null && submitAndCancelDialog.isShowing()) {
+            submitAndCancelDialog.cancel();
+        }
+        if (glodVipDialog != null && glodVipDialog.isShowing()) {
+            glodVipDialog.cancel();
+        }
+        if (diamondVipDialog != null && diamondVipDialog.isShowing()) {
+            diamondVipDialog.cancel();
+        }
+        if (vpnVipDialog != null && vpnVipDialog.isShowing()) {
+            vpnVipDialog.cancel();
+        }
+        if (vpnFlimVipDialog != null && vpnFlimVipDialog.isShowing()) {
+            vpnFlimVipDialog.cancel();
+        }
+        if (blackGlodVipDialog != null && blackGlodVipDialog.isShowing()) {
+            blackGlodVipDialog.cancel();
+        }
+        if (accelerationChannelVipDialog != null && accelerationChannelVipDialog.isShowing()) {
+            accelerationChannelVipDialog.cancel();
+        }
+        if (rapidDoubletVipDialog != null && rapidDoubletVipDialog.isShowing()) {
+            rapidDoubletVipDialog.cancel();
+        }
+    }
 }

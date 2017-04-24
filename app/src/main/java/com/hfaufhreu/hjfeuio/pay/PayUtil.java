@@ -3,8 +3,10 @@ package com.hfaufhreu.hjfeuio.pay;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 
 import com.alibaba.fastjson.JSON;
+import com.hfaufhreu.hjfeuio.AliPayActivity;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.bean.PayTokenResultInfo;
 import com.hfaufhreu.hjfeuio.config.PayConfig;
@@ -236,20 +238,23 @@ public class PayUtil {
                             }
                         });
                     } else if (info.getType() == 3) {
-                        if (vipDialog != null) {
-                            vipDialog.cancel();
-                        }
+//                        if (vipDialog != null) {
+//                            vipDialog.cancel();
+//                        }
                         //微信扫码
                         WxQRCodePayDialog.Builder builder = new WxQRCodePayDialog.Builder(context, info.getCode_img());
-                        WxQRCodePayDialog dialog = builder.create();
-                        dialog.show();
+                        WxQRCodePayDialog wxQRCodePayDialog = builder.create();
+                        wxQRCodePayDialog.show();
                         App.isNeedCheckOrder = true;
                         App.orderIdInt = info.getOrder_id_int();
                     } else {
                         //支付宝wap
-
+                        Intent intent = new Intent(context, AliPayActivity.class);
+                        intent.putExtra(AliPayActivity.ALIPAY_URL, info.getPay_url());
+                        context.startActivity(intent);
+                        App.isNeedCheckOrder = true;
+                        App.orderIdInt = info.getOrder_id_int();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     ToastUtils.getInstance(context).showToast("订单信息获取失败，请重试");

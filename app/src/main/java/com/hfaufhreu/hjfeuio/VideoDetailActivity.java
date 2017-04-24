@@ -314,11 +314,13 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        DialogUtil.getInstance().cancelAllDialog();
         EventBus.getDefault().unregister(this);
         unbinder.unbind();
         if (requestCall != null) {
             requestCall.cancel();
         }
+
         super.onDestroy();
     }
 

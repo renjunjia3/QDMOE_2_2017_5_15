@@ -64,6 +64,8 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
 
+        <activity android:name="com.hfaufhreu.hjfeuio.AliPayActivity"/>
+
         <!-- 商户在从发发啦商户申请获得商户号 -->
         <meta-data
             android:name="FAFALA_MERID"
