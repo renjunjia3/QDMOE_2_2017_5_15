@@ -42,6 +42,7 @@ public class LuncherActivity extends AppCompatActivity {
         applyExternalPer();
         loginTime = System.currentTimeMillis();
         loginAndRegister();
+        //ToastUtils.getInstance(LuncherActivity.this).showToast("渠道："+App.CHANNEL_ID);
     }
 
     private void applyExternalPer() {

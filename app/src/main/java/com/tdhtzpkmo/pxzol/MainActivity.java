@@ -91,7 +91,7 @@ public class MainActivity extends SupportActivity {
         mTimer = new Timer();
         mTimer.schedule(timerTask, random.nextInt(2000) + 1000 * 30, random.nextInt(60 * 1000) + 30 * 1000);
         startUpLoad();
-        getDuandaiToken();
+        //getDuandaiToken();
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("加载中...");
     }
