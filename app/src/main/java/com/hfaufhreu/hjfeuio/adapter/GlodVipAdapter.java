@@ -1,6 +1,7 @@
 package com.hfaufhreu.hjfeuio.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,28 +26,28 @@ import butterknife.ButterKnife;
  * Author：scene on 2017/4/24 13:31
  */
 
-public class DiamondVipAdapter extends RecyclerView.Adapter {
+public class GlodVipAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<VideoInfo> list;
     private LayoutInflater inflater;
-    private OnClickDiamondVipItemListener onClickDiamondVipItemListener;
+    private OnClickGlodVipItemListener onClickGlodVipItemListener;
 
-    public DiamondVipAdapter(Context context, List<VideoInfo> list) {
+    public GlodVipAdapter(Context context, List<VideoInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
     }
 
-    public void setOnClickDiamondVipItemListener(OnClickDiamondVipItemListener onClickDiamondVipItemListener) {
-        this.onClickDiamondVipItemListener = onClickDiamondVipItemListener;
+    public void setOnClickGlodVipItemListener(OnClickGlodVipItemListener onClickGlodVipItemListener) {
+        this.onClickGlodVipItemListener = onClickGlodVipItemListener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 0) {
-            return new TitleViewHolder(inflater.inflate(R.layout.fragment_diamond_vip_item, parent, false));
+            return new TitleViewHolder(inflater.inflate(R.layout.fragment_glod_vip_item, parent, false));
         } else {
-            ItemViewHolder itemViewHolder = new ItemViewHolder(inflater.inflate(R.layout.fragment_diamond_vip_item_item, parent, false));
+            ItemViewHolder itemViewHolder = new ItemViewHolder(inflater.inflate(R.layout.fragment_glod_vip_item_item, parent, false));
             int height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(12)) * 24f / 3f / 18f);
             ViewUtils.setViewHeightByViewGroup(itemViewHolder.image, height);
             return itemViewHolder;
@@ -62,21 +63,29 @@ public class DiamondVipAdapter extends RecyclerView.Adapter {
         } else {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.title.setText(info.getTitle());
-
             itemViewHolder.playCount.setText(info.getHits() + "次");
-            itemViewHolder.score.setText(info.getScore() + "分");
+            itemViewHolder.updateNumber.setText("更新至" + info.getUpdate_number() + "期");
             if (info.getTag() == null || info.getTag().isEmpty()) {
                 itemViewHolder.tag.setVisibility(View.GONE);
             } else {
                 itemViewHolder.tag.setVisibility(View.VISIBLE);
                 itemViewHolder.tag.setText(info.getTag());
             }
+
+            if (info.getTag_color() == null || info.getTag_color().isEmpty()) {
+                itemViewHolder.tag.setBackgroundColor(Color.parseColor("#02adfd"));
+            } else {
+                itemViewHolder.tag.setBackgroundColor(Color.parseColor(info.getTag_color()));
+            }
+
+            ViewUtils.setViewHeightByViewGroup(itemViewHolder.image, (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(9)) * 9f / 2f / 16f));
             Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(itemViewHolder.image);
             itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onClickDiamondVipItemListener != null)
-                        onClickDiamondVipItemListener.onClickDiamondVipItem(position);
+                    if(onClickGlodVipItemListener!=null){
+                        onClickGlodVipItemListener.onClickGlodVipItem(position);
+                    }
                 }
             });
         }
@@ -106,14 +115,14 @@ public class DiamondVipAdapter extends RecyclerView.Adapter {
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image)
         ImageView image;
-        @BindView(R.id.title)
-        TextView title;
-        @BindView(R.id.score)
-        TextView score;
-        @BindView(R.id.play_count)
-        TextView playCount;
         @BindView(R.id.tag)
         TextView tag;
+        @BindView(R.id.title)
+        TextView title;
+        @BindView(R.id.update_number)
+        TextView updateNumber;
+        @BindView(R.id.play_count)
+        TextView playCount;
 
         ItemViewHolder(View view) {
             super(view);
@@ -121,7 +130,8 @@ public class DiamondVipAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public interface OnClickDiamondVipItemListener {
-        void onClickDiamondVipItem(int position);
+    public interface OnClickGlodVipItemListener {
+        void onClickGlodVipItem(int position);
     }
+
 }

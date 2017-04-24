@@ -71,9 +71,7 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.to_user)
-    TextView toUser;
-    @BindView(R.id.vip_icon)
-    ImageView vipIcon;
+    ImageView toUser;
 
     private List<SupportFragment> fragments = new ArrayList<>();
     private List<String> tabNames = new ArrayList<>();
@@ -279,8 +277,7 @@ public class MainFragment extends BaseFragment {
         EventBus.getDefault().register(this);
         switch (App.isVip) {
             case 0:
-                toUser.setText("游客");
-                vipIcon.setImageResource(0);
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_try_see);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(2)));
@@ -288,8 +285,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(4)));
                 break;
             case 1:
-                toUser.setText("黄金会员");
-                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_glod);
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(2)));
@@ -297,8 +293,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(4)));
                 break;
             case 2:
-                toUser.setText("钻石会员");
-                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_diamond);
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
@@ -306,8 +301,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
             case 3:
-                toUser.setText("钻石会员");
-                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_diamond);
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
@@ -315,8 +309,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
             case 4:
-                toUser.setText("钻石会员");
-                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_diamond);
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
@@ -324,24 +317,21 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
             case 5:
-                toUser.setText("黑金会员");
-                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(3)));
                 break;
             case 6:
-                toUser.setText("黑金会员");
-                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(3)));
                 break;
             case 7:
-                toUser.setText("黑金会员");
-                vipIcon.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));

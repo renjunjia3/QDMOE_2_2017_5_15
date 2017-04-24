@@ -76,32 +76,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <RelativeLayout
+
+                <ImageView
+                    android:id="@+id/to_user"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_toolbar_vip_diamond"
+                    android:paddingRight="3dp" />
 
-                    <TextView
-                        android:id="@+id/to_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/ic_toolbar_user"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="3dp"
-                        android:text="黄金会员"
-                        android:textColor="#333333"
-                        android:textSize="10sp" />
-
-                    <ImageView
-                        android:id="@+id/vip_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_toolbar_vip_diamond" />
-
-                </RelativeLayout>
 
                 <ImageView
                     android:id="@+id/complaint"

@@ -65,10 +65,15 @@ public class RankAdapter extends BaseAdapter {
 
         rankViewHolder.name.setText(info.getActor_name());
         rankViewHolder.videos.setText(info.getVideos());
-        rankViewHolder.votes.setText(info.getVotes()+"票");
+        rankViewHolder.votes.setText(info.getVotes() + "票");
         rankViewHolder.number.setText("NO" + (position + 4));
         rankViewHolder.progressBar.setProgress(info.getPercent());
-        rankViewHolder.tag.setText(info.getTag());
+        if (info.getTag() == null || info.getTag().isEmpty()) {
+            rankViewHolder.tag.setVisibility(View.GONE);
+        } else {
+            rankViewHolder.tag.setVisibility(View.VISIBLE);
+            rankViewHolder.tag.setText(info.getTag());
+        }
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(rankViewHolder.image);
         return convertView;
     }

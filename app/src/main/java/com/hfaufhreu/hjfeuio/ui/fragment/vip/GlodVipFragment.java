@@ -3,26 +3,28 @@ package com.hfaufhreu.hjfeuio.ui.fragment.vip;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.hfaufhreu.hjfeuio.R;
 import com.hfaufhreu.hjfeuio.VideoDetailActivity;
-import com.hfaufhreu.hjfeuio.adapter.GlodVipAdpter;
+import com.hfaufhreu.hjfeuio.adapter.GlodVipAdapter;
 import com.hfaufhreu.hjfeuio.app.App;
 import com.hfaufhreu.hjfeuio.base.BaseMainFragment;
-import com.hfaufhreu.hjfeuio.bean.TrySeeContentInfo;
 import com.hfaufhreu.hjfeuio.bean.VideoInfo;
 import com.hfaufhreu.hjfeuio.bean.VipInfo;
+import com.hfaufhreu.hjfeuio.itemdecoration.DiamondItemDecoration;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrClassicFrameLayout;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrDefaultHandler;
 import com.hfaufhreu.hjfeuio.pull_loadmore.PtrFrameLayout;
+import com.hfaufhreu.hjfeuio.pull_loadmore.recyclerview.RecyclerAdapterWithHF;
 import com.hfaufhreu.hjfeuio.util.API;
 import com.hfaufhreu.hjfeuio.util.DialogUtil;
 import com.hfaufhreu.hjfeuio.util.NetWorkUtils;
@@ -46,15 +48,16 @@ import wiki.scene.statuslib.StatusViewLayout;
  */
 
 public class GlodVipFragment extends BaseMainFragment {
-    @BindView(R.id.listview)
-    ListView listview;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
     @BindView(R.id.ptr_layout)
     PtrClassicFrameLayout ptrLayout;
     @BindView(R.id.statusViewLayout)
     StatusViewLayout statusViewLayout;
 
-    private GlodVipAdpter adapter;
-    private List<TrySeeContentInfo> list;
+    private GlodVipAdapter adapter;
+    private RecyclerAdapterWithHF mAdapter;
+    private List<VideoInfo> list;
 
     private RequestCall getDataCall;
 
@@ -92,16 +95,33 @@ public class GlodVipFragment extends BaseMainFragment {
                 getGlodVipData(false);
             }
         });
+
         list = new ArrayList<>();
-        adapter = new GlodVipAdpter(getContext(), list);
-        listview.setAdapter(adapter);
-        adapter.setOnGlodVipItemClickListener(new GlodVipAdpter.OnGlodVipItemClickListener() {
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
-            public void onGlodVipItemClick(int position, int childPosition) {
-                toVideoDetail(list.get(position).getData().get(childPosition));
+            public int getSpanSize(int position) {
+                if (App.isVip < 1) {
+                    if (position == 0) {
+                        return 2;
+                    } else if (position > list.size()) {
+                        return 2;
+                    } else {
+                        return list.get(position - 1).isTilteType() ? 2 : 1;
+                    }
+                } else {
+                    if (position == 0) {
+                        return 2;
+                    } else {
+                        return list.get(position - 1).isTilteType() ? 2 : 1;
+                    }
+                }
+
             }
         });
-
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new GlodVipAdapter(getContext(), list);
+        mAdapter = new RecyclerAdapterWithHF(adapter);
         if (App.isVip < 1) {
             View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
             //设置footerView的事件
@@ -111,8 +131,17 @@ public class GlodVipFragment extends BaseMainFragment {
             footerView.findViewById(R.id.page4).setOnClickListener(pageClickListener);
             footerView.findViewById(R.id.page5).setOnClickListener(pageClickListener);
             footerView.findViewById(R.id.page_next).setOnClickListener(pageClickListener);
-            listview.addFooterView(footerView);
+            mAdapter.addFooter(footerView);
         }
+        recyclerView.addItemDecoration(new DiamondItemDecoration((int) ScreenUtils.instance(getContext()).dip2px(3), list, App.isVip < 1));
+        recyclerView.setAdapter(mAdapter);
+        adapter.setOnClickGlodVipItemListener(new GlodVipAdapter.OnClickGlodVipItemListener() {
+            @Override
+            public void onClickGlodVipItem(int position) {
+                toVideoDetail(list.get(position));
+            }
+        });
+
     }
 
     private View.OnClickListener pageClickListener = new View.OnClickListener() {
@@ -139,10 +168,10 @@ public class GlodVipFragment extends BaseMainFragment {
             layoutparams.height = (int) (ScreenUtils.instance(getContext()).getScreenWidth() * 9f / 16f);
             headerView.setLayoutParams(layoutparams);
         }
-        if (listview.getHeaderViewsCount() > 0) {
-            listview.removeHeaderView(headerView);
+        if (mAdapter.getHeadSize() > 0) {
+            mAdapter.removeHeader(headerView);
         }
-        listview.addHeaderView(headerView);
+        mAdapter.addHeader(headerView);
         Glide.with(getContext()).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(headerView);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,12 +204,23 @@ public class GlodVipFragment extends BaseMainFragment {
                 }
 
                 @Override
-                public void onResponse(String s, int i) {
+                public void onResponse(String s, int code) {
                     try {
                         VipInfo vipInfo = JSON.parseObject(s, VipInfo.class);
                         initHeaderView(vipInfo.getBanner());
                         list.clear();
-                        list.addAll(vipInfo.getOther());
+                        list.clear();
+                        for (int i = 0; i < vipInfo.getOther().size(); i++) {
+                            VideoInfo videoInfo = new VideoInfo();
+                            videoInfo.setTilteType(true);
+                            videoInfo.setTitle(vipInfo.getOther().get(i).getTitle());
+                            list.add(videoInfo);
+                            for (int j = 0; j < vipInfo.getOther().get(i).getData().size(); j++) {
+                                VideoInfo videoInfo2 = vipInfo.getOther().get(i).getData().get(j);
+                                videoInfo2.setTilteType(false);
+                                list.add(videoInfo2);
+                            }
+                        }
                         adapter.notifyDataSetChanged();
                         if (isShowLoad) {
                             statusViewLayout.showContent();

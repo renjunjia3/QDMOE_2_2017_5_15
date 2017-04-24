@@ -34,14 +34,4 @@
             android:textSize="@dimen/text_size_big" />
     </LinearLayout>
 
-    <com.hfaufhreu.hjfeuio.ui.view.CustomeGridView
-        android:id="@+id/gridView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout"
-        android:layout_marginTop="3dp"
-        android:horizontalSpacing="3dp"
-        android:numColumns="2"
-        android:verticalSpacing="3dp" />
-
 </RelativeLayout>
