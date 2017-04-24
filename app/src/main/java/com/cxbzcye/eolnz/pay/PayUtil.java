@@ -189,51 +189,50 @@ public class PayUtil {
                                     App.isNeedCheckOrder = true;
                                     App.orderIdInt = info.getOrder_id_int();
                                     int isvipType = 0;
-                                    switch (type) {
-                                        case 1:
-                                        case 2:
-                                            isvipType = 1;
-                                            ToastUtils.getInstance(context).showToast("恭喜您成为黄金会员");
-                                            break;
-                                        case 3:
-                                        case 4:
-                                            isvipType = 2;
-                                            ToastUtils.getInstance(context).showToast("恭喜您成为钻石会员");
-                                            break;
-                                        case 5:
-                                            isvipType = 3;
-                                            ToastUtils.getInstance(context).showToast("恭喜您成功注册VPN海外会员");
-                                            break;
-                                        case 6:
-                                            isvipType = 4;
-                                            ToastUtils.getInstance(context).showToast("恭喜你进入海外片库，我们将携手为您服务");
-                                            break;
-                                        case 7:
-                                            isvipType = 5;
-                                            ToastUtils.getInstance(context).showToast("恭喜您成为最牛逼的黑金会员");
-                                            break;
-                                        case 8:
-                                            isvipType = 6;
-                                            ToastUtils.getInstance(context).showToast("恭喜您开通海外高速通道");
-                                            break;
-                                        case 9:
-                                            isvipType = 7;
-                                            ToastUtils.getInstance(context).showToast("恭喜您开通海外双线通道");
-                                            break;
-                                        default:
-                                            break;
-                                    }
+//                                    switch (type) {
+//                                        case 1:
+//                                        case 2:
+//                                            isvipType = 1;
+//                                            ToastUtils.getInstance(context).showToast("恭喜您成为黄金会员");
+//                                            break;
+//                                        case 3:
+//                                        case 4:
+//                                            isvipType = 2;
+//                                            ToastUtils.getInstance(context).showToast("恭喜您成为钻石会员");
+//                                            break;
+//                                        case 5:
+//                                            isvipType = 3;
+//                                            ToastUtils.getInstance(context).showToast("恭喜您成功注册VPN海外会员");
+//                                            break;
+//                                        case 6:
+//                                            isvipType = 4;
+//                                            ToastUtils.getInstance(context).showToast("恭喜你进入海外片库，我们将携手为您服务");
+//                                            break;
+//                                        case 7:
+//                                            isvipType = 5;
+//                                            ToastUtils.getInstance(context).showToast("恭喜您成为最牛逼的黑金会员");
+//                                            break;
+//                                        case 8:
+//                                            isvipType = 6;
+//                                            ToastUtils.getInstance(context).showToast("恭喜您开通海外高速通道");
+//                                            break;
+//                                        case 9:
+//                                            isvipType = 7;
+//                                            ToastUtils.getInstance(context).showToast("恭喜您开通海外双线通道");
+//                                            break;
+//                                        default:
+//                                            break;
+//                                    }
 
-                                    SharedPreferencesUtil.putInt(context, App.ISVIP_KEY, isvipType);
-                                    App.isVip = isvipType;
+
                                     if (vipDialog != null) {
                                         vipDialog.cancel();
                                     }
-                                    if (isVideoDetailPage) {
-                                        EventBus.getDefault().post(new CloseVideoDetailEvent());
-                                    } else {
-                                        EventBus.getDefault().post(new ChangeTabEvent(isvipType));
-                                    }
+//                                    if (isVideoDetailPage) {
+//                                        EventBus.getDefault().post(new CloseVideoDetailEvent());
+//                                    } else {
+//                                        EventBus.getDefault().post(new ChangeTabEvent(isvipType));
+//                                    }
                                 } else {
                                     ToastUtils.getInstance(context).showToast("支付失败");
                                 }

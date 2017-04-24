@@ -197,7 +197,9 @@ public class DiamondVipFragment extends BaseMainFragment {
                 @Override
                 public void onError(Call call, Exception e, int i) {
                     if (isShowLoad) {
-                        statusViewLayout.showFailed(retryListener);
+                        if (statusViewLayout != null) {
+                            statusViewLayout.showFailed(retryListener);
+                        }
                     } else {
                         ptrLayout.refreshComplete();
                     }
@@ -222,12 +224,16 @@ public class DiamondVipFragment extends BaseMainFragment {
                         }
                         adapter.notifyDataSetChanged();
                         if (isShowLoad) {
-                            statusViewLayout.showContent();
+                            if (statusViewLayout != null) {
+                                statusViewLayout.showContent();
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         if (isShowLoad) {
-                            statusViewLayout.showFailed(retryListener);
+                            if (statusViewLayout != null) {
+                                statusViewLayout.showFailed(retryListener);
+                            }
                         }
                     } finally {
                         ptrLayout.refreshComplete();
@@ -238,7 +244,9 @@ public class DiamondVipFragment extends BaseMainFragment {
         } else {
             //网络未连接
             if (isShowLoad) {
-                statusViewLayout.showNetError(retryListener);
+                if (statusViewLayout != null) {
+                    statusViewLayout.showNetError(retryListener);
+                }
             } else {
                 ptrLayout.refreshComplete();
             }

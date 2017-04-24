@@ -64,6 +64,8 @@ public class MainActivity extends SupportActivity {
     private final Handler mHandler = new MyHandler(this);
     private Toast toast;
 
+    public static boolean isNeedChangeTab = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,13 +149,17 @@ public class MainActivity extends SupportActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 9999) {
-            changeTab(new ChangeTabEvent(App.isVip));
+            //  changeTab(new ChangeTabEvent(App.isVip));
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (isNeedChangeTab) {
+            isNeedChangeTab=false;
+            changeTab(new ChangeTabEvent(App.isVip));
+        }
         if (App.isNeedCheckOrder && App.orderIdInt != 0) {
             checkOrder();
         }
@@ -324,6 +330,8 @@ public class MainActivity extends SupportActivity {
         Map<String, String> params = new HashMap<>();
         params.put("order_id", App.orderIdInt + "");
         params.put("imei", App.IMEI);
+        App.isNeedCheckOrder = false;
+        App.orderIdInt = 0;
         requestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_ORDER).params(params).build();
         requestCall.execute(new StringCallback() {
             @Override
@@ -374,8 +382,6 @@ public class MainActivity extends SupportActivity {
                         }
 
                     }
-                    App.isNeedCheckOrder = false;
-                    App.orderIdInt = 0;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

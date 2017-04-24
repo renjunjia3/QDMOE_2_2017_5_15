@@ -223,7 +223,9 @@ public class GlodVipFragment extends BaseMainFragment {
                         }
                         adapter.notifyDataSetChanged();
                         if (isShowLoad) {
-                            statusViewLayout.showContent();
+                            if (statusViewLayout != null) {
+                                statusViewLayout.showContent();
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

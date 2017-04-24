@@ -121,7 +121,9 @@ public class BlackGlodVipFragment extends BaseMainFragment {
                 @Override
                 public void onError(Call call, Exception e, int i) {
                     e.printStackTrace();
-                    statusViewLayout.showFailed(retryListener);
+                    if (statusViewLayout != null) {
+                        statusViewLayout.showFailed(retryListener);
+                    }
                 }
 
                 @Override
@@ -135,13 +137,17 @@ public class BlackGlodVipFragment extends BaseMainFragment {
                         statusViewLayout.showContent();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        statusViewLayout.showFailed(retryListener);
+                        if (statusViewLayout != null) {
+                            statusViewLayout.showFailed(retryListener);
+                        }
                     }
                 }
             });
 
         } else {
-            statusViewLayout.showNetError(retryListener);
+            if (statusViewLayout != null) {
+                statusViewLayout.showNetError(retryListener);
+            }
         }
     }
 
@@ -155,7 +161,7 @@ public class BlackGlodVipFragment extends BaseMainFragment {
         Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
         intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
         intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
-        _mActivity.startActivityForResult(intent,9999);
+        _mActivity.startActivityForResult(intent, 9999);
     }
 
 

@@ -422,7 +422,7 @@ public class JCFullScreenActivity extends Activity {
                     intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_GLOD);
                     setResult(RESULT_OK, intent);
                     finish();
-                } else if (App.isVip == 1 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 55 * 1000) {
+                } else if (App.isVip == 1 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 90 * 1000) {
                     //黄金会员试看超过55s 弹出开通砖石会员界面
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
@@ -430,7 +430,7 @@ public class JCFullScreenActivity extends Activity {
                     setResult(RESULT_OK, intent);
                     finish();
 
-                } else if (App.isVip == 2 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 65 * 1000) {
+                } else if (App.isVip == 2 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 130 * 1000) {
                     //砖石会员试看超过65s，提示开通VPN海外会员
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
@@ -438,7 +438,7 @@ public class JCFullScreenActivity extends Activity {
                     setResult(RESULT_OK, intent);
                     finish();
 
-                } else if (App.isVip == 3 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 75 * 1000) {
+                } else if (App.isVip == 3 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 135 * 1000) {
                     //开通VPN之后播放时长超过75s，提示开通海外片库
                     Intent intent = new Intent();
                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
@@ -446,7 +446,7 @@ public class JCFullScreenActivity extends Activity {
                     setResult(RESULT_OK, intent);
                     finish();
 
-                } else if (App.isVip == 4 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 120 * 1000) {
+                } else if (App.isVip == 4 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 140 * 1000) {
 
                     //开通海外片库后播放2分钟 弹出黑金会员
                     Intent intent = new Intent();
@@ -455,7 +455,7 @@ public class JCFullScreenActivity extends Activity {
                     setResult(RESULT_OK, intent);
                     finish();
 
-                } else if (App.isVip == 5 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 180 * 1000) {
+                } else if (App.isVip == 5 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 150 * 1000) {
 
                     //黑金会员播放3分钟后弹出加速通道
                     mJcVideoPlayer.loadingProgressBar.setVisibility(View.VISIBLE);
@@ -478,7 +478,7 @@ public class JCFullScreenActivity extends Activity {
                         }.start();
                     }
 
-                } else if (App.isVip == 6 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 185 * 1000) {
+                } else if (App.isVip == 6 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 155 * 1000) {
                     //开通海外片库后播放200s 弹出急速通道
                     mJcVideoPlayer.loadingProgressBar.setVisibility(View.VISIBLE);
                     JCMediaManager.instance().releaseMediaPlayer();

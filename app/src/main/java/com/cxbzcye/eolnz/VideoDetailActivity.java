@@ -3,6 +3,8 @@ package com.cxbzcye.eolnz;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -342,44 +344,94 @@ public class VideoDetailActivity extends AppCompatActivity {
      */
     private RequestCall requestCall;
     private ProgressDialog progressDialog;
+    private int checkOrderCount = 0;
+
+
+
 
     private void checkOrder() {
+        if (checkOrderCount > 3) {
+            return;
+        }
         if (progressDialog != null) {
             progressDialog.show();
         }
-        Map<String, String> params = new HashMap<>();
-        params.put("order_id", App.orderIdInt + "");
-        params.put("imei", App.IMEI);
-        requestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_ORDER).params(params).build();
-        requestCall.execute(new StringCallback() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onError(Call call, Exception e, int i) {
-                e.printStackTrace();
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-            }
+            public void run() {
+                Map<String, String> params = new HashMap<>();
+                params.put("order_id", App.orderIdInt + "");
+                params.put("imei", App.IMEI);
+                App.isNeedCheckOrder = false;
+                App.orderIdInt = 0;
+                requestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_ORDER).params(params).build();
+                requestCall.execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        e.printStackTrace();
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressDialog.dismiss();
+                                }
+                            });
 
-            @Override
-            public void onResponse(String s, int i) {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    boolean status = jsonObject.getBoolean("status");
-                    if (status) {
-                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip + 1);
-                        App.isVip += 1;
-                        closeVideoDetail(new CloseVideoDetailEvent());
+                        }
                     }
-                    App.isNeedCheckOrder = false;
-                    App.orderIdInt = 0;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            boolean status = jsonObject.getBoolean("status");
+                            if (status) {
+                                checkOrderCount = 0;
+                                SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip + 1);
+                                App.isVip += 1;
+                                MainActivity.isNeedChangeTab = true;
+                                closeVideoDetail(new CloseVideoDetailEvent());
+                                switch (App.isVip) {
+                                    case 1:
+                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成为黄金会员");
+                                        break;
+                                    case 2:
+                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成为钻石会员");
+                                        break;
+                                    case 3:
+                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成功注册VPN海外会员");
+                                        break;
+                                    case 4:
+                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜你进入海外片库，我们将携手为您服务");
+                                        break;
+                                    case 5:
+                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成为最牛逼的黑金会员");
+                                        break;
+                                    case 6:
+                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您开通海外高速通道");
+                                        break;
+                                    case 7:
+                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您开通海外双线通道");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            } else {
+                                checkOrderCount += 1;
+                                checkOrder();
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
-        });
+        },3000);
+
     }
 
 }
