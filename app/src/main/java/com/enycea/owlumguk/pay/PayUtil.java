@@ -12,6 +12,7 @@ import com.enycea.owlumguk.bean.PayTokenResultInfo;
 import com.enycea.owlumguk.config.PayConfig;
 import com.enycea.owlumguk.ui.dialog.WxQRCodePayDialog;
 import com.enycea.owlumguk.util.API;
+import com.enycea.owlumguk.util.DialogUtil;
 import com.enycea.owlumguk.util.ToastUtils;
 import com.lessen.paysdk.pay.PayCallBack;
 import com.lessen.paysdk.pay.PayTool;
@@ -214,6 +215,7 @@ public class PayUtil {
                         wxQRCodePayDialog.show();
                         App.isNeedCheckOrder = true;
                         App.orderIdInt = info.getOrder_id_int();
+                        DialogUtil.getInstance().showCustomSubmitDialog(context,"支付二维码已经保存到您的相册，请前往微信扫一扫付费");
                     } else {
                         //支付宝wap
                         Intent intent = new Intent(context, AliPayActivity.class);

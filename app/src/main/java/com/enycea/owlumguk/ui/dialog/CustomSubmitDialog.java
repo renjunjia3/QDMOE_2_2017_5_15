@@ -25,12 +25,9 @@ public class CustomSubmitDialog extends Dialog {
 
     public static class Builder {
         private Context context;
-        private String title;
         private String message;
         private String buttonText;
-        private View contentView;
         private DialogInterface.OnClickListener positiveButtonClickListener;
-        private DialogInterface.OnClickListener negativeButtonClickListener;
 
         public Builder(Context context) {
             this.context = context;
@@ -46,11 +43,6 @@ public class CustomSubmitDialog extends Dialog {
             return this;
         }
 
-        public Builder setButtonText(int buttonTextId, DialogInterface.OnClickListener listener) {
-            this.buttonText = (String) context.getText(buttonTextId);
-            this.positiveButtonClickListener = listener;
-            return this;
-        }
 
         public Builder setButtonText(String buttonText, DialogInterface.OnClickListener listener) {
             this.buttonText = buttonText;

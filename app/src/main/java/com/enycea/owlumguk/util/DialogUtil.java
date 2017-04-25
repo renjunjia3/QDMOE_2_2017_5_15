@@ -7,6 +7,7 @@ import com.enycea.owlumguk.app.App;
 import com.enycea.owlumguk.pay.PayUtil;
 import com.enycea.owlumguk.ui.dialog.AccelerationChannelVipDialog;
 import com.enycea.owlumguk.ui.dialog.BlackGlodVipDialog;
+import com.enycea.owlumguk.ui.dialog.CustomSubmitDialog;
 import com.enycea.owlumguk.ui.dialog.DiamondVipDialog;
 import com.enycea.owlumguk.ui.dialog.GlodVipDialog;
 import com.enycea.owlumguk.ui.dialog.RapidDoubletVipDialog;
@@ -24,6 +25,10 @@ import com.enycea.owlumguk.ui.fragment.MainFragment;
 public class DialogUtil {
 
     private static DialogUtil instance = null;
+
+    //只有确定的对话框
+    private CustomSubmitDialog customSubmitDialog;
+    private CustomSubmitDialog.Builder customSubmitDialgBuiler;
 
     //确定取消的对话框
     private SubmitAndCancelDialog submitAndCancelDialog;
@@ -301,6 +306,31 @@ public class DialogUtil {
         rapidDoubletVipDialog = rapidDoubletVipDialogBuilder.create();
         rapidDoubletVipDialog.show();
         MainFragment.clickWantPay();
+    }
+
+    /**
+     * Case By:显示只有确定按钮的dialog
+     * Author: scene on 2017/4/25 16:43
+     *
+     * @param context 上下文
+     * @param message 文字内容
+     */
+    public void showCustomSubmitDialog(Context context, String message) {
+        if (customSubmitDialog != null && customSubmitDialog.isShowing()) {
+            customSubmitDialog.cancel();
+        }
+        customSubmitDialgBuiler = new CustomSubmitDialog.Builder(context);
+        customSubmitDialgBuiler.setMessage(message);
+        customSubmitDialgBuiler.setButtonText("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (customSubmitDialog != null && customSubmitDialog.isShowing()) {
+                    customSubmitDialog.cancel();
+                }
+            }
+        });
+        customSubmitDialog = customSubmitDialgBuiler.create();
+        customSubmitDialog.show();
     }
 
     /**
