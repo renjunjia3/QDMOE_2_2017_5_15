@@ -63,8 +63,8 @@
                         <ImageView
                             android:id="@+id/open_vip"
                             android:layout_width="wrap_content"
-                            android:padding="5dp"
                             android:layout_height="wrap_content"
+                            android:padding="5dp"
                             android:src="@drawable/ic_mine_update_vip" />
                     </LinearLayout>
 
@@ -82,6 +82,7 @@
                             android:textSize="@dimen/text_size_middle" />
 
                         <TextView
+                            android:id="@+id/account"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="123456"
@@ -97,6 +98,7 @@
                             android:textSize="@dimen/text_size_middle" />
 
                         <TextView
+                            android:id="@+id/password"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="123456"
@@ -246,6 +248,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#46433e" />
+
             <LinearLayout
                 android:id="@+id/lishi"
                 android:layout_width="match_parent"
@@ -279,6 +282,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#46433e" />
+
             <LinearLayout
                 android:id="@+id/shoucang"
                 android:layout_width="match_parent"
@@ -347,6 +351,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_glod" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -380,22 +385,24 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_glod" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#46433e" />
+
             <TextView
                 android:id="@+id/tousu"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp"
                 android:background="#f1d09e"
+                android:gravity="center"
                 android:padding="10dp"
                 android:text="在线投诉"
                 android:textColor="#282828"
-                android:gravity="center"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="20dp"
-                android:textSize="@dimen/text_size_big"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/text_size_big" />
 
         </LinearLayout>
     </ScrollView>

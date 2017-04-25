@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.eexikn.uxcebc.pull_loadmore.PtrClassicFrameLayout
+        <com.plnrqrzy.tjtutfa.pull_loadmore.PtrClassicFrameLayout
             android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -19,6 +19,6 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </com.eexikn.uxcebc.pull_loadmore.PtrClassicFrameLayout>
+        </com.plnrqrzy.tjtutfa.pull_loadmore.PtrClassicFrameLayout>
     </wiki.scene.statuslib.StatusViewLayout>
 </LinearLayout>

@@ -83,6 +83,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
+        android:visibility="gone"
         android:text="在线观看"
         android:textColor="#6f88e6"
         android:textSize="@dimen/text_size_middle" />

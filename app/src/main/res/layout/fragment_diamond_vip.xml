@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.eexikn.uxcebc.pull_loadmore.PtrClassicFrameLayout
+        <com.plnrqrzy.tjtutfa.pull_loadmore.PtrClassicFrameLayout
             android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -20,7 +20,7 @@
                 android:background="#282828"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </com.eexikn.uxcebc.pull_loadmore.PtrClassicFrameLayout>
+        </com.plnrqrzy.tjtutfa.pull_loadmore.PtrClassicFrameLayout>
 
     </wiki.scene.statuslib.StatusViewLayout>
 </LinearLayout>
