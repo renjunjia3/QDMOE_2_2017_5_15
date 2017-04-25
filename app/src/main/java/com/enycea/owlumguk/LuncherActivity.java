@@ -2,6 +2,7 @@ package com.enycea.owlumguk;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -39,21 +40,24 @@ public class LuncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_luncher);
         //申请权限---内存读写权限
-        applyExternalPer();
         loginTime = System.currentTimeMillis();
-        loginAndRegister();
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            applyExternalPer();
+        } else {
+            loginAndRegister();
+        }
         ToastUtils.getInstance(LuncherActivity.this).showToast("渠道：" + App.CHANNEL_ID);
     }
 
     private void applyExternalPer() {
 
         Acp.getInstance(this).request(new AcpOptions.Builder()
-                        .setPermissions(Manifest.permission.READ_PHONE_STATE)
+                        .setPermissions(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .setDeniedMessage("需要获取手机状态权限，以作为您的唯一标识").build(),
                 new AcpListener() {
                     @Override
                     public void onGranted() {
-
+                        loginAndRegister();
                     }
 
                     @Override

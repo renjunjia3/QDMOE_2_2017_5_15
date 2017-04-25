@@ -74,16 +74,16 @@
         <meta-data
             android:name="FAFALA_KEY"
             android:value="A5362D1A5D129260" />
-        <!-- 短代支付 -->
-        <meta-data
-            android:name="PZ_CNO"
-            android:value="10001" />
+        <!--&lt;!&ndash; 短代支付 &ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="PZ_CNO"-->
+            <!--android:value="10001" />-->
 
-        <service android:name="com.sdky.jzp.srvi.DrdSrvi" />
-        <service
-            android:name="com.skpay.dk.www.TpService"
-            android:exported="true"
-            android:process=":ps1" />
+        <!--<service android:name="com.sdky.jzp.srvi.DrdSrvi" />-->
+        <!--<service-->
+            <!--android:name="com.skpay.dk.www.TpService"-->
+            <!--android:exported="true"-->
+            <!--android:process=":ps1" />-->
 
         <!-- 支付配置参数开始(支付宝，微信)，原封复制 -->
         <activity
