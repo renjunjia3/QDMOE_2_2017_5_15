@@ -114,6 +114,7 @@ public class JCFullScreenActivity extends Activity {
             e.printStackTrace();
         }
 
+        mJcVideoPlayer.ACTION_BAR_EXIST = true;
         mJcVideoPlayer.mIfCurrentIsFullscreen = true;
         mJcVideoPlayer.mIfFullscreenIsDirectly = DIRECT_FULLSCREEN;
         mJcVideoPlayer.setUp(URL, videoInfo.getTitle());
@@ -253,7 +254,7 @@ public class JCFullScreenActivity extends Activity {
             mDanmakuView.enableDanmakuDrawingCache(true);
         }
 
-        new CountDownTimer(commentInfoList.size() * 3*1000, 2*1000) {
+        new CountDownTimer(commentInfoList.size() * 3 * 1000, 2 * 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {

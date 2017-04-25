@@ -64,6 +64,9 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
     protected static long CLICK_QUIT_FULLSCREEN_TIME = 0;
     public static final int FULL_SCREEN_NORMAL_DELAY = 2000;
 
+    public static boolean ACTION_BAR_EXIST = false;
+
+
     public ImageView startButton;
     public SeekBar progressBar;
     public ImageView fullscreenButton;
@@ -124,6 +127,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
         bottomContainer = (ViewGroup) findViewById(R.id.layout_bottom);
         textureViewContainer = (RelativeLayout) findViewById(R.id.surface_container);
         topContainer = (ViewGroup) findViewById(R.id.layout_top);
+        topContainer.setVisibility(ACTION_BAR_EXIST ? GONE : VISIBLE);
 
         startButton.setOnClickListener(this);
         fullscreenButton.setOnClickListener(this);
@@ -713,7 +717,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
         if (!mTouchingProgressBar) {
             if (progress != 0) progressBar.setProgress(progress);
         }
-        if (secProgress != 0) progressBar.setSecondaryProgress(secProgress);
+        //if (secProgress != 0) progressBar.setSecondaryProgress(secProgress);
         currentTimeTextView.setText(JCUtils.stringForTime(currentTime));
         //原始视频时长增加了40min，但是视频的进度没变 只是单纯的改变了显示的时间而已
 
@@ -722,7 +726,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
     protected void resetProgressAndTime() {
         progressBar.setProgress(0);
-        progressBar.setSecondaryProgress(0);
+        //progressBar.setSecondaryProgress(0);
         currentTimeTextView.setText(JCUtils.stringForTime(0));
         totalTimeTextView.setText(JCUtils.stringForTime(0));
     }

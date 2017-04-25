@@ -255,19 +255,19 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     protected void setProgressAndTime(int progress, int secProgress, int currentTime, int totalTime) {
         super.setProgressAndTime(progress, secProgress, currentTime, totalTime);
         if (progress != 0) bottomProgressBar.setProgress(progress);
-        if (secProgress != 0) bottomProgressBar.setSecondaryProgress(secProgress);
+       // if (secProgress != 0) bottomProgressBar.setSecondaryProgress(secProgress);
     }
 
     @Override
     protected void resetProgressAndTime() {
         super.resetProgressAndTime();
         bottomProgressBar.setProgress(0);
-        bottomProgressBar.setSecondaryProgress(0);
+       // bottomProgressBar.setSecondaryProgress(0);
     }
 
     //Unified management Ui
     private void changeUiToNormal() {
-        topContainer.setVisibility(View.VISIBLE);
+        topContainer.setVisibility(View.INVISIBLE);
         bottomContainer.setVisibility(View.INVISIBLE);
         startButton.setVisibility(View.VISIBLE);
         loadingProgressBar.setVisibility(View.INVISIBLE);
@@ -278,7 +278,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     }
 
     private void changeUiToPrepareingShow() {
-        topContainer.setVisibility(View.VISIBLE);
+        topContainer.setVisibility(View.INVISIBLE);
         bottomContainer.setVisibility(View.VISIBLE);
         startButton.setVisibility(View.INVISIBLE);
         loadingProgressBar.setVisibility(View.VISIBLE);
@@ -297,7 +297,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     }
 
     private void changeUiToPlayingShow() {
-        topContainer.setVisibility(View.VISIBLE);
+        topContainer.setVisibility(View.INVISIBLE);
         bottomContainer.setVisibility(View.VISIBLE);
         startButton.setVisibility(View.VISIBLE);
         loadingProgressBar.setVisibility(View.INVISIBLE);
@@ -313,7 +313,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     }
 
     private void changeUiToPauseShow() {
-        topContainer.setVisibility(View.VISIBLE);
+        topContainer.setVisibility(View.INVISIBLE);
         bottomContainer.setVisibility(View.VISIBLE);
         startButton.setVisibility(View.VISIBLE);
         loadingProgressBar.setVisibility(View.INVISIBLE);
@@ -329,7 +329,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     }
 
     private void changeUiToPlayingBufferingShow() {
-        topContainer.setVisibility(View.VISIBLE);
+        topContainer.setVisibility(View.INVISIBLE);
         bottomContainer.setVisibility(View.VISIBLE);
         startButton.setVisibility(View.INVISIBLE);
         loadingProgressBar.setVisibility(View.VISIBLE);
@@ -360,7 +360,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     }
 
     private void changeUiToCompleteShow() {
-        topContainer.setVisibility(View.VISIBLE);
+        topContainer.setVisibility(View.INVISIBLE);
         bottomContainer.setVisibility(View.VISIBLE);
         startButton.setVisibility(View.VISIBLE);
         loadingProgressBar.setVisibility(View.INVISIBLE);

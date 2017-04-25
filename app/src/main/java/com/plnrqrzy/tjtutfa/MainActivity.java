@@ -400,8 +400,8 @@ public class MainActivity extends SupportActivity {
                 .getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
         if (tasks != null && !tasks.isEmpty()) {
-            ComponentName topActivity = tasks.get(0).topActivity;
-            if (!topActivity.getPackageName().equals(context.getPackageName())) {
+            String topActivity = tasks.get(0).baseActivity.getPackageName();
+            if (!topActivity.equals(context.getPackageName())) {
                 return true;
             }
         }
