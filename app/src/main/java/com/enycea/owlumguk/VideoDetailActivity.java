@@ -152,8 +152,6 @@ public class VideoDetailActivity extends AppCompatActivity {
     public void onClick(View v) {
         if (App.isVip == 0) {
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "该功能为会员功能，请成为会员后使用", App.isVip, false, true, videoInfo.getVideo_id());
-        } else {
-            ToastUtils.getInstance(VideoDetailActivity.this).showToast("该功能完善中，敬请期待");
         }
     }
 

@@ -122,9 +122,8 @@ public class MineFragment extends BaseMainFragment {
      */
     @OnClick({R.id.shoucang, R.id.download, R.id.lishi})
     public void onClick(View view) {
-        if (App.isVip > 1) {
-            ToastUtils.getInstance(_mActivity).showToast("该功能完善中，敬请期待");
-        } else {
+        if (App.isVip == 0) {
+            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
             MainFragment.clickWantPay();
         }
     }

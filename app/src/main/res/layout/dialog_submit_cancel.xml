@@ -14,7 +14,7 @@
         android:padding="30dp"
         android:text="当前已经是最新版本"
         android:textColor="#333333"
-        android:textSize="@dimen/text_size_middle" />
+        android:textSize="@dimen/text_size_large" />
 
     <View
         android:layout_width="match_parent"
