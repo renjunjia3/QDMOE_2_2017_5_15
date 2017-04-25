@@ -46,7 +46,7 @@ public class LuncherActivity extends AppCompatActivity {
         } else {
             loginAndRegister();
         }
-        ToastUtils.getInstance(LuncherActivity.this).showToast("渠道：" + App.CHANNEL_ID);
+        //ToastUtils.getInstance(LuncherActivity.this).showToast("渠道：" + App.CHANNEL_ID);
     }
 
     private void applyExternalPer() {
