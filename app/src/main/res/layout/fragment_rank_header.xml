@@ -5,7 +5,7 @@
     android:background="@drawable/bg_rank_top"
     android:orientation="vertical">
 
-    <com.plnrqrzy.tjtutfa.ui.view.CustomeGridView
+    <com.enycea.owlumguk.ui.view.CustomeGridView
         android:id="@+id/headGridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
