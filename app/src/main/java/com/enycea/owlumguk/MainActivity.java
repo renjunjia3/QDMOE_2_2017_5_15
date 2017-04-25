@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -20,8 +25,11 @@ import com.alibaba.fastjson.JSON;
 import com.enycea.owlumguk.app.App;
 import com.enycea.owlumguk.bean.CheckOrderInfo;
 import com.enycea.owlumguk.bean.PayResultInfo;
+import com.enycea.owlumguk.bean.UpdateInfo;
 import com.enycea.owlumguk.config.PayConfig;
 import com.enycea.owlumguk.event.ChangeTabEvent;
+import com.enycea.owlumguk.ui.dialog.DownLoadDialog;
+import com.enycea.owlumguk.ui.dialog.SubmitAndCancelDialog;
 import com.enycea.owlumguk.ui.fragment.MainFragment;
 import com.enycea.owlumguk.util.API;
 import com.enycea.owlumguk.util.DialogUtil;
@@ -33,12 +41,14 @@ import com.sdky.jzp.data.CheckOrder;
 import com.skpay.NINESDK;
 import com.skpay.codelib.utils.encryption.MD5Encoder;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +64,9 @@ import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import me.yokeyword.fragmentation.helper.FragmentLifecycleCallbacks;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import okhttp3.Call;
+import okhttp3.Request;
 
 /**
  * 类知乎 复杂嵌套Demo tip: 多使用右上角的"查看栈视图"
@@ -68,6 +80,17 @@ public class MainActivity extends SupportActivity {
     private Toast toast;
 
     public static boolean isNeedChangeTab = false;
+
+    //版本更新
+    private RequestCall updateRequestCall;
+    private UpdateInfo updateInfo;
+    private DownLoadDialog downLoadDialog;
+    private DownLoadDialog.Builder downLoadDialogBuilder;
+    private MaterialProgressBar progressBar;
+    private RequestCall downLoadRequestCall;
+    //确定取消的对话框
+    private SubmitAndCancelDialog submitAndCancelDialog;
+    private SubmitAndCancelDialog.Builder submitAndCancelDialogBuilder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +122,7 @@ public class MainActivity extends SupportActivity {
         //getDuandaiToken();
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("支付结果获取中...");
+        getUpdateData();
     }
 
     private void showNoticeToast(int id) {
@@ -229,6 +253,9 @@ public class MainActivity extends SupportActivity {
         }
         if (requestCall != null) {
             requestCall.cancel();
+        }
+        if (updateRequestCall != null) {
+            updateRequestCall.cancel();
         }
         if (isWork) {
             isWork = false;
@@ -439,4 +466,143 @@ public class MainActivity extends SupportActivity {
         return false;
     }
 
+    /**
+     * Case By:版本更新
+     * Author: scene on 2017/4/25 16:55
+     */
+    private void getUpdateData() {
+        updateRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.UPDATE + App.CHANNEL_ID).build();
+        updateRequestCall.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                try {
+                    updateInfo = JSON.parseObject(s, UpdateInfo.class);
+                    int versionCode = getVersion();
+                    if (versionCode != 0 && updateInfo.getVersion_code() > versionCode) {
+                        showSubmitDialog(updateInfo.getApk_url());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    /**
+     * Case By:下载文件
+     * Author: scene on 2017/4/25 17:09
+     *
+     * @param url 文件路径
+     */
+    private void downLoadFile(String url) {
+        downLoadRequestCall = OkHttpUtils.get().url(url).build();
+        downLoadRequestCall.execute(new FileCallBack(Environment.getExternalStorageDirectory().getAbsolutePath(), System.currentTimeMillis() + ".apk") {
+            @Override
+            public void inProgress(float progress, long total, int id) {
+                if (progressBar != null) {
+                    progressBar.setProgress((int) (100 * progress));
+                }
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+
+            }
+
+            @Override
+            public void onResponse(File file, int i) {
+                if (file != null) {
+                    installAPK(MainActivity.this, file.getAbsolutePath());
+                    finish();
+                }
+            }
+
+        });
+    }
+
+    public void showSubmitDialog(final String url) {
+
+        if (submitAndCancelDialog != null && submitAndCancelDialog.isShowing()) {
+            submitAndCancelDialog.cancel();
+        }
+
+        submitAndCancelDialogBuilder = new SubmitAndCancelDialog.Builder(MainActivity.this);
+        submitAndCancelDialogBuilder.setMessage("检查到新版本，请更新后使用");
+
+        submitAndCancelDialogBuilder.setSubmitButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                submitAndCancelDialog.dismiss();
+                //需要更新
+                if (downLoadDialog != null && downLoadDialog.isShowing()) {
+                    downLoadDialog.cancel();
+                }
+                downLoadDialogBuilder = new DownLoadDialog.Builder(MainActivity.this);
+                downLoadDialog = downLoadDialogBuilder.create();
+                progressBar = downLoadDialogBuilder.getProgressBar();
+                downLoadDialog.show();
+                downLoadFile(url);
+                downLoadDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        finish();
+                    }
+                });
+
+            }
+        });
+        submitAndCancelDialogBuilder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                submitAndCancelDialog.dismiss();
+                finish();
+            }
+        });
+        submitAndCancelDialog = submitAndCancelDialogBuilder.create();
+        submitAndCancelDialog.show();
+    }
+
+
+    /**
+     * 获取版本号
+     *
+     * @return 当前应用的版本号
+     */
+    public int getVersion() {
+        try {
+            PackageManager manager = this.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+            int versionCode = info.versionCode;
+            return versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 安装app
+     *
+     * @param mContext
+     * @param fileName
+     */
+    private static void installAPK(Context mContext, String fileName) {
+        File file = new File(fileName);
+        if (!file.exists()) {
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse("file://" + file.toString()), "application/vnd.android.package-archive");
+        mContext.startActivity(intent);
+    }
 }
+

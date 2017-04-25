@@ -52,4 +52,6 @@ public class API {
     public static final String VIDEO_CLIECKED = "video/click/";
     //磁力链搜索
     public static final String MAGNET="magnet/";
+    //更新
+    public static final String UPDATE="version/";
 }

@@ -66,6 +66,7 @@ public class DialogUtil {
         return instance;
     }
 
+
     /**
      * Case By:
      * Author: scene on 2017/4/20 19:28
@@ -122,6 +123,7 @@ public class DialogUtil {
                 if (isShowOpenVip) {
                     showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId);
                 }
+
             }
         });
 
@@ -364,4 +366,7 @@ public class DialogUtil {
             rapidDoubletVipDialog.cancel();
         }
     }
+
+
+
 }

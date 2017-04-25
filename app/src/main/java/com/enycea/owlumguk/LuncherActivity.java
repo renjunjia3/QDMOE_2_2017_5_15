@@ -42,7 +42,7 @@ public class LuncherActivity extends AppCompatActivity {
         applyExternalPer();
         loginTime = System.currentTimeMillis();
         loginAndRegister();
-        ToastUtils.getInstance(LuncherActivity.this).showToast("渠道："+App.CHANNEL_ID);
+        ToastUtils.getInstance(LuncherActivity.this).showToast("渠道：" + App.CHANNEL_ID);
     }
 
     private void applyExternalPer() {
@@ -72,6 +72,7 @@ public class LuncherActivity extends AppCompatActivity {
     private void loginAndRegister() {
         if (!NetWorkUtils.isNetworkConnected(LuncherActivity.this)) {
             ToastUtils.getInstance(LuncherActivity.this).showToast("请检查网络连接");
+            finish();
             return;
         }
 
@@ -83,8 +84,19 @@ public class LuncherActivity extends AppCompatActivity {
             App.USER_ID = SharedPreferencesUtil.getInt(LuncherActivity.this, App.USERID_KEY, 0);
             App.isVip = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ISVIP_KEY, 0);
             App.isHeijin = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ISHEIJIN_KEY, 0);
-            startActivity(new Intent(LuncherActivity.this, MainActivity.class));
-            ActivityCompat.finishAffinity(LuncherActivity.this);
+            if (System.currentTimeMillis() - loginTime < 5000) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(LuncherActivity.this, MainActivity.class));
+                        ActivityCompat.finishAffinity(LuncherActivity.this);
+                    }
+                }, 5000 - (System.currentTimeMillis() - loginTime));
+            } else {
+                startActivity(new Intent(LuncherActivity.this, MainActivity.class));
+                ActivityCompat.finishAffinity(LuncherActivity.this);
+            }
+
             return;
         }
         OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER + App.CHANNEL_ID + "/" + App.IMEI).build()
@@ -119,7 +131,7 @@ public class LuncherActivity extends AppCompatActivity {
                                         startActivity(new Intent(LuncherActivity.this, MainActivity.class));
                                         ActivityCompat.finishAffinity(LuncherActivity.this);
                                     }
-                                }, System.currentTimeMillis() - loginTime);
+                                }, 5000 - (System.currentTimeMillis() - loginTime));
                             } else {
                                 startActivity(new Intent(LuncherActivity.this, MainActivity.class));
                                 ActivityCompat.finishAffinity(LuncherActivity.this);

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="下载"
         android:textColor="#317EF3"
         android:textSize="@dimen/text_size_large" />
