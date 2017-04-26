@@ -47,10 +47,10 @@ public class GlodVipDialog extends Dialog {
         private int type = 1;
         private int vip_type = 1;
 
-        public Builder(Context context, int videoId,boolean isVideoDetailPage) {
+        public Builder(Context context, int videoId, boolean isVideoDetailPage) {
             this.context = context;
             this.videoId = videoId;
-            this.isVideoDetailPage=isVideoDetailPage;
+            this.isVideoDetailPage = isVideoDetailPage;
         }
 
         public GlodVipDialog create() {
@@ -66,7 +66,7 @@ public class GlodVipDialog extends Dialog {
             final ImageView diamondChoosed = (ImageView) layout.findViewById(R.id.diamond_choosed);
             ImageView image = (ImageView) layout.findViewById(R.id.image);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth()-ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
+            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
             image.setLayoutParams(layoutParams);
             layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,8 +90,13 @@ public class GlodVipDialog extends Dialog {
                     diamondChoosed.setImageResource(R.drawable.ic_vip_type_choosed);
                 }
             });
-
-            ((RadioGroup) layout.findViewById(R.id.radio_group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
+            if (radioGroup.getCheckedRadioButtonId() == R.id.type_wechat) {
+                type = 1;
+            } else {
+                type = 2;
+            }
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
@@ -106,9 +111,9 @@ public class GlodVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, dialog, vip_type, videoId,isVideoDetailPage);
+                        PayUtil.getInstance().payByWeChat(context, dialog, vip_type, videoId, isVideoDetailPage);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, dialog, vip_type, videoId,isVideoDetailPage);
+                        PayUtil.getInstance().payByAliPay(context, dialog, vip_type, videoId, isVideoDetailPage);
                     }
 
                 }

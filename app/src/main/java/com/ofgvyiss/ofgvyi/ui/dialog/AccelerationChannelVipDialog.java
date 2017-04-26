@@ -73,7 +73,13 @@ public class AccelerationChannelVipDialog extends Dialog {
                 }
             });
 
-            ((RadioGroup) layout.findViewById(R.id.radio_group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
+            if (radioGroup.getCheckedRadioButtonId() == R.id.type_wechat) {
+                type = 1;
+            } else {
+                type = 2;
+            }
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 

@@ -60,6 +60,12 @@ public class BackOpenVipDialog extends Dialog {
             final BackOpenVipDialog dialog = new BackOpenVipDialog(context, R.style.Dialog);
             final View layout = inflater.inflate(R.layout.dialog_back_open_vip, null);
             RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
+            if (radioGroup.getCheckedRadioButtonId() == R.id.weChatPay) {
+                type = 1;
+            } else {
+                type = 2;
+            }
+
             radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {

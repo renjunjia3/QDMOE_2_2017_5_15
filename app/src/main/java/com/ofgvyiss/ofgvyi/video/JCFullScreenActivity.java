@@ -18,6 +18,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.alibaba.fastjson.JSON;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.ofgvyiss.ofgvyi.R;
 import com.ofgvyiss.ofgvyi.app.App;
@@ -26,14 +29,10 @@ import com.ofgvyiss.ofgvyi.bean.VideoInfo;
 import com.ofgvyiss.ofgvyi.ui.dialog.SubmitAndCancelDialog;
 import com.ofgvyiss.ofgvyi.util.AuthImageDownloader;
 import com.ofgvyiss.ofgvyi.util.SharedPreferencesUtil;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -349,9 +348,6 @@ public class JCFullScreenActivity extends Activity {
         videoInfo = (VideoInfo) intent.getSerializableExtra(PARAM_VIDEO_INFO);
         CURRENT_STATE = JCVideoPlayer.CURRENT_STATE_NORMAL;
         URL = videoInfo.getUrl();
-//        if(URL.startsWith("http")){
-//            URL= URL.replace("http","https");
-//        }
         DIRECT_FULLSCREEN = true;
         VIDEO_PLAYER_CLASS = JCVideoPlayerStandard.class;
         try {

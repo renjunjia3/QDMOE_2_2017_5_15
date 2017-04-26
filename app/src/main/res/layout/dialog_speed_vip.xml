@@ -3,22 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:background="@drawable/dialog_vip_speed_top"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_vip_speed_top" />
+
         <ImageView
             android:id="@+id/close"
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_dialog_close_white"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:padding="8dp"
-            android:layout_height="wrap_content" />
+            android:src="@drawable/ic_dialog_close_white" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,8 +75,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15元"
                     android:layout_gravity="center_horizontal"
+                    android:text="15元"
                     android:textColor="#db182c"
                     android:textSize="@dimen/text_size_big" />
 
@@ -87,37 +91,7 @@
 
         </LinearLayout>
 
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/type_wechat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@drawable/ic_pay_type_selector"
-                android:checked="true"
-                android:drawableLeft="@drawable/ic_wechat"
-                android:drawablePadding="5dp"
-                android:padding="5dp"
-                android:text="微信支付"
-                android:textColor="#ffffff" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@drawable/ic_pay_type_selector"
-                android:drawableLeft="@drawable/ic_alipay"
-                android:drawablePadding="5dp"
-                android:padding="5dp"
-                android:text="支付宝支付"
-                android:textColor="#ffffff" />
-        </RadioGroup>
+        <include layout="@layout/dialog_pay_bottom" />
 
         <Button
             android:id="@+id/open_vip"

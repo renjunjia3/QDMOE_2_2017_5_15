@@ -8,5 +8,5 @@ import com.ofgvyiss.ofgvyi.app.App;
 
 public class PayConfig {
     //当前应用版本号
-    public static final String VERSION_NAME = "1.1.0-2017/4/26-Relase-" + App.CHANNEL_ID;
+    public static final String VERSION_NAME = "1.1.1-2017/4/26-Relase-" + App.CHANNEL_ID;
 }
