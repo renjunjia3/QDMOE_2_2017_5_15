@@ -26,6 +26,9 @@ public class SubmitAndCancelDialog extends Dialog {
     public static class Builder {
         private Context context;
         private String message;
+
+        private TextView content;
+
         private String submitButtonText;
         private String cancelButtomText;
         private OnClickListener submitButtonClickListener;
@@ -37,6 +40,9 @@ public class SubmitAndCancelDialog extends Dialog {
 
         public Builder setMessage(String message) {
             this.message = message;
+            if (content != null) {
+                content.setText(message);
+            }
             return this;
         }
 
@@ -80,7 +86,8 @@ public class SubmitAndCancelDialog extends Dialog {
                 }
             });
 
-            ((TextView) layout.findViewById(R.id.content)).setText(message);
+            content = ((TextView) layout.findViewById(R.id.content));
+            content.setText(message);
             dialog.setContentView(layout);
             dialog.setCanceledOnTouchOutside(false);
             return dialog;

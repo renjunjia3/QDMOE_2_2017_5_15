@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -138,6 +139,15 @@ public class VideoDetailActivity extends AppCompatActivity {
         //相关推荐
         videoRelateAdapter = new IndexItemAdapter(VideoDetailActivity.this, videoRelateList);
         aboutCommendGridView.setAdapter(videoRelateAdapter);
+        aboutCommendGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
+                intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList.get(position));
+                startActivity(intent);
+                finish();
+            }
+        });
         getRecomendVideo();
         //获取评论的数据
         getCommentData();
@@ -174,42 +184,49 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     }
 
-    private long currentTime = 0;
+    private int currentTime = 0;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            currentTime = data.getLongExtra(JCFullScreenActivity.PARAM_CURRENT_TIME, 0L);
+            currentTime = data.getIntExtra(JCFullScreenActivity.PARAM_CURRENT_TIME, 0);
             int dialogType = data.getIntExtra(JCFullScreenActivity.PARAM_DIALOG_TYPE, 0);
             switch (dialogType) {
                 case JCFullScreenActivity.DIALOG_TYPE_GLOD:
                     //黄金
-                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showGoldVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
+                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_DIAMOND:
                     //砖石
-                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "请升级钻石会员，观看完整影片", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showDiamondVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
+                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "请升级钻石会员，观看完整影片", App.isVip, false, true, videoInfo.getVideo_id());
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_VPN:
                     //VPN
-                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "由于现法律不允许国内播放，请注册VPN翻墙观看，现仅需28元终身免费使用", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showVpnVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
+                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "由于现法律不允许国内播放，请注册VPN翻墙观看，现仅需28元终身免费使用", App.isVip, false, true, videoInfo.getVideo_id());
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_FLIM:
                     //片库
-                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "海外视频提供商需收取3美金服务费。付费后海量视频终身免费观看", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showVpnFlimVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
+                   // DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "海外视频提供商需收取3美金服务费。付费后海量视频终身免费观看", App.isVip, false, true, videoInfo.getVideo_id());
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_BLACK_GLOD:
                     //黑金会员
-                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "最后一次付费，您将得到您想要的，黑金会员，开放所有影片，你值得拥有！", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showBlackGlodVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
+                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "最后一次付费，您将得到您想要的，黑金会员，开放所有影片，你值得拥有！", App.isVip, false, true, videoInfo.getVideo_id());
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_SPEED:
                     //海外加速
-                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "网络太慢了！由于目前观看用户太多。你的国内线路宽带太低.是否需要切换到海外高速通道？", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showAccelerationChannelVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
+                   // DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "网络太慢了！由于目前观看用户太多。你的国内线路宽带太低.是否需要切换到海外高速通道？", App.isVip, false, true, videoInfo.getVideo_id());
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_SNAP:
                     //海外双线
-                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "网络拥堵无法播放 开通海外双线？", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showRapidDoubletVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
+                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "网络拥堵无法播放 开通海外双线？", App.isVip, false, true, videoInfo.getVideo_id());
                     break;
 
             }

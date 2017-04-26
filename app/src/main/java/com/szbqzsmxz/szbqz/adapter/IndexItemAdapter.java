@@ -79,14 +79,6 @@ public class IndexItemAdapter extends BaseAdapter {
         ViewUtils.setViewHeightByViewGroup(holder.image, height);
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(holder.image);
         holder.playTime.setText(info.getHits() + "次播放");
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, VideoDetailActivity.class);
-                intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, info);
-                context.startActivity(intent);
-            }
-        });
         return convertView;
     }
 
