@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.szbqzsmxz.szbqz.pull_loadmore.PtrClassicFrameLayout
+        <com.ofgvyiss.ofgvyi.pull_loadmore.PtrClassicFrameLayout
             android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.szbqzsmxz.szbqz.pull_loadmore.loadmore.GridViewWithHeaderAndFooter
+            <com.ofgvyiss.ofgvyi.pull_loadmore.loadmore.GridViewWithHeaderAndFooter
                 android:id="@+id/gridView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -25,7 +25,7 @@
                 android:numColumns="2"
                 android:verticalSpacing="3dp" />
 
-        </com.szbqzsmxz.szbqz.pull_loadmore.PtrClassicFrameLayout>
+        </com.ofgvyiss.ofgvyi.pull_loadmore.PtrClassicFrameLayout>
     </wiki.scene.statuslib.StatusViewLayout>
 
 </LinearLayout>

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-    <com.szbqzsmxz.szbqz.ui.view.BottomBar
+    <com.ofgvyiss.ofgvyi.ui.view.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottombar_height"

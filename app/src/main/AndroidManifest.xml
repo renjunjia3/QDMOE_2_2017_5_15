@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.szbqzsmxz.szbqz">
+    package="com.ofgvyiss.ofgvyi">
 
     <uses-sdk tools:overrideLibrary="com.liangfeizc.flowlayout" />
 
@@ -30,7 +30,7 @@
 
 
     <application
-        android:name="com.szbqzsmxz.szbqz.app.App"
+        android:name="com.ofgvyiss.ofgvyi.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -43,7 +43,7 @@
             android:value="GlideModule" />
 
         <activity
-            android:name="com.szbqzsmxz.szbqz.LuncherActivity"
+            android:name="com.ofgvyiss.ofgvyi.LuncherActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,19 +52,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.szbqzsmxz.szbqz.MainActivity"
+            android:name="com.ofgvyiss.ofgvyi.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.szbqzsmxz.szbqz.VideoDetailActivity"
+            android:name="com.ofgvyiss.ofgvyi.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.szbqzsmxz.szbqz.video.JCFullScreenActivity"
+            android:name="com.ofgvyiss.ofgvyi.video.JCFullScreenActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
 
-        <activity android:name="com.szbqzsmxz.szbqz.AliPayActivity"/>
+        <activity android:name="com.ofgvyiss.ofgvyi.AliPayActivity"/>
 
         <!-- 商户在从发发啦商户申请获得商户号 -->
         <meta-data
@@ -105,7 +105,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.szbqzsmxz.szbqz.wxapi.WXPayEntryActivity"
+            android:name="com.ofgvyiss.ofgvyi.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
 
