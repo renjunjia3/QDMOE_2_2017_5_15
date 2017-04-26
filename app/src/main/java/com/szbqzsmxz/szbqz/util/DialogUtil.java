@@ -317,7 +317,7 @@ public class DialogUtil {
      * @param context 上下文
      * @param message 文字内容
      */
-    public void showCustomSubmitDialog(Context context, String message) {
+    public CustomSubmitDialog showCustomSubmitDialog(Context context, String message) {
         if (customSubmitDialog != null && customSubmitDialog.isShowing()) {
             customSubmitDialog.cancel();
         }
@@ -333,6 +333,7 @@ public class DialogUtil {
         });
         customSubmitDialog = customSubmitDialgBuiler.create();
         customSubmitDialog.show();
+        return customSubmitDialog;
     }
 
     /**
@@ -366,7 +367,6 @@ public class DialogUtil {
             rapidDoubletVipDialog.cancel();
         }
     }
-
 
 
 }

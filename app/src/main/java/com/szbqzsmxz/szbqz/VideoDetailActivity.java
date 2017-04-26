@@ -1,6 +1,7 @@
 package com.szbqzsmxz.szbqz;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,13 +25,13 @@ import com.szbqzsmxz.szbqz.bean.CheckOrderInfo;
 import com.szbqzsmxz.szbqz.bean.CommentInfo;
 import com.szbqzsmxz.szbqz.bean.VideoInfo;
 import com.szbqzsmxz.szbqz.event.CloseVideoDetailEvent;
+import com.szbqzsmxz.szbqz.ui.dialog.CustomSubmitDialog;
 import com.szbqzsmxz.szbqz.ui.view.CustomListView;
 import com.szbqzsmxz.szbqz.ui.view.CustomeGridView;
 import com.szbqzsmxz.szbqz.util.API;
 import com.szbqzsmxz.szbqz.util.DialogUtil;
 import com.szbqzsmxz.szbqz.util.NetWorkUtils;
 import com.szbqzsmxz.szbqz.util.SharedPreferencesUtil;
-import com.szbqzsmxz.szbqz.util.ToastUtils;
 import com.szbqzsmxz.szbqz.video.JCFullScreenActivity;
 import com.szbqzsmxz.szbqz.video.VideoConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -195,38 +196,31 @@ public class VideoDetailActivity extends AppCompatActivity {
             switch (dialogType) {
                 case JCFullScreenActivity.DIALOG_TYPE_GLOD:
                     //黄金
-                    DialogUtil.getInstance().showGoldVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
-                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showGoldVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_DIAMOND:
                     //砖石
-                    DialogUtil.getInstance().showDiamondVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
-                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "请升级钻石会员，观看完整影片", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showDiamondVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_VPN:
                     //VPN
-                    DialogUtil.getInstance().showVpnVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
-                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "由于现法律不允许国内播放，请注册VPN翻墙观看，现仅需28元终身免费使用", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showVpnVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_FLIM:
                     //片库
-                    DialogUtil.getInstance().showVpnFlimVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
-                   // DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "海外视频提供商需收取3美金服务费。付费后海量视频终身免费观看", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showVpnFlimVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_BLACK_GLOD:
                     //黑金会员
-                    DialogUtil.getInstance().showBlackGlodVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
-                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "最后一次付费，您将得到您想要的，黑金会员，开放所有影片，你值得拥有！", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showBlackGlodVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_SPEED:
                     //海外加速
-                    DialogUtil.getInstance().showAccelerationChannelVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
-                   // DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "网络太慢了！由于目前观看用户太多。你的国内线路宽带太低.是否需要切换到海外高速通道？", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showAccelerationChannelVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_SNAP:
                     //海外双线
-                    DialogUtil.getInstance().showRapidDoubletVipDialog(VideoDetailActivity.this,videoInfo.getVideo_id(),true);
-                    //DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, true, "网络拥堵无法播放 开通海外双线？", App.isVip, false, true, videoInfo.getVideo_id());
+                    DialogUtil.getInstance().showRapidDoubletVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
                     break;
 
             }
@@ -408,28 +402,48 @@ public class VideoDetailActivity extends AppCompatActivity {
                             if (checkOrderInfo.isStatus()) {
                                 checkOrderCount = 0;
                                 MainActivity.isNeedChangeTab = true;
-                                closeVideoDetail(new CloseVideoDetailEvent());
+                                String message = "";
                                 switch (App.isVip) {
                                     case 0:
                                         App.isVip = 1;
+                                        message = "恭喜您成为黄金会员";
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip);
-                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成为黄金会员");
+                                        CustomSubmitDialog customSubmitDialog0 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+                                        customSubmitDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialog) {
+                                                closeVideoDetail(new CloseVideoDetailEvent());
+                                            }
+                                        });
                                         break;
                                     case 1:
                                         App.isVip = 2;
+                                        message = "恭喜您成为钻石会员";
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip);
-                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成为钻石会员");
+                                        CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+                                        customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialog) {
+                                                closeVideoDetail(new CloseVideoDetailEvent());
+                                            }
+                                        });
                                         break;
                                     case 2:
                                         if (App.isOPenBlackGlodVip) {
                                             App.isVip = 2;
-                                            ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成为最牛逼的黑金会员");
+                                            message = "恭喜您成为最牛逼的黑金会员";
                                         } else {
                                             App.isVip = 3;
-                                            ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成功注册VPN海外会员");
+                                            message = "恭喜您成功注册VPN海外会员";
                                         }
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip);
-
+                                        CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+                                        customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialog) {
+                                                closeVideoDetail(new CloseVideoDetailEvent());
+                                            }
+                                        });
                                         break;
                                     case 3:
                                         if (App.isHeijin == 1) {
@@ -437,8 +451,15 @@ public class VideoDetailActivity extends AppCompatActivity {
                                         } else {
                                             App.isVip = 4;
                                         }
+                                        message = "恭喜你进入海外片库，我们将携手为您服务";
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip);
-                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜你进入海外片库，我们将携手为您服务");
+                                        CustomSubmitDialog customSubmitDialog3 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+                                        customSubmitDialog3.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialog) {
+                                                closeVideoDetail(new CloseVideoDetailEvent());
+                                            }
+                                        });
                                         break;
                                     case 4:
                                         if (App.isVip >= 4) {
@@ -447,17 +468,39 @@ public class VideoDetailActivity extends AppCompatActivity {
                                         }
                                         App.isHeijin = 1;
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
-                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您成为最牛逼的黑金会员");
+                                        message = "恭喜您成为最牛逼的黑金会员";
+                                        CustomSubmitDialog customSubmitDialog4 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+                                        customSubmitDialog4.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialog) {
+                                                closeVideoDetail(new CloseVideoDetailEvent());
+                                            }
+                                        });
                                         break;
                                     case 5:
                                         App.isVip = 6;
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip);
-                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您开通海外高速通道");
+                                        message = "恭喜您开通海外高速通道";
+                                        CustomSubmitDialog customSubmitDialog5 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+                                        customSubmitDialog5.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialog) {
+                                                closeVideoDetail(new CloseVideoDetailEvent());
+                                            }
+                                        });
                                         break;
                                     case 6:
                                         App.isVip = 7;
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ISVIP_KEY, App.isVip);
-                                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("恭喜您开通海外双线通道");
+                                        message = "恭喜您开通海外双线通道";
+                                        CustomSubmitDialog customSubmitDialog6 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+                                        customSubmitDialog6.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialog) {
+                                                closeVideoDetail(new CloseVideoDetailEvent());
+                                            }
+                                        });
+
                                         break;
                                     default:
                                         break;

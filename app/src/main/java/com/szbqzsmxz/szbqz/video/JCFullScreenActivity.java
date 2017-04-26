@@ -432,7 +432,7 @@ public class JCFullScreenActivity extends Activity {
                 if (App.isVip == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= mJcVideoPlayer.getDuration() / 50 - 5) {
                     timerTask.cancel();
                     mTimer.cancel();
-                    JCMediaManager.instance().mediaPlayer.pause();
+                    JCMediaManager.instance().mediaPlayer.stop();
                     if (builder != null && dialog != null) {
                         builder.setMessage("非会员只能试看体验，请成为会员继续观看");
                         dialog.show();

@@ -28,6 +28,8 @@ import com.szbqzsmxz.szbqz.bean.PayResultInfo;
 import com.szbqzsmxz.szbqz.bean.UpdateInfo;
 import com.szbqzsmxz.szbqz.config.PayConfig;
 import com.szbqzsmxz.szbqz.event.ChangeTabEvent;
+import com.szbqzsmxz.szbqz.event.CloseVideoDetailEvent;
+import com.szbqzsmxz.szbqz.ui.dialog.CustomSubmitDialog;
 import com.szbqzsmxz.szbqz.ui.dialog.DownLoadDialog;
 import com.szbqzsmxz.szbqz.ui.dialog.SubmitAndCancelDialog;
 import com.szbqzsmxz.szbqz.ui.fragment.MainFragment;
@@ -383,29 +385,49 @@ public class MainActivity extends SupportActivity {
                     if (checkOrderInfo.isStatus()) {
                         App.isHeijin = checkOrderInfo.getIs_heijin();
                         SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
+                        String message = "";
                         switch (App.isVip) {
                             case 0:
                                 App.isVip = 1;
                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                changeTab(new ChangeTabEvent(App.isVip));
-                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成为黄金会员");
+                                message = "恭喜您成为黄金会员";
+                                CustomSubmitDialog customSubmitDialog0 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                customSubmitDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        changeTab(new ChangeTabEvent(App.isVip));
+                                    }
+                                });
                                 break;
                             case 1:
                                 App.isVip = 2;
                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                changeTab(new ChangeTabEvent(App.isVip));
-                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成为钻石会员");
+                                message = "恭喜您成为钻石会员";
+                                CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        changeTab(new ChangeTabEvent(App.isVip));
+                                    }
+                                });
                                 break;
                             case 2:
                                 if (App.isOPenBlackGlodVip) {
                                     App.isVip = 2;
-                                    ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成为最牛逼的黑金会员");
+                                    message = "恭喜您成为最牛逼的黑金会员";
                                 } else {
                                     App.isVip = 3;
-                                    ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成功注册VPN海外会员");
+                                    message = "恭喜您成功注册VPN海外会员";
                                 }
                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                changeTab(new ChangeTabEvent(App.isVip));
+                                CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        changeTab(new ChangeTabEvent(App.isVip));
+                                    }
+                                });
+
                                 break;
                             case 3:
                                 if (App.isHeijin == 1) {
@@ -414,8 +436,15 @@ public class MainActivity extends SupportActivity {
                                     App.isVip = 4;
                                 }
                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                changeTab(new ChangeTabEvent(App.isVip));
-                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜你进入海外片库，我们将携手为您服务");
+                                message = "恭喜你进入海外片库，我们将携手为您服务";
+                                CustomSubmitDialog customSubmitDialog3 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                customSubmitDialog3.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        changeTab(new ChangeTabEvent(App.isVip));
+                                    }
+                                });
+
                                 break;
                             case 4:
                                 if (App.isVip >= 4) {
@@ -424,20 +453,39 @@ public class MainActivity extends SupportActivity {
                                 }
                                 App.isHeijin = 1;
                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
-                                changeTab(new ChangeTabEvent(App.isVip));
-                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您成为最牛逼的黑金会员");
+                                message = "恭喜您成为最牛逼的黑金会员";
+                                CustomSubmitDialog customSubmitDialog4 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                customSubmitDialog4.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        changeTab(new ChangeTabEvent(App.isVip));
+                                    }
+                                });
                                 break;
                             case 5:
                                 App.isVip = 6;
                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                changeTab(new ChangeTabEvent(App.isVip));
-                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您开通海外高速通道");
+                                message = "恭喜您开通海外高速通道";
+                                CustomSubmitDialog customSubmitDialog5 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                customSubmitDialog5.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        changeTab(new ChangeTabEvent(App.isVip));
+                                    }
+                                });
+
                                 break;
                             case 6:
                                 App.isVip = 7;
                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                changeTab(new ChangeTabEvent(App.isVip));
-                                ToastUtils.getInstance(MainActivity.this).showToast("恭喜您开通海外双线通道");
+                                message = "恭喜您开通海外双线通道";
+                                CustomSubmitDialog customSubmitDialog6 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                customSubmitDialog6.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        changeTab(new ChangeTabEvent(App.isVip));
+                                    }
+                                });
                                 break;
                             default:
                                 break;
