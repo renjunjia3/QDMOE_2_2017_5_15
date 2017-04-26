@@ -85,9 +85,9 @@ public class VpnFlimVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, dialog, 6, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByWeChat(context, dialog, PayUtil.VIP_TYPE_6, videoId, isVideoDetailPage);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, dialog, 6, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByAliPay(context, dialog, PayUtil.VIP_TYPE_6, videoId, isVideoDetailPage);
                     }
 
                 }

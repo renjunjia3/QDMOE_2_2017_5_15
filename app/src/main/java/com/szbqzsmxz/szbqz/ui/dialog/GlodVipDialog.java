@@ -77,7 +77,7 @@ public class GlodVipDialog extends Dialog {
             layout.findViewById(R.id.layout_type_glod).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    vip_type = 1;
+                    vip_type = PayUtil.VIP_TYPE_1;
                     glodChoosed.setImageResource(R.drawable.ic_vip_type_choosed);
                     diamondChoosed.setImageResource(R.drawable.ic_vip_type_unchoosed);
                 }
@@ -85,7 +85,7 @@ public class GlodVipDialog extends Dialog {
             layout.findViewById(R.id.layout_type_diamond).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    vip_type = 3;
+                    vip_type = PayUtil.VIP_TYPE_3;
                     glodChoosed.setImageResource(R.drawable.ic_vip_type_unchoosed);
                     diamondChoosed.setImageResource(R.drawable.ic_vip_type_choosed);
                 }
