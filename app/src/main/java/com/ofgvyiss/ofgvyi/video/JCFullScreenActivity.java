@@ -33,6 +33,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -348,6 +349,9 @@ public class JCFullScreenActivity extends Activity {
         videoInfo = (VideoInfo) intent.getSerializableExtra(PARAM_VIDEO_INFO);
         CURRENT_STATE = JCVideoPlayer.CURRENT_STATE_NORMAL;
         URL = videoInfo.getUrl();
+//        if(URL.startsWith("http")){
+//            URL= URL.replace("http","https");
+//        }
         DIRECT_FULLSCREEN = true;
         VIDEO_PLAYER_CLASS = JCVideoPlayerStandard.class;
         try {
