@@ -168,7 +168,7 @@
                             android:textColor="#333333"
                             android:textSize="@dimen/text_size_big" />
 
-                        <com.cjhnsqjg.cjhnsq.ui.view.CustomeGridView
+                        <com.szbqzsmxz.szbqz.ui.view.CustomeGridView
                             android:id="@+id/aboutCommendGridView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
                                     android:textColor="@color/colorAccent" />
                             </RelativeLayout>
 
-                            <com.cjhnsqjg.cjhnsq.ui.view.CustomListView
+                            <com.szbqzsmxz.szbqz.ui.view.CustomListView
                                 android:id="@+id/comment_listView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

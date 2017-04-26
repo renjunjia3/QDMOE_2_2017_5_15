@@ -3,7 +3,7 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
-        applicationId "com.cjhnsqjg.cjhnsq"
+        applicationId "com.szbqzsmxz.szbqz"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
@@ -53,6 +53,34 @@ android {
         NNY_1012 {
             manifestPlaceholders = [CHANNEL_ID: 1022]
         }
+        NNY_1019 {
+            manifestPlaceholders = [CHANNEL_ID: 1029]
+        }
+        NNY_1020 {
+            manifestPlaceholders = [CHANNEL_ID: 1030]
+        }
+        NNY_1021 {
+            manifestPlaceholders = [CHANNEL_ID: 1031]
+        }
+        NNY_1022 {
+            manifestPlaceholders = [CHANNEL_ID: 1032]
+        }
+        NNY_1023 {
+            manifestPlaceholders = [CHANNEL_ID: 1033]
+        }
+        NNY_1024 {
+            manifestPlaceholders = [CHANNEL_ID: 1034]
+        }
+        NNY_1025 {
+            manifestPlaceholders = [CHANNEL_ID: 1035]
+        }
+        NNY_1026 {
+            manifestPlaceholders = [CHANNEL_ID: 1036]
+        }
+        NNY_1027 {
+            manifestPlaceholders = [CHANNEL_ID: 1037]
+        }
+
 
     }
 
@@ -85,7 +113,7 @@ android {
         variant.outputs.each { output ->
             def file = output.outputFile
             def flavorFlag = "${variant.productFlavors.get(0).name}"
-            output.outputFile = new File(file.parent, flavorFlag+".apk")
+            output.outputFile = new File(file.parent, flavorFlag + ".apk")
         }
     }
 
@@ -131,7 +159,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.31'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     //水平的图片
-    compile ('com.alibaba.android:ultraviewpager:1.0.1@aar') {
+    compile('com.alibaba.android:ultraviewpager:1.0.1@aar') {
         transitive = true
     }
     //评星条
