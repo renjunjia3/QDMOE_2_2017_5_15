@@ -27,8 +27,6 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!--<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />-->
 
-
-
     <application
         android:name="com.ofgvyiss.ofgvyi.app.App"
         android:allowBackup="true"

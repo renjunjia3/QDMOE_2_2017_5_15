@@ -18,11 +18,13 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.alibaba.fastjson.JSON;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.ofgvyiss.ofgvyi.R;
 import com.ofgvyiss.ofgvyi.app.App;
 import com.ofgvyiss.ofgvyi.bean.CommentInfo;
 import com.ofgvyiss.ofgvyi.bean.VideoInfo;
 import com.ofgvyiss.ofgvyi.ui.dialog.SubmitAndCancelDialog;
+import com.ofgvyiss.ofgvyi.util.AuthImageDownloader;
 import com.ofgvyiss.ofgvyi.util.SharedPreferencesUtil;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -97,7 +99,10 @@ public class JCFullScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).memoryCache(new LruMemoryCache(2 * 1024 * 1024))
                 .memoryCacheSize(2 * 1024 * 1024)
+                .imageDownloader(new AuthImageDownloader(this))
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .memoryCacheSizePercentage(13).build(); // default
+
         ImageLoader.getInstance().init(config);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);

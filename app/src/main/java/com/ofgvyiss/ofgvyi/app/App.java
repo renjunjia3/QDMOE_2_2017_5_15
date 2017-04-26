@@ -5,10 +5,14 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.ofgvyiss.ofgvyi.util.SharedPreferencesUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
 
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import me.yokeyword.fragmentation.BuildConfig;
@@ -70,8 +74,8 @@ public class App extends Application {
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 //其他配置
                 .build();
-
         OkHttpUtils.initClient(okHttpClient);
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(okHttpClient));
     }
 
 
