@@ -50,6 +50,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,6 +123,8 @@ public class MainActivity extends SupportActivity {
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("支付结果获取中...");
         getUpdateData();
+
+        upLoadCrashInfo();
     }
 
     private void showNoticeToast(int id) {
@@ -648,6 +651,43 @@ public class MainActivity extends SupportActivity {
         intent.setAction(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.parse("file://" + file.toString()), "application/vnd.android.package-archive");
         mContext.startActivity(intent);
+    }
+
+    /**
+     * Case By:上传崩溃日志
+     * Author: scene on 2017/4/26 17:56
+     */
+    private void upLoadCrashInfo() {
+        //获取崩溃日志文件夹文件的数量
+        String dirPath = Environment.getExternalStorageDirectory() + File.separator + "dPhoneLog";
+        List<String> files = getVideoFileName(dirPath);
+        Log.e("carshFiles", "文件数量：" + files.size());
+        if (files.size() > 0) {
+            //上传到服务器
+
+        }
+    }
+
+    /**
+     * Case By:获取指定目录的文件
+     * Author: scene on 2017/4/26 17:59
+     */
+    public static List<String> getVideoFileName(String fileAbsolutePath) {
+        List<String> vecFile = new ArrayList<>();
+        File file = new File(fileAbsolutePath);
+        File[] subFile = file.listFiles();
+
+        for (int iFileLength = 0; iFileLength < subFile.length; iFileLength++) {
+            // 判断是否为文件夹
+            if (!subFile[iFileLength].isDirectory()) {
+                String filename = subFile[iFileLength].getName();
+                // 判断是否为MP4结尾
+                if (filename.trim().toLowerCase().endsWith(".txt")) {
+                    vecFile.add(filename);
+                }
+            }
+        }
+        return vecFile;
     }
 }
 

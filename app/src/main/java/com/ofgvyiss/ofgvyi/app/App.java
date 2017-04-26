@@ -48,6 +48,10 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //捕获错误日志
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
+
         CHANNEL_ID = getChannelName();
         USER_ID = SharedPreferencesUtil.getInt(this, USERID_KEY, 0);
         tryCount = SharedPreferencesUtil.getInt(this, TRY_COUNT_KEY, 0);

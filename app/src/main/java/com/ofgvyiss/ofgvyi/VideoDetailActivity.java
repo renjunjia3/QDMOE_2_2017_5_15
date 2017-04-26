@@ -119,6 +119,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         initToolbarNav(toolbar);
         initView();
         enterVideoDetail();
+
     }
 
     protected void initToolbarNav(Toolbar toolbar) {
