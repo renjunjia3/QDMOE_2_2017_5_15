@@ -19,12 +19,16 @@ import com.ofgvyiss.ofgvyi.base.BaseMainFragment;
 import com.ofgvyiss.ofgvyi.bean.SearchInfo;
 import com.ofgvyiss.ofgvyi.event.StartBrotherEvent;
 import com.ofgvyiss.ofgvyi.ui.dialog.DownLoadDialog;
+import com.ofgvyiss.ofgvyi.util.API;
 import com.ofgvyiss.ofgvyi.util.DialogUtil;
 import com.ofgvyiss.ofgvyi.util.ToastUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +89,17 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
         adapter = new SearchAdapter(getContext(), lists);
         listview.setAdapter(adapter);
         adapter.setOnClickDownloadListener(this);
+        uploadCurrentPage();
+    }
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "12");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
     private void initDialog() {
@@ -128,7 +143,7 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
             tagView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EventBus.getDefault().post(new StartBrotherEvent(MagnetResultFragment.newInstance(finalI, "")));
+                    EventBus.getDefault().post(new StartBrotherEvent(MagnetResultFragment.newInstance(finalI, tags[finalI])));
                 }
             });
             flowLayout.addView(tagView);

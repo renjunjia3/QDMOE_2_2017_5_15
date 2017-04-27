@@ -32,7 +32,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -103,6 +105,19 @@ public class FlimDetailFragment extends BaseBackFragment {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
         getData(true);
+        uploadCurrentPage();
+    }
+
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "10");
+        params.put("user_id", App.USER_ID + "");
+        params.put("cate_id", flimId + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
     private void initView() {

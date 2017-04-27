@@ -581,7 +581,7 @@ public class MainActivity extends SupportActivity {
                     updateInfo = JSON.parseObject(s, UpdateInfo.class);
                     int versionCode = getVersion();
                     if (versionCode != 0 && updateInfo.getVersion_code() > versionCode) {
-                        showSubmitDialog(updateInfo.getApk_url());
+                        showUploadDialog(updateInfo.getApk_url());
                     }
 
                 } catch (Exception e) {
@@ -629,7 +629,7 @@ public class MainActivity extends SupportActivity {
      * Case By:提示更新的对话框
      * Author: scene on 2017/4/27 16:52
      */
-    public void showSubmitDialog(final String url) {
+    public void showUploadDialog(final String url) {
         if (updateDialog != null && updateDialog.isShowing()) {
             updateDialog.cancel();
         }

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -119,7 +120,20 @@ public class VideoDetailActivity extends SwipeBackActivity {
         initToolbarNav(toolbar);
         initView();
         enterVideoDetail();
+        uploadCurrentPage();
+    }
 
+
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "7");
+        params.put("user_id", App.USER_ID + "");
+        params.put("video_id", videoInfo.getVideo_id() + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
     protected void initToolbarNav(Toolbar toolbar) {

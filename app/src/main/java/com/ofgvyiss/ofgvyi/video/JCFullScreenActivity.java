@@ -43,6 +43,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -182,6 +183,19 @@ public class JCFullScreenActivity extends Activity {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
         }
+        uploadCurrentPage();
+    }
+
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "8");
+        params.put("user_id", App.USER_ID + "");
+        params.put("video_id", videoInfo.getVideo_id() + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
     /**

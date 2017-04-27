@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.ofgvyiss.ofgvyi.R;
 import com.ofgvyiss.ofgvyi.VideoDetailActivity;
 import com.ofgvyiss.ofgvyi.adapter.TrySeeAdapter;
+import com.ofgvyiss.ofgvyi.app.App;
 import com.ofgvyiss.ofgvyi.base.BaseMainFragment;
 import com.ofgvyiss.ofgvyi.bean.TrySeeContentInfo;
 import com.ofgvyiss.ofgvyi.bean.VideoInfo;
@@ -30,7 +31,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,6 +90,18 @@ public class TrySeeFragment extends BaseMainFragment {
         statusViewLayout.showContent();
         initView();
         getTrySeeData(true);
+        uploadCurrentPage();
+    }
+
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id","1");
+        params.put("user_id", App.USER_ID+"");
+        OkHttpUtils.post().url(API.URL_PRE+API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
 

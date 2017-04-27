@@ -16,9 +16,14 @@ import com.ofgvyiss.ofgvyi.base.BaseBackFragment;
 import com.ofgvyiss.ofgvyi.event.StartBrotherEvent;
 import com.ofgvyiss.ofgvyi.ui.dialog.CustomSubmitDialog;
 import com.ofgvyiss.ofgvyi.ui.fragment.MainFragment;
+import com.ofgvyiss.ofgvyi.util.API;
 import com.ofgvyiss.ofgvyi.util.DialogUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +70,18 @@ public class Mine2Fragment extends BaseBackFragment {
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
+        uploadCurrentPage();
+    }
+
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "14");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
     private void initView() {
