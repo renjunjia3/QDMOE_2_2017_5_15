@@ -256,6 +256,7 @@ public class MagnetResultFragment extends BaseFragment implements SearchAdapter.
                 }
                 lists.get(position).setShowPlay(true);
                 adapter.notifyDataSetChanged();
+                DialogUtil.getInstance().showCustomSubmitDialog(getContext(), "文件下载完毕，可以在线播放");
             }
         }.start();
     }

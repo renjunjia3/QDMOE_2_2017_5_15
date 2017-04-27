@@ -1,6 +1,7 @@
 package com.ofgvyiss.ofgvyi.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,8 +67,10 @@ public class SearchAdapter extends BaseAdapter {
         viewHolder.videoName.setText(info.getFiles());
         if (info.isShowPlay()) {
             viewHolder.download.setText("播放");
+            viewHolder.download.setTextColor(Color.parseColor("#6f88e6"));
         } else {
             viewHolder.download.setText("立即下载");
+            viewHolder.download.setTextColor(Color.parseColor("#fbbf68"));
         }
         viewHolder.watch.setOnClickListener(new View.OnClickListener() {
             @Override

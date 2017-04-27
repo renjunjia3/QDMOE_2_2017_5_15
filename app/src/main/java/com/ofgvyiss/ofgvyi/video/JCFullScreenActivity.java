@@ -44,6 +44,7 @@ import master.flame.danmaku.danmaku.loader.IllegalDataException;
 import master.flame.danmaku.danmaku.loader.android.DanmakuLoaderFactory;
 import master.flame.danmaku.danmaku.model.BaseDanmaku;
 import master.flame.danmaku.danmaku.model.DanmakuTimer;
+import master.flame.danmaku.danmaku.model.Duration;
 import master.flame.danmaku.danmaku.model.IDisplayer;
 import master.flame.danmaku.danmaku.model.android.AndroidDisplayer;
 import master.flame.danmaku.danmaku.model.android.DanmakuContext;
@@ -196,7 +197,6 @@ public class JCFullScreenActivity extends Activity {
                             viewHolder.mText.getPaint().set(paint);
                         viewHolder.mText.setText(danmaku.text);
                         viewHolder.mText.setTextColor(danmaku.textColor);
-                        viewHolder.mText.setTextSize(TypedValue.COMPLEX_UNIT_PX, danmaku.textSize);
                         Bitmap bitmap = null;
                         MyImageWare imageWare = (MyImageWare) danmaku.tag;
                         if (imageWare != null) {
@@ -313,6 +313,7 @@ public class JCFullScreenActivity extends Activity {
         danmaku.setTime(mDanmakuView.getCurrentTime());
         danmaku.textSize = 20f * (mParser.getDisplayer().getDensity() - 0.6f);
         danmaku.textColor = Color.WHITE;
+        danmaku.setDuration(new Duration(10000));
         danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
         mDanmakuView.addDanmaku(danmaku);
     }

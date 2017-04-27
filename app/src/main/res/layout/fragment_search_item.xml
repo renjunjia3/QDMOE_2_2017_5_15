@@ -71,7 +71,7 @@
         android:paddingTop="10dp"
         android:text="立即下载"
         android:textColor="#fbbf68"
-        android:textSize="@dimen/text_size_middle" />
+        android:textSize="@dimen/text_size_large" />
 
     <TextView
         android:id="@+id/watch"

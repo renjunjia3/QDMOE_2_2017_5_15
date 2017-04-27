@@ -85,7 +85,6 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
         adapter = new SearchAdapter(getContext(), lists);
         listview.setAdapter(adapter);
         adapter.setOnClickDownloadListener(this);
-
     }
 
     private void initDialog() {
@@ -189,6 +188,7 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
                 }
                 lists.get(position).setShowPlay(true);
                 adapter.notifyDataSetChanged();
+                DialogUtil.getInstance().showCustomSubmitDialog(getContext(), "文件下载完毕，可以在线播放");
             }
         }.start();
     }

@@ -105,8 +105,8 @@
                         android:id="@+id/open_vip1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:background="@drawable/bg_video_detail_open_vip" />
+                        android:background="@drawable/bg_video_detail_open_vip"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -151,10 +151,10 @@
                             android:id="@+id/screenShotRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:visibility="gone"
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="10dp"
-                            android:scrollbars="none" />
+                            android:scrollbars="none"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/aboutCommendTextView"
@@ -229,43 +229,43 @@
                                 android:scrollbars="none" />
                         </LinearLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:background="#D1D1D1"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/sendComment"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_toLeftOf="@+id/sendComment"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_commend_edit_text"
+                                android:gravity="center_vertical"
+                                android:hint="快来说说你的感想吧"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:textColor="#333333"
+                                android:textSize="@dimen/text_size_middle" />
+
+                            <ImageView
+                                android:id="@+id/sendComment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_btn_send" />
+                        </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="#D1D1D1"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/sendComment"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/sendComment"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_commend_edit_text"
-                    android:gravity="center_vertical"
-                    android:hint="快来说说你的感想吧"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/text_size_middle" />
-
-                <ImageView
-                    android:id="@+id/sendComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_btn_send" />
-            </RelativeLayout>
         </LinearLayout>
     </wiki.scene.statuslib.StatusViewLayout>
 </LinearLayout>

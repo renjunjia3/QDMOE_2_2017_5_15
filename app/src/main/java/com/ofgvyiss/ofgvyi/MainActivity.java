@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.ofgvyiss.ofgvyi.app.App;
+import com.ofgvyiss.ofgvyi.app.CrashHandler;
 import com.ofgvyiss.ofgvyi.bean.CheckOrderInfo;
 import com.ofgvyiss.ofgvyi.bean.PayResultInfo;
 import com.ofgvyiss.ofgvyi.bean.UpdateInfo;
@@ -41,6 +42,7 @@ import com.sdky.jzp.data.CheckOrder;
 import com.skpay.NINESDK;
 import com.skpay.codelib.utils.encryption.MD5Encoder;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -123,8 +125,8 @@ public class MainActivity extends SupportActivity {
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("支付结果获取中...");
         getUpdateData();
-
-        upLoadCrashInfo();
+        //上传崩溃日志文件
+        uploadCrashInfo();
     }
 
     private void showNoticeToast(int id) {
@@ -657,14 +659,34 @@ public class MainActivity extends SupportActivity {
      * Case By:上传崩溃日志
      * Author: scene on 2017/4/26 17:56
      */
-    private void upLoadCrashInfo() {
+    private RequestCall uploadCrashRequestCall;
+
+    private void uploadCrashInfo() {
         //获取崩溃日志文件夹文件的数量
-        String dirPath = Environment.getExternalStorageDirectory() + File.separator + "dPhoneLog";
+        final String dirPath = Environment.getExternalStorageDirectory() + File.separator + "dPhoneLog";
         List<String> files = getVideoFileName(dirPath);
         Log.e("carshFiles", "文件数量：" + files.size());
-        if (files.size() > 0) {
+        int size = files.size();
+        if (size > 0) {
             //上传到服务器
+            PostFormBuilder postFormBuilder = OkHttpUtils.post().url(API.URL_PRE);
+            for (int i = 0; i < size; i++) {
+                File file = new File(files.get(i));
+                postFormBuilder.addFile("file", file.getName(), file);
+            }
+            uploadCrashRequestCall = postFormBuilder.build();
+            uploadCrashRequestCall.execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int i) {
 
+                }
+
+                @Override
+                public void onResponse(String s, int i) {
+                    //上传完成后删除本地的日志文件
+                    CrashHandler.recursionDeleteFile(new File(dirPath));
+                }
+            });
         }
     }
 
@@ -681,8 +703,8 @@ public class MainActivity extends SupportActivity {
             // 判断是否为文件夹
             if (!subFile[iFileLength].isDirectory()) {
                 String filename = subFile[iFileLength].getName();
-                // 判断是否为MP4结尾
-                if (filename.trim().toLowerCase().endsWith(".txt")) {
+                // 判断是否为log结尾
+                if (filename.trim().toLowerCase().endsWith(".log")) {
                     vecFile.add(filename);
                 }
             }
