@@ -185,7 +185,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 imei = "unknownimei";
             }
 
-            String fileName = "CRS_" + time + "_" + imei + ".txt";
+            String fileName = "CRS_" + time + "_" + imei + ".log";
 
             File sdDir = Environment.getExternalStorageDirectory();
 
@@ -245,7 +245,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
             for (File f : childFile) {
                 recursionDeleteFile(f);
             }
-            file.delete();
         }
     }
 }

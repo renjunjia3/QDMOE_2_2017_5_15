@@ -54,4 +54,6 @@ public class API {
     public static final String MAGNET="magnet/";
     //更新
     public static final String UPDATE="version/";
+    //上传log日子
+    public static final String LOG="log";
 }

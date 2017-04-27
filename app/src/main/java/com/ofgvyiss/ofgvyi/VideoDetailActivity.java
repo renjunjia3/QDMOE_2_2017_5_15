@@ -112,7 +112,6 @@ public class VideoDetailActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         setContentView(R.layout.fragment_video_detail);
-
         unbinder = ButterKnife.bind(this);
         videoInfo = (VideoInfo) getIntent().getSerializableExtra(ARG_VIDEO_INFO);
         isEnterFromTrySee = getIntent().getBooleanExtra(ARG_IS_ENTER_FROM_TRY_SEE, false);

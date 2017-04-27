@@ -363,144 +363,190 @@ public class MainActivity extends SupportActivity {
         if (progressDialog != null) {
             progressDialog.show();
         }
-        Map<String, String> params = new HashMap<>();
-        params.put("order_id", App.orderIdInt + "");
-        params.put("imei", App.IMEI);
-        App.isNeedCheckOrder = false;
-        App.orderIdInt = 0;
-        requestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_ORDER).params(params).build();
-        requestCall.execute(new StringCallback() {
+
+
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onError(Call call, Exception e, int i) {
-                e.printStackTrace();
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-            }
+            public void run() {
 
-            @Override
-            public void onResponse(String s, int i) {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                try {
-                    CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
-                    if (checkOrderInfo.isStatus()) {
-                        App.isHeijin = checkOrderInfo.getIs_heijin();
-                        SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
-                        String message = "";
-                        switch (App.isVip) {
-                            case 0:
-                                App.isVip = 1;
-                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                message = "恭喜您成为黄金会员";
-                                CustomSubmitDialog customSubmitDialog0 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                customSubmitDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        changeTab(new ChangeTabEvent(App.isVip));
-                                    }
-                                });
-                                break;
-                            case 1:
-                                App.isVip = 2;
-                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                message = "恭喜您成为钻石会员";
-                                CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        changeTab(new ChangeTabEvent(App.isVip));
-                                    }
-                                });
-                                break;
-                            case 2:
-                                if (App.isOPenBlackGlodVip) {
-                                    App.isVip = 2;
-                                    message = "恭喜您成为最牛逼的黑金会员";
-                                } else {
-                                    App.isVip = 3;
-                                    message = "恭喜您成功注册VPN海外会员";
-                                }
-                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        changeTab(new ChangeTabEvent(App.isVip));
-                                    }
-                                });
-
-                                break;
-                            case 3:
-                                if (App.isHeijin == 1) {
-                                    App.isVip = 5;
-                                } else {
-                                    App.isVip = 4;
-                                }
-                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                message = "恭喜你进入海外片库，我们将携手为您服务";
-                                CustomSubmitDialog customSubmitDialog3 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                customSubmitDialog3.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        changeTab(new ChangeTabEvent(App.isVip));
-                                    }
-                                });
-
-                                break;
-                            case 4:
-                                if (App.isVip >= 4) {
-                                    App.isVip = 5;
-                                    SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                }
-                                App.isHeijin = 1;
-                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
-                                message = "恭喜您成为最牛逼的黑金会员";
-                                CustomSubmitDialog customSubmitDialog4 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                customSubmitDialog4.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        changeTab(new ChangeTabEvent(App.isVip));
-                                    }
-                                });
-                                break;
-                            case 5:
-                                App.isVip = 6;
-                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                message = "恭喜您开通海外高速通道";
-                                CustomSubmitDialog customSubmitDialog5 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                customSubmitDialog5.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        changeTab(new ChangeTabEvent(App.isVip));
-                                    }
-                                });
-
-                                break;
-                            case 6:
-                                App.isVip = 7;
-                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                message = "恭喜您开通海外双线通道";
-                                CustomSubmitDialog customSubmitDialog6 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                customSubmitDialog6.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        changeTab(new ChangeTabEvent(App.isVip));
-                                    }
-                                });
-                                break;
-                            default:
-                                break;
+                Map<String, String> params = new HashMap<>();
+                params.put("order_id", App.orderIdInt + "");
+                params.put("imei", App.IMEI);
+                App.isNeedCheckOrder = false;
+                App.orderIdInt = 0;
+                requestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_ORDER).params(params).build();
+                requestCall.execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        e.printStackTrace();
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
                         }
-
                     }
-                    App.isOPenBlackGlodVip = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        try {
+                            CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
+                            if (checkOrderInfo.isStatus()) {
+                                App.isHeijin = checkOrderInfo.getIs_heijin();
+                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
+                                switch (App.isVip) {
+                                    case 0:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                App.isVip = 1;
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                String message = "恭喜您成为黄金会员";
+                                                CustomSubmitDialog customSubmitDialog0 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                                customSubmitDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        break;
+                                    case 1:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                App.isVip = 2;
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                String message = "恭喜您成为钻石会员";
+                                                CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                                customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        break;
+                                    case 2:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                String message;
+                                                if (App.isOPenBlackGlodVip) {
+                                                    App.isVip = 2;
+                                                    message = "恭喜您成为最牛逼的黑金会员";
+                                                } else {
+                                                    App.isVip = 3;
+                                                    message = "恭喜您成功注册VPN海外会员";
+                                                }
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                                customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                    }
+                                                });
+
+                                            }
+                                        });
+
+                                        break;
+                                    case 3:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (App.isHeijin == 1) {
+                                                    App.isVip = 5;
+                                                } else {
+                                                    App.isVip = 4;
+                                                }
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                String message = "恭喜你进入海外片库，我们将携手为您服务";
+                                                CustomSubmitDialog customSubmitDialog3 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                                customSubmitDialog3.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        break;
+                                    case 4:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (App.isVip >= 4) {
+                                                    App.isVip = 5;
+                                                    SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                }
+                                                App.isHeijin = 1;
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
+                                                String message = "恭喜您成为最牛逼的黑金会员";
+                                                CustomSubmitDialog customSubmitDialog4 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                                customSubmitDialog4.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        break;
+                                    case 5:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                App.isVip = 6;
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                String message = "恭喜您开通海外高速通道";
+                                                CustomSubmitDialog customSubmitDialog5 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                                customSubmitDialog5.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        break;
+                                    case 6:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                App.isVip = 7;
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                String message = "恭喜您开通海外双线通道";
+                                                CustomSubmitDialog customSubmitDialog6 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+                                                customSubmitDialog6.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                            }
+                            App.isOPenBlackGlodVip = false;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
-        });
+        }, 3000);
+
+
     }
 
     public boolean isApplicationBroughtToBackground(Context context) {
@@ -669,16 +715,16 @@ public class MainActivity extends SupportActivity {
         int size = files.size();
         if (size > 0) {
             //上传到服务器
-            PostFormBuilder postFormBuilder = OkHttpUtils.post().url(API.URL_PRE);
+            PostFormBuilder postFormBuilder = OkHttpUtils.post().url(API.URL_PRE + API.LOG);
             for (int i = 0; i < size; i++) {
                 File file = new File(files.get(i));
-                postFormBuilder.addFile("file", file.getName(), file);
+                postFormBuilder.addFile("file[]", file.getName(), file);
             }
             uploadCrashRequestCall = postFormBuilder.build();
             uploadCrashRequestCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-
+                    e.printStackTrace();
                 }
 
                 @Override
@@ -696,18 +742,22 @@ public class MainActivity extends SupportActivity {
      */
     public static List<String> getVideoFileName(String fileAbsolutePath) {
         List<String> vecFile = new ArrayList<>();
-        File file = new File(fileAbsolutePath);
-        File[] subFile = file.listFiles();
+        try{
+            File file = new File(fileAbsolutePath);
+            File[] subFile = file.listFiles();
 
-        for (int iFileLength = 0; iFileLength < subFile.length; iFileLength++) {
-            // 判断是否为文件夹
-            if (!subFile[iFileLength].isDirectory()) {
-                String filename = subFile[iFileLength].getName();
-                // 判断是否为log结尾
-                if (filename.trim().toLowerCase().endsWith(".log")) {
-                    vecFile.add(filename);
+            for (int iFileLength = 0; iFileLength < subFile.length; iFileLength++) {
+                // 判断是否为文件夹
+                if (!subFile[iFileLength].isDirectory()) {
+                    String filename = subFile[iFileLength].getAbsolutePath();
+                    // 判断是否为log结尾
+                    if (filename.trim().toLowerCase().endsWith(".log")) {
+                        vecFile.add(filename);
+                    }
                 }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return vecFile;
     }
