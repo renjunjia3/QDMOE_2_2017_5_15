@@ -29,10 +29,13 @@ import com.ofgvyiss.ofgvyi.bean.CommentInfo;
 import com.ofgvyiss.ofgvyi.bean.VideoInfo;
 import com.ofgvyiss.ofgvyi.ui.dialog.CustomSubmitDialog;
 import com.ofgvyiss.ofgvyi.ui.dialog.SubmitAndCancelDialog;
+import com.ofgvyiss.ofgvyi.util.API;
 import com.ofgvyiss.ofgvyi.util.AuthImageDownloader;
 import com.ofgvyiss.ofgvyi.util.DialogUtil;
-import com.ofgvyiss.ofgvyi.util.SharedPreferencesUtil;
 import com.ofgvyiss.ofgvyi.util.ToastUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
@@ -57,6 +60,7 @@ import master.flame.danmaku.danmaku.model.android.ViewCacheStuffer;
 import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
 import master.flame.danmaku.danmaku.parser.IDataSource;
 import master.flame.danmaku.ui.widget.DanmakuView;
+import okhttp3.Call;
 
 /**
  * <p>全屏的activity</p>
@@ -98,6 +102,7 @@ public class JCFullScreenActivity extends Activity {
     private DanmakuView mDanmakuView;
     private int mIconWidth;
     private List<CommentInfo> commentInfoList;
+    private RequestCall danmuRequestCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +158,7 @@ public class JCFullScreenActivity extends Activity {
 
         mTimer = new Timer();
         mTimer.schedule(timerTask, 50, 50);
-        initDanmuConfig();
+        getDanmuData();
 
         if (App.isVip == 0) {
             mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
@@ -362,14 +367,6 @@ public class JCFullScreenActivity extends Activity {
         URL = videoInfo.getUrl();
         DIRECT_FULLSCREEN = true;
         VIDEO_PLAYER_CLASS = JCVideoPlayerStandard.class;
-        try {
-            commentInfoList = JSON.parseArray(SharedPreferencesUtil.getString(JCFullScreenActivity.this, PARAM_STR_COMMENT, "[]"), CommentInfo.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (commentInfoList == null) {
-                commentInfoList = new ArrayList<>();
-            }
-        }
     }
 
 
@@ -407,6 +404,9 @@ public class JCFullScreenActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        if (danmuRequestCall != null) {
+            danmuRequestCall.cancel();
+        }
         if (mDanmakuView != null) {
             mDanmakuView.release();
             mDanmakuView = null;
@@ -734,6 +734,35 @@ public class JCFullScreenActivity extends Activity {
             }
         });
     }
+
+
+    /**
+     * Case By:获取弹幕的数据
+     * Author: scene on 2017/4/27 15:35
+     */
+    private void getDanmuData() {
+        danmuRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.DANMU).build();
+        danmuRequestCall.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                try {
+                    List<CommentInfo> comemnts = JSON.parseArray(s, CommentInfo.class);
+                    commentInfoList = new ArrayList<>();
+                    commentInfoList.addAll(comemnts);
+                    initDanmuConfig();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
 }
 
 

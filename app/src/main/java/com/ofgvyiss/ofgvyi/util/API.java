@@ -56,4 +56,6 @@ public class API {
     public static final String UPDATE="version/";
     //上传log日子
     public static final String LOG="log";
+    //弹幕
+    public static final String DANMU="video/danmu";
 }

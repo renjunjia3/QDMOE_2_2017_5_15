@@ -172,7 +172,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             //不是首页进来自己也不是VIP，弹出开通会员的提示
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
         } else {
-            if (App.tryCount >= VideoConfig.TRY_COUNT_TIME) {
+            if (App.tryCount >= VideoConfig.TRY_COUNT_TIME&&App.isVip==0) {
                 DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
             } else {
                 App.tryCount += 1;
@@ -291,8 +291,11 @@ public class VideoDetailActivity extends SwipeBackActivity {
      * Case By:获取评论的数据
      * Author: scene on 2017/4/13 18:48
      */
+    private RequestCall commentReqstCall;
+
     private void getCommentData() {
-        OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_COMMENT).build().execute(new StringCallback() {
+        commentReqstCall = OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_COMMENT).build();
+        commentReqstCall.execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
                 e.printStackTrace();
@@ -309,7 +312,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     detailPlayer.setFocusable(true);
                     detailPlayer.setFocusableInTouchMode(true);
                     detailPlayer.requestFocus();
-                    SharedPreferencesUtil.putString(VideoDetailActivity.this, JCFullScreenActivity.PARAM_STR_COMMENT, s);
+                    //SharedPreferencesUtil.putString(VideoDetailActivity.this, JCFullScreenActivity.PARAM_STR_COMMENT, s);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -343,6 +346,9 @@ public class VideoDetailActivity extends SwipeBackActivity {
         }
         if (recommendRequestCall != null) {
             recommendRequestCall.cancel();
+        }
+        if (commentReqstCall != null) {
+            commentReqstCall.cancel();
         }
         DialogUtil.getInstance().cancelAllDialog();
         EventBus.getDefault().unregister(this);

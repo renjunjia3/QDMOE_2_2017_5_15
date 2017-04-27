@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,8 +19,10 @@ import com.bumptech.glide.Glide;
 import com.ofgvyiss.ofgvyi.R;
 import com.ofgvyiss.ofgvyi.util.DownLoadImageService;
 import com.ofgvyiss.ofgvyi.util.ImageDownLoadCallBack;
+import com.ofgvyiss.ofgvyi.util.ToastUtils;
 
 import java.io.File;
+import java.util.List;
 
 
 /**
@@ -71,16 +75,26 @@ public class WxQRCodePayDialog extends Dialog {
             layout.findViewById(R.id.toWeChat).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
-                    ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
-                    intent.setAction(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setComponent(cmp);
-                    context.startActivity(intent);
-                    if (dialog != null) {
-                        dialog.cancel();
+                    try {
+                        if (isWeixinAvilible(context)) {
+                            Intent intent = new Intent();
+                            ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                            intent.setAction(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setComponent(cmp);
+                            context.startActivity(intent);
+                            if (dialog != null) {
+                                dialog.cancel();
+                            }
+                        } else {
+                            ToastUtils.getInstance(context).showToast("请先安装微信");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ToastUtils.getInstance(context).showToast("请先安装微信");
                     }
+
                 }
             });
             Glide.with(context).load(url).asBitmap().centerCrop().into(imageView);
@@ -109,5 +123,19 @@ public class WxQRCodePayDialog extends Dialog {
 
     }
 
+
+    public static boolean isWeixinAvilible(Context context) {
+        PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equals("com.tencent.mm")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }
