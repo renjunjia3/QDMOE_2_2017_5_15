@@ -15,7 +15,6 @@ import com.ofgvyiss.ofgvyi.app.App;
 import com.ofgvyiss.ofgvyi.base.BaseFragment;
 import com.ofgvyiss.ofgvyi.event.StartBrotherEvent;
 import com.ofgvyiss.ofgvyi.event.TabSelectedEvent;
-import com.ofgvyiss.ofgvyi.ui.dialog.SubmitAndCancelDialog;
 import com.ofgvyiss.ofgvyi.ui.fragment.bbs.BBSFragment;
 import com.ofgvyiss.ofgvyi.ui.fragment.film.FilmFragment;
 import com.ofgvyiss.ofgvyi.ui.fragment.magnet.MagnetFragment;
@@ -76,12 +75,6 @@ public class MainFragment extends BaseFragment {
     private List<SupportFragment> fragments = new ArrayList<>();
     private List<String> tabNames = new ArrayList<>();
 
-
-    //提示框
-    private SubmitAndCancelDialog submitAndCancelDialog;
-    private SubmitAndCancelDialog.Builder submitAndCancelBuilder;
-
-
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -91,7 +84,7 @@ public class MainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         unbinder = ButterKnife.bind(this, view);
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null || tabNames.size() == 0 || fragments.size() == 0) {
             tabNames.clear();
             fragments.clear();
             switch (App.isVip) {
@@ -257,12 +250,12 @@ public class MainFragment extends BaseFragment {
                     fragments.add(findChildFragment(BBSFragment.class));
                     break;
                 case 2:
-                    if(App.isHeijin==1){
+                    if (App.isHeijin == 1) {
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
                         fragments.add(findChildFragment(MineFragment.class));
-                    }else{
+                    } else {
                         fragments.add(findChildFragment(DiamondVipFragment.class));
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
@@ -351,13 +344,13 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(4)));
                 break;
             case 2:
-                if(App.isHeijin==1){
+                if (App.isHeijin == 1) {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(3)));
-                }else{
+                } else {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
