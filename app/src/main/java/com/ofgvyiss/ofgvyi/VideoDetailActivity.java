@@ -155,7 +155,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         getCommentData();
 
         progressDialog = new ProgressDialog(VideoDetailActivity.this);
-        progressDialog.setMessage("加载中...");
+        progressDialog.setMessage("正在获取支付结果...");
     }
 
 
@@ -232,10 +232,13 @@ public class VideoDetailActivity extends SwipeBackActivity {
     /**
      * 获取相关推荐
      */
+    private RequestCall recommendRequestCall;
+
     public void getRecomendVideo() {
         statusViewLayout.showLoading();
         if (NetWorkUtils.isNetworkConnected(VideoDetailActivity.this)) {
-            OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_RELATED + videoInfo.getVideo_id()).build().execute(new StringCallback() {
+            recommendRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_RELATED + videoInfo.getVideo_id()).build();
+            recommendRequestCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
                     aboutCommendTextView.setVisibility(View.GONE);
@@ -249,9 +252,6 @@ public class VideoDetailActivity extends SwipeBackActivity {
                         videoRelateList.clear();
                         videoRelateList.addAll(JSON.parseArray(s, VideoInfo.class));
                         videoRelateAdapter.notifyDataSetChanged();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
                         if (videoRelateList.size() > 0) {
                             aboutCommendTextView.setVisibility(View.VISIBLE);
                             aboutCommendGridView.setVisibility(View.VISIBLE);
@@ -259,6 +259,9 @@ public class VideoDetailActivity extends SwipeBackActivity {
                             aboutCommendTextView.setVisibility(View.GONE);
                             aboutCommendGridView.setVisibility(View.GONE);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
                         statusViewLayout.showContent();
                     }
                 }
@@ -335,12 +338,15 @@ public class VideoDetailActivity extends SwipeBackActivity {
 
     @Override
     protected void onDestroy() {
-        DialogUtil.getInstance().cancelAllDialog();
-        EventBus.getDefault().unregister(this);
-        unbinder.unbind();
         if (requestCall != null) {
             requestCall.cancel();
         }
+        if (recommendRequestCall != null) {
+            recommendRequestCall.cancel();
+        }
+        DialogUtil.getInstance().cancelAllDialog();
+        EventBus.getDefault().unregister(this);
+        unbinder.unbind();
         DialogUtil.getInstance().cancelAllDialog();
         super.onDestroy();
     }
@@ -357,13 +363,8 @@ public class VideoDetailActivity extends SwipeBackActivity {
      */
     private RequestCall requestCall;
     private ProgressDialog progressDialog;
-    private int checkOrderCount = 0;
-
 
     private void checkOrder() {
-        if (checkOrderCount > 3) {
-            return;
-        }
         if (progressDialog != null) {
             progressDialog.show();
         }
@@ -387,7 +388,6 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                     progressDialog.dismiss();
                                 }
                             });
-
                         }
                     }
 
@@ -399,7 +399,6 @@ public class VideoDetailActivity extends SwipeBackActivity {
                         try {
                             CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
                             if (checkOrderInfo.isStatus()) {
-                                checkOrderCount = 0;
                                 MainActivity.isNeedChangeTab = true;
                                 String message = "";
                                 switch (App.isVip) {
@@ -505,9 +504,6 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                         break;
                                 }
                                 App.isOPenBlackGlodVip = false;
-                            } else {
-                                checkOrderCount += 1;
-                                checkOrder();
                             }
 
                         } catch (Exception e) {
@@ -516,7 +512,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     }
                 });
             }
-        }, 3000);
+        }, 1000);
 
     }
 }

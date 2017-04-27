@@ -94,6 +94,7 @@ public class RankFragment extends BaseMainFragment {
         });
 
         list = new ArrayList<>();
+        addheader();
         adapter = new RankAdapter(getContext(), list);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -104,7 +105,7 @@ public class RankFragment extends BaseMainFragment {
                 }
             }
         });
-        addheader();
+
     }
 
 

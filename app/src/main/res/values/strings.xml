@@ -15,10 +15,10 @@
     <string name="cube_ptr_hours_ago">&#160;小时之前</string>
 
 
-    <string name="tips_not_wifi">You are currently using the mobile network, the player will continue to consume traffic</string>
-  <string name="tips_not_wifi_confirm">Resume</string>
-  <string name="tips_not_wifi_cancel">Stop play</string>
-  <string name="no_url">No mUrl</string>
+    <string name="tips_not_wifi">你当前的使用的移动网络，是否继续播放？</string>
+    <string name="tips_not_wifi_confirm">继续</string>
+    <string name="tips_not_wifi_cancel">退出</string>
+    <string name="no_url">No mUrl</string>
 
 
     <string name="disclaime">\t1、一切移动客户端用户在下载并浏览皮皮乐科技软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本站，或直接、间接使用本站资料者，均被视为自愿接受本网站相关声明和用户服务协议的约束。

@@ -544,7 +544,7 @@ public class MainActivity extends SupportActivity {
                     }
                 });
             }
-        }, 3000);
+        }, 1000);
 
 
     }
