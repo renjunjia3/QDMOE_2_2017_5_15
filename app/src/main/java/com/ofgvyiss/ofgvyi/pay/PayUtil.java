@@ -43,43 +43,43 @@ public class PayUtil {
     public static final int VIP_TYPE_8 = 8;
     public static final int VIP_TYPE_9 = 9;
 
-//    //开通黄金会员 3800
-//    private static final int VIP_MONEY_TYPE_1 = 1;
-//    //优惠开通黄金会员 2800
-//    private static final int VIP_MONEY_TYPE_2 = 1;
-//    //直接开通钻石会员 6800
-//    private static final int VIP_MONEY_TYPE_3 = 1;
-//    //升级钻石会员 3000
-//    private static final int VIP_MONEY_TYPE_4 = 1;
-//    //开通VPN海外会员 2800
-//    private static final int VIP_MONEY_TYPE_5 = 1;
-//    //开通海外片库 1900
-//    private static final int VIP_MONEY_TYPE_6 = 1;
-//    //开通黑金会员 4800
-//    private static final int VIP_MONEY_TYPE_7 = 1;
-//    //开通海外加速通道 1500
-//    private static final int VIP_MONEY_TYPE_8 = 1;
-//    //开通海外急速双线通道 1000
-//    private static final int VIP_MONEY_TYPE_9 = 1;
-
     //开通黄金会员 3800
-    private static final int VIP_MONEY_TYPE_1 = 10;
+    private static final int VIP_MONEY_TYPE_1 = 1;
     //优惠开通黄金会员 2800
-    private static final int VIP_MONEY_TYPE_2 = 10;
+    private static final int VIP_MONEY_TYPE_2 = 1;
     //直接开通钻石会员 6800
-    private static final int VIP_MONEY_TYPE_3 = 10;
+    private static final int VIP_MONEY_TYPE_3 = 1;
     //升级钻石会员 3000
-    private static final int VIP_MONEY_TYPE_4 = 10;
+    private static final int VIP_MONEY_TYPE_4 = 1;
     //开通VPN海外会员 2800
-    private static final int VIP_MONEY_TYPE_5 = 10;
+    private static final int VIP_MONEY_TYPE_5 = 1;
     //开通海外片库 1900
-    private static final int VIP_MONEY_TYPE_6 = 10;
+    private static final int VIP_MONEY_TYPE_6 = 1;
     //开通黑金会员 4800
-    private static final int VIP_MONEY_TYPE_7 = 10;
+    private static final int VIP_MONEY_TYPE_7 = 1;
     //开通海外加速通道 1500
-    private static final int VIP_MONEY_TYPE_8 = 10;
+    private static final int VIP_MONEY_TYPE_8 = 1;
     //开通海外急速双线通道 1000
-    private static final int VIP_MONEY_TYPE_9 = 10;
+    private static final int VIP_MONEY_TYPE_9 = 1;
+
+//    //开通黄金会员 3800
+//    private static final int VIP_MONEY_TYPE_1 = 10;
+//    //优惠开通黄金会员 2800
+//    private static final int VIP_MONEY_TYPE_2 = 10;
+//    //直接开通钻石会员 6800
+//    private static final int VIP_MONEY_TYPE_3 = 10;
+//    //升级钻石会员 3000
+//    private static final int VIP_MONEY_TYPE_4 = 10;
+//    //开通VPN海外会员 2800
+//    private static final int VIP_MONEY_TYPE_5 = 10;
+//    //开通海外片库 1900
+//    private static final int VIP_MONEY_TYPE_6 = 10;
+//    //开通黑金会员 4800
+//    private static final int VIP_MONEY_TYPE_7 = 10;
+//    //开通海外加速通道 1500
+//    private static final int VIP_MONEY_TYPE_8 = 10;
+//    //开通海外急速双线通道 1000
+//    private static final int VIP_MONEY_TYPE_9 = 10;
 
 //    //开通黄金会员 3800
 //    private static final int VIP_MONEY_TYPE_1 = 3800;

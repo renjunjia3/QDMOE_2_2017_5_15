@@ -32,6 +32,7 @@ import com.ofgvyiss.ofgvyi.event.ChangeTabEvent;
 import com.ofgvyiss.ofgvyi.ui.dialog.CustomSubmitDialog;
 import com.ofgvyiss.ofgvyi.ui.dialog.DownLoadDialog;
 import com.ofgvyiss.ofgvyi.ui.dialog.SubmitAndCancelDialog;
+import com.ofgvyiss.ofgvyi.ui.dialog.UpdateDialog;
 import com.ofgvyiss.ofgvyi.ui.fragment.MainFragment;
 import com.ofgvyiss.ofgvyi.util.API;
 import com.ofgvyiss.ofgvyi.util.DialogUtil;
@@ -90,9 +91,9 @@ public class MainActivity extends SupportActivity {
     private DownLoadDialog.Builder downLoadDialogBuilder;
     private MaterialProgressBar progressBar;
     private RequestCall downLoadRequestCall;
-    //确定取消的对话框
-    private SubmitAndCancelDialog submitAndCancelDialog;
-    private SubmitAndCancelDialog.Builder submitAndCancelDialogBuilder;
+    //版本更新的对话框
+    private UpdateDialog updateDialog;
+    private UpdateDialog.Builder updateDialogBuilder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -623,19 +624,22 @@ public class MainActivity extends SupportActivity {
         });
     }
 
+
+    /**
+     * Case By:提示更新的对话框
+     * Author: scene on 2017/4/27 16:52
+     */
     public void showSubmitDialog(final String url) {
-
-        if (submitAndCancelDialog != null && submitAndCancelDialog.isShowing()) {
-            submitAndCancelDialog.cancel();
+        if (updateDialog != null && updateDialog.isShowing()) {
+            updateDialog.cancel();
         }
-
-        submitAndCancelDialogBuilder = new SubmitAndCancelDialog.Builder(MainActivity.this);
-        submitAndCancelDialogBuilder.setMessage("检查到新版本，请更新后使用");
-
-        submitAndCancelDialogBuilder.setSubmitButton("确定", new DialogInterface.OnClickListener() {
+        updateDialogBuilder = new UpdateDialog.Builder(MainActivity.this);
+        updateDialog = updateDialogBuilder.create();
+        updateDialog.show();
+        updateDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                submitAndCancelDialog.dismiss();
+            public void onDismiss(DialogInterface dialog) {
+                updateDialog.dismiss();
                 //需要更新
                 if (downLoadDialog != null && downLoadDialog.isShowing()) {
                     downLoadDialog.cancel();
@@ -651,18 +655,8 @@ public class MainActivity extends SupportActivity {
                         finish();
                     }
                 });
-
             }
         });
-        submitAndCancelDialogBuilder.setCancelButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                submitAndCancelDialog.dismiss();
-                finish();
-            }
-        });
-        submitAndCancelDialog = submitAndCancelDialogBuilder.create();
-        submitAndCancelDialog.show();
     }
 
 
@@ -742,7 +736,7 @@ public class MainActivity extends SupportActivity {
      */
     public static List<String> getVideoFileName(String fileAbsolutePath) {
         List<String> vecFile = new ArrayList<>();
-        try{
+        try {
             File file = new File(fileAbsolutePath);
             File[] subFile = file.listFiles();
 
@@ -756,7 +750,7 @@ public class MainActivity extends SupportActivity {
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return vecFile;

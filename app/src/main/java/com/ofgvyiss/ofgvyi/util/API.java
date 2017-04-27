@@ -51,11 +51,19 @@ public class API {
     //进入视频详情页的时候调用
     public static final String VIDEO_CLIECKED = "video/click/";
     //磁力链搜索
-    public static final String MAGNET="magnet/";
+    public static final String MAGNET = "magnet/";
     //更新
-    public static final String UPDATE="version/";
+    public static final String UPDATE = "version/";
     //上传log日子
-    public static final String LOG="log";
+    public static final String LOG = "log";
     //弹幕
-    public static final String DANMU="video/danmu";
+    public static final String DANMU = "video/danmu";
+    /*
+    统计
+    'positions' => [1 => '体验', 2 => '黄金', 3 => '钻石', 4 => '黑金', 5 => '排行榜', 6 => '排行榜内页',
+     7 => '视频内容', 8 => '视频播放', 9 => '片库', 10 => '片库内页', 11 => '论坛', 12 => '磁力搜索',
+      13 => '磁力搜索结果', 14 => '我的'],
+     */
+
+
 }
