@@ -314,6 +314,10 @@ public class VideoDetailActivity extends SwipeBackActivity {
         });
     }
 
+    /**
+     * Case By:统计进入页面的次数
+     * Author: scene on 2017/4/27 14:20
+     */
     private void enterVideoDetail() {
         OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_CLIECKED + App.IMEI + "/" + videoInfo.getVideo_id()).build().execute(new StringCallback() {
             @Override

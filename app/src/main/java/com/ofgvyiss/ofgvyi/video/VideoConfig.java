@@ -7,5 +7,5 @@ package com.ofgvyiss.ofgvyi.video;
  */
 
 public class VideoConfig {
-    public static final int TRY_COUNT_TIME = 100000;
+    public static final int TRY_COUNT_TIME = 10;
 }
