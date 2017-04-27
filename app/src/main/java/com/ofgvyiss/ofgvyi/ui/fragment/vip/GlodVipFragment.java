@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
@@ -104,7 +105,6 @@ public class GlodVipFragment extends BaseMainFragment {
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-//                if (App.isVip < 1) {
                 if (position == 0) {
                     return 2;
                 } else if (position > list.size()) {
@@ -112,14 +112,6 @@ public class GlodVipFragment extends BaseMainFragment {
                 } else {
                     return list.get(position - 1).isTilteType() ? 2 : 1;
                 }
-//                } else {
-//                    if (position == 0) {
-//                        return 2;
-//                    } else {
-//                        return list.get(position - 1).isTilteType() ? 2 : 1;
-//                    }
-//                }
-
             }
         });
         recyclerView.setLayoutManager(layoutManager);
@@ -133,6 +125,12 @@ public class GlodVipFragment extends BaseMainFragment {
         footerView.findViewById(R.id.page4).setOnClickListener(footerClickListener);
         footerView.findViewById(R.id.page5).setOnClickListener(footerClickListener);
         footerView.findViewById(R.id.page_next).setOnClickListener(footerClickListener);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.isVip > 0) {
+            footerText.setVisibility(View.GONE);
+        } else {
+            footerText.setVisibility(View.VISIBLE);
+        }
         mAdapter.addFooter(footerView);
         recyclerView.addItemDecoration(new DiamondItemDecoration((int) ScreenUtils.instance(getContext()).dip2px(3), list, App.isVip < 1));
         recyclerView.setAdapter(mAdapter);

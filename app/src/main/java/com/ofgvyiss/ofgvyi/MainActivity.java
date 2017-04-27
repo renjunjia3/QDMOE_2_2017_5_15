@@ -264,6 +264,7 @@ public class MainActivity extends SupportActivity {
         if (isWork) {
             isWork = false;
         }
+        DialogUtil.getInstance().cancelAllDialog();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -26,8 +27,10 @@ import com.ofgvyiss.ofgvyi.R;
 import com.ofgvyiss.ofgvyi.app.App;
 import com.ofgvyiss.ofgvyi.bean.CommentInfo;
 import com.ofgvyiss.ofgvyi.bean.VideoInfo;
+import com.ofgvyiss.ofgvyi.ui.dialog.CustomSubmitDialog;
 import com.ofgvyiss.ofgvyi.ui.dialog.SubmitAndCancelDialog;
 import com.ofgvyiss.ofgvyi.util.AuthImageDownloader;
+import com.ofgvyiss.ofgvyi.util.DialogUtil;
 import com.ofgvyiss.ofgvyi.util.SharedPreferencesUtil;
 
 import java.io.InputStream;
@@ -602,6 +605,52 @@ public class JCFullScreenActivity extends Activity {
                                     });
                                 }
 
+                            }
+
+                        }.start();
+                    }
+                } else if (App.isVip == 7 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= mJcVideoPlayer.getDuration() / 50 - 5) {
+                    //开通双线之后播完 缓冲5s提示
+                    JCMediaManager.instance().releaseMediaPlayer();
+                    mJcVideoPlayer.startButton.setVisibility(View.GONE);
+                    mJcVideoPlayer.loadingProgressBar.setVisibility(View.VISIBLE);
+                    if (!countDownFlag) {
+                        countDownFlag = true;
+                        new CountDownTimer(5 * 1000, 5 * 1000) {
+
+                            public void onTick(long millisUntilFinished) {
+                            }
+
+                            public void onFinish() {
+                                CustomSubmitDialog customSubmitDialog = DialogUtil.getInstance().showCustomSubmitDialog(JCFullScreenActivity.this, "网络异常请重试");
+                                customSubmitDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        new CountDownTimer(5 * 1000, 5 * 1000) {
+
+                                            @Override
+                                            public void onTick(long millisUntilFinished) {
+
+                                            }
+
+                                            @Override
+                                            public void onFinish() {
+                                                CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(JCFullScreenActivity.this, "您的网络情况实在太糟。我们已经为您提供最顶级的通道服务，如果仍然无法流畅观看。我们还为您准备了免费的流畅福利您可以先行观看");
+                                                customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        Intent intent = new Intent();
+                                                        intent.setAction("android.intent.action.VIEW");
+                                                        Uri content_url = Uri.parse("http://m.mm131.com");
+                                                        intent.setData(content_url);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+                                        }.start();
+                                    }
+                                });
                             }
 
                         }.start();

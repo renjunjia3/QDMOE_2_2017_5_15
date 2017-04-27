@@ -2,6 +2,7 @@ package com.ofgvyiss.ofgvyi.util;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 
 import com.ofgvyiss.ofgvyi.app.App;
 import com.ofgvyiss.ofgvyi.pay.PayUtil;
@@ -341,30 +342,33 @@ public class DialogUtil {
      * Author: scene on 2017/4/24 9:34
      */
     public void cancelAllDialog() {
-
-        if (submitAndCancelDialog != null && submitAndCancelDialog.isShowing()) {
-            submitAndCancelDialog.cancel();
-        }
-        if (glodVipDialog != null && glodVipDialog.isShowing()) {
-            glodVipDialog.cancel();
-        }
-        if (diamondVipDialog != null && diamondVipDialog.isShowing()) {
-            diamondVipDialog.cancel();
-        }
-        if (vpnVipDialog != null && vpnVipDialog.isShowing()) {
-            vpnVipDialog.cancel();
-        }
-        if (vpnFlimVipDialog != null && vpnFlimVipDialog.isShowing()) {
-            vpnFlimVipDialog.cancel();
-        }
-        if (blackGlodVipDialog != null && blackGlodVipDialog.isShowing()) {
-            blackGlodVipDialog.cancel();
-        }
-        if (accelerationChannelVipDialog != null && accelerationChannelVipDialog.isShowing()) {
-            accelerationChannelVipDialog.cancel();
-        }
-        if (rapidDoubletVipDialog != null && rapidDoubletVipDialog.isShowing()) {
-            rapidDoubletVipDialog.cancel();
+        try {
+            if (submitAndCancelDialog != null && submitAndCancelDialog.isShowing()) {
+                submitAndCancelDialog.cancel();
+            }
+            if (glodVipDialog != null && glodVipDialog.isShowing()) {
+                glodVipDialog.cancel();
+            }
+            if (diamondVipDialog != null && diamondVipDialog.isShowing()) {
+                diamondVipDialog.cancel();
+            }
+            if (vpnVipDialog != null && vpnVipDialog.isShowing()) {
+                vpnVipDialog.cancel();
+            }
+            if (vpnFlimVipDialog != null && vpnFlimVipDialog.isShowing()) {
+                vpnFlimVipDialog.cancel();
+            }
+            if (blackGlodVipDialog != null && blackGlodVipDialog.isShowing()) {
+                blackGlodVipDialog.cancel();
+            }
+            if (accelerationChannelVipDialog != null && accelerationChannelVipDialog.isShowing()) {
+                accelerationChannelVipDialog.cancel();
+            }
+            if (rapidDoubletVipDialog != null && rapidDoubletVipDialog.isShowing()) {
+                rapidDoubletVipDialog.cancel();
+            }
+        } catch (Exception e) {
+            Log.e("DialogUtil", "对话框关闭异常");
         }
     }
 

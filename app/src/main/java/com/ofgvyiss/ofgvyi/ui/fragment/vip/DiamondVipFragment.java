@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
@@ -126,6 +127,12 @@ public class DiamondVipFragment extends BaseMainFragment {
         footerView.findViewById(R.id.page4).setOnClickListener(footerClickListener);
         footerView.findViewById(R.id.page5).setOnClickListener(footerClickListener);
         footerView.findViewById(R.id.page_next).setOnClickListener(footerClickListener);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.isVip > 1) {
+            footerText.setVisibility(View.GONE);
+        } else {
+            footerText.setVisibility(View.VISIBLE);
+        }
         mAdapter.addFooter(footerView);
         recyclerView.addItemDecoration(new DiamondItemDecoration((int) ScreenUtils.instance(getContext()).dip2px(3), list, App.isVip < 2));
         recyclerView.setAdapter(mAdapter);

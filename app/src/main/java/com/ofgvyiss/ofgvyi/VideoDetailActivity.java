@@ -337,7 +337,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         if (requestCall != null) {
             requestCall.cancel();
         }
-
+        DialogUtil.getInstance().cancelAllDialog();
         super.onDestroy();
     }
 
