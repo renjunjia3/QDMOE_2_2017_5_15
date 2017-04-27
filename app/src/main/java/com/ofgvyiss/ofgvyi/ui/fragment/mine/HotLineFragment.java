@@ -38,7 +38,7 @@ public class HotLineFragment extends BaseBackFragment {
         ButterKnife.bind(this, view);
         toolbarTitle.setText("投诉热线");
         initToolbarNav(toolbar);
-        return view;
+        return attachToSwipeBack(view);
     }
 
     @OnClick(R.id.online_complaint)

@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.aitangba.swipeback.ActivityLifecycleHelper;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -51,6 +52,8 @@ public class App extends Application {
         //捕获错误日志
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
+        //activity滑动返回
+        registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
 
         CHANNEL_ID = getChannelName();
         USER_ID = SharedPreferencesUtil.getInt(this, USERID_KEY, 0);

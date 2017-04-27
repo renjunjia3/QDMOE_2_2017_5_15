@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -35,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.SwipeBackFragment;
 import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
 
@@ -93,7 +95,7 @@ public class FlimDetailFragment extends BaseBackFragment {
         ButterKnife.bind(this, view);
         toolbarTitle.setText(flimName);
         initToolbarNav(toolbar);
-        return view;
+        return attachToSwipeBack(view);
     }
 
     @Override
@@ -111,6 +113,7 @@ public class FlimDetailFragment extends BaseBackFragment {
                 getData(false);
             }
         });
+        ptrLayout.disableWhenHorizontalMove(false);
         list = new ArrayList<>();
         adapter = new FlimDetailAdapter(getContext(), list);
         int space = (int) ScreenUtils.instance(getContext()).dip2px(3);
@@ -195,6 +198,9 @@ public class FlimDetailFragment extends BaseBackFragment {
     public void onDestroyView() {
         if (requestCall != null)
             requestCall.cancel();
+        recyclerView.setAdapter(null);
+        _mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        hideSoftInput();
         super.onDestroyView();
     }
 

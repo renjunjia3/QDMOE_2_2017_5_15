@@ -6,11 +6,12 @@ import android.view.View;
 import com.ofgvyiss.ofgvyi.R;
 
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.SwipeBackFragment;
 
 /**
  * Created by scene on 17/3/13.
  */
-public class BaseBackFragment extends BaseFragment {
+public class BaseBackFragment extends SwipeBackFragment {
     protected Unbinder unbinder;
 
     /**

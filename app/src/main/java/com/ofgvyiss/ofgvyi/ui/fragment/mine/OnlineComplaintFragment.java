@@ -47,7 +47,7 @@ public class OnlineComplaintFragment extends BaseBackFragment {
         toolbarTitle.setText("在线投诉");
         initToolbarNav(toolbar);
         toastUtils = ToastUtils.getInstance(_mActivity);
-        return view;
+        return attachToSwipeBack(view);
     }
 
     @OnClick(R.id.submit)

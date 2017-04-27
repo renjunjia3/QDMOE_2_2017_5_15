@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.aitangba.swipeback.SwipeBackActivity;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.ofgvyiss.ofgvyi.adapter.CommentAdapter;
@@ -59,7 +59,7 @@ import wiki.scene.statuslib.StatusViewLayout;
  * package:com.cyldf.cyldfxv
  * Author：scene on 2017/4/13 10:02
  */
-public class VideoDetailActivity extends AppCompatActivity {
+public class VideoDetailActivity extends SwipeBackActivity {
 
     public static final String ARG_VIDEO_INFO = "arg_video_info";
     public static final String ARG_IS_ENTER_FROM_TRY_SEE = "is_enter_from_try_see";
@@ -112,6 +112,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         setContentView(R.layout.fragment_video_detail);
+
         unbinder = ButterKnife.bind(this);
         videoInfo = (VideoInfo) getIntent().getSerializableExtra(ARG_VIDEO_INFO);
         isEnterFromTrySee = getIntent().getBooleanExtra(ARG_IS_ENTER_FROM_TRY_SEE, false);
@@ -341,12 +342,6 @@ public class VideoDetailActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
     @Subscribe
     public void closeVideoDetail(CloseVideoDetailEvent closeVideoDetailEvent) {
         Intent intent = new Intent();
@@ -521,5 +516,4 @@ public class VideoDetailActivity extends AppCompatActivity {
         }, 3000);
 
     }
-
 }

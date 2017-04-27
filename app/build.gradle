@@ -164,4 +164,7 @@ dependencies {
     }
     //评星条
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
+
+    //滑动退出Activity
+    compile 'com.aitangba:swipeback:1.0.1'
 }

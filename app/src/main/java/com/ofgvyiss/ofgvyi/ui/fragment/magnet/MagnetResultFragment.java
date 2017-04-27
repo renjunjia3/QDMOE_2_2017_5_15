@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.ofgvyiss.ofgvyi.R;
 import com.ofgvyiss.ofgvyi.adapter.SearchAdapter;
 import com.ofgvyiss.ofgvyi.app.App;
-import com.ofgvyiss.ofgvyi.base.BaseFragment;
+import com.ofgvyiss.ofgvyi.base.BaseBackFragment;
 import com.ofgvyiss.ofgvyi.bean.SearchInfo;
 import com.ofgvyiss.ofgvyi.ui.dialog.DownLoadDialog;
 import com.ofgvyiss.ofgvyi.util.API;
@@ -40,7 +40,7 @@ import wiki.scene.statuslib.StatusViewLayout;
  * package:
  * Author：scene on 2017/4/18 11:43
  */
-public class MagnetResultFragment extends BaseFragment implements SearchAdapter.OnClickDownloadListener {
+public class MagnetResultFragment extends BaseBackFragment implements SearchAdapter.OnClickDownloadListener {
     public static final String PARAMS_SEARCH_TAG_POSITION = "params_search_tag_position";
     public static final String PARAMS_SEARCH_TAG_KEYWORD = "params_search_tag_keyword";
     @BindView(R.id.listview)
@@ -91,7 +91,7 @@ public class MagnetResultFragment extends BaseFragment implements SearchAdapter.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
-        return view;
+        return attachToSwipeBack(view);
     }
 
     @Override

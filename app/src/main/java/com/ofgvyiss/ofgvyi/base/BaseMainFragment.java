@@ -1,6 +1,9 @@
 package com.ofgvyiss.ofgvyi.base;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.ofgvyiss.ofgvyi.R;
 import com.ofgvyiss.ofgvyi.app.App;
@@ -8,6 +11,8 @@ import com.ofgvyiss.ofgvyi.pay.PayUtil;
 import com.ofgvyiss.ofgvyi.ui.dialog.BackOpenVipDialog;
 import com.ofgvyiss.ofgvyi.ui.fragment.MainFragment;
 import com.ofgvyiss.ofgvyi.util.ToastUtils;
+
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 
 /**
@@ -20,6 +25,25 @@ public abstract class BaseMainFragment extends BaseFragment {
     private long TOUCH_TIME = 0;
     private BackOpenVipDialog dialog;
     private BackOpenVipDialog.Builder builder;
+
+
+    protected OnFragmentOpenDrawerListener mOpenDraweListener;
+
+    protected void initToolbarNav(Toolbar toolbar) {
+        initToolbarNav(toolbar, false);
+    }
+
+    protected void initToolbarNav(Toolbar toolbar, boolean isHome) {
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOpenDraweListener != null) {
+                    mOpenDraweListener.onOpenDrawer();
+                }
+            }
+        });
+    }
 
     /**
      * 处理回退事件
@@ -59,5 +83,34 @@ public abstract class BaseMainFragment extends BaseFragment {
             }
         }
         return true;
+    }
+
+    @Override
+    protected FragmentAnimator onCreateFragmentAnimator() {
+        FragmentAnimator fragmentAnimator = _mActivity.getFragmentAnimator();
+        fragmentAnimator.setEnter(0);
+        fragmentAnimator.setExit(0);
+        return fragmentAnimator;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentOpenDrawerListener) {
+            mOpenDraweListener = (OnFragmentOpenDrawerListener) context;
+        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentOpenDrawerListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mOpenDraweListener = null;
+    }
+
+    public interface OnFragmentOpenDrawerListener {
+        void onOpenDrawer();
     }
 }

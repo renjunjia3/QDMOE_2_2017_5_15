@@ -58,7 +58,7 @@ public class Mine2Fragment extends BaseBackFragment {
         unbinder = ButterKnife.bind(this, view);
         toolbarTitle.setText("我的");
         initToolbarNav(toolbar);
-        return view;
+        return attachToSwipeBack(view);
     }
 
     @Override

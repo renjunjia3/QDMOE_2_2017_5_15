@@ -62,6 +62,6 @@ public class ViewRecordFragment extends BaseBackFragment {
                 break;
         }
         initToolbarNav(toolbar);
-        return view;
+        return attachToSwipeBack(view);
     }
 }

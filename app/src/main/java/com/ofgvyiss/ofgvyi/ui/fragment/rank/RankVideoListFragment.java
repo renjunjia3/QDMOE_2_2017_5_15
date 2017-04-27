@@ -109,7 +109,7 @@ public class RankVideoListFragment extends BaseBackFragment {
         ButterKnife.bind(this, view);
         toolbarTitle.setText(name);
         initToolbarNav(toolbar);
-        return view;
+        return attachToSwipeBack(view);
     }
 
     @Override
