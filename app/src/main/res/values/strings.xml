@@ -15,7 +15,7 @@
     <string name="cube_ptr_hours_ago">&#160;小时之前</string>
 
 
-    <string name="tips_not_wifi">你当前的使用的移动网络，是否继续播放？</string>
+    <string name="tips_not_wifi">你当前的使用的非WIFI网络，是否继续播放？</string>
     <string name="tips_not_wifi_confirm">继续</string>
     <string name="tips_not_wifi_cancel">退出</string>
     <string name="no_url">No mUrl</string>
