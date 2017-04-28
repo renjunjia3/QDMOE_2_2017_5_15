@@ -497,7 +497,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
         if (mResultTimePosition > totalTime) mResultTimePosition = totalTime;
         mDialogCurrentTime.setText(JCUtils.stringForTime(mResultTimePosition));
         mDialogTotalTime.setText(" / " + JCUtils.stringForTime(totalTime) + "");
-        mDialogProgressBar.setProgress(mResultTimePosition * 100 / totalTime);
+        mDialogProgressBar.setProgress(mResultTimePosition * 100 / (totalTime == 0 ? 1 : totalTime));
         if (deltaX > 0) {
             mDialogIcon.setBackgroundResource(R.drawable.jc_forward_icon);
         } else {
@@ -592,7 +592,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
             textureViewContainer.removeAllViews();
         }
         //if fullscreen finish activity what ever the activity is directly or click fullscreen
-        if(App.isVip>=7){
+        if (App.isVip >= 7) {
             if (getContext() instanceof JCFullScreenActivity) {
                 Log.i(TAG, "finishFullscreenActivity [" + this.hashCode() + "] ");
                 ((JCFullScreenActivity) getContext()).finish();
@@ -707,9 +707,8 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
             duration = JCMediaManager.instance().mediaPlayer.getDuration() * 50;
         } catch (IllegalStateException e) {
             e.printStackTrace();
-            return duration;
         }
-        return duration;
+        return duration == 0 ? 1 : duration;
     }
 
     protected void setTextAndProgress(int secProgress) {

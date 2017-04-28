@@ -48,12 +48,11 @@ public class BlackGlodVipDialog extends Dialog {
         public Builder(Context context, int videoId, boolean isVideoDetailPage) {
             this.context = context;
             this.videoId = videoId;
-            this.isVideoDetailPage=isVideoDetailPage;
+            this.isVideoDetailPage = isVideoDetailPage;
         }
 
         public BlackGlodVipDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final BlackGlodVipDialog dialog = new BlackGlodVipDialog(context, R.style.Dialog);
 
             View layout = inflater.inflate(R.layout.dialog_black_glod_vip, null);
@@ -65,7 +64,7 @@ public class BlackGlodVipDialog extends Dialog {
 
             ImageView image = (ImageView) layout.findViewById(R.id.image);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth()-ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
+            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
             image.setLayoutParams(layoutParams);
             layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,9 +93,9 @@ public class BlackGlodVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, dialog, PayUtil.VIP_TYPE_7, videoId,isVideoDetailPage);
+                        PayUtil.getInstance().payByWeChat(context, dialog, PayUtil.VIP_TYPE_7, videoId, isVideoDetailPage);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, dialog, PayUtil.VIP_TYPE_7, videoId,isVideoDetailPage);
+                        PayUtil.getInstance().payByAliPay(context, dialog, PayUtil.VIP_TYPE_7, videoId, isVideoDetailPage);
                     }
 
                 }

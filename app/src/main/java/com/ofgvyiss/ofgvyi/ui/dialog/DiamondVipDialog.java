@@ -52,8 +52,7 @@ public class DiamondVipDialog extends Dialog {
         }
 
         public DiamondVipDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final DiamondVipDialog dialog = new DiamondVipDialog(context, R.style.Dialog);
 
             View layout = inflater.inflate(R.layout.dialog_diamond_vip, null);

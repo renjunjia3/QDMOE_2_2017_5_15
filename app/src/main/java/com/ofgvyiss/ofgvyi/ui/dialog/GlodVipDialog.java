@@ -54,8 +54,7 @@ public class GlodVipDialog extends Dialog {
         }
 
         public GlodVipDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final GlodVipDialog dialog = new GlodVipDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_glod_vip, null);
             ((TextView) layout.findViewById(R.id.glod_old_price)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);

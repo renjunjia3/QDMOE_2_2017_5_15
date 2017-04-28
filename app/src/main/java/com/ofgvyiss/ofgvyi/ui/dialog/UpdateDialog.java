@@ -29,8 +29,7 @@ public class UpdateDialog extends Dialog {
         }
 
         public UpdateDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final UpdateDialog dialog = new UpdateDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_update, null);
             dialog.addContentView(layout, new LayoutParams(

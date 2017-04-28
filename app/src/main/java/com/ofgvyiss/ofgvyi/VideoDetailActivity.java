@@ -186,7 +186,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             //不是首页进来自己也不是VIP，弹出开通会员的提示
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
         } else {
-            if (App.tryCount >= VideoConfig.TRY_COUNT_TIME&&App.isVip==0) {
+            if (App.tryCount >= VideoConfig.TRY_COUNT_TIME && App.isVip == 0) {
                 DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
             } else {
                 App.tryCount += 1;
@@ -255,9 +255,14 @@ public class VideoDetailActivity extends SwipeBackActivity {
             recommendRequestCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                    aboutCommendTextView.setVisibility(View.GONE);
-                    aboutCommendGridView.setVisibility(View.GONE);
-                    statusViewLayout.showContent();
+                    try {
+                        aboutCommendTextView.setVisibility(View.GONE);
+                        aboutCommendGridView.setVisibility(View.GONE);
+                        statusViewLayout.showContent();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
                 }
 
                 @Override

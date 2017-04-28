@@ -52,8 +52,7 @@ public class RapidDoubletVipDialog extends Dialog {
         }
 
         public RapidDoubletVipDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final RapidDoubletVipDialog dialog = new RapidDoubletVipDialog(context, R.style.Dialog);
 
             View layout = inflater.inflate(R.layout.dialog_snap_vip, null);

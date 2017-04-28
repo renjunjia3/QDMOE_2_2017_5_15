@@ -36,8 +36,7 @@ public class DownLoadDialog extends Dialog {
         }
 
         public DownLoadDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final DownLoadDialog dialog = new DownLoadDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_download, null);
             dialog.addContentView(layout, new LayoutParams(

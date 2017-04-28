@@ -54,8 +54,7 @@ public class WxQRCodePayDialog extends Dialog {
         }
 
         public WxQRCodePayDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final WxQRCodePayDialog dialog = new WxQRCodePayDialog(context, R.style.Dialog);
 
             View layout = inflater.inflate(R.layout.dialog_wx_qr_code_pay, null);

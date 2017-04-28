@@ -55,8 +55,7 @@ public class BackOpenVipDialog extends Dialog {
         }
 
         public BackOpenVipDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final BackOpenVipDialog dialog = new BackOpenVipDialog(context, R.style.Dialog);
             final View layout = inflater.inflate(R.layout.dialog_back_open_vip, null);
             RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);

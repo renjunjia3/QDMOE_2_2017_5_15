@@ -18,6 +18,7 @@ import com.ofgvyiss.ofgvyi.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import master.flame.danmaku.controller.IDanmakuView;
 import master.flame.danmaku.ui.widget.DanmakuView;
 
 /**

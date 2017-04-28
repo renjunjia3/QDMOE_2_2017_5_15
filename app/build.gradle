@@ -151,10 +151,10 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.liangfeizc:flowlayout:1.0.0@aar'
 
-    compile 'com.github.ctiao:DanmakuFlameMaster:0.7.4'
-    compile 'com.github.ctiao:ndkbitmap-armv7a:0.7.4'
-    compile 'com.github.ctiao:ndkbitmap-armv5:0.7.4'
-    compile 'com.github.ctiao:ndkbitmap-x86:0.7.4'
+    compile 'com.github.ctiao:DanmakuFlameMaster:0.8.0'
+    compile 'com.github.ctiao:ndkbitmap-armv7a:0.8.0'
+    compile 'com.github.ctiao:ndkbitmap-armv5:0.8.0'
+    compile 'com.github.ctiao:ndkbitmap-x86:0.8.0'
 
     compile 'com.alibaba:fastjson:1.2.31'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'

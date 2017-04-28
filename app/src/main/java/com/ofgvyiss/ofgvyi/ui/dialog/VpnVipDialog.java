@@ -52,8 +52,7 @@ public class VpnVipDialog extends Dialog {
         }
 
         public VpnVipDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             final VpnVipDialog dialog = new VpnVipDialog(context, R.style.Dialog);
 
             View layout = inflater.inflate(R.layout.dialog_vpn_vip, null);
