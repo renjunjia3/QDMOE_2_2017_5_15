@@ -92,15 +92,16 @@ public class GlodVipFragment extends BaseMainFragment {
         getGlodVipData(true);
         uploadCurrentPage();
     }
+
     /**
      * Case By:上报当前页面
      * Author: scene on 2017/4/27 17:05
      */
     private void uploadCurrentPage() {
         Map<String, String> params = new HashMap<>();
-        params.put("position_id","2");
-        params.put("user_id", App.USER_ID+"");
-        OkHttpUtils.post().url(API.URL_PRE+API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
+        params.put("position_id", "2");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
     private void initView() {
@@ -238,11 +239,16 @@ public class GlodVipFragment extends BaseMainFragment {
             getDataCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                    if (isShowLoad) {
-                        statusViewLayout.showFailed(retryListener);
-                    } else {
-                        ptrLayout.refreshComplete();
+                    try {
+                        if (isShowLoad) {
+                            statusViewLayout.showFailed(retryListener);
+                        } else {
+                            ptrLayout.refreshComplete();
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
+
                 }
 
                 @Override

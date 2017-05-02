@@ -25,9 +25,9 @@ ext {
     compileSdkVersion = 25
     buildToolsVersion = "25.0.1"
     minSdkVersion = 15
-    targetSdkVersion = 25
-    versionCode =15
-    versionName ="1.1.5"
+    targetSdkVersion = 22
+    versionCode =26
+    versionName ="1.2.6"
     //第三方包版本
     appcompat="25.1.0"
     constraint_layout="1.0.2"

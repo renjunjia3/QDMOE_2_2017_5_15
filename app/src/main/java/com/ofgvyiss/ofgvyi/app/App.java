@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.ofgvyiss.ofgvyi.util.SharedPreferencesUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
 
@@ -52,6 +53,8 @@ public class App extends Application {
         //捕获错误日志
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
+        MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType.E_UM_NORMAL);
+        MobclickAgent.setCatchUncaughtExceptions(true);
         //activity滑动返回
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
 

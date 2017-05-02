@@ -264,15 +264,20 @@ public class MagnetResultFragment extends BaseBackFragment implements SearchAdap
 
             @Override
             public void onFinish() {
-                if (progressBar != null) {
-                    progressBar.setProgress(100);
+                try {
+                    if (progressBar != null) {
+                        progressBar.setProgress(100);
+                    }
+                    if (downLoadDialog != null && downLoadDialog.isShowing()) {
+                        downLoadDialog.cancel();
+                    }
+                    lists.get(position).setShowPlay(true);
+                    adapter.notifyDataSetChanged();
+                    DialogUtil.getInstance().showCustomSubmitDialog(getContext(), "文件下载完毕，可以在线播放");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                if (downLoadDialog != null && downLoadDialog.isShowing()) {
-                    downLoadDialog.cancel();
-                }
-                lists.get(position).setShowPlay(true);
-                adapter.notifyDataSetChanged();
-                DialogUtil.getInstance().showCustomSubmitDialog(getContext(), "文件下载完毕，可以在线播放");
+
             }
         }.start();
     }

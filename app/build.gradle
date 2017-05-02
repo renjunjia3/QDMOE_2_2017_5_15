@@ -150,12 +150,10 @@ dependencies {
     compile 'com.mylhyl:acp:1.1.7'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.liangfeizc:flowlayout:1.0.0@aar'
-
     compile 'com.github.ctiao:DanmakuFlameMaster:0.8.0'
     compile 'com.github.ctiao:ndkbitmap-armv7a:0.8.0'
     compile 'com.github.ctiao:ndkbitmap-armv5:0.8.0'
     compile 'com.github.ctiao:ndkbitmap-x86:0.8.0'
-
     compile 'com.alibaba:fastjson:1.2.31'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     //水平的图片
@@ -164,7 +162,7 @@ dependencies {
     }
     //评星条
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
-
     //滑动退出Activity
     compile 'com.aitangba:swipeback:1.0.1'
+    compile files('libs/umeng-analytics-v6.1.0.jar')
 }

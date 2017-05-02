@@ -99,6 +99,7 @@
             android:max="100"
             android:maxHeight="4dp"
             android:minHeight="4dp"
+            android:enabled="false"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:progressDrawable="@drawable/jc_seek_progress"

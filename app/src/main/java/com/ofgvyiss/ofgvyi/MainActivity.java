@@ -127,7 +127,7 @@ public class MainActivity extends SupportActivity {
         progressDialog.setMessage("支付结果获取中...");
         getUpdateData();
         //上传崩溃日志文件
-        uploadCrashInfo();
+        //uploadCrashInfo();
     }
 
     private void showNoticeToast(int id) {

@@ -5,6 +5,7 @@
 
     <uses-sdk tools:overrideLibrary="com.liangfeizc.flowlayout" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -39,6 +40,9 @@
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
+        <!--配置umeng-->
+        <meta-data android:value="5907ecf84ad156050c0021b7" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
 
         <activity
             android:name="com.ofgvyiss.ofgvyi.LuncherActivity"

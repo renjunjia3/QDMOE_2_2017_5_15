@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -256,9 +255,11 @@ public class VideoDetailActivity extends SwipeBackActivity {
                 @Override
                 public void onError(Call call, Exception e, int i) {
                     try {
-                        aboutCommendTextView.setVisibility(View.GONE);
-                        aboutCommendGridView.setVisibility(View.GONE);
-                        statusViewLayout.showContent();
+                        if (!isFinishing()) {
+                            statusViewLayout.showContent();
+                            aboutCommendTextView.setVisibility(View.GONE);
+                            aboutCommendGridView.setVisibility(View.GONE);
+                        }
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }

@@ -137,7 +137,7 @@ public class JCMediaManager implements MediaPlayer.OnPreparedListener, MediaPlay
                             instance().mediaPlayer.setSurface(null);
                         } else {
                             Surface holder = (Surface) msg.obj;
-                            if (holder.isValid()) {
+                            if (holder != null && holder.isValid()) {
                                 instance().mediaPlayer.setSurface(holder);
                             }
                         }
