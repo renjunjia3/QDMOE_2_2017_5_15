@@ -34,6 +34,7 @@ import com.ofgvyiss.ofgvyi.util.NetWorkUtils;
 import com.ofgvyiss.ofgvyi.util.SharedPreferencesUtil;
 import com.ofgvyiss.ofgvyi.video.JCFullScreenActivity;
 import com.ofgvyiss.ofgvyi.video.VideoConfig;
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -305,6 +306,13 @@ public class VideoDetailActivity extends SwipeBackActivity {
         if (App.isNeedCheckOrder && App.orderIdInt != 0) {
             checkOrder();
         }
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     /**

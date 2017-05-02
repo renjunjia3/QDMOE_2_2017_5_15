@@ -24,6 +24,7 @@ import com.ofgvyiss.ofgvyi.util.API;
 import com.ofgvyiss.ofgvyi.util.DialogUtil;
 import com.ofgvyiss.ofgvyi.util.ToastUtils;
 import com.ofgvyiss.ofgvyi.video.danmu.danmu.DanmuControl;
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -216,6 +217,7 @@ public class JCFullScreenActivity extends Activity {
             danmuControl.pause();
         super.onPause();
         JCVideoPlayer.releaseAllVideos();
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -223,6 +225,7 @@ public class JCFullScreenActivity extends Activity {
         super.onResume();
         if (danmuControl != null)
             danmuControl.resume();
+        MobclickAgent.onResume(this);
     }
 
     @Override

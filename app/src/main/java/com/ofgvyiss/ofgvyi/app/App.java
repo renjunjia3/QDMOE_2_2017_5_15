@@ -53,8 +53,7 @@ public class App extends Application {
         //捕获错误日志
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
-        MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType.E_UM_NORMAL);
-        MobclickAgent.setCatchUncaughtExceptions(true);
+        MobclickAgent.setDebugMode(true);
         //activity滑动返回
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
 

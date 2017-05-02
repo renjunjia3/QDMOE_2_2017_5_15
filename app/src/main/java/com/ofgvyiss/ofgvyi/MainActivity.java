@@ -41,6 +41,7 @@ import com.sdky.jzp.SdkPay;
 import com.sdky.jzp.data.CheckOrder;
 import com.skpay.NINESDK;
 import com.skpay.codelib.utils.encryption.MD5Encoder;
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.FileCallBack;
@@ -189,6 +190,7 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         if (isNeedChangeTab) {
             isNeedChangeTab = false;
             changeTab(new ChangeTabEvent(App.isVip));
@@ -197,6 +199,12 @@ public class MainActivity extends SupportActivity {
             checkOrder();
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Subscribe
