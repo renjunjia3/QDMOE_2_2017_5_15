@@ -28,7 +28,6 @@
         android:textSize="@dimen/text_size_big" />
 
     <TextView
-        android:id="@+id/more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
