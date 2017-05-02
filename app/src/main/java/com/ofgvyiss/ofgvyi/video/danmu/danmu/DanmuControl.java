@@ -2,7 +2,6 @@ package com.ofgvyiss.ofgvyi.video.danmu.danmu;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -17,8 +16,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
-import com.ofgvyiss.ofgvyi.R;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.ofgvyiss.ofgvyi.bean.CommentInfo;
 import com.ofgvyiss.ofgvyi.video.danmu.utils.DpOrSp2PxUtil;
 import com.ofgvyiss.ofgvyi.video.danmu.view.CenteredImageSpan;
@@ -26,7 +25,6 @@ import com.ofgvyiss.ofgvyi.video.danmu.view.CircleDrawable;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import master.flame.danmaku.controller.DrawHandler;
 import master.flame.danmaku.controller.IDanmakuView;
@@ -53,15 +51,15 @@ public class DanmuControl {
     private static final int ORANGE_COLOR = 0xffff815a;//橙色 我
     private static final int BLACK_COLOR = 0xb2000000;//黑色 普通
 
-    private int BITMAP_WIDTH = 18;//头像的大小
-    private int BITMAP_HEIGHT = 18;
-    private float DANMU_TEXT_SIZE = 10f;//弹幕字体的大小
+    private int BITMAP_WIDTH = 30;//头像的大小
+    private int BITMAP_HEIGHT = 30;
+    private float DANMU_TEXT_SIZE = 12f;//弹幕字体的大小
 //    private int   EMOJI_SIZE      = 14;//emoji的大小
 
     //这两个用来控制两行弹幕之间的间距
     private int DANMU_PADDING = 8;
     private int DANMU_PADDING_INNER = 7;
-    private int DANMU_RADIUS = 11;//圆角半径
+    private int DANMU_RADIUS = 25;//圆角半径
 
     private final int mGoodUserId = 1;
     private final int mMyUserId = 2;
@@ -82,7 +80,6 @@ public class DanmuControl {
     private void setSize(Context context) {
         BITMAP_WIDTH = DpOrSp2PxUtil.dp2pxConvertInt(context, BITMAP_HEIGHT);
         BITMAP_HEIGHT = DpOrSp2PxUtil.dp2pxConvertInt(context, BITMAP_HEIGHT);
-//        EMOJI_SIZE = DpOrSp2PxUtil.dp2pxConvertInt(context, EMOJI_SIZE);
         DANMU_PADDING = DpOrSp2PxUtil.dp2pxConvertInt(context, DANMU_PADDING);
         DANMU_PADDING_INNER = DpOrSp2PxUtil.dp2pxConvertInt(context, DANMU_PADDING_INNER);
         DANMU_RADIUS = DpOrSp2PxUtil.dp2pxConvertInt(context, DANMU_RADIUS);
@@ -139,9 +136,9 @@ public class DanmuControl {
             if (danmaku.isGuest) {//如果是赞 就不要设置背景
                 paint.setColor(Color.TRANSPARENT);
             }
-            canvas.drawRoundRect(new RectF(left + DANMU_PADDING_INNER, top + DANMU_PADDING_INNER
-                            , left + danmaku.paintWidth - DANMU_PADDING_INNER + 6,
-                            top + danmaku.paintHeight - DANMU_PADDING_INNER + 6),//+6 主要是底部被截得太厉害了，+6是增加padding的效果
+            canvas.drawRoundRect(new RectF(left + DANMU_PADDING_INNER + 1, top + DANMU_PADDING_INNER - 5
+                            , left + danmaku.paintWidth - DANMU_PADDING_INNER + 10,
+                            top + danmaku.paintHeight - DANMU_PADDING_INNER + 11),//+6 主要是底部被截得太厉害了，+6是增加padding的效果
                     DANMU_RADIUS, DANMU_RADIUS, paint);
         }
 
@@ -240,68 +237,59 @@ public class DanmuControl {
     }
 
     public void addDanmuList(final List<CommentInfo> danmuLists) {
-        new Thread(new Runnable() {
+        for (int i = 0; i < danmuLists.size(); i++) {
+            addDanmu(danmuLists.get(i), i);
+        }
+    }
+
+    public void addDanmu(final CommentInfo danmu, final int i) {
+
+        Glide.with(mContext).load(danmu.getAvatar()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
-            public void run() {
-                for (int i = 0; i < danmuLists.size(); i++) {
-                    addDanmu(danmuLists.get(i), i);
+            public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+                if (bitmap != null) {
+                    int width = bitmap.getWidth();
+                    int height = bitmap.getHeight();
+                    Log.d(TAG, "width = " + width);
+                    Log.d(TAG, "height = " + height);
+                    Matrix matrix = new Matrix();
+                    matrix.postScale(((float) BITMAP_WIDTH) / width, ((float) BITMAP_HEIGHT) / height);
+                    final Bitmap mDefauleBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+                    Log.d(TAG, "mDefauleBitmap getWidth = " + mDefauleBitmap.getWidth());
+                    Log.d(TAG, "mDefauleBitmap getHeight = " + mDefauleBitmap.getHeight());
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            BaseDanmaku danmaku = mDanmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL, mDanmakuContext);
+                            if (danmaku == null) {
+                                return;
+                            }
+                            danmaku.userId = 1;
+                            danmaku.isGuest = false;//isGuest此处用来判断是赞还是评论
+
+                            SpannableStringBuilder spannable;
+                            CircleDrawable circleDrawable = new CircleDrawable(mDefauleBitmap);
+                            circleDrawable.setBounds(0, 0, BITMAP_WIDTH, BITMAP_HEIGHT);
+                            spannable = createSpannable(circleDrawable, danmu.getText());
+                            danmaku.text = spannable;
+
+                            danmaku.padding = DANMU_PADDING;
+                            danmaku.priority = 0;  // 1:一定会显示, 一般用于本机发送的弹幕,但会导致行数的限制失效
+                            danmaku.isLive = false;
+                            danmaku.setTime(mDanmakuView.getCurrentTime() + (i * ADD_DANMU_TIME) + 3000);
+                            danmaku.textSize = DANMU_TEXT_SIZE/* * (mDanmakuContext.getDisplayer().getDensity() - 0.6f)*/;
+                            danmaku.textColor = Color.WHITE;
+                            danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
+                            mDanmakuView.addDanmaku(danmaku);
+                        }
+                    }).start();
                 }
             }
-        }).start();
-    }
-
-    public void addDanmu(CommentInfo danmu, int i) {
-        BaseDanmaku danmaku = mDanmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
-
-        SpannableStringBuilder spannable;
-        Bitmap bitmap = getAvaterBitmap(danmu.getAvatar());
-        if (bitmap == null) {
-            bitmap = getDefaultBitmap(R.drawable.ic_user_avatar);
-        }
-        CircleDrawable circleDrawable = new CircleDrawable(bitmap);
-        circleDrawable.setBounds(0, 0, BITMAP_WIDTH, BITMAP_HEIGHT);
-        spannable = createSpannable(circleDrawable, danmu.getText());
-        if(spannable!=null&&danmaku.text!=null)
-        danmaku.text = spannable;
-
-        danmaku.padding = DANMU_PADDING;
-        danmaku.priority = 0;  // 1:一定会显示, 一般用于本机发送的弹幕,但会导致行数的限制失效
-        danmaku.isLive = false;
-        danmaku.setTime(mDanmakuView.getCurrentTime() + (i * ADD_DANMU_TIME));
-        danmaku.textSize = DANMU_TEXT_SIZE/* * (mDanmakuContext.getDisplayer().getDensity() - 0.6f)*/;
-        danmaku.textColor = Color.WHITE;
-        danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
-        mDanmakuView.addDanmaku(danmaku);
-    }
+        });
 
 
-    private Bitmap getAvaterBitmap(String url) {
-        try {
-            Bitmap bitmap = Glide.with(mContext).load(url).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
-            return bitmap;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private Bitmap getDefaultBitmap(int drawableId) {
-        Bitmap mDefauleBitmap = null;
-        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), drawableId);
-        if (bitmap != null) {
-            int width = bitmap.getWidth();
-            int height = bitmap.getHeight();
-            Log.d(TAG, "width = " + width);
-            Log.d(TAG, "height = " + height);
-            Matrix matrix = new Matrix();
-            matrix.postScale(((float) BITMAP_WIDTH) / width, ((float) BITMAP_HEIGHT) / height);
-            mDefauleBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-            Log.d(TAG, "mDefauleBitmap getWidth = " + mDefauleBitmap.getWidth());
-            Log.d(TAG, "mDefauleBitmap getHeight = " + mDefauleBitmap.getHeight());
-        }
-        return mDefauleBitmap;
     }
 
     private SpannableStringBuilder createSpannable(Drawable drawable, String content) {

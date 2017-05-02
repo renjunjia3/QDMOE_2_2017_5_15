@@ -614,10 +614,18 @@ public class MainActivity extends SupportActivity {
 
             @Override
             public void onResponse(File file, int i) {
-                if (file != null) {
-                    installAPK(MainActivity.this, file.getAbsolutePath());
+                try{
+                    if (file != null) {
+                        installAPK(MainActivity.this, file.getAbsolutePath());
+                        if(downLoadDialog!=null){
+                            downLoadDialog.dismiss();
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                     finish();
                 }
+
             }
 
         });

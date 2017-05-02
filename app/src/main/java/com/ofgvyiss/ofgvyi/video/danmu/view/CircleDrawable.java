@@ -1,19 +1,13 @@
 package com.ofgvyiss.ofgvyi.video.danmu.view;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-
-import com.ofgvyiss.ofgvyi.R;
 
 
 /**
@@ -24,11 +18,6 @@ public class CircleDrawable extends Drawable {
 
     private Paint mPaint;
     private Bitmap mBitmap;
-    private Bitmap mBitmapHeart;
-    private boolean mHasHeart;
-
-    private static final int BLACK_COLOR = 0xb2000000;//黑色 背景
-    private static final int BLACKGROUDE_ADD_SIZE = 4;//背景比图片多出来的部分
 
     public CircleDrawable(Bitmap bitmap) {
         mBitmap = bitmap;
@@ -41,29 +30,6 @@ public class CircleDrawable extends Drawable {
         mPaint.setShader(bitmapShader);
     }
 
-    /**
-     * 右下角包含一个‘心’的圆形drawable
-     *
-     * @param context
-     * @param bitmap
-     * @param hasHeart
-     */
-    public CircleDrawable(Context context, Bitmap bitmap, boolean hasHeart) {
-        this(bitmap);
-        mHasHeart = hasHeart;
-        if (hasHeart) {
-            setBitmapHeart(context);
-        }
-    }
-
-    private void setBitmapHeart(Context context) {
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_user_avatar);
-        if (bitmap != null) {
-            Matrix matrix = new Matrix();
-            matrix.postScale(0.8f, 0.8f);
-            mBitmapHeart = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        }
-    }
 
     @Override
     public void setBounds(int left, int top, int right, int bottom) {
