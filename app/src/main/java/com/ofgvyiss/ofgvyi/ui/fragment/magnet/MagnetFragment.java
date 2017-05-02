@@ -91,6 +91,7 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
         adapter.setOnClickDownloadListener(this);
         uploadCurrentPage();
     }
+
     /**
      * Case By:上报当前页面
      * Author: scene on 2017/4/27 17:05
@@ -120,9 +121,9 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
             @Override
             public void onClick(View v) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为会员功能，请成为会员后使用", App.isVip, true);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目只对会员开放，请先升级会员", App.isVip, true);
                 } else if (App.isVip == 1) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该功能为钻石会员功能，请升级钻石会员后使用", App.isVip, true);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "您的会员权限不足，请先升级钻石会员", App.isVip, true);
                 }
             }
         });
@@ -195,15 +196,19 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
 
             @Override
             public void onFinish() {
-                if (progressBar != null) {
-                    progressBar.setProgress(100);
+                try {
+                    if (progressBar != null) {
+                        progressBar.setProgress(100);
+                    }
+                    if (downLoadDialog != null && downLoadDialog.isShowing()) {
+                        downLoadDialog.cancel();
+                    }
+                    lists.get(position).setShowPlay(true);
+                    adapter.notifyDataSetChanged();
+                    DialogUtil.getInstance().showCustomSubmitDialog(getContext(), "文件下载完毕，可以在线播放");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                if (downLoadDialog != null && downLoadDialog.isShowing()) {
-                    downLoadDialog.cancel();
-                }
-                lists.get(position).setShowPlay(true);
-                adapter.notifyDataSetChanged();
-                DialogUtil.getInstance().showCustomSubmitDialog(getContext(), "文件下载完毕，可以在线播放");
             }
         }.start();
     }

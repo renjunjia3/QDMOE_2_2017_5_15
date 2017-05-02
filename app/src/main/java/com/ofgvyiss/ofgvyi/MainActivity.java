@@ -31,7 +31,6 @@ import com.ofgvyiss.ofgvyi.config.PayConfig;
 import com.ofgvyiss.ofgvyi.event.ChangeTabEvent;
 import com.ofgvyiss.ofgvyi.ui.dialog.CustomSubmitDialog;
 import com.ofgvyiss.ofgvyi.ui.dialog.DownLoadDialog;
-import com.ofgvyiss.ofgvyi.ui.dialog.SubmitAndCancelDialog;
 import com.ofgvyiss.ofgvyi.ui.dialog.UpdateDialog;
 import com.ofgvyiss.ofgvyi.ui.fragment.MainFragment;
 import com.ofgvyiss.ofgvyi.util.API;
