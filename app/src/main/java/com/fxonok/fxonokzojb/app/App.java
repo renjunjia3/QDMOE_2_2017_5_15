@@ -3,8 +3,6 @@ package com.fxonok.fxonokzojb.app;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import com.aitangba.swipeback.ActivityLifecycleHelper;
@@ -53,20 +51,15 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        //捕获错误日志
-//        NeverCrash.init(new NeverCrash.CrashHandler() {
-//            @Override
-//            public void uncaughtException(Thread t, Throwable e) {
-//                //抛出crash异常
-//                MobclickAgent.reportError(getApplicationContext(), e);
-//                new Handler(Looper.getMainLooper()).post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        System.exit(1);
-//                    }
-//                });
-//            }
-//        });
+        //捕获错误日志
+        NeverCrash.init(new NeverCrash.CrashHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                // 退出程序
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
+            }
+        });
         MobclickAgent.setDebugMode(true);
         //activity滑动返回
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
