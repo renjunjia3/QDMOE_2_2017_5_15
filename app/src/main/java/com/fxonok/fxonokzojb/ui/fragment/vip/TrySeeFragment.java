@@ -23,6 +23,7 @@ import com.fxonok.fxonokzojb.pull_loadmore.PtrFrameLayout;
 import com.fxonok.fxonokzojb.util.API;
 import com.fxonok.fxonokzojb.util.GlideImageLoader;
 import com.fxonok.fxonokzojb.util.NetWorkUtils;
+import com.fxonok.fxonokzojb.util.SharedPreferencesUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -99,9 +100,9 @@ public class TrySeeFragment extends BaseMainFragment {
      */
     private void uploadCurrentPage() {
         Map<String, String> params = new HashMap<>();
-        params.put("position_id","1");
-        params.put("user_id", App.USER_ID+"");
-        OkHttpUtils.post().url(API.URL_PRE+API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
+        params.put("position_id", "1");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
 
@@ -202,6 +203,7 @@ public class TrySeeFragment extends BaseMainFragment {
                         lists.clear();
                         lists.addAll(vipInfo.getOther());
                         adapter.notifyDataSetChanged();
+                        SharedPreferencesUtil.putString(getContext(), "NOTIFY_DATA", s);
                         if (isShowLoad) {
                             if (statusViewLayout != null) {
                                 statusViewLayout.showContent();

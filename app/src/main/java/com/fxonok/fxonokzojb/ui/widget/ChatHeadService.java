@@ -12,17 +12,28 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.fxonok.fxonokzojb.MainActivity;
 import com.fxonok.fxonokzojb.R;
+import com.fxonok.fxonokzojb.bean.VideoInfo;
+import com.fxonok.fxonokzojb.bean.VipInfo;
+import com.fxonok.fxonokzojb.util.SharedPreferencesUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ChatHeadService extends Service {
     private WindowManager windowManager;
     private View chatHead;
+    private ImageView image;
+    private TextView title;
 
     private boolean viewIsadded = false;
     private WindowManager.LayoutParams params;
@@ -31,6 +42,8 @@ public class ChatHeadService extends Service {
 
     private long exitTime = 0;
     private int count = 0;
+
+    private List<VideoInfo> list = new ArrayList<>();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -53,6 +66,8 @@ public class ChatHeadService extends Service {
 
         params.gravity = Gravity.TOP;
 
+        image = (ImageView) chatHead.findViewById(R.id.image);
+        title = (TextView) chatHead.findViewById(R.id.title);
         chatHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,13 +101,30 @@ public class ChatHeadService extends Service {
         @Override
         public void handleMessage(Message msg) {
             if (MainActivity.isApplicationBroughtToBackground(getApplicationContext())) {
+                try {
+                    String jsonStr = SharedPreferencesUtil.getString(ChatHeadService.this, "NOTIFY_DATA", "");
+                    VipInfo vipInfo = JSON.parseObject(jsonStr, VipInfo.class);
+                    for (int i = 0; i < vipInfo.getOther().size(); i++) {
+                        for (int j = 0; j < vipInfo.getOther().get(i).getData().size(); j++) {
+                            VideoInfo videoInfo2 = vipInfo.getOther().get(i).getData().get(j);
+                            videoInfo2.setTilteType(false);
+                            list.add(videoInfo2);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
                 if (exitTime == 0) {
                     exitTime = System.currentTimeMillis();
                 } else {
                     if (count == 0) {
                         //第一次是5分钟提示
                         if (System.currentTimeMillis() - exitTime > 5 * 60 * 1000) {
-                            if (!viewIsadded) {
+                            if (!viewIsadded && list.size() > 0) {
+                                title.setText(list.get(count % list.size()).getTitle());
+                                Glide.with(ChatHeadService.this).load(list.get(count % list.size()).getThumb()).asBitmap().centerCrop().into(image);
                                 windowManager.addView(chatHead, params);
                                 viewIsadded = true;
                                 count++;
@@ -103,6 +135,8 @@ public class ChatHeadService extends Service {
                         //之后是每隔3h提示一次
                         if (System.currentTimeMillis() - exitTime > 3 * 60 * 60 * 1000) {
                             if (!viewIsadded) {
+                                title.setText(list.get(count % list.size()).getTitle());
+                                Glide.with(ChatHeadService.this).load(list.get(count % list.size()).getThumb()).asBitmap().centerCrop().into(image);
                                 windowManager.addView(chatHead, params);
                                 viewIsadded = true;
                                 count++;

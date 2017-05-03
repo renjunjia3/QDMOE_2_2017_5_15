@@ -20,6 +20,7 @@ import com.fxonok.fxonokzojb.bean.VipInfo;
 import com.fxonok.fxonokzojb.util.API;
 import com.fxonok.fxonokzojb.util.DialogUtil;
 import com.fxonok.fxonokzojb.util.NetWorkUtils;
+import com.fxonok.fxonokzojb.util.SharedPreferencesUtil;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.tmall.ultraviewpager.transformer.UltraScaleTransformer;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -149,6 +150,7 @@ public class BlackGlodVipFragment extends BaseMainFragment {
                 @Override
                 public void onResponse(String s, int i) {
                     try {
+                        SharedPreferencesUtil.putString(getContext(), "NOTIFY_DATA", s);
                         VipInfo vipInfo = JSON.parseObject(s, VipInfo.class);
                         if (vipInfo.getOther().get(0) != null && vipInfo.getOther().size() > 0
                                 && vipInfo.getOther().get(0).getData() != null && vipInfo.getOther().get(0).getData().size() > 0) {

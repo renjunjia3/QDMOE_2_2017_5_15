@@ -32,6 +32,7 @@ import com.fxonok.fxonokzojb.util.API;
 import com.fxonok.fxonokzojb.util.DialogUtil;
 import com.fxonok.fxonokzojb.util.NetWorkUtils;
 import com.fxonok.fxonokzojb.util.ScreenUtils;
+import com.fxonok.fxonokzojb.util.SharedPreferencesUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -254,9 +255,9 @@ public class GlodVipFragment extends BaseMainFragment {
                 @Override
                 public void onResponse(String s, int code) {
                     try {
+                        SharedPreferencesUtil.putString(getContext(), "NOTIFY_DATA", s);
                         VipInfo vipInfo = JSON.parseObject(s, VipInfo.class);
                         initHeaderView(vipInfo.getBanner());
-                        list.clear();
                         list.clear();
                         for (int i = 0; i < vipInfo.getOther().size(); i++) {
                             VideoInfo videoInfo = new VideoInfo();
