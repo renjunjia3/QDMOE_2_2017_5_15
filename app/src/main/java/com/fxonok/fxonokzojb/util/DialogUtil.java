@@ -200,6 +200,7 @@ public class DialogUtil {
         glodVipDialog = glodVipDialogBuilder.create();
         glodVipDialog.show();
         MainFragment.clickWantPay();
+        MainFragment.openPayDialog(videoId);
     }
 
     /**
@@ -218,6 +219,7 @@ public class DialogUtil {
         diamondVipDialog = diamondVipDialogBuilder.create();
         diamondVipDialog.show();
         MainFragment.clickWantPay();
+        MainFragment.openPayDialog(videoId);
     }
 
     /**
@@ -236,6 +238,7 @@ public class DialogUtil {
         vpnVipDialog = vpnVipDialogBuilder.create();
         vpnVipDialog.show();
         MainFragment.clickWantPay();
+        MainFragment.openPayDialog(videoId);
     }
 
     /**
@@ -254,6 +257,7 @@ public class DialogUtil {
         vpnFlimVipDialog = vpnFlimVipDialogBuilder.create();
         vpnFlimVipDialog.show();
         MainFragment.clickWantPay();
+        MainFragment.openPayDialog(videoId);
     }
 
     /**
@@ -273,6 +277,7 @@ public class DialogUtil {
         blackGlodVipDialog.show();
         App.isOPenBlackGlodVip = true;
         MainFragment.clickWantPay();
+        MainFragment.openPayDialog(videoId);
     }
 
     /**
@@ -291,6 +296,7 @@ public class DialogUtil {
         accelerationChannelVipDialog = accelerationChannelVipDialogBuilder.create();
         accelerationChannelVipDialog.show();
         MainFragment.clickWantPay();
+        MainFragment.openPayDialog(videoId);
     }
 
     /**
@@ -309,6 +315,7 @@ public class DialogUtil {
         rapidDoubletVipDialog = rapidDoubletVipDialogBuilder.create();
         rapidDoubletVipDialog.show();
         MainFragment.clickWantPay();
+        MainFragment.openPayDialog(videoId);
     }
 
     /**

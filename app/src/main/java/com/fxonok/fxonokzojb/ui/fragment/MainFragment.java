@@ -36,7 +36,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -494,18 +496,18 @@ public class MainFragment extends BaseFragment {
      * 弹出支付窗口之后调用
      */
     public static void clickWantPay() {
-        OkHttpUtils.get().url(API.URL_PRE + API.PAY_CLICK + App.IMEI).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int i) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(String s, int i) {
-
-            }
-        });
+        OkHttpUtils.get().url(API.URL_PRE + API.PAY_CLICK + App.IMEI).build().execute(null);
     }
 
+    /**
+     * 弹出支付窗口之后调用
+     */
+    public static void openPayDialog(int video_id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "15");
+        params.put("user_id", App.USER_ID + "");
+        params.put("video_id", video_id + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
+    }
 
 }

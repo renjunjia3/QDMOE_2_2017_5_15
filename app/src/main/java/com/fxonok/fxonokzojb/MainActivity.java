@@ -375,11 +375,9 @@ public class MainActivity extends SupportActivity {
             progressDialog.show();
         }
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 Map<String, String> params = new HashMap<>();
                 params.put("order_id", App.orderIdInt + "");
                 params.put("imei", App.IMEI);
@@ -404,6 +402,7 @@ public class MainActivity extends SupportActivity {
                         try {
                             CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
                             if (checkOrderInfo.isStatus()) {
+                                MainActivity.onPaySuccess();
                                 App.isHeijin = checkOrderInfo.getIs_heijin();
                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
                                 switch (App.isVip) {
@@ -548,6 +547,7 @@ public class MainActivity extends SupportActivity {
                                         break;
                                 }
 
+
                             }
                             App.isOPenBlackGlodVip = false;
                         } catch (Exception e) {
@@ -570,6 +570,16 @@ public class MainActivity extends SupportActivity {
             return !topActivity.equals(context.getPackageName());
         }
         return false;
+    }
+
+    /**
+     * 支付成功之后调用
+     */
+    public static void onPaySuccess() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "16");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
     /**

@@ -140,6 +140,7 @@ public class Mine2Fragment extends BaseBackFragment {
         if (App.isVip == 0) {
             DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
             MainFragment.clickWantPay();
+            MainFragment.openPayDialog(0);
         }
     }
 

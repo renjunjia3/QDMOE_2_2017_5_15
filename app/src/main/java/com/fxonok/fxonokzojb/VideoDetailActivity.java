@@ -496,6 +496,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                         try {
                             CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
                             if (checkOrderInfo.isStatus()) {
+                                MainActivity.onPaySuccess();
                                 MainActivity.isNeedChangeTab = true;
                                 String message = "";
                                 switch (App.isVip) {

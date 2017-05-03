@@ -76,6 +76,7 @@ public abstract class BaseMainFragment extends BaseFragment {
                 }
                 dialog.show();
                 MainFragment.clickWantPay();
+                MainFragment.openPayDialog(0);
 
             } else {
                 TOUCH_TIME = System.currentTimeMillis();
