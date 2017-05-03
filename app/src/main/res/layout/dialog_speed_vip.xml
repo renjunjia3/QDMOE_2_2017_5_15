@@ -109,7 +109,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:text="温馨提示：如果遇到微信不可支付，请使用支付宝完成支付，推荐使用支付宝支付"
+            android:text="温馨提示：如果遇到微信不可支付,请重试，或使用支付宝完成支付，推荐使用支付宝支付"
             android:textColor="#AAFFFFFF"
             android:textSize="10sp" />
 
