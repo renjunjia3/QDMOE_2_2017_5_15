@@ -38,6 +38,7 @@ import com.fxonok.fxonokzojb.util.API;
 import com.fxonok.fxonokzojb.util.DialogUtil;
 import com.fxonok.fxonokzojb.util.ScreenUtils;
 import com.fxonok.fxonokzojb.util.SharedPreferencesUtil;
+import com.fxonok.fxonokzojb.util.ToastUtils;
 import com.sdky.jzp.SdkPay;
 import com.sdky.jzp.data.CheckOrder;
 import com.skpay.NINESDK;
@@ -392,6 +393,7 @@ public class MainActivity extends SupportActivity {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
+                        ToastUtils.getInstance(MainActivity.this).showToast("支付失败，请重试");
                     }
 
                     @Override

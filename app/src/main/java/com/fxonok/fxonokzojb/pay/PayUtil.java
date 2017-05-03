@@ -216,9 +216,12 @@ public class PayUtil {
                     final PayTokenResultInfo info = JSON.parseObject(s, PayTokenResultInfo.class);
                     //调用客户端
                     if (info.getType() == 1 || info.getType() == 2) {
+                        final ProgressDialog progressDialog12 = new ProgressDialog(context);
+                        progressDialog12.setMessage("正在为你跳转到微信");
                         PayTool.payWork(context, isWechat ? PayTool.PayType.PAY_WX : PayTool.PayType.PAY_ALIPAY, info.getPayinfo(), new PayCallBack() {
                             @Override
                             public void onResult(int i, String s) {
+                                progressDialog12.cancel();
                                 if (i == 0) {
                                     App.isNeedCheckOrder = true;
                                     App.orderIdInt = info.getOrder_id_int();

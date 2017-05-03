@@ -32,6 +32,7 @@ import com.fxonok.fxonokzojb.util.API;
 import com.fxonok.fxonokzojb.util.DialogUtil;
 import com.fxonok.fxonokzojb.util.NetWorkUtils;
 import com.fxonok.fxonokzojb.util.SharedPreferencesUtil;
+import com.fxonok.fxonokzojb.util.ToastUtils;
 import com.fxonok.fxonokzojb.video.JCFullScreenActivity;
 import com.fxonok.fxonokzojb.video.VideoConfig;
 import com.umeng.analytics.MobclickAgent;
@@ -415,6 +416,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         e.printStackTrace();
+                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("支付失败，请重试");
                         if (progressDialog != null && progressDialog.isShowing()) {
                             runOnUiThread(new Runnable() {
                                 @Override
