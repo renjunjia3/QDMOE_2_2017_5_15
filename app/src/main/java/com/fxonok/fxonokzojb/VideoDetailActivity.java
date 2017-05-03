@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -95,6 +96,8 @@ public class VideoDetailActivity extends SwipeBackActivity {
     RecyclerView screenShotRecyclerView;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
+    @BindView(R.id.comment_content)
+    EditText commentContent;
 
     private Unbinder unbinder;
 
@@ -178,8 +181,66 @@ public class VideoDetailActivity extends SwipeBackActivity {
     public void onClick(View v) {
         if (App.isVip == 0) {
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "该功能为会员功能，请成为会员后使用", App.isVip, false, true, videoInfo.getVideo_id());
+        } else {
+            if (v.getId() == R.id.sendComment) {
+                String content = commentContent.getText().toString().trim();
+                if (!content.isEmpty()) {
+                    sendComment(content);
+                }
+            }
         }
     }
+
+    /**
+     * Case By:发布评论
+     * Author: scene on 2017/5/3 13:26
+     */
+    private ProgressDialog commentProgressDialog;
+    private RequestCall sendCommentCall;
+
+    private void sendComment(final String content) {
+        if (commentProgressDialog == null) {
+            commentProgressDialog = new ProgressDialog(VideoDetailActivity.this);
+            commentProgressDialog.setMessage("加载中...");
+        }
+        if (NetWorkUtils.isMobileConnected(VideoDetailActivity.this)) {
+            if(commentProgressDialog!=null){
+                commentProgressDialog.show();
+            }
+            HashMap<String, String> params = new HashMap<>();
+            params.put("video_id", videoInfo.getVideo_id() + "");
+            params.put("content", content);
+            params.put("user_id", App.USER_ID + "");
+            sendCommentCall = OkHttpUtils.post().url(API.URL_PRE + API.SEND_COMMEND).params(params).build();
+            sendCommentCall.execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int i) {
+                    if (commentProgressDialog != null && commentProgressDialog.isShowing()) {
+                        commentProgressDialog.cancel();
+                    }
+                    commentContent.setText("");
+                }
+
+                @Override
+                public void onResponse(String s, int i) {
+                    try{
+                        commentContent.setText("");
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    commentContent.setText("");
+
+                    if (commentProgressDialog != null && commentProgressDialog.isShowing()) {
+                        commentProgressDialog.cancel();
+                    }
+                }
+            });
+
+        } else {
+            ToastUtils.getInstance(VideoDetailActivity.this).showToast("评论失败，请检查网络");
+        }
+    }
+
 
     @OnClick(R.id.play_video)
     public void onClickPlayVideo() {

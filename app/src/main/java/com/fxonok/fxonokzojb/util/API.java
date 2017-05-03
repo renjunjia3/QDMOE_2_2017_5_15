@@ -66,4 +66,7 @@ public class API {
      */
     public static final String UPLOAD_CURRENT_PAGE="position_click";
 
+    //发表评论
+    public static final String SEND_COMMEND="user_comment";
+
 }
