@@ -9,6 +9,7 @@ import com.aitangba.swipeback.ActivityLifecycleHelper;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.fxonok.fxonokzojb.util.NeverCrash;
 import com.fxonok.fxonokzojb.util.SharedPreferencesUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -51,8 +52,13 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         //捕获错误日志
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(getApplicationContext());
+        NeverCrash.init(new NeverCrash.CrashHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                //抛出crash异常
+                System.exit(0);
+            }
+        });
         MobclickAgent.setDebugMode(true);
         //activity滑动返回
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
