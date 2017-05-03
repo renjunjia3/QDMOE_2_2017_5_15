@@ -17,6 +17,7 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -378,101 +379,101 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        return true;
-//        float x = event.getX();
-//        float y = event.getY();
-//        int id = v.getId();
-//        if (id == R.id.surface_container) {
-//            switch (event.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//                    mTouchingProgressBar = true;
-//
-//                    mDownX = x;
-//                    mDownY = y;
-//                    mChangeVolume = false;
-//                    mChangePosition = false;
-//                    /////////////////////
-//                    break;
-//                case MotionEvent.ACTION_MOVE:
-//                    float deltaX = x - mDownX;
-//                    float deltaY = y - mDownY;
-//                    float absDeltaX = Math.abs(deltaX);
-//                    float absDeltaY = Math.abs(deltaY);
-//                    if (mIfCurrentIsFullscreen) {
-//                        if (!mChangePosition && !mChangeVolume) {
-//                            if (absDeltaX > mThreshold || absDeltaY > mThreshold) {
-//                                cancelProgressTimer();
-//                                if (absDeltaX >= mThreshold) {
-//                                    mChangePosition = true;
-//                                    mDownPosition = getCurrentPositionWhenPlaying();
-//                                    if (JC_BURIED_POINT != null && JCMediaManager.instance().listener == this) {
-//                                        JC_BURIED_POINT.onTouchScreenSeekPosition(mUrl, mObjects);
-//                                    }
-//                                } else {
-//                                    mChangeVolume = true;
-//                                    mDownVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-//                                    if (JC_BURIED_POINT != null && JCMediaManager.instance().listener == this) {
-//                                        JC_BURIED_POINT.onTouchScreenSeekVolume(mUrl, mObjects);
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                    if (mChangePosition) {
-//                        showProgressDialog(deltaX);
-//                    }
-//                    if (mChangeVolume) {
-//                        showVolumDialog(-deltaY);
-//                    }
-//
-//                    break;
-//                case MotionEvent.ACTION_UP:
-//                    mTouchingProgressBar = false;
-//                    if (mProgressDialog != null) {
-//                        mProgressDialog.dismiss();
-//                    }
-//                    if (mVolumeDialog != null) {
-//                        mVolumeDialog.dismiss();
-//                    }
-//                    if (mChangePosition) {
-//                        JCMediaManager.instance().mediaPlayer.seekTo(mResultTimePosition);
-//                        int duration = getDuration();
-//                        int progress = mResultTimePosition * 100 / (duration == 0 ? 1 : duration);
-//                        progressBar.setProgress(progress);
-//                    }
-//                    /////////////////////
-//                    startProgressTimer();
-//                    if (JC_BURIED_POINT != null && JCMediaManager.instance().listener == this) {
-//                        if (mIfCurrentIsFullscreen) {
-//                            JC_BURIED_POINT.onClickSeekbarFullscreen(mUrl, mObjects);
-//                        } else {
-//                            JC_BURIED_POINT.onClickSeekbar(mUrl, mObjects);
-//                        }
-//                    }
-//                    break;
-//            }
-//        } else if (id == R.id.progress) {//if I am seeking bar,no mater whoever can not intercept my event
-//            switch (event.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//                    cancelProgressTimer();
-//                    ViewParent vpdown = getParent();
-//                    while (vpdown != null) {
-//                        vpdown.requestDisallowInterceptTouchEvent(true);
-//                        vpdown = vpdown.getParent();
-//                    }
-//                    break;
-//                case MotionEvent.ACTION_UP:
-//                    startProgressTimer();
-//                    ViewParent vpup = getParent();
-//                    while (vpup != null) {
-//                        vpup.requestDisallowInterceptTouchEvent(false);
-//                        vpup = vpup.getParent();
-//                    }
-//                    break;
-//            }
-//        }
-//
-//        return false;
+        //return true;
+        float x = event.getX();
+        float y = event.getY();
+        int id = v.getId();
+        if (id == R.id.surface_container) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mTouchingProgressBar = true;
+
+                    mDownX = x;
+                    mDownY = y;
+                    mChangeVolume = false;
+                    mChangePosition = false;
+                    /////////////////////
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    float deltaX = x - mDownX;
+                    float deltaY = y - mDownY;
+                    float absDeltaX = Math.abs(deltaX);
+                    float absDeltaY = Math.abs(deltaY);
+                    if (mIfCurrentIsFullscreen) {
+                        if (!mChangePosition && !mChangeVolume) {
+                            if (absDeltaX > mThreshold || absDeltaY > mThreshold) {
+                                cancelProgressTimer();
+                                if (absDeltaX >= mThreshold) {
+                                    mChangePosition = true;
+                                    mDownPosition = getCurrentPositionWhenPlaying();
+                                    if (JC_BURIED_POINT != null && JCMediaManager.instance().listener == this) {
+                                        JC_BURIED_POINT.onTouchScreenSeekPosition(mUrl, mObjects);
+                                    }
+                                } else {
+                                    mChangeVolume = true;
+                                    mDownVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                                    if (JC_BURIED_POINT != null && JCMediaManager.instance().listener == this) {
+                                        JC_BURIED_POINT.onTouchScreenSeekVolume(mUrl, mObjects);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (mChangePosition) {
+                        showProgressDialog(deltaX);
+                    }
+                    if (mChangeVolume) {
+                        showVolumDialog(-deltaY);
+                    }
+
+                    break;
+                case MotionEvent.ACTION_UP:
+                    mTouchingProgressBar = false;
+                    if (mProgressDialog != null) {
+                        mProgressDialog.dismiss();
+                    }
+                    if (mVolumeDialog != null) {
+                        mVolumeDialog.dismiss();
+                    }
+                    if (mChangePosition) {
+                        JCMediaManager.instance().mediaPlayer.seekTo(mResultTimePosition);
+                        int duration = getDuration();
+                        int progress = mResultTimePosition * 100 / (duration == 0 ? 1 : duration);
+                        progressBar.setProgress(progress);
+                    }
+                    /////////////////////
+                    startProgressTimer();
+                    if (JC_BURIED_POINT != null && JCMediaManager.instance().listener == this) {
+                        if (mIfCurrentIsFullscreen) {
+                            JC_BURIED_POINT.onClickSeekbarFullscreen(mUrl, mObjects);
+                        } else {
+                            JC_BURIED_POINT.onClickSeekbar(mUrl, mObjects);
+                        }
+                    }
+                    break;
+            }
+        } else if (id == R.id.progress) {//if I am seeking bar,no mater whoever can not intercept my event
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    cancelProgressTimer();
+                    ViewParent vpdown = getParent();
+                    while (vpdown != null) {
+                        vpdown.requestDisallowInterceptTouchEvent(true);
+                        vpdown = vpdown.getParent();
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    startProgressTimer();
+                    ViewParent vpup = getParent();
+                    while (vpup != null) {
+                        vpup.requestDisallowInterceptTouchEvent(false);
+                        vpup = vpup.getParent();
+                    }
+                    break;
+            }
+        }
+
+        return false;
     }
 
     protected void showProgressDialog(float deltaX) {
@@ -536,12 +537,16 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (mCurrentState != CURRENT_STATE_PLAYING &&
-                mCurrentState != CURRENT_STATE_PAUSE) return;
-        if (fromUser) {
-            int time = progress * getDuration() / 100;
-            JCMediaManager.instance().mediaPlayer.seekTo(time);
-            Log.d(TAG, "seekTo " + time + " [" + this.hashCode() + "] ");
+        try {
+            if (mCurrentState != CURRENT_STATE_PLAYING &&
+                    mCurrentState != CURRENT_STATE_PAUSE) return;
+            if (fromUser) {
+                int time = progress * getDuration() / 100;
+                JCMediaManager.instance().mediaPlayer.seekTo(time);
+                Log.d(TAG, "seekTo " + time + " [" + this.hashCode() + "] ");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
