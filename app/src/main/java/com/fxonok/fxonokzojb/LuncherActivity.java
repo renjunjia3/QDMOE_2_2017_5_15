@@ -23,6 +23,7 @@ import com.fxonok.fxonokzojb.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
@@ -103,6 +104,9 @@ public class LuncherActivity extends AppCompatActivity {
 
             return;
         }
+        HashMap<String,String> params=new HashMap<>();
+        params.put("device",Build.DEVICE);
+        params.put("system",Build.VERSION.CODENAME);
         OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER + App.CHANNEL_ID + "/" + App.IMEI).build()
                 .execute(new StringCallback() {
                     @Override

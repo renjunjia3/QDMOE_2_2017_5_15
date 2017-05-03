@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- 短代支付 -->
     <!--<uses-permission android:name="android.permission.SEND_SMS" />-->
     <!--<uses-permission android:name="android.permission.READ_SMS" />-->
@@ -43,6 +44,8 @@
         <!--配置umeng-->
         <meta-data android:value="5907ecf84ad156050c0021b7" android:name="UMENG_APPKEY"/>
         <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
+        <!--配置弹窗的service-->
+        <service android:name="com.fxonok.fxonokzojb.ui.widget.ChatHeadService"/>
 
         <activity
             android:name="com.fxonok.fxonokzojb.LuncherActivity"

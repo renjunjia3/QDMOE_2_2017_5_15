@@ -134,23 +134,70 @@ public class JCFullScreenActivity extends Activity {
             mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text2.setText("开通会员观看完整视频");
             mJcVideoPlayer.text3.setText("开通会员观看完整视频");
+            mJcVideoPlayer.openVip.setText("开通黄金会员");
         } else if (App.isVip == 1) {
             mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text2.setText("升级钻石观看超长视频");
             mJcVideoPlayer.text3.setText("升级钻石观看超长视频");
+
+            mJcVideoPlayer.openVip.setText("开通钻石会员");
         } else if (App.isVip == 2) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
+            mJcVideoPlayer.openVip.setText("开通海外VPN");
         } else if (App.isVip == 3) {
             mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
             mJcVideoPlayer.text2.setText("升级黑金看你所想");
             mJcVideoPlayer.text3.setText("升级黑金看你所想");
+            mJcVideoPlayer.openVip.setText("开通海外片库");
         } else {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
+            if (App.isVip == 4) {
+                mJcVideoPlayer.openVip.setText("开通黑金会员");
+            } else if (App.isVip == 5) {
+                mJcVideoPlayer.openVip.setText("开通海外专用宽带");
+            } else if (App.isVip == 6) {
+                mJcVideoPlayer.openVip.setText("开通海外双线通道");
+            } else {
+                mJcVideoPlayer.openVip.setVisibility(View.GONE);
+            }
         }
+
+        mJcVideoPlayer.openVip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
+                switch (App.isVip) {
+                    case 0:
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_GLOD);
+                        break;
+                    case 1:
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
+                        break;
+                    case 2:
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_VPN);
+                        break;
+                    case 3:
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_OVERSEA_FLIM);
+                        break;
+                    case 4:
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_BLACK_GLOD);
+                        break;
+                    case 5:
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_OVERSEA_SPEED);
+                        break;
+                    case 6:
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_OVERSEA_SNAP);
+                        break;
+                }
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
         uploadCurrentPage();
     }
 

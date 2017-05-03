@@ -36,6 +36,8 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     public TextView text2;
     public TextView text3;
     public ImageView closeDanmu;
+    //开通vip
+    public TextView openVip;
 
     protected static Timer DISSMISS_CONTROL_VIEW_TIMER;
     protected static JCBuriedPointStandard JC_BURIED_POINT_STANDARD;
@@ -60,6 +62,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
         text2 = (TextView) findViewById(R.id.text2);
         text3 = (TextView) findViewById(R.id.text3);
         closeDanmu = (ImageView) findViewById(R.id.close_damnu);
+        openVip = (TextView) findViewById(R.id.open_vip);
         thumbImageView.setOnClickListener(this);
         backButton.setOnClickListener(this);
         initDanmu();
@@ -255,14 +258,14 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     protected void setProgressAndTime(int progress, int secProgress, int currentTime, int totalTime) {
         super.setProgressAndTime(progress, secProgress, currentTime, totalTime);
         if (progress != 0) bottomProgressBar.setProgress(progress);
-       // if (secProgress != 0) bottomProgressBar.setSecondaryProgress(secProgress);
+        // if (secProgress != 0) bottomProgressBar.setSecondaryProgress(secProgress);
     }
 
     @Override
     protected void resetProgressAndTime() {
         super.resetProgressAndTime();
         bottomProgressBar.setProgress(0);
-       // bottomProgressBar.setSecondaryProgress(0);
+        // bottomProgressBar.setSecondaryProgress(0);
     }
 
     //Unified management Ui

@@ -33,6 +33,7 @@ import com.fxonok.fxonokzojb.ui.dialog.CustomSubmitDialog;
 import com.fxonok.fxonokzojb.ui.dialog.DownLoadDialog;
 import com.fxonok.fxonokzojb.ui.dialog.UpdateDialog;
 import com.fxonok.fxonokzojb.ui.fragment.MainFragment;
+import com.fxonok.fxonokzojb.ui.widget.ChatHeadService;
 import com.fxonok.fxonokzojb.util.API;
 import com.fxonok.fxonokzojb.util.DialogUtil;
 import com.fxonok.fxonokzojb.util.ScreenUtils;
@@ -128,6 +129,7 @@ public class MainActivity extends SupportActivity {
         getUpdateData();
         //上传崩溃日志文件
         //uploadCrashInfo();
+        startService(new Intent(MainActivity.this, ChatHeadService.class));
     }
 
     private void showNoticeToast(int id) {
@@ -557,15 +559,13 @@ public class MainActivity extends SupportActivity {
 
     }
 
-    public boolean isApplicationBroughtToBackground(Context context) {
+    public static boolean isApplicationBroughtToBackground(Context context) {
         ActivityManager am = (ActivityManager) context
                 .getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
         if (tasks != null && !tasks.isEmpty()) {
             String topActivity = tasks.get(0).baseActivity.getPackageName();
-            if (!topActivity.equals(context.getPackageName())) {
-                return true;
-            }
+            return !topActivity.equals(context.getPackageName());
         }
         return false;
     }

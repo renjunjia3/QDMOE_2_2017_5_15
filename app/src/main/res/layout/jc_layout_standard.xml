@@ -96,10 +96,10 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1.0"
             android:background="@null"
+            android:enabled="false"
             android:max="100"
             android:maxHeight="4dp"
             android:minHeight="4dp"
-            android:enabled="false"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:progressDrawable="@drawable/jc_seek_progress"
@@ -158,6 +158,21 @@
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/open_vip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/close_damnu"
+        android:background="@drawable/shape_round_bg_glod_big_corner"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
+        android:text="开通海外加速服务"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_small" />
 
     <ImageView
         android:id="@+id/close_damnu"
