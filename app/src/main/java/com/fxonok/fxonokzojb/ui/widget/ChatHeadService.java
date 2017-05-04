@@ -81,6 +81,21 @@ public class ChatHeadService extends Service {
             }
         });
 
+
+        try {
+            String jsonStr = SharedPreferencesUtil.getString(ChatHeadService.this, "NOTIFY_DATA", "");
+            VipInfo vipInfo = JSON.parseObject(jsonStr, VipInfo.class);
+            for (int i = 0; i < vipInfo.getOther().size(); i++) {
+                for (int j = 0; j < vipInfo.getOther().get(i).getData().size(); j++) {
+                    VideoInfo videoInfo2 = vipInfo.getOther().get(i).getData().get(j);
+                    videoInfo2.setTilteType(false);
+                    list.add(videoInfo2);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         new Timer().schedule(timerTask, 1 * 1000, 1 * 1000);
     }
 
@@ -101,21 +116,6 @@ public class ChatHeadService extends Service {
         @Override
         public void handleMessage(Message msg) {
             if (MainActivity.isApplicationBroughtToBackground(getApplicationContext())) {
-                try {
-                    String jsonStr = SharedPreferencesUtil.getString(ChatHeadService.this, "NOTIFY_DATA", "");
-                    VipInfo vipInfo = JSON.parseObject(jsonStr, VipInfo.class);
-                    for (int i = 0; i < vipInfo.getOther().size(); i++) {
-                        for (int j = 0; j < vipInfo.getOther().get(i).getData().size(); j++) {
-                            VideoInfo videoInfo2 = vipInfo.getOther().get(i).getData().get(j);
-                            videoInfo2.setTilteType(false);
-                            list.add(videoInfo2);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
                 if (exitTime == 0) {
                     exitTime = System.currentTimeMillis();
                 } else {

@@ -261,31 +261,34 @@ public class DanmuControl {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
+                            try {
+                                BaseDanmaku danmaku = mDanmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL, mDanmakuContext);
+                                if (danmaku == null) {
+                                    return;
+                                }
+                                if (mDanmakuView == null) {
+                                    return;
+                                }
+                                danmaku.userId = 1;
+                                danmaku.isGuest = false;//isGuest此处用来判断是赞还是评论
 
-                            BaseDanmaku danmaku = mDanmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL, mDanmakuContext);
-                            if (danmaku == null) {
-                                return;
+                                SpannableStringBuilder spannable;
+                                CircleDrawable circleDrawable = new CircleDrawable(mDefauleBitmap);
+                                circleDrawable.setBounds(0, 0, BITMAP_WIDTH, BITMAP_HEIGHT);
+                                spannable = createSpannable(circleDrawable, danmu.getText());
+                                danmaku.text = spannable;
+
+                                danmaku.padding = DANMU_PADDING;
+                                danmaku.priority = 0;  // 1:一定会显示, 一般用于本机发送的弹幕,但会导致行数的限制失效
+                                danmaku.isLive = false;
+                                danmaku.setTime(mDanmakuView != null ? (mDanmakuView.getCurrentTime() + (i * ADD_DANMU_TIME) + 3000) : (i * ADD_DANMU_TIME) + 3000);
+                                danmaku.textSize = DANMU_TEXT_SIZE/* * (mDanmakuContext.getDisplayer().getDensity() - 0.6f)*/;
+                                danmaku.textColor = Color.WHITE;
+                                danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
+                                mDanmakuView.addDanmaku(danmaku);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            if (mDanmakuView == null) {
-                                return;
-                            }
-                            danmaku.userId = 1;
-                            danmaku.isGuest = false;//isGuest此处用来判断是赞还是评论
-
-                            SpannableStringBuilder spannable;
-                            CircleDrawable circleDrawable = new CircleDrawable(mDefauleBitmap);
-                            circleDrawable.setBounds(0, 0, BITMAP_WIDTH, BITMAP_HEIGHT);
-                            spannable = createSpannable(circleDrawable, danmu.getText());
-                            danmaku.text = spannable;
-
-                            danmaku.padding = DANMU_PADDING;
-                            danmaku.priority = 0;  // 1:一定会显示, 一般用于本机发送的弹幕,但会导致行数的限制失效
-                            danmaku.isLive = false;
-                            danmaku.setTime(mDanmakuView != null ? (mDanmakuView.getCurrentTime() + (i * ADD_DANMU_TIME) + 3000) : (i * ADD_DANMU_TIME) + 3000);
-                            danmaku.textSize = DANMU_TEXT_SIZE/* * (mDanmakuContext.getDisplayer().getDensity() - 0.6f)*/;
-                            danmaku.textColor = Color.WHITE;
-                            danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
-                            mDanmakuView.addDanmaku(danmaku);
                         }
                     }).start();
                 }
