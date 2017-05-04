@@ -79,7 +79,7 @@ public class DialogUtil {
      * @param isShowOpenVip    是否进入显示开通会员的对话框
      */
     public void showSubmitDialog(Context context, boolean isCancelAsSubmit, String message, int myVipType, final boolean isShowOpenVip) {
-        showSubmitDialog(context, isCancelAsSubmit, message, myVipType, false, isShowOpenVip, 0);
+        showSubmitDialog(context, isCancelAsSubmit, message, myVipType, false, isShowOpenVip, 0, false);
     }
 
     /**
@@ -92,9 +92,10 @@ public class DialogUtil {
      * @param myVipType          我的VIP类型 App.isVip
      * @param isOpenBlackGlodVip 是否是直接开通黑金会员
      * @param isShowOpenVip      是否进入显示开通会员的对话框
+     * @param isDetailPage       视频详情页
      */
-    public void showSubmitDialog(Context context, boolean isCancelAsSubmit, String message, int myVipType, boolean isOpenBlackGlodVip, final boolean isShowOpenVip) {
-        showSubmitDialog(context, isCancelAsSubmit, message, myVipType, isOpenBlackGlodVip, isShowOpenVip, 0);
+    public void showSubmitDialog(Context context, boolean isCancelAsSubmit, String message, int myVipType, boolean isOpenBlackGlodVip, final boolean isShowOpenVip, final boolean isDetailPage) {
+        showSubmitDialog(context, isCancelAsSubmit, message, myVipType, isOpenBlackGlodVip, isShowOpenVip, 0, isDetailPage);
     }
 
     /**
@@ -108,8 +109,9 @@ public class DialogUtil {
      * @param isOpenBlackGlodVip 是否是直接开通黑金会员
      * @param isShowOpenVip      是否进入显示开通会员的对话框
      * @param videoId            视频Id
+     * @param isDetailPage       视频详情页
      */
-    public void showSubmitDialog(final Context context, final boolean isCancelAsSubmit, String message, final int myVipType, final boolean isOpenBlackGlodVip, final boolean isShowOpenVip, final int videoId) {
+    public void showSubmitDialog(final Context context, final boolean isCancelAsSubmit, String message, final int myVipType, final boolean isOpenBlackGlodVip, final boolean isShowOpenVip, final int videoId, final boolean isDetailPage) {
 
         if (submitAndCancelDialog != null && submitAndCancelDialog.isShowing()) {
             submitAndCancelDialog.cancel();
@@ -122,7 +124,7 @@ public class DialogUtil {
             public void onClick(DialogInterface dialog, int which) {
                 submitAndCancelDialog.dismiss();
                 if (isShowOpenVip) {
-                    showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId);
+                    showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId, isDetailPage);
                 }
 
             }
@@ -133,7 +135,7 @@ public class DialogUtil {
             public void onClick(DialogInterface dialog, int which) {
                 submitAndCancelDialog.dismiss();
                 if (isShowOpenVip && isCancelAsSubmit) {
-                    showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId);
+                    showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId, isDetailPage);
                 }
             }
         });
@@ -149,37 +151,38 @@ public class DialogUtil {
      * @param myVipType          我的VIP类型 App.isVip
      * @param isOPenBlackGlodVip 是否是直接开通黑金会员
      * @param videoId            视频Id
+     * @param isDetailPage       视频详情页
      */
-    private void showVipDialog(Context context, int myVipType, boolean isOPenBlackGlodVip, int videoId) {
+    private void showVipDialog(Context context, int myVipType, boolean isOPenBlackGlodVip, int videoId, boolean isDetailPage) {
         switch (myVipType) {
             case 0://开通黄金会员
-                showGoldVipDialog(context, videoId, videoId != 0 ? true : false);
+                showGoldVipDialog(context, videoId, isDetailPage);
                 break;
             case 1://开通砖石会员
-                showDiamondVipDialog(context, videoId, videoId != 0 ? true : false);
+                showDiamondVipDialog(context, videoId, isDetailPage);
                 break;
             case 2://当前VPN会员
                 if (isOPenBlackGlodVip) {
-                    showBlackGlodVipDialog(context, videoId, videoId != 0 ? true : false);
+                    showBlackGlodVipDialog(context, videoId, isDetailPage);
                 } else {
-                    showVpnVipDialog(context, videoId, videoId != 0 ? true : false);
+                    showVpnVipDialog(context, videoId, isDetailPage);
                 }
                 break;
             case 3://开通海外片库
                 if (isOPenBlackGlodVip) {
-                    showBlackGlodVipDialog(context, videoId, videoId != 0 ? true : false);
+                    showBlackGlodVipDialog(context, videoId, isDetailPage);
                 } else {
-                    showVpnFlimVipDialog(context, videoId, videoId != 0 ? true : false);
+                    showVpnFlimVipDialog(context, videoId, isDetailPage);
                 }
                 break;
             case 4://升级黑金会员
-                showBlackGlodVipDialog(context, videoId, videoId != 0 ? true : false);
+                showBlackGlodVipDialog(context, videoId, isDetailPage);
                 break;
             case 5://开通海外加速
-                showAccelerationChannelVipDialog(context, videoId, videoId != 0 ? true : false);
+                showAccelerationChannelVipDialog(context, videoId, isDetailPage);
                 break;
             case 6://海外双线
-                showRapidDoubletVipDialog(context, videoId, videoId != 0 ? true : false);
+                showRapidDoubletVipDialog(context, videoId, isDetailPage);
                 break;
         }
     }

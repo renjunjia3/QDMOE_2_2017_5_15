@@ -141,7 +141,7 @@ public class FlimDetailFragment extends BaseBackFragment {
                 if (App.isVip > 0) {
                     toVideoDetail(list.get(positon));
                 } else {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(positon).getVideo_id());
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(positon).getVideo_id(),false);
                 }
             }
         });

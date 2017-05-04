@@ -180,7 +180,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
     @OnClick({R.id.zan, R.id.fravetor, R.id.open_vip, R.id.addVip, R.id.open_vip1, R.id.sendComment, R.id.download, R.id.commend_number})
     public void onClick(View v) {
         if (App.isVip == 0) {
-            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "该功能为会员功能，请成为会员后使用", App.isVip, false, true, videoInfo.getVideo_id());
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "该功能为会员功能，请成为会员后使用", App.isVip, false, true, videoInfo.getVideo_id(), true);
         } else {
             if (v.getId() == R.id.sendComment) {
                 String content = commentContent.getText().toString().trim();
@@ -204,7 +204,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             commentProgressDialog.setMessage("加载中...");
         }
         if (NetWorkUtils.isMobileConnected(VideoDetailActivity.this)) {
-            if(commentProgressDialog!=null){
+            if (commentProgressDialog != null) {
                 commentProgressDialog.show();
             }
             HashMap<String, String> params = new HashMap<>();
@@ -223,9 +223,9 @@ public class VideoDetailActivity extends SwipeBackActivity {
 
                 @Override
                 public void onResponse(String s, int i) {
-                    try{
+                    try {
                         commentContent.setText("");
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     commentContent.setText("");
@@ -246,10 +246,10 @@ public class VideoDetailActivity extends SwipeBackActivity {
     public void onClickPlayVideo() {
         if (!isEnterFromTrySee && App.isVip == 0) {
             //不是首页进来自己也不是VIP，弹出开通会员的提示
-            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id(), true);
         } else {
             if (App.tryCount >= VideoConfig.TRY_COUNT_TIME && App.isVip == 0) {
-                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id());
+                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id(), true);
             } else {
                 App.tryCount += 1;
                 SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);

@@ -10,6 +10,8 @@ import com.ebcnke.knulg.AliPayActivity;
 import com.ebcnke.knulg.app.App;
 import com.ebcnke.knulg.bean.PayTokenResultInfo;
 import com.ebcnke.knulg.config.PayConfig;
+import com.ebcnke.knulg.event.CheckOrderEvent;
+import com.ebcnke.knulg.event.CloseVideoDetailEvent;
 import com.ebcnke.knulg.ui.dialog.WxQRCodePayDialog;
 import com.ebcnke.knulg.util.API;
 import com.ebcnke.knulg.util.DialogUtil;
@@ -18,6 +20,8 @@ import com.lessen.paysdk.pay.PayCallBack;
 import com.lessen.paysdk.pay.PayTool;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -217,16 +221,29 @@ public class PayUtil {
                     //调用客户端
                     if (info.getType() == 1 || info.getType() == 2) {
                         final ProgressDialog progressDialog12 = new ProgressDialog(context);
-                        progressDialog12.setMessage(info.getType() == 1?"正在为你跳转到微信":"正在为你跳转到支付宝");
+                        progressDialog12.setMessage(info.getType() == 1 ? "正在为你跳转到微信" : "正在为你跳转到支付宝");
+                        progressDialog12.show();
                         PayTool.payWork(context, isWechat ? PayTool.PayType.PAY_WX : PayTool.PayType.PAY_ALIPAY, info.getPayinfo(), new PayCallBack() {
                             @Override
                             public void onResult(int i, String s) {
-                                progressDialog12.cancel();
+                                if (progressDialog12 != null && progressDialog12.isShowing()) {
+                                    progressDialog12.cancel();
+                                }
                                 if (i == 0) {
                                     App.isNeedCheckOrder = true;
                                     App.orderIdInt = info.getOrder_id_int();
+                                    if (isVideoDetailPage) {
+                                        EventBus.getDefault().post(new CloseVideoDetailEvent());
+                                    } else {
+                                        EventBus.getDefault().post(new CheckOrderEvent());
+                                    }
                                 } else {
-                                    ToastUtils.getInstance(context).showToast("支付失败请重试或者选择其他的支付方式");
+                                    if(info.getType()==2){
+                                        ToastUtils.getInstance(context).showToast("支付失败请重试或者选择其他的支付方式");
+                                    }else{
+                                        App.isNeedCheckOrder = true;
+                                        App.orderIdInt = info.getOrder_id_int();
+                                    }
                                 }
                             }
                         });

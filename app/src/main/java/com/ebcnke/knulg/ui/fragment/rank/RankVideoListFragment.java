@@ -164,7 +164,7 @@ public class RankVideoListFragment extends BaseBackFragment {
                 if (App.isVip > 0) {
                     toVideoDetail(list.get(position));
                 } else {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id());
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(),false);
                 }
             }
         });

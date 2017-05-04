@@ -152,7 +152,7 @@ public class GlodVipFragment extends BaseMainFragment {
             @Override
             public void onClickGlodVipItem(int position) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id());
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(),false);
                 } else {
                     toVideoDetail(list.get(position));
                 }
@@ -217,7 +217,7 @@ public class GlodVipFragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, info.getVideo_id());
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, info.getVideo_id(),false);
                 } else {
                     toVideoDetail(info);
                 }

@@ -94,15 +94,16 @@ public class DiamondVipFragment extends BaseMainFragment {
         getDiamondVipData(true);
         uploadCurrentPage();
     }
+
     /**
      * Case By:上报当前页面
      * Author: scene on 2017/4/27 17:05
      */
     private void uploadCurrentPage() {
         Map<String, String> params = new HashMap<>();
-        params.put("position_id","3");
-        params.put("user_id", App.USER_ID+"");
-        OkHttpUtils.post().url(API.URL_PRE+API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
+        params.put("position_id", "3");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
     private void initView() {
@@ -154,7 +155,7 @@ public class DiamondVipFragment extends BaseMainFragment {
             @Override
             public void onClickDiamondVipItem(int position) {
                 if (App.isVip < 2) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.isVip, false, true, list.get(position).getVideo_id());
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false);
                 } else {
                     toVideoDetail(list.get(position));
                 }
@@ -217,7 +218,7 @@ public class DiamondVipFragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.isVip < 2) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.isVip, false, true, info.getVideo_id());
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.isVip, false, true, info.getVideo_id(), false);
                 } else {
                     toVideoDetail(info);
                 }

@@ -107,7 +107,7 @@ public class LuncherActivity extends AppCompatActivity {
         HashMap<String,String> params=new HashMap<>();
         params.put("device",Build.DEVICE);
         params.put("system",Build.VERSION.CODENAME);
-        OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER + App.CHANNEL_ID + "/" + App.IMEI).build()
+        OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER + App.CHANNEL_ID + "/" + App.IMEI).params(params).build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int i) {

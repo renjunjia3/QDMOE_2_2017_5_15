@@ -29,6 +29,7 @@ import com.ebcnke.knulg.bean.PayResultInfo;
 import com.ebcnke.knulg.bean.UpdateInfo;
 import com.ebcnke.knulg.config.PayConfig;
 import com.ebcnke.knulg.event.ChangeTabEvent;
+import com.ebcnke.knulg.event.CheckOrderEvent;
 import com.ebcnke.knulg.ui.dialog.CustomSubmitDialog;
 import com.ebcnke.knulg.ui.dialog.DownLoadDialog;
 import com.ebcnke.knulg.ui.dialog.UpdateDialog;
@@ -369,6 +370,11 @@ public class MainActivity extends SupportActivity {
      */
     private RequestCall requestCall;
     private ProgressDialog progressDialog;
+
+    @Subscribe
+    public void onCheckOrder(CheckOrderEvent checkOrderEvent) {
+        checkOrder();
+    }
 
     private void checkOrder() {
         if (progressDialog != null) {
