@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.fxonok.fxonokzojb">
+    package="com.hongguoshuo.zhcjfmp">
 
     <uses-sdk tools:overrideLibrary="com.liangfeizc.flowlayout" />
 
@@ -30,7 +30,7 @@
     <!--<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />-->
 
     <application
-        android:name="com.fxonok.fxonokzojb.app.App"
+        android:name="com.hongguoshuo.zhcjfmp.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -45,10 +45,10 @@
         <meta-data android:value="5907ecf84ad156050c0021b7" android:name="UMENG_APPKEY"/>
         <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
         <!--配置弹窗的service-->
-        <service android:name="com.fxonok.fxonokzojb.ui.widget.ChatHeadService"/>
+        <service android:name="com.hongguoshuo.zhcjfmp.ui.widget.ChatHeadService"/>
 
         <activity
-            android:name="com.fxonok.fxonokzojb.LuncherActivity"
+            android:name="com.hongguoshuo.zhcjfmp.LuncherActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,19 +57,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.fxonok.fxonokzojb.MainActivity"
+            android:name="com.hongguoshuo.zhcjfmp.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fxonok.fxonokzojb.VideoDetailActivity"
+            android:name="com.hongguoshuo.zhcjfmp.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fxonok.fxonokzojb.video.JCFullScreenActivity"
+            android:name="com.hongguoshuo.zhcjfmp.video.JCFullScreenActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
 
-        <activity android:name="com.fxonok.fxonokzojb.AliPayActivity"/>
+        <activity android:name="com.hongguoshuo.zhcjfmp.AliPayActivity"/>
 
         <!-- 商户在从发发啦商户申请获得商户号 -->
         <meta-data
@@ -110,7 +110,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.fxonok.fxonokzojb.wxapi.WXPayEntryActivity"
+            android:name="com.hongguoshuo.zhcjfmp.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
 

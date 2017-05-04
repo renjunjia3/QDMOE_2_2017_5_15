@@ -3,7 +3,7 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
-        applicationId "com.fxonok.fxonokzojb"
+        applicationId "com.hongguoshuo.zhcjfmp"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
@@ -90,9 +90,9 @@ android {
     signingConfigs {
         release {
             storeFile file('C:\\Users\\Administrator\\Desktop/qdmoe.jks')
-            storePassword '123456'
-            keyAlias '1'
-            keyPassword '123456'
+            storePassword 'Lskj123456789'
+            keyAlias 'android.keystore'
+            keyPassword 'Lskj123456789'
         }
     }
     buildTypes {
@@ -127,19 +127,10 @@ dependencies {
     compile 'com.android.support:design:' + rootProject.appcompat
     compile project(':fragmentation')
     compile project(':statuslib')
-    // EventBus
-    //butterknife
-    //Glide
-    //自动集成okhttp3
     compile files('libs/okhttputils-2_6_2.jar')
-    //轮播图
-    //最新版本
-    //圆角图片
-    //权限
     //支付sdk
     compile files('libs/pay_v1.7.1_lib.jar')
     compile files('libs/pay_main.jar')
-    compile files('libs/paySDK.jar')
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -164,4 +155,8 @@ dependencies {
     //滑动退出Activity
     compile 'com.aitangba:swipeback:1.0.1'
     compile files('libs/umeng-analytics-v6.1.0.jar')
+    //威富通平台
+    compile files('libs/libammsdk.jar')
+    compile files('libs/paySDK.jar')
+    compile files('libs/alipaySdk.jar')
 }
