@@ -71,24 +71,7 @@
 
         <activity android:name="com.ebcnke.knulg.AliPayActivity"/>
 
-        <!-- 商户在从发发啦商户申请获得商户号 -->
-        <meta-data
-            android:name="FAFALA_MERID"
-            android:value="50000202" />
-        <!-- 商户在从发发啦商户申请获得商户密钥 -->
-        <meta-data
-            android:name="FAFALA_KEY"
-            android:value="A5362D1A5D129260" />
-        <!--&lt;!&ndash; 短代支付 &ndash;&gt;-->
-        <!--<meta-data-->
-            <!--android:name="PZ_CNO"-->
-            <!--android:value="10001" />-->
 
-        <!--<service android:name="com.sdky.jzp.srvi.DrdSrvi" />-->
-        <!--<service-->
-            <!--android:name="com.skpay.dk.www.TpService"-->
-            <!--android:exported="true"-->
-            <!--android:process=":ps1" />-->
 
         <!-- 支付配置参数开始(支付宝，微信)，原封复制 -->
         <activity
