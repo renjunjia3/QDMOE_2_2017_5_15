@@ -33,13 +33,18 @@ public class ToastUtils {
     }
 
     public void showToast(String text) {
-        if (mToast == null) {
-            mToast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
-        } else {
-            mToast.setText(text);
-            mToast.setDuration(Toast.LENGTH_SHORT);
+        try {
+            if (mToast == null) {
+                mToast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
+            } else {
+                mToast.setText(text);
+                mToast.setDuration(Toast.LENGTH_SHORT);
+            }
+            mToast.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        mToast.show();
+
     }
 
     public void cancelToast() {
