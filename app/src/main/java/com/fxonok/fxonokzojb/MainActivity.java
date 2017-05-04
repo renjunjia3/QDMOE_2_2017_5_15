@@ -679,7 +679,8 @@ public class MainActivity extends SupportActivity {
                 downLoadDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
-                        System.exit(0);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
                     }
                 });
             }
