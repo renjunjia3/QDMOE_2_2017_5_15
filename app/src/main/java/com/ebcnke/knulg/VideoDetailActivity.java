@@ -477,7 +477,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         e.printStackTrace();
-                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("支付失败，请重试");
+                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
                         if (progressDialog != null && progressDialog.isShowing()) {
                             runOnUiThread(new Runnable() {
                                 @Override

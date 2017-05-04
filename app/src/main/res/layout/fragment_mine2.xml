@@ -402,7 +402,7 @@
                 android:background="#f1d09e"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="在线投诉"
+                android:text="投诉建议"
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
 

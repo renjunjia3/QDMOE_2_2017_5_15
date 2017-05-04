@@ -5,7 +5,7 @@
 
     <uses-sdk tools:overrideLibrary="com.liangfeizc.flowlayout" />
 
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -13,9 +13,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 短代支付 -->
     <!--<uses-permission android:name="android.permission.SEND_SMS" />-->
     <!--<uses-permission android:name="android.permission.READ_SMS" />-->
@@ -42,10 +42,16 @@
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
         <!--配置umeng-->
-        <meta-data android:value="5907ecf84ad156050c0021b7" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5907ecf84ad156050c0021b7" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Channel ID" />
         <!--配置弹窗的service-->
-        <service android:name="com.ebcnke.knulg.ui.widget.ChatHeadService"/>
+        <service android:name="com.ebcnke.knulg.ui.widget.ChatHeadService" />
+        <!--配置角标的service-->
+        <service android:name="com.ebcnke.knulg.service.BadgeIntentService" />
 
         <activity
             android:name="com.ebcnke.knulg.LuncherActivity"
@@ -69,8 +75,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
 
-        <activity android:name="com.ebcnke.knulg.AliPayActivity"/>
-
+        <activity android:name="com.ebcnke.knulg.AliPayActivity" />
 
 
         <!-- 支付配置参数开始(支付宝，微信)，原封复制 -->

@@ -302,7 +302,7 @@ public class MainActivity extends SupportActivity {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-                        ToastUtils.getInstance(MainActivity.this).showToast("支付失败，请重试");
+                        ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
                     }
 
                     @Override

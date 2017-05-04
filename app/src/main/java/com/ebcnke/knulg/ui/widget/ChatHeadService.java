@@ -21,6 +21,7 @@ import com.ebcnke.knulg.MainActivity;
 import com.ebcnke.knulg.R;
 import com.ebcnke.knulg.bean.VideoInfo;
 import com.ebcnke.knulg.bean.VipInfo;
+import com.ebcnke.knulg.service.BadgeIntentService;
 import com.ebcnke.knulg.util.SharedPreferencesUtil;
 
 import java.lang.ref.WeakReference;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class ChatHeadService extends Service {
     private WindowManager windowManager;
@@ -129,6 +132,10 @@ public class ChatHeadService extends Service {
                                 viewIsadded = true;
                                 count++;
                                 exitTime = 0;
+                                boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 1);
+                                if (!success) {
+                                    startService(new Intent(ChatHeadService.this, BadgeIntentService.class).putExtra("badgeCount", 1));
+                                }
                             }
                         }
                     } else {
@@ -141,6 +148,10 @@ public class ChatHeadService extends Service {
                                 viewIsadded = true;
                                 count++;
                                 exitTime = 0;
+                                boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 1);
+                                if (!success) {
+                                    startService(new Intent(ChatHeadService.this, BadgeIntentService.class).putExtra("badgeCount", 1));
+                                }
                             }
                         }
                     }
