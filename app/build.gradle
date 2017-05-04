@@ -3,7 +3,7 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
-        applicationId "com.hongguoshuo.zhcjfmp"
+        applicationId "com.ebcnke.knulg"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
@@ -90,9 +90,9 @@ android {
     signingConfigs {
         release {
             storeFile file('C:\\Users\\Administrator\\Desktop/qdmoe.jks')
-            storePassword 'Lskj123456789'
-            keyAlias 'android.keystore'
-            keyPassword 'Lskj123456789'
+            storePassword '123456'
+            keyAlias '1'
+            keyPassword '123456'
         }
     }
     buildTypes {
