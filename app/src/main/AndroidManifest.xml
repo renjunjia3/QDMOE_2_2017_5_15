@@ -50,8 +50,6 @@
             android:value="Channel ID" />
         <!--配置弹窗的service-->
         <service android:name="com.ebcnke.knulg.ui.widget.ChatHeadService" />
-        <!--配置角标的service-->
-        <service android:name="com.ebcnke.knulg.service.BadgeIntentService" />
 
         <activity
             android:name="com.ebcnke.knulg.LuncherActivity"

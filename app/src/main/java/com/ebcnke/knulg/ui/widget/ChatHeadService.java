@@ -1,6 +1,8 @@
 package com.ebcnke.knulg.ui.widget;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,8 @@ import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +25,11 @@ import com.ebcnke.knulg.MainActivity;
 import com.ebcnke.knulg.R;
 import com.ebcnke.knulg.bean.VideoInfo;
 import com.ebcnke.knulg.bean.VipInfo;
-import com.ebcnke.knulg.service.BadgeIntentService;
 import com.ebcnke.knulg.util.SharedPreferencesUtil;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -99,7 +104,7 @@ public class ChatHeadService extends Service {
             e.printStackTrace();
         }
 
-        new Timer().schedule(timerTask, 60 * 1000, 60 * 1000);
+        new Timer().schedule(timerTask, 1 * 60 * 1000, 1 * 60 * 1000);
     }
 
     TimerTask timerTask = new TimerTask() {
@@ -134,7 +139,8 @@ public class ChatHeadService extends Service {
                                 exitTime = 0;
                                 boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 1);
                                 if (!success) {
-                                    startService(new Intent(ChatHeadService.this, BadgeIntentService.class).putExtra("badgeCount", 1));
+                                    removeBadge();
+                                    setBadgeOfMIUI(ChatHeadService.this, 1);
                                 }
                             }
                         }
@@ -150,7 +156,8 @@ public class ChatHeadService extends Service {
                                 exitTime = 0;
                                 boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 1);
                                 if (!success) {
-                                    startService(new Intent(ChatHeadService.this, BadgeIntentService.class).putExtra("badgeCount", 1));
+                                    removeBadge();
+                                    setBadgeOfMIUI(ChatHeadService.this, 1);
                                 }
                             }
                         }
@@ -181,5 +188,38 @@ public class ChatHeadService extends Service {
             }
         }
         super.onDestroy();
+    }
+
+
+    /**
+     * 设置MIUI的Badge
+     *
+     * @param context context
+     * @param count   count
+     */
+    private static void setBadgeOfMIUI(Context context, int count) {
+        Log.d("xys", "Launcher : MIUI");
+        NotificationManager mNotificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setContentTitle("title").setContentText("text").setSmallIcon(R.mipmap.ic_launcher);
+        Notification notification = builder.build();
+        try {
+            Field field = notification.getClass().getDeclaredField("extraNotification");
+            Object extraNotification = field.get(notification);
+            Method method = extraNotification.getClass().getDeclaredMethod("setMessageCount", int.class);
+            method.invoke(extraNotification, count);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mNotificationManager.notify(0, notification);
+    }
+
+    /**
+     * Case By:移除角标
+     * Author: scene on 2017/5/4 14:56
+     */
+    private void removeBadge() {
+        setBadgeOfMIUI(this, 0);
     }
 }

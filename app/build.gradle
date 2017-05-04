@@ -80,7 +80,9 @@ android {
         NNY_1027 {
             manifestPlaceholders = [CHANNEL_ID: 1037]
         }
-
+        NNY_1030{
+            manifestPlaceholders = [CHANNEL_ID: 1040]
+        }
 
     }
 
