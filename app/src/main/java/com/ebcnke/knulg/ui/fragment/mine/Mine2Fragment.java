@@ -116,6 +116,11 @@ public class Mine2Fragment extends BaseBackFragment {
         } else {
             openVip.setVisibility(View.GONE);
         }
+        if(App.isVip==0){
+            openVip.setImageResource(R.drawable.ic_mine_open_vip);
+        }else{
+            openVip.setImageResource(R.drawable.ic_mine_update_vip);
+        }
         account.setText("ac00" + (App.USER_ID + 235));
         password.setText("qdacp1pd5");
     }

@@ -107,6 +107,12 @@ public class MineFragment extends BaseMainFragment {
                 vipId.setText("海超速速黑金会员" + App.USER_ID);
                 break;
         }
+        if(App.isVip==0){
+            openVip.setImageResource(R.drawable.ic_mine_open_vip);
+        }else{
+            openVip.setImageResource(R.drawable.ic_mine_update_vip);
+        }
+
         if (App.isVip == 0 || App.isVip == 1) {
             openVip.setVisibility(View.VISIBLE);
         } else {
