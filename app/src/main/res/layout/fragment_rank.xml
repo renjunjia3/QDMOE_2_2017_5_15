@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.ebcnke.knulg.pull_loadmore.PtrClassicFrameLayout
+        <com.fldhqd.nspmalf.pull_loadmore.PtrClassicFrameLayout
             android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -22,7 +22,7 @@
                 android:divider="#99688a"
                 android:dividerHeight="1dp" />
 
-        </com.ebcnke.knulg.pull_loadmore.PtrClassicFrameLayout>
+        </com.fldhqd.nspmalf.pull_loadmore.PtrClassicFrameLayout>
 
     </wiki.scene.statuslib.StatusViewLayout>
 

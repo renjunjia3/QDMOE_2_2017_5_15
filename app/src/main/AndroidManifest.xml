@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ebcnke.knulg">
+    package="com.fldhqd.nspmalf">
 
     <uses-sdk tools:overrideLibrary="com.liangfeizc.flowlayout" />
 
@@ -30,7 +30,7 @@
     <!--<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />-->
 
     <application
-        android:name="com.ebcnke.knulg.app.App"
+        android:name="com.fldhqd.nspmalf.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -49,10 +49,10 @@
             android:name="UMENG_CHANNEL"
             android:value="Channel ID" />
         <!--配置弹窗的service-->
-        <service android:name="com.ebcnke.knulg.ui.widget.ChatHeadService" />
+        <service android:name="com.fldhqd.nspmalf.ui.widget.ChatHeadService" />
 
         <activity
-            android:name="com.ebcnke.knulg.LuncherActivity"
+            android:name="com.fldhqd.nspmalf.LuncherActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,19 +61,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ebcnke.knulg.MainActivity"
+            android:name="com.fldhqd.nspmalf.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ebcnke.knulg.VideoDetailActivity"
+            android:name="com.fldhqd.nspmalf.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ebcnke.knulg.video.JCFullScreenActivity"
+            android:name="com.fldhqd.nspmalf.video.JCFullScreenActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
 
-        <activity android:name="com.ebcnke.knulg.AliPayActivity" />
+        <activity android:name="com.fldhqd.nspmalf.AliPayActivity" />
 
 
         <!-- 支付配置参数开始(支付宝，微信)，原封复制 -->
@@ -96,7 +96,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.ebcnke.knulg.wxapi.WXPayEntryActivity"
+            android:name="com.fldhqd.nspmalf.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
 
