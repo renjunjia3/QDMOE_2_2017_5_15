@@ -154,9 +154,6 @@ public class MagnetResultFragment extends BaseBackFragment implements SearchAdap
         params.put("user_id", App.USER_ID + "");
         params.put("keyword", keyWord);
         OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
-        if(params==null){
-            params=new HashMap<>();
-        }
     }
 
     private void initDialog() {
