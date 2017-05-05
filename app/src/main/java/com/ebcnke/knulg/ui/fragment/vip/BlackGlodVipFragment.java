@@ -192,6 +192,7 @@ public class BlackGlodVipFragment extends BaseMainFragment {
         if (requestCall != null) {
             requestCall.cancel();
         }
+        ultraViewPager.setAdapter(null);
         super.onDestroyView();
     }
 

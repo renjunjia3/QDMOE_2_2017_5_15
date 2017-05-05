@@ -440,6 +440,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         if (commentReqstCall != null) {
             commentReqstCall.cancel();
         }
+        commentListView.setAdapter(null);
         DialogUtil.getInstance().cancelAllDialog();
         EventBus.getDefault().unregister(this);
         unbinder.unbind();

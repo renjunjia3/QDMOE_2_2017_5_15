@@ -170,6 +170,7 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
 
     @Override
     public void onDestroyView() {
+        listview.setAdapter(null);
         super.onDestroyView();
     }
 

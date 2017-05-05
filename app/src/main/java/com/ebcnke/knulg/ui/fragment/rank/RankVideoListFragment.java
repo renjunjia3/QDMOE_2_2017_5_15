@@ -312,6 +312,7 @@ public class RankVideoListFragment extends BaseBackFragment {
         if (requestCall != null) {
             requestCall.cancel();
         }
+        gridView.setAdapter(null);
         super.onDestroyView();
     }
 

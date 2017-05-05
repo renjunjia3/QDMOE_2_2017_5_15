@@ -276,6 +276,7 @@ public class TrySeeFragment extends BaseMainFragment {
         if (getDataCall != null) {
             getDataCall.cancel();
         }
+        listView.setAdapter(null);
         super.onDestroyView();
     }
 

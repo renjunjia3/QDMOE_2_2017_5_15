@@ -224,6 +224,7 @@ public class FilmFragment extends BaseMainFragment {
         if (requestCall != null) {
             requestCall.cancel();
         }
+        listview.setAdapter(null);
         super.onDestroyView();
     }
 

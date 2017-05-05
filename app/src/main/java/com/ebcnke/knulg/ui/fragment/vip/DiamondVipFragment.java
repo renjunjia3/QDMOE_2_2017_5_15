@@ -355,6 +355,7 @@ public class DiamondVipFragment extends BaseMainFragment {
         if (getDataCall != null) {
             getDataCall.cancel();
         }
+        recyclerView.setAdapter(null);
         super.onDestroyView();
     }
 

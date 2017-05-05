@@ -52,8 +52,7 @@ public class AccelerationChannelVipDialog extends Dialog {
         }
 
         public AccelerationChannelVipDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final AccelerationChannelVipDialog dialog = new AccelerationChannelVipDialog(context, R.style.Dialog);
 
             View layout = inflater.inflate(R.layout.dialog_speed_vip, null);

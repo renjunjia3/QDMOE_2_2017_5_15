@@ -213,6 +213,7 @@ public class RankFragment extends BaseMainFragment {
         if (requestCall != null) {
             requestCall.cancel();
         }
+        listview.setAdapter(null);
         super.onDestroyView();
     }
 

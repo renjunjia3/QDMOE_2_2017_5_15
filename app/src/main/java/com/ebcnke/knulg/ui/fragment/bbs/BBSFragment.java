@@ -235,6 +235,7 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
         if (call != null) {
             call.cancel();
         }
+        gridView.setAdapter(null);
         super.onDestroyView();
     }
 

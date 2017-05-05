@@ -318,6 +318,7 @@ public class GlodVipFragment extends BaseMainFragment {
         if (getDataCall != null) {
             getDataCall.cancel();
         }
+        recyclerView.setAdapter(null);
         super.onDestroyView();
     }
 
