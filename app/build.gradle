@@ -14,9 +14,7 @@ android {
         }
     }
     productFlavors {
-        NNY_Test {
-            manifestPlaceholders = [CHANNEL_ID: 1027]
-        }
+
         NNY_1001 {
             manifestPlaceholders = [CHANNEL_ID: 1008]
         }
@@ -82,6 +80,42 @@ android {
         }
         NNY_1030{
             manifestPlaceholders = [CHANNEL_ID: 1040]
+        }
+        NNY_1031{
+            manifestPlaceholders = [CHANNEL_ID: 1041]
+        }
+        NNY_1032{
+            manifestPlaceholders = [CHANNEL_ID: 1042]
+        }
+        NNY_1033{
+            manifestPlaceholders = [CHANNEL_ID: 1043]
+        }
+        NNY_1034{
+            manifestPlaceholders = [CHANNEL_ID: 1044]
+        }
+        NNY_1035{
+            manifestPlaceholders = [CHANNEL_ID: 1045]
+        }
+        NNY_1036{
+            manifestPlaceholders = [CHANNEL_ID: 1046]
+        }
+        NNY_1037{
+            manifestPlaceholders = [CHANNEL_ID: 1047]
+        }
+        NNY_1038{
+            manifestPlaceholders = [CHANNEL_ID: 1048]
+        }
+        NNY_1039{
+            manifestPlaceholders = [CHANNEL_ID: 1049]
+        }
+        NNY_1040{
+            manifestPlaceholders = [CHANNEL_ID: 1050]
+        }
+        NNY_1041{
+            manifestPlaceholders = [CHANNEL_ID: 1051]
+        }
+        NNY_1042{
+            manifestPlaceholders = [CHANNEL_ID: 1052]
         }
 
     }
