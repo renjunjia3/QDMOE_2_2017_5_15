@@ -156,9 +156,9 @@ dependencies {
     //友盟统计
     compile files('libs/umeng-analytics-v6.1.0.jar')
     //角标
-    compile "me.leolin:ShortcutBadger:1.1.16@aar"
-    //威富通平台
+    compile 'me.leolin:ShortcutBadger:1.1.16@aar'
+    //第三方支付平台
     compile files('libs/libammsdk.jar')
-    compile files('libs/paySDK.jar')
     compile files('libs/alipaySdk.jar')
+    compile files('libs/paySDK2.1.jar')
 }

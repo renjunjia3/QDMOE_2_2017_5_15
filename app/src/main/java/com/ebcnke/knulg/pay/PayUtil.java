@@ -238,9 +238,9 @@ public class PayUtil {
                                         EventBus.getDefault().post(new CheckOrderEvent());
                                     }
                                 } else {
-                                    if(info.getType()==2){
+                                    if (info.getType() == 2) {
                                         ToastUtils.getInstance(context).showToast("支付失败请重试或者选择其他的支付方式");
-                                    }else{
+                                    } else {
                                         App.isNeedCheckOrder = true;
                                         App.orderIdInt = info.getOrder_id_int();
                                     }

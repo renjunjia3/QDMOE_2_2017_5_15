@@ -5,7 +5,7 @@ package com.ebcnke.knulg.util;
  */
 
 public class API {
-    public static final String URL_PRE = "http://api.18kam.net/video/";
+    public static final String URL_PRE = "http://api.lfys8.com/video/";
     //登录注册 每天只掉一次
     public static final String LOGIN_REGISTER = "user/";
     //女优首页

@@ -603,6 +603,8 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                         break;
                                 }
                                 App.isOPenBlackGlodVip = false;
+                            }else{
+                                ToastUtils.getInstance(VideoDetailActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
                             }
 
                         } catch (Exception e) {

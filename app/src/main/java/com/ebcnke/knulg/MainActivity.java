@@ -459,6 +459,8 @@ public class MainActivity extends SupportActivity {
                                 }
 
 
+                            }else{
+                                ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
                             }
                             App.isOPenBlackGlodVip = false;
                         } catch (Exception e) {
