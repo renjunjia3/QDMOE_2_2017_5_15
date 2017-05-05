@@ -61,8 +61,6 @@ public class RankFragment extends BaseMainFragment {
     private RankAdapter adapter;
 
     //headerview
-    private View headerView;
-    private CustomeGridView gridView;
     private RankHeaderAdapter headerAdapter;
 
     public static RankFragment newInstance() {
@@ -87,16 +85,18 @@ public class RankFragment extends BaseMainFragment {
         getData(true);
         uploadCurrentPage();
     }
+
     /**
      * Case By:上报当前页面
      * Author: scene on 2017/4/27 17:05
      */
     private void uploadCurrentPage() {
         Map<String, String> params = new HashMap<>();
-        params.put("position_id","5");
-        params.put("user_id", App.USER_ID+"");
-        OkHttpUtils.post().url(API.URL_PRE+API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
+        params.put("position_id", "5");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
+
     private void initView() {
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
@@ -124,14 +124,14 @@ public class RankFragment extends BaseMainFragment {
 
     private void addheader() {
         headerList = new ArrayList<>();
-        headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_rank_header, null);
-        gridView = (CustomeGridView) headerView.findViewById(R.id.headGridView);
+        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_rank_header, null);
+        CustomeGridView gridView = (CustomeGridView) headerView.findViewById(R.id.headGridView);
         headerAdapter = new RankHeaderAdapter(getContext(), headerList);
         gridView.setAdapter(headerAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int number = 0;
+                int number;
                 if (position == 0) {
                     number = 2;
                 } else if (position == 1) {

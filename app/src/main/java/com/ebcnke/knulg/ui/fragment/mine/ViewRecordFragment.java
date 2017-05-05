@@ -13,10 +13,12 @@ import com.ebcnke.knulg.base.BaseBackFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Administrator on 2017/3/15.
- */
 
+/**
+ * Case By: 观看记录等
+ * package:
+ * Author：scene on 2017/5/5 14:18
+ */
 public class ViewRecordFragment extends BaseBackFragment {
     public static final int TYPE_VIEW_RECORD = 1;
     public static final int TYPE_FRAVOTER = 2;
