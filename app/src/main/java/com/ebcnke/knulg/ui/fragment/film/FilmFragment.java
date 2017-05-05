@@ -1,12 +1,16 @@
 package com.ebcnke.knulg.ui.fragment.film;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ebcnke.knulg.R;
@@ -19,7 +23,9 @@ import com.ebcnke.knulg.itemdecoration.CustomItemDecotation;
 import com.ebcnke.knulg.pull_loadmore.PtrClassicFrameLayout;
 import com.ebcnke.knulg.pull_loadmore.PtrDefaultHandler;
 import com.ebcnke.knulg.pull_loadmore.PtrFrameLayout;
+import com.ebcnke.knulg.pull_loadmore.loadmore.GridViewWithHeaderAndFooter;
 import com.ebcnke.knulg.util.API;
+import com.ebcnke.knulg.util.DialogUtil;
 import com.ebcnke.knulg.util.NetWorkUtils;
 import com.ebcnke.knulg.util.ScreenUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -46,8 +52,8 @@ import wiki.scene.statuslib.StatusViewLayout;
 
 public class FilmFragment extends BaseMainFragment {
 
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @BindView(R.id.listview)
+    ListView listview;
     @BindView(R.id.ptr_layout)
     PtrClassicFrameLayout ptrLayout;
     @BindView(R.id.statusViewLayout)
@@ -57,6 +63,8 @@ public class FilmFragment extends BaseMainFragment {
 
     private List<FlimInfo> list;
     private FlimAdapter adapter;
+
+    private ProgressDialog progressDialog;
 
     public static FilmFragment newInstance() {
         Bundle args = new Bundle();
@@ -80,6 +88,7 @@ public class FilmFragment extends BaseMainFragment {
         getData(true);
         uploadCurrentPage();
     }
+
     /**
      * Case By:上报当前页面
      * Author: scene on 2017/4/27 17:05
@@ -90,7 +99,9 @@ public class FilmFragment extends BaseMainFragment {
         params.put("user_id", App.USER_ID + "");
         OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
+
     private void initView() {
+        addFooterView();
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
@@ -100,10 +111,7 @@ public class FilmFragment extends BaseMainFragment {
         });
         list = new ArrayList<>();
         adapter = new FlimAdapter(getContext(), list);
-        int space = (int) ScreenUtils.instance(getContext()).dip2px(10);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new CustomItemDecotation(space, space, 1, true));
-        recyclerView.setAdapter(adapter);
+        listview.setAdapter(adapter);
 
         adapter.setOnClickFlimItemListener(new FlimAdapter.OnClickFlimItemListener() {
             @Override
@@ -111,6 +119,57 @@ public class FilmFragment extends BaseMainFragment {
                 EventBus.getDefault().post(new StartBrotherEvent(FlimDetailFragment.newInstance(list.get(position).getId(), list.get(position).getTitle())));
             }
         });
+    }
+
+
+    private void addFooterView() {
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.isVip == 0) {
+            footerText.setText("请开通会员开放更多影片资源");
+        } else if (App.isVip == 1) {
+            footerText.setText("请升级钻石会员开放更多影片资源");
+        } else if (App.isVip < 5 && App.isHeijin == 0) {
+            footerText.setText("请升级黑金会员开放更多影片资源");
+        } else {
+            footerText.setVisibility(View.GONE);
+        }
+        footerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (App.isVip < 5 && App.isHeijin == 0) {
+                    if (App.isVip == 0) {
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                    } else if (App.isVip == 1) {
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                    } else {
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                    }
+                } else {
+                    if (progressDialog == null) {
+                        progressDialog = new ProgressDialog(getContext());
+                        progressDialog.setMessage("加载中...");
+                    }
+                    if (!progressDialog.isShowing()) {
+                        progressDialog.show();
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (progressDialog != null && progressDialog.isShowing()) {
+                                        progressDialog.cancel();
+                                    }
+                                }
+                            });
+                        }
+                    }, 3000);
+                }
+            }
+        });
+        listview.addFooterView(footerView);
     }
 
     private void getData(final boolean isShowLoad) {
@@ -162,7 +221,7 @@ public class FilmFragment extends BaseMainFragment {
 
     @Override
     public void onDestroyView() {
-        if(requestCall!=null){
+        if (requestCall != null) {
             requestCall.cancel();
         }
         super.onDestroyView();

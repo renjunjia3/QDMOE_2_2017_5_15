@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
  * Author：scene on 2017/4/19 17:44
  */
 
-public class FlimDetailAdapter extends RecyclerView.Adapter {
+public class FlimDetailAdapter extends BaseAdapter {
     private Context context;
     private List<VideoInfo> list;
 
@@ -42,14 +44,31 @@ public class FlimDetailAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new FlimDetailViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_glod_vip_item_item, parent, false));
+    public int getCount() {
+        return list.size();
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public Object getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        FlimDetailViewHolder viewHolder;
+        if(convertView==null){
+            convertView=LayoutInflater.from(context).inflate(R.layout.fragment_glod_vip_item_item, parent, false);
+            viewHolder=new FlimDetailViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        }else{
+            viewHolder= (FlimDetailViewHolder) convertView.getTag();
+        }
         VideoInfo info = list.get(position);
-        FlimDetailViewHolder viewHolder = (FlimDetailViewHolder) holder;
         viewHolder.playCount.setText(info.getHits() + "次");
         viewHolder.title.setText(info.getTitle());
         viewHolder.tag.setVisibility(View.GONE);
@@ -67,14 +86,13 @@ public class FlimDetailAdapter extends RecyclerView.Adapter {
                 }
             }
         });
+
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    static class FlimDetailViewHolder extends RecyclerView.ViewHolder {
+    static class FlimDetailViewHolder  {
+        @BindView(R.id.item_view)
+        RelativeLayout itemView;
         @BindView(R.id.image)
         ImageView image;
         @BindView(R.id.tag)
@@ -87,7 +105,6 @@ public class FlimDetailAdapter extends RecyclerView.Adapter {
         TextView playCount;
 
         FlimDetailViewHolder(View view) {
-            super(view);
             ButterKnife.bind(this, view);
         }
     }

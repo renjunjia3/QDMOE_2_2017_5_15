@@ -121,7 +121,7 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
             @Override
             public void onClick(View v) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目只对会员开放，请先升级会员", App.isVip, true);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目只对会员开放，请先开通会员", App.isVip, true);
                 } else if (App.isVip == 1) {
                     DialogUtil.getInstance().showSubmitDialog(getContext(), false, "您的会员权限不足，请先升级钻石会员", App.isVip, true);
                 }

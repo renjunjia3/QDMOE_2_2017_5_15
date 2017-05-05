@@ -1,12 +1,15 @@
 package com.ebcnke.knulg.ui.fragment.bbs;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ebcnke.knulg.R;
@@ -18,6 +21,7 @@ import com.ebcnke.knulg.itemdecoration.CustomItemDecotation;
 import com.ebcnke.knulg.pull_loadmore.PtrClassicFrameLayout;
 import com.ebcnke.knulg.pull_loadmore.PtrDefaultHandler;
 import com.ebcnke.knulg.pull_loadmore.PtrFrameLayout;
+import com.ebcnke.knulg.pull_loadmore.loadmore.GridViewWithHeaderAndFooter;
 import com.ebcnke.knulg.util.API;
 import com.ebcnke.knulg.util.DialogUtil;
 import com.ebcnke.knulg.util.NetWorkUtils;
@@ -44,8 +48,8 @@ import wiki.scene.statuslib.StatusViewLayout;
 
 public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemOnClickListener {
 
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @BindView(R.id.gridView)
+    GridViewWithHeaderAndFooter gridView;
     @BindView(R.id.statusViewLayout)
     StatusViewLayout statusViewLayout;
     @BindView(R.id.ptr_layout)
@@ -56,6 +60,8 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
     private List<BBSInfo> lists;
 
     private BBSAdapter adapter;
+
+    private ProgressDialog progressDialog;
 
     public static BBSFragment newInstance() {
         Bundle args = new Bundle();
@@ -100,16 +106,62 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
             }
         });
 
+        addFooterView();
+
         lists = new ArrayList<>();
         adapter = new BBSAdapter(getContext(), lists);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(layoutManager);
-        ScreenUtils screenUtils = ScreenUtils.instance(getContext());
-        recyclerView.addItemDecoration(new CustomItemDecotation(screenUtils.dp2px(10f), screenUtils.dp2px(10), 2, true));
-        recyclerView.setAdapter(adapter);
-
         adapter.setBbsItemOnClickListener(this);
+        gridView.setAdapter(adapter);
+    }
 
+    private void addFooterView() {
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.isVip == 0) {
+            footerText.setText("请开通会员开放更多影片资源");
+        } else if (App.isVip == 1) {
+            footerText.setText("请升级钻石会员开放更多影片资源");
+        } else if (App.isVip < 5 && App.isHeijin == 0) {
+            footerText.setText("请升级黑金会员开放更多影片资源");
+        } else {
+            footerText.setVisibility(View.GONE);
+        }
+        footerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (App.isVip < 5 && App.isHeijin == 0) {
+                    if (App.isVip == 0) {
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                    } else if (App.isVip == 1) {
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                    } else {
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                    }
+                } else {
+                    if (progressDialog == null) {
+                        progressDialog = new ProgressDialog(getContext());
+                        progressDialog.setMessage("加载中...");
+                    }
+                    if (!progressDialog.isShowing()) {
+                        progressDialog.show();
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (progressDialog != null && progressDialog.isShowing()) {
+                                        progressDialog.cancel();
+                                    }
+                                }
+                            });
+                        }
+                    }, 3000);
+                }
+            }
+        });
+        gridView.addFooterView(footerView);
     }
 
     /**

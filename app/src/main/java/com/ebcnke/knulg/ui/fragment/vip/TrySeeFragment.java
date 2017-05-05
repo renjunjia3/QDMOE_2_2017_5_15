@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.ebcnke.knulg.R;
@@ -21,6 +22,7 @@ import com.ebcnke.knulg.pull_loadmore.PtrClassicFrameLayout;
 import com.ebcnke.knulg.pull_loadmore.PtrDefaultHandler;
 import com.ebcnke.knulg.pull_loadmore.PtrFrameLayout;
 import com.ebcnke.knulg.util.API;
+import com.ebcnke.knulg.util.DialogUtil;
 import com.ebcnke.knulg.util.GlideImageLoader;
 import com.ebcnke.knulg.util.NetWorkUtils;
 import com.ebcnke.knulg.util.SharedPreferencesUtil;
@@ -69,6 +71,9 @@ public class TrySeeFragment extends BaseMainFragment {
 
     //banner
     private View bannerView;
+    //footer
+    private View footerView;
+    private TextView footerText;
 
     public static TrySeeFragment newInstance() {
         Bundle args = new Bundle();
@@ -89,9 +94,27 @@ public class TrySeeFragment extends BaseMainFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         statusViewLayout.showContent();
+        addFooterView();
         initView();
         getTrySeeData(true);
         uploadCurrentPage();
+    }
+
+    private void addFooterView() {
+        footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+        footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.isVip == 0) {
+            footerText.setText("请开通会员开放更多影片资源");
+        }
+        footerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (App.isVip == 0) {
+                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                }
+            }
+        });
+        listView.addFooterView(footerView);
     }
 
     /**

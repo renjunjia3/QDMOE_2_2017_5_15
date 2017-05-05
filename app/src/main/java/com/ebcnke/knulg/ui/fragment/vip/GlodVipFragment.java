@@ -106,6 +106,7 @@ public class GlodVipFragment extends BaseMainFragment {
     }
 
     private void initView() {
+
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
@@ -131,28 +132,14 @@ public class GlodVipFragment extends BaseMainFragment {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new GlodVipAdapter(getContext(), list);
         mAdapter = new RecyclerAdapterWithHF(adapter);
-        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
-        //设置footerView的事件
-        footerView.findViewById(R.id.page1).setOnClickListener(footerClickListener);
-        footerView.findViewById(R.id.page2).setOnClickListener(footerClickListener);
-        footerView.findViewById(R.id.page3).setOnClickListener(footerClickListener);
-        footerView.findViewById(R.id.page4).setOnClickListener(footerClickListener);
-        footerView.findViewById(R.id.page5).setOnClickListener(footerClickListener);
-        footerView.findViewById(R.id.page_next).setOnClickListener(footerClickListener);
-        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
-        if (App.isVip > 0) {
-            footerText.setVisibility(View.GONE);
-        } else {
-            footerText.setVisibility(View.VISIBLE);
-        }
-        mAdapter.addFooter(footerView);
+        addFooterView();
         recyclerView.addItemDecoration(new DiamondItemDecoration((int) ScreenUtils.instance(getContext()).dip2px(3), list, App.isVip < 1));
         recyclerView.setAdapter(mAdapter);
         adapter.setOnClickGlodVipItemListener(new GlodVipAdapter.OnClickGlodVipItemListener() {
             @Override
             public void onClickGlodVipItem(int position) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(),false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false);
                 } else {
                     toVideoDetail(list.get(position));
                 }
@@ -161,12 +148,27 @@ public class GlodVipFragment extends BaseMainFragment {
 
     }
 
+    private void addFooterView() {
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+        //设置footerView的事件
+        footerView.setOnClickListener(footerClickListener);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.isVip == 0) {
+            footerText.setText("请开通会员开放更多影片资源");
+        } else if (App.isVip == 1) {
+            footerText.setText("请升级成为钻石会员开放更多影片资源");
+        }
+        mAdapter.addFooter(footerView);
+    }
+
     //footer点击事件
     private View.OnClickListener footerClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (App.isVip < 1) {
+            if (App.isVip == 0) {
                 DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+            } else if (App.isVip == 1) {
+                DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
             } else {
                 if (progressDialog == null) {
                     progressDialog = new ProgressDialog(getContext());
@@ -217,7 +219,7 @@ public class GlodVipFragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, info.getVideo_id(),false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, info.getVideo_id(), false);
                 } else {
                     toVideoDetail(info);
                 }

@@ -1,10 +1,10 @@
 package com.ebcnke.knulg.ui.fragment.film;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +19,13 @@ import com.ebcnke.knulg.adapter.FlimDetailAdapter;
 import com.ebcnke.knulg.app.App;
 import com.ebcnke.knulg.base.BaseBackFragment;
 import com.ebcnke.knulg.bean.VideoInfo;
-import com.ebcnke.knulg.itemdecoration.CustomItemDecotation;
 import com.ebcnke.knulg.pull_loadmore.PtrClassicFrameLayout;
 import com.ebcnke.knulg.pull_loadmore.PtrDefaultHandler;
 import com.ebcnke.knulg.pull_loadmore.PtrFrameLayout;
+import com.ebcnke.knulg.pull_loadmore.loadmore.GridViewWithHeaderAndFooter;
 import com.ebcnke.knulg.util.API;
 import com.ebcnke.knulg.util.DialogUtil;
 import com.ebcnke.knulg.util.NetWorkUtils;
-import com.ebcnke.knulg.util.ScreenUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -54,8 +53,8 @@ public class FlimDetailFragment extends BaseBackFragment {
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @BindView(R.id.gridView)
+    GridViewWithHeaderAndFooter gridView;
     @BindView(R.id.ptr_layout)
     PtrClassicFrameLayout ptrLayout;
     @BindView(R.id.statusViewLayout)
@@ -68,6 +67,8 @@ public class FlimDetailFragment extends BaseBackFragment {
     private FlimDetailAdapter adapter;
 
     private RequestCall requestCall;
+
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,6 +121,7 @@ public class FlimDetailFragment extends BaseBackFragment {
     }
 
     private void initView() {
+        addFooterView();
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
@@ -130,21 +132,67 @@ public class FlimDetailFragment extends BaseBackFragment {
         ptrLayout.disableWhenHorizontalMove(false);
         list = new ArrayList<>();
         adapter = new FlimDetailAdapter(getContext(), list);
-        int space = (int) ScreenUtils.instance(getContext()).dip2px(3);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.addItemDecoration(new CustomItemDecotation(space, space, 2, true));
-        recyclerView.setAdapter(adapter);
-
+        gridView.setAdapter(adapter);
         adapter.setOnClickItemVideoListener(new FlimDetailAdapter.OnClickItemVideoListener() {
             @Override
             public void onClickItemVideo(int positon) {
                 if (App.isVip > 0) {
                     toVideoDetail(list.get(positon));
                 } else {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(positon).getVideo_id(),false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(positon).getVideo_id(), false);
                 }
             }
         });
+    }
+
+    private void addFooterView() {
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.isVip == 0) {
+            footerText.setText("请开通会员开放更多影片资源");
+        } else if (App.isVip == 1) {
+            footerText.setText("请升级钻石会员开放更多影片资源");
+        } else if (App.isVip < 5 && App.isHeijin == 0) {
+            footerText.setText("请升级黑金会员开放更多影片资源");
+        } else {
+            footerText.setVisibility(View.GONE);
+        }
+        footerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (App.isVip < 5 && App.isHeijin == 0) {
+                    if (App.isVip == 0) {
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                    } else if (App.isVip == 1) {
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                    } else {
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                    }
+                } else {
+                    if (progressDialog == null) {
+                        progressDialog = new ProgressDialog(getContext());
+                        progressDialog.setMessage("加载中...");
+                    }
+                    if (!progressDialog.isShowing()) {
+                        progressDialog.show();
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (progressDialog != null && progressDialog.isShowing()) {
+                                        progressDialog.cancel();
+                                    }
+                                }
+                            });
+                        }
+                    }, 3000);
+                }
+            }
+        });
+        gridView.addFooterView(footerView);
     }
 
     private void getData(final boolean isShowLoad) {
@@ -212,7 +260,7 @@ public class FlimDetailFragment extends BaseBackFragment {
     public void onDestroyView() {
         if (requestCall != null)
             requestCall.cancel();
-        recyclerView.setAdapter(null);
+        gridView.setAdapter(null);
         _mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         hideSoftInput();
         super.onDestroyView();

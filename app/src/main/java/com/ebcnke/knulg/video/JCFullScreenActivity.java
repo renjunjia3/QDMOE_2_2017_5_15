@@ -141,7 +141,7 @@ public class JCFullScreenActivity extends Activity {
             mJcVideoPlayer.text2.setText("升级钻石观看超长视频");
             mJcVideoPlayer.text3.setText("升级钻石观看超长视频");
 
-            mJcVideoPlayer.openVip.setText("开通钻石会员");
+            mJcVideoPlayer.openVip.setText("升级钻石会员");
         } else if (App.isVip == 2) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
@@ -156,7 +156,7 @@ public class JCFullScreenActivity extends Activity {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
             if (App.isVip == 4) {
-                mJcVideoPlayer.openVip.setText("开通黑金会员");
+                mJcVideoPlayer.openVip.setText("升级黑金会员");
             } else if (App.isVip == 5) {
                 mJcVideoPlayer.openVip.setText("开通海外专用宽带");
             } else if (App.isVip == 6) {

@@ -126,7 +126,7 @@ public class BlackGlodVipFragment extends BaseMainFragment {
             @Override
             public void onItemClickBlackGlod(int position) {
                 if (App.isVip < 5 && App.isHeijin != 1) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为黑金会员视频，请开通黑金会员后观看", App.isVip, true, true, list.get(position).getVideo_id(),false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为黑金会员视频，请升级黑金会员后观看", App.isVip, true, true, list.get(position).getVideo_id(),false);
                 } else {
                     toVideoDetail(list.get(position));
                 }

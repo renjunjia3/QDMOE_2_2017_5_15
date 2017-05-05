@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -25,7 +27,7 @@ import butterknife.ButterKnife;
  * Author：scene on 2017/4/19 17:14
  */
 
-public class FlimAdapter extends RecyclerView.Adapter {
+public class FlimAdapter extends BaseAdapter {
     private Context context;
     private List<FlimInfo> list;
 
@@ -40,18 +42,37 @@ public class FlimAdapter extends RecyclerView.Adapter {
         this.onClickFlimItemListener = onClickFlimItemListener;
     }
 
+
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new FlimViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_film_item, parent, false));
+    public int getCount() {
+        return list.size();
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public Object getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        FlimViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.fragment_film_item, parent, false);
+            viewHolder = new FlimViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (FlimViewHolder) convertView.getTag();
+        }
+
         FlimInfo info = list.get(position);
-        FlimViewHolder viewHolder = (FlimViewHolder) holder;
         viewHolder.title.setText(info.getTitle());
         viewHolder.updateNumber.setText("更新至" + info.getUpdate_number() + "部");
-        int height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(20))/2f);
+        int height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(20)) / 2f);
         ViewUtils.setViewHeightByViewGroup(viewHolder.image, height);
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder.image);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,14 +83,13 @@ public class FlimAdapter extends RecyclerView.Adapter {
                 }
             }
         });
+
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    static class FlimViewHolder extends RecyclerView.ViewHolder {
+    static class FlimViewHolder {
+        @BindView(R.id.item_view)
+        RelativeLayout itemView;
         @BindView(R.id.image)
         ImageView image;
         @BindView(R.id.title)
@@ -78,7 +98,6 @@ public class FlimAdapter extends RecyclerView.Adapter {
         TextView updateNumber;
 
         FlimViewHolder(View view) {
-            super(view);
             ButterKnife.bind(this, view);
         }
     }

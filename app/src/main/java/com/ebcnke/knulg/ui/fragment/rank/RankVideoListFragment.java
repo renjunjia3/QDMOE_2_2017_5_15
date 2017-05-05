@@ -1,7 +1,9 @@
 package com.ebcnke.knulg.ui.fragment.rank;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -82,6 +84,8 @@ public class RankVideoListFragment extends BaseBackFragment {
     private TextView age;
     private TextView description;
 
+    private ProgressDialog progressDialog;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,8 +149,26 @@ public class RankVideoListFragment extends BaseBackFragment {
 
         list = new ArrayList<>();
         addHeaderView();
+        addFooterView();
         adapter = new RankVideoListAdapter(getContext(), list);
         gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (App.isVip > 4 || App.isHeijin == 1) {
+                    toVideoDetail(list.get(position));
+                } else {
+                    if (App.isVip == 0) {
+                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false);
+                    } else if (App.isVip == 1) {
+                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为黄金会员视频，请升级钻石会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false);
+                    } else {
+                        //为了让直接开通黑金虚构会员等级为4
+                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为黑金会员视频，请升级黑金会员后观看", 4, false, true, list.get(position).getVideo_id(), false);
+                    }
+                }
+            }
+        });
     }
 
 
@@ -158,16 +180,56 @@ public class RankVideoListFragment extends BaseBackFragment {
         age = (TextView) headerView.findViewById(R.id.age);
         description = (TextView) headerView.findViewById(R.id.description);
         gridView.addHeaderView(headerView);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    }
+
+    private void addFooterView() {
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.isVip == 0) {
+            footerText.setText("请开通会员开放更多影片资源");
+        } else if (App.isVip == 1) {
+            footerText.setText("请升级钻石会员开放更多影片资源");
+        } else if (App.isVip < 5 && App.isHeijin == 0) {
+            footerText.setText("请升级黑金会员开放更多影片资源");
+        } else {
+            footerText.setVisibility(View.GONE);
+        }
+        footerView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (App.isVip > 0) {
-                    toVideoDetail(list.get(position));
+            public void onClick(View v) {
+                if (App.isVip < 5 && App.isHeijin == 0) {
+                    if (App.isVip == 0) {
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                    } else if (App.isVip == 1) {
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                    } else {
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                    }
                 } else {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(),false);
+                    if (progressDialog == null) {
+                        progressDialog = new ProgressDialog(getContext());
+                        progressDialog.setMessage("加载中...");
+                    }
+                    if (!progressDialog.isShowing()) {
+                        progressDialog.show();
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (progressDialog != null && progressDialog.isShowing()) {
+                                        progressDialog.cancel();
+                                    }
+                                }
+                            });
+                        }
+                    }, 3000);
                 }
             }
         });
+        gridView.addFooterView(footerView);
     }
 
     /**

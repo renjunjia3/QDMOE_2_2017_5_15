@@ -1,11 +1,12 @@
 package com.ebcnke.knulg.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -25,10 +26,10 @@ import butterknife.ButterKnife;
  * Author：scene on 2017/4/18 13:14
  */
 
-public class BBSAdapter extends RecyclerView.Adapter {
+public class BBSAdapter extends BaseAdapter {
     private Context context;
     private List<BBSInfo> lists;
-    private static ScreenUtils screenUtils;
+    private ScreenUtils screenUtils;
 
     private BBSItemOnClickListener bbsItemOnClickListener;
 
@@ -38,18 +39,37 @@ public class BBSAdapter extends RecyclerView.Adapter {
         screenUtils = ScreenUtils.instance(context);
     }
 
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new BBSViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_bbs_item, parent, false));
-    }
-
     public void setBbsItemOnClickListener(BBSItemOnClickListener bbsItemOnClickListener) {
         this.bbsItemOnClickListener = bbsItemOnClickListener;
     }
 
+
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        BBSViewHolder viewHolder = (BBSViewHolder) holder;
+    public int getCount() {
+        return lists.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return lists.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        BBSViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.fragment_bbs_item, parent, false);
+            viewHolder = new BBSViewHolder(convertView);
+            ViewUtils.setViewHeightByViewGroup(viewHolder.image, (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(30)) / 2f * 2f / 3f));
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (BBSViewHolder) convertView.getTag();
+        }
         BBSInfo info = lists.get(position);
         viewHolder.mostNewNoteName.setText(info.getLatest());
         viewHolder.noteNumber.setText(info.getTopic_number());
@@ -62,14 +82,14 @@ public class BBSAdapter extends RecyclerView.Adapter {
                     bbsItemOnClickListener.onBBsItemOnClick(position);
             }
         });
+
+
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        return lists.size();
-    }
-
-    static class BBSViewHolder extends RecyclerView.ViewHolder {
+    static class BBSViewHolder {
+        @BindView(R.id.item_view)
+        RelativeLayout itemView;
         @BindView(R.id.image)
         ImageView image;
         @BindView(R.id.title)
@@ -80,9 +100,7 @@ public class BBSAdapter extends RecyclerView.Adapter {
         TextView mostNewNoteName;
 
         BBSViewHolder(View view) {
-            super(view);
             ButterKnife.bind(this, view);
-            ViewUtils.setViewHeightByViewGroup(image, (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(30)) / 2f * 2f / 3f));
         }
     }
 

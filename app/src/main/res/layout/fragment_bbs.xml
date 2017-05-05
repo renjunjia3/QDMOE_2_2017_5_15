@@ -15,10 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <com.ebcnke.knulg.pull_loadmore.loadmore.GridViewWithHeaderAndFooter
+                android:id="@+id/gridView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:horizontalSpacing="3dp"
+                android:numColumns="2"
+                android:verticalSpacing="3dp" />
         </com.ebcnke.knulg.pull_loadmore.PtrClassicFrameLayout>
     </wiki.scene.statuslib.StatusViewLayout>
 </LinearLayout>
