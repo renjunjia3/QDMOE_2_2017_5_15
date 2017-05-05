@@ -15,14 +15,25 @@
         android:textColor="#F25455"
         android:textSize="@dimen/text_size_large" />
 
-    <ImageView
-        android:id="@+id/recommend_image"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:scaleType="centerCrop" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/recommend_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/jc_play_normal" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/recommend_name"

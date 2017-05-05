@@ -32,12 +32,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:visibility="gone"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:text="更多"
             android:textColor="#333333"
-            android:textSize="@dimen/text_size_middle" />
+            android:textSize="@dimen/text_size_middle"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -61,12 +61,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/hot_image1"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/hot_image1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/jc_play_normal" />
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/tag1"
@@ -128,12 +140,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/hot_image2"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/hot_image2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/jc_play_normal" />
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/tag2"
@@ -207,13 +231,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-
-                <ImageView
-                    android:id="@+id/hot_image3"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/hot_image3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/jc_play_normal" />
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/tag3"
@@ -241,7 +276,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/play_time"
-                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:lines="1"
                     android:paddingBottom="5dp"
@@ -275,12 +309,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/hot_image4"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop" />
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <ImageView
+                        android:id="@+id/hot_image4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/jc_play_normal" />
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/tag4"
@@ -354,15 +403,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/hot_image5"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/hot_image5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/jc_play_normal" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tag5"
@@ -426,12 +487,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/hot_image6"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/hot_image6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/jc_play_normal" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tag6"

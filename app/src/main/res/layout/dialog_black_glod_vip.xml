@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_round_bg_white"
-            android:text="立即开通"
+            android:text="立即升级"
             android:textColor="#df298d"
             android:textSize="@dimen/text_size_big" />
 

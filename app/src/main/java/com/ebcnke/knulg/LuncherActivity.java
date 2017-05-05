@@ -35,6 +35,7 @@ public class LuncherActivity extends AppCompatActivity {
 
     private long loginTime = 0L;
     private int retryTime = 0;
+    private static final int TIME = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,14 +90,14 @@ public class LuncherActivity extends AppCompatActivity {
             App.USER_ID = SharedPreferencesUtil.getInt(LuncherActivity.this, App.USERID_KEY, 0);
             App.isVip = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ISVIP_KEY, 0);
             App.isHeijin = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ISHEIJIN_KEY, 0);
-            if (System.currentTimeMillis() - loginTime < 5000) {
+            if (System.currentTimeMillis() - loginTime < TIME) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         startActivity(new Intent(LuncherActivity.this, MainActivity.class));
                         ActivityCompat.finishAffinity(LuncherActivity.this);
                     }
-                }, 5000 - (System.currentTimeMillis() - loginTime));
+                }, TIME - (System.currentTimeMillis() - loginTime));
             } else {
                 startActivity(new Intent(LuncherActivity.this, MainActivity.class));
                 ActivityCompat.finishAffinity(LuncherActivity.this);
@@ -104,9 +105,9 @@ public class LuncherActivity extends AppCompatActivity {
 
             return;
         }
-        HashMap<String,String> params=new HashMap<>();
-        params.put("device",Build.DEVICE);
-        params.put("system",Build.VERSION.CODENAME);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("device", Build.DEVICE);
+        params.put("system", Build.VERSION.CODENAME);
         OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER + App.CHANNEL_ID + "/" + App.IMEI).params(params).build()
                 .execute(new StringCallback() {
                     @Override
@@ -131,7 +132,7 @@ public class LuncherActivity extends AppCompatActivity {
                             SharedPreferencesUtil.putInt(LuncherActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
 
                             SharedPreferencesUtil.putLong(LuncherActivity.this, App.LAST_LOGIN_TIME, System.currentTimeMillis());
-                            if (System.currentTimeMillis() - loginTime < 5000) {
+                            if (System.currentTimeMillis() - loginTime < TIME) {
                                 // 已经获取到权限了
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -139,7 +140,7 @@ public class LuncherActivity extends AppCompatActivity {
                                         startActivity(new Intent(LuncherActivity.this, MainActivity.class));
                                         ActivityCompat.finishAffinity(LuncherActivity.this);
                                     }
-                                }, 5000 - (System.currentTimeMillis() - loginTime));
+                                }, TIME - (System.currentTimeMillis() - loginTime));
                             } else {
                                 startActivity(new Intent(LuncherActivity.this, MainActivity.class));
                                 ActivityCompat.finishAffinity(LuncherActivity.this);

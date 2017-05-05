@@ -51,7 +51,7 @@ public abstract class BaseMainFragment extends BaseFragment {
     @Override
     public boolean onBackPressedSupport() {
         if (App.isVip == 0) {
-            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+            //if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
 
                 if (builder == null) {
                     builder = new BackOpenVipDialog.Builder(_mActivity);
@@ -78,10 +78,10 @@ public abstract class BaseMainFragment extends BaseFragment {
                 MainFragment.clickWantPay();
                 MainFragment.openPayDialog(0);
 
-            } else {
-                TOUCH_TIME = System.currentTimeMillis();
-                ToastUtils.getInstance(_mActivity).showToast(getString(R.string.press_again_exit));
-            }
+//            } else {
+//                TOUCH_TIME = System.currentTimeMillis();
+//                ToastUtils.getInstance(_mActivity).showToast(getString(R.string.press_again_exit));
+//            }
         }
         return true;
     }
