@@ -44,10 +44,6 @@ public class MineFragment extends BaseMainFragment {
     @BindView(R.id.password)
     TextView password;
 
-
-    private GlodVipDialog glodVipDialog;
-    private GlodVipDialog.Builder glodVipDialogBuilder;
-
     public static MineFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -120,8 +116,6 @@ public class MineFragment extends BaseMainFragment {
         }
         account.setText("ac00" + (App.USER_ID + 235));
         password.setText("qdacp1pd5");
-        glodVipDialogBuilder = new GlodVipDialog.Builder(getContext(), 0, false);
-        glodVipDialog = glodVipDialogBuilder.create();
 
     }
 
