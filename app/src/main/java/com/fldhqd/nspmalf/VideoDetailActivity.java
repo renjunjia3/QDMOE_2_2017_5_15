@@ -1,8 +1,11 @@
 package com.fldhqd.nspmalf;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -117,6 +120,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         setContentView(R.layout.fragment_video_detail);
+        registerBoradcastReceiver();
         unbinder = ButterKnife.bind(this);
         videoInfo = (VideoInfo) getIntent().getSerializableExtra(ARG_VIDEO_INFO);
         isEnterFromTrySee = getIntent().getBooleanExtra(ARG_IS_ENTER_FROM_TRY_SEE, false);
@@ -444,7 +448,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         DialogUtil.getInstance().cancelAllDialog();
         EventBus.getDefault().unregister(this);
         unbinder.unbind();
-        DialogUtil.getInstance().cancelAllDialog();
+        unRegisterBoradcastReceiver();
         super.onDestroy();
     }
 
@@ -603,7 +607,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                         break;
                                 }
                                 App.isOPenBlackGlodVip = false;
-                            }else{
+                            } else {
                                 ToastUtils.getInstance(VideoDetailActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
                             }
 
@@ -615,5 +619,30 @@ public class VideoDetailActivity extends SwipeBackActivity {
             }
         }, 1000);
 
+    }
+
+
+    public static final String ACTION_NAME_VIDEODETAILACTIVITY_CHECK_ORDER = "action_name_VideoDetailActivity_check_order";
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(ACTION_NAME_VIDEODETAILACTIVITY_CHECK_ORDER)) {
+                checkOrder();
+            }
+        }
+    };
+
+    private void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction(ACTION_NAME_VIDEODETAILACTIVITY_CHECK_ORDER);
+        //注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    private void unRegisterBoradcastReceiver() {
+        if (mBroadcastReceiver != null) {
+            unregisterReceiver(mBroadcastReceiver);
+        }
     }
 }

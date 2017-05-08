@@ -7,11 +7,11 @@ import android.content.Intent;
 
 import com.alibaba.fastjson.JSON;
 import com.fldhqd.nspmalf.AliPayActivity;
+import com.fldhqd.nspmalf.MainActivity;
+import com.fldhqd.nspmalf.VideoDetailActivity;
 import com.fldhqd.nspmalf.app.App;
 import com.fldhqd.nspmalf.bean.PayTokenResultInfo;
 import com.fldhqd.nspmalf.config.PayConfig;
-import com.fldhqd.nspmalf.event.CheckOrderEvent;
-import com.fldhqd.nspmalf.event.CloseVideoDetailEvent;
 import com.fldhqd.nspmalf.ui.dialog.WxQRCodePayDialog;
 import com.fldhqd.nspmalf.util.API;
 import com.fldhqd.nspmalf.util.DialogUtil;
@@ -20,8 +20,6 @@ import com.lessen.paysdk.pay.PayCallBack;
 import com.lessen.paysdk.pay.PayTool;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -229,22 +227,9 @@ public class PayUtil {
                                 if (progressDialog12 != null && progressDialog12.isShowing()) {
                                     progressDialog12.cancel();
                                 }
-                                if (i == 0) {
-                                    App.isNeedCheckOrder = true;
-                                    App.orderIdInt = info.getOrder_id_int();
-                                    if (isVideoDetailPage) {
-                                        EventBus.getDefault().post(new CloseVideoDetailEvent());
-                                    } else {
-                                        EventBus.getDefault().post(new CheckOrderEvent());
-                                    }
-                                } else {
-                                    if (info.getType() == 2) {
-                                        ToastUtils.getInstance(context).showToast("支付失败请重试或者选择其他的支付方式");
-                                    } else {
-                                        App.isNeedCheckOrder = true;
-                                        App.orderIdInt = info.getOrder_id_int();
-                                    }
-                                }
+                                //不管支付成功或者失败都检查一下支付结果
+                                App.orderIdInt = info.getOrder_id_int();
+                                checkOrder(context, isVideoDetailPage);
                             }
                         });
                     } else if (info.getType() == 3) {
@@ -255,13 +240,15 @@ public class PayUtil {
                         App.isNeedCheckOrder = true;
                         App.orderIdInt = info.getOrder_id_int();
                         DialogUtil.getInstance().showCustomSubmitDialog(context, "支付二维码已经保存到您的相册，请前往微信扫一扫付费");
-                    } else {
+                    } else if (info.getType() == 4) {
                         //支付宝wap
                         Intent intent = new Intent(context, AliPayActivity.class);
                         intent.putExtra(AliPayActivity.ALIPAY_URL, info.getPay_url());
                         context.startActivity(intent);
                         App.isNeedCheckOrder = true;
                         App.orderIdInt = info.getOrder_id_int();
+                    }else{
+                        ToastUtils.getInstance(context).showToast("订单信息获取失败，请重试");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -269,6 +256,23 @@ public class PayUtil {
                 }
             }
         });
+    }
+
+    /**
+     * Case By:检查订单状态
+     * Author: scene on 2017/5/8 10:34
+     *
+     * @param context           上下文
+     * @param isVideoDetailPage 是否是视频详情页
+     */
+    private void checkOrder(Context context, boolean isVideoDetailPage) {
+        if (isVideoDetailPage) {
+            Intent intent = new Intent(VideoDetailActivity.ACTION_NAME_VIDEODETAILACTIVITY_CHECK_ORDER);
+            context.sendBroadcast(intent);
+        } else {
+            Intent intent = new Intent(MainActivity.ACTION_NAME_MAINACTIVITY_CHECK_ORDER);
+            context.sendBroadcast(intent);
+        }
     }
 
 }

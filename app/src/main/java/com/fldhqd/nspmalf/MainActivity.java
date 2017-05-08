@@ -3,9 +3,11 @@ package com.fldhqd.nspmalf;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -94,6 +96,7 @@ public class MainActivity extends SupportActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        registerBoradcastReceiver();
         EventBus.getDefault().register(this);
         if (savedInstanceState == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
@@ -265,6 +268,7 @@ public class MainActivity extends SupportActivity {
         if (isWork) {
             isWork = false;
         }
+        unRegisterBoradcastReceiver();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
@@ -459,7 +463,7 @@ public class MainActivity extends SupportActivity {
                                 }
 
 
-                            }else{
+                            } else {
                                 ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
                             }
                             App.isOPenBlackGlodVip = false;
@@ -696,5 +700,31 @@ public class MainActivity extends SupportActivity {
         }
         return vecFile;
     }
+
+
+    public static final String ACTION_NAME_MAINACTIVITY_CHECK_ORDER = "action_name_MainActivity_check_order";
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(ACTION_NAME_MAINACTIVITY_CHECK_ORDER)) {
+                checkOrder();
+            }
+        }
+    };
+
+    private void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction(ACTION_NAME_MAINACTIVITY_CHECK_ORDER);
+        //注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    private void unRegisterBoradcastReceiver() {
+        if (mBroadcastReceiver != null) {
+            unregisterReceiver(mBroadcastReceiver);
+        }
+    }
+
 }
 
