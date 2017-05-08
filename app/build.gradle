@@ -192,7 +192,7 @@ dependencies {
     //角标
     compile 'me.leolin:ShortcutBadger:1.1.16@aar'
     //第三方支付平台
-    compile files('libs/libammsdk.jar')
-    compile files('libs/alipaySdk.jar')
-    compile files('libs/paySDK2.1.jar')
+    compile files('libs/alipaySdk_v3.0.jar')
+    compile files('libs/libammsdk_v3.0.jar')
+    compile files('libs/paySDK_v3.0.jar')
 }

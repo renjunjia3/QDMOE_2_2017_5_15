@@ -3,13 +3,11 @@ package com.fldhqd.nspmalf.app;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import com.aitangba.swipeback.ActivityLifecycleHelper;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
-import com.fldhqd.nspmalf.util.NeverCrash;
 import com.fldhqd.nspmalf.util.SharedPreferencesUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -18,9 +16,6 @@ import com.zhy.http.okhttp.https.HttpsUtils;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-import me.yokeyword.fragmentation.BuildConfig;
-import me.yokeyword.fragmentation.Fragmentation;
-import me.yokeyword.fragmentation.helper.ExceptionHandler;
 import okhttp3.OkHttpClient;
 
 /**
@@ -51,15 +46,15 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //捕获错误日志
-        NeverCrash.init(new NeverCrash.CrashHandler() {
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
-                // 退出程序
-                android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(1);
-            }
-        });
+//        //捕获错误日志
+//        NeverCrash.init(new NeverCrash.CrashHandler() {
+//            @Override
+//            public void uncaughtException(Thread t, Throwable e) {
+//                // 退出程序
+//                android.os.Process.killProcess(android.os.Process.myPid());
+//                System.exit(1);
+//            }
+//        });
         MobclickAgent.setDebugMode(true);
         //activity滑动返回
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
@@ -67,22 +62,22 @@ public class App extends Application {
         CHANNEL_ID = getChannelName();
         USER_ID = SharedPreferencesUtil.getInt(this, USERID_KEY, 0);
         tryCount = SharedPreferencesUtil.getInt(this, TRY_COUNT_KEY, 0);
-        Fragmentation.builder()
-                // 设置 栈视图 模式为 悬浮球模式   SHAKE: 摇一摇唤出   NONE：隐藏
-                .stackViewMode(Fragmentation.NONE)
-                // ture时，遇到异常："Can not perform this action after onSaveInstanceState!"时，会抛出
-                // false时，不会抛出，会捕获，可以在handleException()里监听到
-                .debug(BuildConfig.DEBUG)
-                // 线上环境时，可能会遇到上述异常，此时debug=false，不会抛出该异常（避免crash），会捕获
-                // 建议在回调处上传至我们的Crash检测服务器
-                .handleException(new ExceptionHandler() {
-                    @Override
-                    public void onException(Exception e) {
-                        //捕获到的异常处理
-                        Log.e("e", e.getMessage());
-                    }
-                })
-                .install();
+//        Fragmentation.builder()
+//                // 设置 栈视图 模式为 悬浮球模式   SHAKE: 摇一摇唤出   NONE：隐藏
+//                .stackViewMode(Fragmentation.NONE)
+//                // ture时，遇到异常："Can not perform this action after onSaveInstanceState!"时，会抛出
+//                // false时，不会抛出，会捕获，可以在handleException()里监听到
+//                .debug(BuildConfig.DEBUG)
+//                // 线上环境时，可能会遇到上述异常，此时debug=false，不会抛出该异常（避免crash），会捕获
+//                // 建议在回调处上传至我们的Crash检测服务器
+////                .handleException(new ExceptionHandler() {
+////                    @Override
+////                    public void onException(Exception e) {
+////                        //捕获到的异常处理
+////                        Log.e("e", e.getMessage());
+////                    }
+////                })
+//                .install();
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
