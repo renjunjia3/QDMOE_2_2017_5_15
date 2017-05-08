@@ -10,8 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -67,7 +67,9 @@ public class GlodVipFragment extends BaseMainFragment {
 
     private RequestCall getDataCall;
 
-    private ImageView headerView;
+    private View headerView;
+    private ImageView headerImage;
+    private TextView headerTitle;
 
     private ProgressDialog progressDialog;
 
@@ -204,17 +206,24 @@ public class GlodVipFragment extends BaseMainFragment {
             return;
         }
         final VideoInfo info = headerLists.get(0);
+        if (info == null) {
+            return;
+        }
         if (headerView == null) {
-            headerView = new ImageView(getContext());
-            AbsListView.LayoutParams layoutparams = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
+            headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_glod_vip_header, null);
+            headerImage = (ImageView) headerView.findViewById(R.id.header_image);
+            headerTitle = (TextView) headerView.findViewById(R.id.header_title);
+
+            RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutparams.height = (int) (ScreenUtils.instance(getContext()).getScreenWidth() * 9f / 16f);
-            headerView.setLayoutParams(layoutparams);
+            headerImage.setLayoutParams(layoutparams);
         }
         if (mAdapter.getHeadSize() > 0) {
             mAdapter.removeHeader(headerView);
         }
         mAdapter.addHeader(headerView);
-        Glide.with(getContext()).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(headerView);
+        Glide.with(getContext()).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(headerImage);
+        headerTitle.setText(info.getTitle());
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
