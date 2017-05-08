@@ -185,7 +185,7 @@ public class PayUtil {
                 break;
             case 7:
                 params.put("price", VIP_MONEY_TYPE_7 + "");
-                params.put("title", "开通黑金会员");
+                params.put("title", "wqeqweqweeqw");
                 break;
             case 8:
                 params.put("price", VIP_MONEY_TYPE_8 + "");

@@ -5,10 +5,11 @@ package com.fldhqd.nspmalf.util;
  */
 
 public class API {
-    //正式环境
-    public static final String URL_PRE = "http://api.lfys8.com/video/";
-//    //测试环境
-//    public static final String URL_PRE = "http://tapi.lfys8.com/video/";
+
+    //    //正式环境
+//    public static final String URL_PRE = "http://api.lfys8.com/video/";
+    //测试环境
+    public static final String URL_PRE = "http://tapi.lfys8.com/video/";
     //登录注册 每天只掉一次
     public static final String LOGIN_REGISTER = "user/";
     //女优首页
@@ -67,9 +68,9 @@ public class API {
      7 => '视频内容', 8 => '视频播放', 9 => '片库', 10 => '片库内页', 11 => '论坛', 12 => '磁力搜索',
       13 => '磁力搜索结果', 14 => '我的'],
      */
-    public static final String UPLOAD_CURRENT_PAGE="position_click";
+    public static final String UPLOAD_CURRENT_PAGE = "position_click";
 
     //发表评论
-    public static final String SEND_COMMEND="user_comment";
+    public static final String SEND_COMMEND = "user_comment";
 
 }
