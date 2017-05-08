@@ -14,6 +14,7 @@ import com.fldhqd.nspmalf.R;
 import com.fldhqd.nspmalf.bean.VideoInfo;
 import com.fldhqd.nspmalf.util.ScreenUtils;
 import com.fldhqd.nspmalf.util.ViewUtils;
+import com.fldhqd.nspmalf.video.JCUtils;
 
 import java.util.List;
 
@@ -65,6 +66,7 @@ public class GlodVipAdapter extends RecyclerView.Adapter {
             itemViewHolder.title.setText(info.getTitle());
             itemViewHolder.playCount.setText(info.getHits() + "次");
             itemViewHolder.updateNumber.setText("更新至" + info.getUpdate_number() + "期");
+            itemViewHolder.time.setText(JCUtils.stringForTime(info.getDuration()));
             if (info.getTag() == null || info.getTag().isEmpty()) {
                 itemViewHolder.tag.setVisibility(View.GONE);
             } else {
@@ -83,7 +85,7 @@ public class GlodVipAdapter extends RecyclerView.Adapter {
             itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(onClickGlodVipItemListener!=null){
+                    if (onClickGlodVipItemListener != null) {
                         onClickGlodVipItemListener.onClickGlodVipItem(position);
                     }
                 }
@@ -123,6 +125,8 @@ public class GlodVipAdapter extends RecyclerView.Adapter {
         TextView updateNumber;
         @BindView(R.id.play_count)
         TextView playCount;
+        @BindView(R.id.time)
+        TextView time;
 
         ItemViewHolder(View view) {
             super(view);

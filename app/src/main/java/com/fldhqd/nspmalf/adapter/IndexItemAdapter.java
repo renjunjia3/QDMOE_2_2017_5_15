@@ -15,6 +15,7 @@ import com.fldhqd.nspmalf.R;
 import com.fldhqd.nspmalf.bean.VideoInfo;
 import com.fldhqd.nspmalf.util.ScreenUtils;
 import com.fldhqd.nspmalf.util.ViewUtils;
+import com.fldhqd.nspmalf.video.JCUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -77,6 +78,7 @@ public class IndexItemAdapter extends BaseAdapter {
         ViewUtils.setViewHeightByViewGroup(holder.image, height);
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(holder.image);
         holder.playTime.setText(info.getHits() + "次播放");
+        holder.time.setText(JCUtils.stringForTime(info.getDuration()));
         return convertView;
     }
 
@@ -91,6 +93,8 @@ public class IndexItemAdapter extends BaseAdapter {
         TextView tag;
         @BindView(R.id.play_time)
         TextView playTime;
+        @BindView(R.id.time)
+        TextView time;
 
         public ViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);

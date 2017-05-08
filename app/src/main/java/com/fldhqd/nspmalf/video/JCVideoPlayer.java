@@ -32,7 +32,6 @@ import com.fldhqd.nspmalf.app.App;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -559,10 +558,10 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         try {
-            if(progressBar!=null){
-                progressBar.setProgress(getCurrentPositionWhenPlaying()/getDuration()*100);
+            if (progressBar != null) {
+                progressBar.setProgress(getCurrentPositionWhenPlaying() / getDuration() * 100);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -755,9 +754,6 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
         setProgressAndTime(progress, secProgress, position, duration);
     }
 
-    private Random random = new Random();
-    private int randomTime = (random.nextInt(20) + 80) * 60 * 1000;
-
     protected void setProgressAndTime(int progress, int secProgress, int currentTime, int totalTime) {
         if (!mTouchingProgressBar) {
             if (progress != 0) progressBar.setProgress(progress);
@@ -766,7 +762,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
         currentTimeTextView.setText(JCUtils.stringForTime(currentTime));
         //原始视频时长增加了40min，但是视频的进度没变 只是单纯的改变了显示的时间而已
 
-        totalTimeTextView.setText(JCUtils.stringForTime(totalTime + randomTime));
+        totalTimeTextView.setText(JCUtils.stringForTime(totalTime));
     }
 
     protected void resetProgressAndTime() {

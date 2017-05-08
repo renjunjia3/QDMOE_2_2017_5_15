@@ -13,6 +13,7 @@ import com.fldhqd.nspmalf.R;
 import com.fldhqd.nspmalf.bean.VideoInfo;
 import com.fldhqd.nspmalf.util.ScreenUtils;
 import com.fldhqd.nspmalf.util.ViewUtils;
+import com.fldhqd.nspmalf.video.JCUtils;
 
 import java.util.List;
 
@@ -65,6 +66,7 @@ public class DiamondVipAdapter extends RecyclerView.Adapter {
             itemViewHolder.playCount.setText(info.getHits() + "次");
             itemViewHolder.score.setText(info.getScore() + "分");
             itemViewHolder.updateNumber.setText("第" + info.getUpdate_number() + "期");
+            itemViewHolder.time.setText(JCUtils.stringForTime(info.getDuration()));
             Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(itemViewHolder.image);
             itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,6 +110,8 @@ public class DiamondVipAdapter extends RecyclerView.Adapter {
         TextView playCount;
         @BindView(R.id.update_number)
         TextView updateNumber;
+        @BindView(R.id.time)
+        TextView time;
 
         ItemViewHolder(View view) {
             super(view);

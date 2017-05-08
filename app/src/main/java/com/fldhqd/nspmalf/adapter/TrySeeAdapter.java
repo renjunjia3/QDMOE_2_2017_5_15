@@ -16,6 +16,7 @@ import com.fldhqd.nspmalf.R;
 import com.fldhqd.nspmalf.bean.TrySeeContentInfo;
 import com.fldhqd.nspmalf.util.ScreenUtils;
 import com.fldhqd.nspmalf.util.ViewUtils;
+import com.fldhqd.nspmalf.video.JCUtils;
 
 import java.util.List;
 
@@ -102,6 +103,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder3.recommendName.setText(info.getData().get(0).getTitle());
                 viewHolder3.recommendSynop.setText(info.getData().get(0).getDescription());
                 Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(viewHolder3.recommendImage);
+                viewHolder3.time.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
                 viewHolder3.recommendLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -117,6 +119,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder1.vipName1.setText(info.getData().get(0).getTitle());
                 viewHolder1.vipPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
                 Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage1);
+                viewHolder1.time1.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
                 if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
                     viewHolder1.vipTag1.setText(info.getData().get(0).getTag());
                     viewHolder1.vipTag1.setVisibility(View.VISIBLE);
@@ -140,6 +143,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
                 viewHolder1.vipName2.setText(info.getData().get(1).getTitle());
                 viewHolder1.vipPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
+                viewHolder1.time2.setText(JCUtils.stringForTime(info.getData().get(2).getDuration()));
                 if (info.getData().get(1).getTag() != null && !info.getData().get(1).getTag().isEmpty()) {
                     viewHolder1.vipTag2.setText(info.getData().get(1).getTag());
                     viewHolder1.vipTag2.setVisibility(View.VISIBLE);
@@ -163,6 +167,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
                 viewHolder1.vipName3.setText(info.getData().get(2).getTitle());
                 viewHolder1.vipPlayTime3.setText(info.getData().get(2).getHits() + "次播放");
+                viewHolder1.time3.setText(JCUtils.stringForTime(info.getData().get(2).getDuration()));
                 if (info.getData().get(2).getTag() != null && !info.getData().get(2).getTag().isEmpty()) {
                     viewHolder1.vipTag3.setText(info.getData().get(2).getTag());
                     viewHolder1.vipTag3.setVisibility(View.VISIBLE);
@@ -186,6 +191,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
                 viewHolder1.vipName4.setText(info.getData().get(3).getTitle());
                 viewHolder1.vipPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
+                viewHolder1.time4.setText(JCUtils.stringForTime(info.getData().get(3).getDuration()));
                 if (info.getData().get(3).getTag() != null && !info.getData().get(3).getTag().isEmpty()) {
                     viewHolder1.vipTag4.setText(info.getData().get(3).getTag());
                     viewHolder1.vipTag4.setVisibility(View.VISIBLE);
@@ -209,6 +215,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
                 viewHolder1.vipName5.setText(info.getData().get(4).getTitle());
                 viewHolder1.vipPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
+                viewHolder1.time5.setText(JCUtils.stringForTime(info.getData().get(5).getDuration()));
                 if (info.getData().get(4).getTag() != null && !info.getData().get(4).getTag().isEmpty()) {
                     viewHolder1.vipTag5.setText(info.getData().get(4).getTag());
                     viewHolder1.vipTag5.setVisibility(View.VISIBLE);
@@ -231,6 +238,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 });
                 viewHolder1.vipName6.setText(info.getData().get(5).getTitle());
                 viewHolder1.vipPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
+                viewHolder1.time6.setText(JCUtils.stringForTime(info.getData().get(5).getDuration()));
                 if (info.getData().get(5).getTag() != null && !info.getData().get(5).getTag().isEmpty()) {
                     viewHolder1.vipTag6.setText(info.getData().get(5).getTag());
                     viewHolder1.vipTag6.setVisibility(View.VISIBLE);
@@ -260,6 +268,7 @@ public class TrySeeAdapter extends BaseAdapter {
             try {
                 viewHolder2.hotName1.setText(info.getData().get(0).getTitle());
                 viewHolder2.hotPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
+                viewHolder2.time1.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
                 Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage1);
                 if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
@@ -286,6 +295,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
                 viewHolder2.hotName2.setText(info.getData().get(1).getTitle());
                 viewHolder2.hotPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
+                viewHolder2.time2.setText(JCUtils.stringForTime(info.getData().get(1).getDuration()));
                 Glide.with(context).load(info.getData().get(1).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage2);
                 if (info.getData().get(1).getTag() != null && !info.getData().get(1).getTag().isEmpty()) {
@@ -310,6 +320,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
                 viewHolder2.hotName3.setText(info.getData().get(2).getTitle());
                 viewHolder2.hotPlayTime3.setText(info.getData().get(2).getHits() + "次播放");
+                viewHolder2.time3.setText(JCUtils.stringForTime(info.getData().get(2).getDuration()));
                 Glide.with(context).load(info.getData().get(2).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage3);
                 if (info.getData().get(2).getTag() != null && !info.getData().get(2).getTag().isEmpty()) {
@@ -335,6 +346,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
                 viewHolder2.hotName4.setText(info.getData().get(3).getTitle());
                 viewHolder2.hotPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
+                viewHolder2.time4.setText(JCUtils.stringForTime(info.getData().get(3).getDuration()));
                 Glide.with(context).load(info.getData().get(3).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage4);
                 if (info.getData().get(3).getTag() != null && !info.getData().get(3).getTag().isEmpty()) {
@@ -360,6 +372,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
                 viewHolder2.hotName5.setText(info.getData().get(4).getTitle());
                 viewHolder2.hotPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
+                viewHolder2.time5.setText(JCUtils.stringForTime(info.getData().get(4).getDuration()));
                 Glide.with(context).load(info.getData().get(4).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage5);
                 if (info.getData().get(4).getTag() != null && !info.getData().get(4).getTag().isEmpty()) {
@@ -382,9 +395,9 @@ public class TrySeeAdapter extends BaseAdapter {
                     }
                 });
 
-
                 viewHolder2.hotName6.setText(info.getData().get(5).getTitle());
                 viewHolder2.hotPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
+                viewHolder2.time6.setText(JCUtils.stringForTime(info.getData().get(5).getDuration()));
                 Glide.with(context).load(info.getData().get(5).getThumb()).asBitmap().centerCrop().
                         placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage6);
                 if (info.getData().get(5).getTag() != null && !info.getData().get(5).getTag().isEmpty()) {
@@ -450,6 +463,8 @@ public class TrySeeAdapter extends BaseAdapter {
         TextView recommendSynop;
         @BindView(R.id.recommend_layout)
         LinearLayout recommendLayout;
+        @BindView(R.id.time)
+        TextView time;
 
         ViewHolder3(View view) {
             ButterKnife.bind(this, view);
@@ -535,6 +550,19 @@ public class TrySeeAdapter extends BaseAdapter {
         LinearLayout vipLayout6;
         @BindView(R.id.vip_layout)
         LinearLayout vipLayout;
+        @BindView(R.id.time1)
+        TextView time1;
+        @BindView(R.id.time2)
+        TextView time2;
+        @BindView(R.id.time3)
+        TextView time3;
+        @BindView(R.id.time4)
+        TextView time4;
+        @BindView(R.id.time5)
+        TextView time5;
+        @BindView(R.id.time6)
+        TextView time6;
+
 
         ViewHolder1(View view) {
             ButterKnife.bind(this, view);
@@ -620,6 +648,18 @@ public class TrySeeAdapter extends BaseAdapter {
         TextView tag5;
         @BindView(R.id.tag6)
         TextView tag6;
+        @BindView(R.id.time1)
+        TextView time1;
+        @BindView(R.id.time2)
+        TextView time2;
+        @BindView(R.id.time3)
+        TextView time3;
+        @BindView(R.id.time4)
+        TextView time4;
+        @BindView(R.id.time5)
+        TextView time5;
+        @BindView(R.id.time6)
+        TextView time6;
 
         ViewHolder2(View view) {
             ButterKnife.bind(this, view);

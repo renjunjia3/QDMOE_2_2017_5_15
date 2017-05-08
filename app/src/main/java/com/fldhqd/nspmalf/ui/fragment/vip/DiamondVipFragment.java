@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,6 +33,7 @@ import com.fldhqd.nspmalf.util.DialogUtil;
 import com.fldhqd.nspmalf.util.NetWorkUtils;
 import com.fldhqd.nspmalf.util.ScreenUtils;
 import com.fldhqd.nspmalf.util.SharedPreferencesUtil;
+import com.fldhqd.nspmalf.video.JCUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -73,6 +73,7 @@ public class DiamondVipFragment extends BaseMainFragment {
     private View headerView;
     private ImageView headerImage;
     private TextView headerTitle;
+    private TextView headerTime;
 
     private ProgressDialog progressDialog;
 
@@ -251,6 +252,7 @@ public class DiamondVipFragment extends BaseMainFragment {
             headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_diamond_vip_header, null);
             headerImage = (ImageView) headerView.findViewById(R.id.header_image);
             headerTitle = (TextView) headerView.findViewById(R.id.header_title);
+            headerTime = (TextView) headerView.findViewById(R.id.time);
             RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutparams.height = (int) (ScreenUtils.instance(getContext()).getScreenWidth() * 9f / 16f);
             headerImage.setLayoutParams(layoutparams);
@@ -261,6 +263,7 @@ public class DiamondVipFragment extends BaseMainFragment {
         mAdapter.addHeader(headerView);
         Glide.with(getContext()).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(headerImage);
         headerTitle.setText(info.getTitle());
+        headerTime.setText(JCUtils.stringForTime(info.getDuration()));
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

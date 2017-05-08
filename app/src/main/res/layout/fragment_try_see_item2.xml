@@ -61,7 +61,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-
                 <ImageView
                     android:id="@+id/hot_image1"
                     android:layout_width="match_parent"
@@ -75,6 +74,20 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/jc_play_normal" />
 
+                <TextView
+                    android:id="@+id/time1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/hot_image1"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
 
                 <TextView
                     android:id="@+id/tag1"
@@ -149,6 +162,21 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:src="@drawable/jc_play_normal" />
+
+                <TextView
+                    android:id="@+id/time2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/hot_image2"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
 
                 <TextView
                     android:id="@+id/tag2"
@@ -235,6 +263,20 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/jc_play_normal" />
 
+                <TextView
+                    android:id="@+id/time3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/hot_image3"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
 
                 <TextView
                     android:id="@+id/tag3"
@@ -262,9 +304,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/play_time"
+                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:layout_weight="1"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:textColor="@android:color/black"
@@ -308,6 +350,21 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:src="@drawable/jc_play_normal" />
+
+                <TextView
+                    android:id="@+id/time4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/hot_image4"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
 
                 <TextView
                     android:id="@+id/tag4"
@@ -398,6 +455,21 @@
                     android:src="@drawable/jc_play_normal" />
 
                 <TextView
+                    android:id="@+id/time5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/hot_image5"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
                     android:id="@+id/tag5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -472,6 +544,21 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:src="@drawable/jc_play_normal" />
+
+                <TextView
+                    android:id="@+id/time6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/hot_image6"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
 
                 <TextView
                     android:id="@+id/tag6"

@@ -22,6 +22,7 @@ public class VideoInfo implements Serializable {
     private int score;
     private int update_number;
     private String thumb_heng;
+    private int duration;//服务器返回的时间是真实时间*100的值
 
     public boolean isTilteType() {
         return isTilteType;
@@ -125,6 +126,18 @@ public class VideoInfo implements Serializable {
 
     public void setThumb_heng(String thumb_heng) {
         this.thumb_heng = thumb_heng;
+    }
+
+    public int getDuration() {
+        /*
+        因为服务器的时间是真实秒数乘以100，本地使用的时候是把这个时间虚拟了50倍的
+        所以转换到需要的时间的方式是：服务器返回的时间除以100乘以1000再乘以50倍
+        */
+        return duration * 500;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     @Override

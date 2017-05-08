@@ -15,6 +15,7 @@ import com.fldhqd.nspmalf.R;
 import com.fldhqd.nspmalf.bean.VideoInfo;
 import com.fldhqd.nspmalf.util.ScreenUtils;
 import com.fldhqd.nspmalf.util.ViewUtils;
+import com.fldhqd.nspmalf.video.JCUtils;
 
 import java.util.List;
 
@@ -60,22 +61,23 @@ public class FlimDetailAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         FlimDetailViewHolder viewHolder;
-        if(convertView==null){
-            convertView=LayoutInflater.from(context).inflate(R.layout.fragment_glod_vip_item_item, parent, false);
-            viewHolder=new FlimDetailViewHolder(convertView);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.fragment_glod_vip_item_item, parent, false);
+            viewHolder = new FlimDetailViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder= (FlimDetailViewHolder) convertView.getTag();
+        } else {
+            viewHolder = (FlimDetailViewHolder) convertView.getTag();
         }
         VideoInfo info = list.get(position);
         viewHolder.playCount.setText(info.getHits() + "次");
         viewHolder.title.setText(info.getTitle());
         viewHolder.tag.setVisibility(View.GONE);
         viewHolder.title.setTextColor(Color.parseColor("#FFFFFF"));
-        viewHolder.updateNumber.setText("更新至："+info.getUpdate_number()+"期");
+        viewHolder.updateNumber.setText("更新至：" + info.getUpdate_number() + "期");
         ScreenUtils screenUtils = ScreenUtils.instance(context);
         int height = (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(9)) * 9f / 16f / 2f);
         ViewUtils.setViewHeightByViewGroup(viewHolder.image, height);
+        viewHolder.time.setText(JCUtils.stringForTime(info.getDuration()));
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder.image);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +91,7 @@ public class FlimDetailAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static class FlimDetailViewHolder  {
+    static class FlimDetailViewHolder {
         @BindView(R.id.item_view)
         RelativeLayout itemView;
         @BindView(R.id.image)
@@ -102,6 +104,8 @@ public class FlimDetailAdapter extends BaseAdapter {
         TextView updateNumber;
         @BindView(R.id.play_count)
         TextView playCount;
+        @BindView(R.id.time)
+        TextView time;
 
         FlimDetailViewHolder(View view) {
             ButterKnife.bind(this, view);

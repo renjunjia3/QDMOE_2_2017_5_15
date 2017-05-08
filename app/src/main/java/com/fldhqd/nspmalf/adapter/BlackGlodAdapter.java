@@ -33,10 +33,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.fldhqd.nspmalf.R;
 import com.fldhqd.nspmalf.bean.VideoInfo;
+import com.fldhqd.nspmalf.video.JCUtils;
 
 import java.util.List;
 
@@ -73,7 +75,9 @@ public class BlackGlodAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         RelativeLayout linearLayout = (RelativeLayout) LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_black_glod_vip_item, null);
         ImageView image = (ImageView) linearLayout.findViewById(R.id.image);
+        TextView time = (TextView) linearLayout.findViewById(R.id.time);
         linearLayout.setId(R.id.item_id);
+        time.setText(JCUtils.stringForTime(list.get(position).getDuration()));
         Glide.with(container.getContext()).load(list.get(position).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(image);
         container.addView(linearLayout);
         image.setOnClickListener(new View.OnClickListener() {

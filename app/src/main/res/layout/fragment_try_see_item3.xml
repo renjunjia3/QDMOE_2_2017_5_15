@@ -33,6 +33,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@drawable/jc_play_normal" />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/recommend_image"
+            android:layout_alignRight="@+id/recommend_image"
+            android:background="#80000000"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="50:28"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_small" />
     </RelativeLayout>
 
     <TextView

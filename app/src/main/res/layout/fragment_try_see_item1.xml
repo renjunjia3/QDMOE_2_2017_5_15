@@ -16,10 +16,10 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="VIP最新上线"
             android:textColor="#F25455"
             android:textSize="@dimen/text_size_large" />
@@ -30,14 +30,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingTop="10dp"
-            android:visibility="gone"
-            android:paddingBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="更多"
             android:textColor="#333333"
-            android:textSize="@dimen/text_size_middle" />
+            android:textSize="@dimen/text_size_middle"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -84,6 +84,21 @@
                     android:paddingTop="2dp"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/time1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/vip_image1"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
 
@@ -148,6 +163,22 @@
                     android:paddingTop="2dp"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/time2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/vip_image2"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
+
             </RelativeLayout>
 
 
@@ -210,6 +241,22 @@
                     android:paddingTop="2dp"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/time3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/vip_image3"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
+
             </RelativeLayout>
 
 
@@ -316,6 +363,22 @@
                     android:paddingTop="2dp"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/time4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/vip_image4"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
+
             </RelativeLayout>
 
 
@@ -363,7 +426,6 @@
                     android:layout_weight="1"
                     android:scaleType="centerCrop" />
 
-
                 <TextView
                     android:id="@+id/vip_tag5"
                     android:layout_width="wrap_content"
@@ -378,6 +440,22 @@
                     android:paddingTop="2dp"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/time5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/vip_image5"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
+
             </RelativeLayout>
 
 
@@ -423,8 +501,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_error"
                     android:scaleType="centerCrop" />
-
 
                 <TextView
                     android:id="@+id/vip_tag6"
@@ -440,6 +518,22 @@
                     android:paddingTop="2dp"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/time6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/vip_image6"
+                    android:layout_alignParentRight="true"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="50:28"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_small" />
+
             </RelativeLayout>
 
 

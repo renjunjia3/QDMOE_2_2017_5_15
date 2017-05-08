@@ -13,6 +13,7 @@ import com.fldhqd.nspmalf.R;
 import com.fldhqd.nspmalf.bean.VideoInfo;
 import com.fldhqd.nspmalf.util.ScreenUtils;
 import com.fldhqd.nspmalf.util.ViewUtils;
+import com.fldhqd.nspmalf.video.JCUtils;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class RankVideoListAdapter extends BaseAdapter {
     public RankVideoListAdapter(Context context, List<VideoInfo> list) {
         this.context = context;
         this.list = list;
-        inflater=LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -65,10 +66,11 @@ public class RankVideoListAdapter extends BaseAdapter {
         viewHolder.title.setText(info.getTitle());
         viewHolder.playCount.setText(info.getHits() + "次");
         viewHolder.tag.setVisibility(View.GONE);
-        viewHolder.updateNumber.setText("更新至"+info.getUpdate_number()+"期");
+        viewHolder.updateNumber.setText("更新至" + info.getUpdate_number() + "期");
         int height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(3)) * 24f / 2f / 17f);
-        ViewUtils.setViewHeightByViewGroup(viewHolder.image,height);
+        ViewUtils.setViewHeightByViewGroup(viewHolder.image, height);
         Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder.image);
+        viewHolder.time.setText(JCUtils.stringForTime(info.getDuration()));
         return convertView;
     }
 
@@ -83,6 +85,8 @@ public class RankVideoListAdapter extends BaseAdapter {
         TextView updateNumber;
         @BindView(R.id.play_count)
         TextView playCount;
+        @BindView(R.id.time)
+        TextView time;
 
         RankVideoListViewHolder(View view) {
             ButterKnife.bind(this, view);
