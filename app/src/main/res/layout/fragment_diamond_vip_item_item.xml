@@ -4,12 +4,22 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image"
+    <RelativeLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_error" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/jc_play_normal" />
+    </RelativeLayout>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -17,11 +27,12 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_tag_vip" />
 
+
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/image"
+        android:layout_alignBottom="@+id/layout"
         android:layout_alignParentRight="true"
         android:background="#80000000"
         android:paddingBottom="2dp"
@@ -36,7 +47,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image"
+        android:layout_below="@+id/layout"
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/score"
         android:ellipsize="end"
@@ -50,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/image"
+        android:layout_below="@+id/layout"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
