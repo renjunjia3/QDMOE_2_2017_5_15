@@ -114,11 +114,11 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
         View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
         TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
         if (App.isVip == 0) {
-            footerText.setText("请开通会员开放更多影片资源");
+            footerText.setText("请开通会员开放更多内容");
         } else if (App.isVip == 1) {
-            footerText.setText("请升级钻石会员开放更多影片资源");
+            footerText.setText("请升级钻石会员开放更多内容");
         } else if (App.isVip < 5 && App.isHeijin == 0) {
-            footerText.setText("请升级黑金会员开放更多影片资源");
+            footerText.setText("请升级黑金会员开放更多内容");
         } else {
             footerText.setVisibility(View.GONE);
         }
