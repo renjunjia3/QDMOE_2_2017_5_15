@@ -6,7 +6,7 @@
     android:clipChildren="false">
 
 
-    <com.fldhqd.nspmalf.ui.view.ChildViewPager
+    <com.mzhguqvn.mzhguq.ui.view.ChildViewPager
         android:id="@+id/bannerViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fldhqd.nspmalf.LuncherActivity">
+    tools:context="com.mzhguqvn.mzhguq.LuncherActivity">
 
     <ImageView
         android:layout_width="match_parent"
