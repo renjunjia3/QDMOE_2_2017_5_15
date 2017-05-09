@@ -79,16 +79,20 @@ public class ChatHeadService extends Service {
         chatHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent(ChatHeadService.this, MainActivity.class);
-                mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(mainIntent);
-                if (viewIsadded) {
-                    windowManager.removeViewImmediate(chatHead);
-                    viewIsadded = false;
+                try {
+                    Intent mainIntent = new Intent(ChatHeadService.this, MainActivity.class);
+                    mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(mainIntent);
+                    if (viewIsadded) {
+                        windowManager.removeViewImmediate(chatHead);
+                        viewIsadded = false;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
         });
-
 
         try {
             String jsonStr = SharedPreferencesUtil.getString(ChatHeadService.this, "NOTIFY_DATA", "");
@@ -123,56 +127,61 @@ public class ChatHeadService extends Service {
 
         @Override
         public void handleMessage(Message msg) {
-            if (MainActivity.isApplicationBroughtToBackground(getApplicationContext())) {
-                if (exitTime == 0) {
-                    exitTime = System.currentTimeMillis();
-                } else {
-                    if (count == 0) {
-                        //第一次是5分钟提示
-                        if (System.currentTimeMillis() - exitTime > 5 * 60 * 1000) {
-                            if (!viewIsadded && list.size() > 0) {
-                                title.setText(list.get(count % list.size()).getTitle());
-                                Glide.with(ChatHeadService.this).load(list.get(count % list.size()).getThumb()).asBitmap().centerCrop().into(image);
-                                windowManager.addView(chatHead, params);
-                                viewIsadded = true;
-                                count++;
-                                exitTime = 0;
-                                boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 1);
-                                if (!success) {
-                                    removeBadge();
-                                    setBadgeOfMIUI(ChatHeadService.this, 1);
-                                }
-                            }
-                        }
+            try {
+                if (MainActivity.isApplicationBroughtToBackground(getApplicationContext())) {
+                    if (exitTime == 0) {
+                        exitTime = System.currentTimeMillis();
                     } else {
-                        //之后是每隔3h提示一次
-                        if (System.currentTimeMillis() - exitTime > 3 * 60 * 60 * 1000) {
-                            if (!viewIsadded) {
-                                title.setText(list.get(count % list.size()).getTitle());
-                                Glide.with(ChatHeadService.this).load(list.get(count % list.size()).getThumb()).asBitmap().centerCrop().into(image);
-                                windowManager.addView(chatHead, params);
-                                viewIsadded = true;
-                                count++;
-                                exitTime = 0;
-                                boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 1);
-                                if (!success) {
-                                    removeBadge();
-                                    setBadgeOfMIUI(ChatHeadService.this, 1);
+                        if (count == 0) {
+                            //第一次是5分钟提示
+                            if (System.currentTimeMillis() - exitTime > 5 * 60 * 1000) {
+                                if (!viewIsadded && list.size() > 0) {
+                                    title.setText(list.get(count % list.size()).getTitle());
+                                    Glide.with(ChatHeadService.this).load(list.get(count % list.size()).getThumb()).asBitmap().centerCrop().into(image);
+                                    windowManager.addView(chatHead, params);
+                                    viewIsadded = true;
+                                    count++;
+                                    exitTime = 0;
+                                    boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 1);
+                                    if (!success) {
+                                        removeBadge();
+                                        setBadgeOfMIUI(ChatHeadService.this, 1);
+                                    }
+                                }
+                            }
+                        } else {
+                            //之后是每隔3h提示一次
+                            if (System.currentTimeMillis() - exitTime > 3 * 60 * 60 * 1000) {
+                                if (!viewIsadded) {
+                                    title.setText(list.get(count % list.size()).getTitle());
+                                    Glide.with(ChatHeadService.this).load(list.get(count % list.size()).getThumb()).asBitmap().centerCrop().into(image);
+                                    windowManager.addView(chatHead, params);
+                                    viewIsadded = true;
+                                    count++;
+                                    exitTime = 0;
+                                    boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 1);
+                                    if (!success) {
+                                        removeBadge();
+                                        setBadgeOfMIUI(ChatHeadService.this, 1);
+                                    }
                                 }
                             }
                         }
+
                     }
 
+                } else {
+                    if (viewIsadded) {
+                        windowManager.removeViewImmediate(chatHead);
+                        viewIsadded = false;
+                        exitTime = 0;
+                        count = 0;
+                    }
                 }
-
-            } else {
-                if (viewIsadded) {
-                    windowManager.removeViewImmediate(chatHead);
-                    viewIsadded = false;
-                    exitTime = 0;
-                    count = 0;
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
         }
     }
 

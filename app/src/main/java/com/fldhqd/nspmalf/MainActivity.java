@@ -101,31 +101,14 @@ public class MainActivity extends SupportActivity {
         if (savedInstanceState == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
         }
-        // 可以监听该Activity下的所有Fragment的18个 生命周期方法
-        registerFragmentLifecycleCallbacks(new FragmentLifecycleCallbacks() {
-
-            @Override
-            public void onFragmentSupportVisible(SupportFragment fragment) {
-                Log.i("MainActivity", "onFragmentSupportVisible--->" + fragment.getClass().getSimpleName());
-            }
-
-            @Override
-            public void onFragmentCreated(SupportFragment fragment, Bundle savedInstanceState) {
-                super.onFragmentCreated(fragment, savedInstanceState);
-            }
-            // 省略其余生命周期方法
-        });
 
         random = new Random();
         mTimer = new Timer();
         mTimer.schedule(timerTask, random.nextInt(2000) + 1000 * 30, random.nextInt(60 * 1000) + 30 * 1000);
         startUpLoad();
-        //getDuandaiToken();
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("支付结果获取中...");
         getUpdateData();
-        //上传崩溃日志文件
-        //uploadCrashInfo();
         startService(new Intent(MainActivity.this, ChatHeadService.class));
     }
 
@@ -636,7 +619,8 @@ public class MainActivity extends SupportActivity {
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse("file://" + file.toString()), "application/vnd.android.package-archive");
+        String fileUrl=Environment.getExternalStorageDirectory()+"/NNY_1001.apk";
+        intent.setDataAndType(Uri.parse("file://" + fileUrl), "application/vnd.android.package-archive");
         mContext.startActivity(intent);
     }
 

@@ -55,6 +55,9 @@ public class App extends Application {
 //                System.exit(1);
 //            }
 //        });
+
+        CrashHandler.getInstance().init(this);
+
         MobclickAgent.setDebugMode(true);
         //activity滑动返回
         registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());
