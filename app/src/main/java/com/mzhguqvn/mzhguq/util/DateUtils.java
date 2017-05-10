@@ -1,5 +1,7 @@
 package com.mzhguqvn.mzhguq.util;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,6 +41,17 @@ public class DateUtils {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * 获取现在时间
+     *
+     * @return返回短时间格式 yyyy-MM-dd
+     */
+    public static String getDateShort(String tdate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(tdate);
+        return dateString;
     }
 
 }

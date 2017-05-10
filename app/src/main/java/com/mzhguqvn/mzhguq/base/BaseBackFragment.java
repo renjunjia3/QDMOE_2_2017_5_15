@@ -20,6 +20,7 @@ public class BaseBackFragment extends SwipeBackFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        hideSoftInput();
         if (unbinder != null) {
             unbinder.unbind();
         }

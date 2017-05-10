@@ -467,6 +467,7 @@ public class MainFragment extends BaseFragment {
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
+                hideSoftInput();
                 showHideFragment(fragments.get(position), fragments.get(prePosition));
                 name.setText(tabNames.get(position));
             }

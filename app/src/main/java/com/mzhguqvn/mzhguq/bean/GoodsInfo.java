@@ -29,7 +29,7 @@ public class GoodsInfo implements Serializable {
     private String name;
     private String description;
     private String thumb;
-    private double price;
+    private double price;//单位是分
     private int hits;
     private int create_date;
     private String created_at;
@@ -88,7 +88,7 @@ public class GoodsInfo implements Serializable {
     }
 
     public double getPrice() {
-        return new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return new BigDecimal(price/100d).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public void setPrice(double price) {

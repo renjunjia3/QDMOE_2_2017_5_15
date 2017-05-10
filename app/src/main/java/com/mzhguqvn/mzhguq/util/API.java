@@ -6,9 +6,9 @@ package com.mzhguqvn.mzhguq.util;
 
 public class API {
 
-//    //正式环境
+    //    //正式环境
 //    public static final String URL_PRE = "http://api.lfys8.com/video/";
-            //测试环境
+    //测试环境
     public static final String URL_PRE = "http://tapi.lfys8.com/video/";
     //登录注册 每天只掉一次
     public static final String LOGIN_REGISTER = "user/";
@@ -73,5 +73,11 @@ public class API {
     //发表评论
     public static final String SEND_COMMEND = "user_comment";
     //商品详情
-    public static final String GOODS_DETAIL="goods/get_goods/1";
+    public static final String GOODS_DETAIL = "goods/get_goods/1";
+    //商品评论
+    public static final String GOODS_COMMENT = "goods/comment";
+    //商品下单
+    public static final String GOODS_CREATE_ORDER = "goods/create_order";
+    //购买商品支付是否成功:goods/is_pay_success/{user_id}/{order_id}
+    public static final String CHECK_GOODS_ORDER = "goods/is_pay_success/";
 }

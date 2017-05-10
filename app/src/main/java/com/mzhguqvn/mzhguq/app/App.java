@@ -32,6 +32,10 @@ public class App extends Application {
     public static boolean isNeedCheckOrder = false;
     public static int orderIdInt = 0;
     public static boolean isOPenBlackGlodVip = false;
+    public static int goodsOrderId = 0;
+    public static boolean isGoodsPay = false;
+    public static boolean isGoodsBuyPage = false;
+    public static String order_id = "";
 
     //用户id
     public static final String USERID_KEY = "user_id";

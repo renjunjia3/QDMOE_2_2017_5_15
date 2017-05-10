@@ -369,7 +369,9 @@ public class VideoDetailActivity extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (App.isNeedCheckOrder && App.orderIdInt != 0) {
+        if (App.isGoodsPay && App.isNeedCheckOrder && App.goodsOrderId != 0) {
+
+        } else if (App.isNeedCheckOrder && App.orderIdInt != 0) {
             checkOrder();
         }
         MobclickAgent.onResume(this);

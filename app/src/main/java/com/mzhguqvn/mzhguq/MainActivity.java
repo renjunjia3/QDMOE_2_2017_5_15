@@ -30,6 +30,7 @@ import com.mzhguqvn.mzhguq.bean.CheckOrderInfo;
 import com.mzhguqvn.mzhguq.bean.UpdateInfo;
 import com.mzhguqvn.mzhguq.event.ChangeTabEvent;
 import com.mzhguqvn.mzhguq.event.CheckOrderEvent;
+import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
 import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.DownLoadDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.UpdateDialog;
@@ -175,7 +176,9 @@ public class MainActivity extends SupportActivity {
             isNeedChangeTab = false;
             changeTab(new ChangeTabEvent(App.isVip));
         }
-        if (App.isNeedCheckOrder && App.orderIdInt != 0) {
+        if (App.isGoodsPay && App.isNeedCheckOrder && App.goodsOrderId != 0) {
+            checkGoodsOrder();
+        } else if (App.isNeedCheckOrder && App.orderIdInt != 0) {
             checkOrder();
         }
 
@@ -248,6 +251,9 @@ public class MainActivity extends SupportActivity {
         }
         if (isWork) {
             isWork = false;
+        }
+        if (checkGoodsOrderRequestCall != null) {
+            checkGoodsOrderRequestCall.cancel();
         }
         unRegisterBoradcastReceiver();
         super.onDestroy();
@@ -456,6 +462,50 @@ public class MainActivity extends SupportActivity {
             }
         }, 1000);
 
+    }
+
+    /**
+     * Case By:检查商品订单
+     * Author: scene on 2017/5/10 15:10
+     */
+    private RequestCall checkGoodsOrderRequestCall;
+
+    private void checkGoodsOrder() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkGoodsOrderRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_GOODS_ORDER + App.USER_ID + "/" + App.goodsOrderId).build();
+                checkGoodsOrderRequestCall.execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
+                            if (checkOrderInfo.isStatus()) {
+                                EventBus.getDefault().post(new GoodsPaySuccessEvent(App.isGoodsBuyPage));
+                            } else {
+                                ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }, 1000);
 
     }
 
@@ -617,7 +667,7 @@ public class MainActivity extends SupportActivity {
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
-        String fileUrl=Environment.getExternalStorageDirectory()+"/NNY_1001.apk";
+        String fileUrl = Environment.getExternalStorageDirectory() + "/NNY_1001.apk";
         intent.setDataAndType(Uri.parse("file://" + fileUrl), "application/vnd.android.package-archive");
         mContext.startActivity(intent);
     }
@@ -683,14 +733,18 @@ public class MainActivity extends SupportActivity {
         return vecFile;
     }
 
-
     public static final String ACTION_NAME_MAINACTIVITY_CHECK_ORDER = "action_name_MainActivity_check_order";
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(ACTION_NAME_MAINACTIVITY_CHECK_ORDER)) {
-                checkOrder();
+                boolean isGoods = intent.getBooleanExtra("IS_GOODS", false);
+                if (isGoods) {
+                    checkGoodsOrder();
+                } else {
+                    checkOrder();
+                }
             }
         }
     };

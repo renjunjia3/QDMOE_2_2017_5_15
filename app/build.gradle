@@ -191,6 +191,8 @@ dependencies {
     compile files('libs/umeng-analytics-v6.1.0.jar')
     //角标
     compile 'me.leolin:ShortcutBadger:1.1.16@aar'
+    //滚轮选择器
+    compile 'com.contrarywind:Android-PickerView:3.2.4'
     //第三方支付平台
     compile files('libs/alipaySdk_v3.0.jar')
     compile files('libs/libammsdk_v3.0.jar')

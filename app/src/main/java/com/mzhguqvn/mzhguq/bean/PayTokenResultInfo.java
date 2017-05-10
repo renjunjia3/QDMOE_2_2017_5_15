@@ -11,6 +11,7 @@ public class PayTokenResultInfo {
     private String pay_url;//支付宝wap路径
     private String payinfo;//吊起客户端的数据
     private int order_id_int;//订单号
+    private String order_id;
     private String code_img;//微信的二维码地址，
 
     public String getPay_url() {
@@ -51,5 +52,13 @@ public class PayTokenResultInfo {
 
     public void setCode_img(String code_img) {
         this.code_img = code_img;
+    }
+
+    public String getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(String order_id) {
+        this.order_id = order_id;
     }
 }
