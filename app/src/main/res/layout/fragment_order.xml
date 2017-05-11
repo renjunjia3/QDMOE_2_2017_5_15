@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#282828"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_back" />
@@ -11,10 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout
+            android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="10dp" />
+
+        </com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout>
+
     </wiki.scene.statuslib.StatusViewLayout>
 
 </LinearLayout>

@@ -80,4 +80,7 @@ public class API {
     public static final String GOODS_CREATE_ORDER = "goods/create_order";
     //购买商品支付是否成功:goods/is_pay_success/{user_id}/{order_id}
     public static final String CHECK_GOODS_ORDER = "goods/is_pay_success/";
+    //获取订单列表goods/get_orders/{user_id}
+    public static final String GET_ORDERS="goods/get_orders/";
+
 }
