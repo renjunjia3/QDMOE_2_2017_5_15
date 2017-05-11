@@ -36,7 +36,7 @@ public class GoodsComment2Adapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size() > 4 ? 5 : list.size();
+        return list.size();
     }
 
     @Override
@@ -64,8 +64,8 @@ public class GoodsComment2Adapter extends BaseAdapter {
             viewHolder.content.setText(info.getContent());
             viewHolder.userName.setText(info.getName());
             viewHolder.time.setText(info.getCreated_at());
-            viewHolder.goodNumber.setText(info.getGood()+"");
-            viewHolder.hits.setText(info.getHits()+"次");
+            viewHolder.goodNumber.setText(info.getGood() + "");
+            viewHolder.hits.setText(info.getHits() + "次");
             Glide.with(context).load(info.getAvatar()).into(viewHolder.userAvater);
         }
         return convertView;

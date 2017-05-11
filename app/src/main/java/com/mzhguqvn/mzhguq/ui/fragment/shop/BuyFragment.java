@@ -243,6 +243,8 @@ public class BuyFragment extends BaseBackFragment {
 
             //绑定评论数据
             if (commentList != null && commentList.size() > 0) {
+
+
                 goodsCommentAdapter = new GoodsCommentAdapter(getContext(), commentList);
                 commentListView.setAdapter(goodsCommentAdapter);
                 commentSize.setText("宝贝评价（" + commentList.size() + "）");
