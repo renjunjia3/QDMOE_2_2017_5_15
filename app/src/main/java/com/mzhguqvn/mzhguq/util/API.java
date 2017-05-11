@@ -6,10 +6,10 @@ package com.mzhguqvn.mzhguq.util;
 
 public class API {
 
-//            //正式环境
-//    public static final String URL_PRE = "http://api.lfys8.com/video/";
-    //测试环境
-    public static final String URL_PRE = "http://tapi.lfys8.com/video/";
+    //正式环境
+    public static final String URL_PRE = "http://api.lfys8.com/video/";
+    //    //测试环境
+//    public static final String URL_PRE = "http://tapi.lfys8.com/video/";
     //登录注册 每天只掉一次
     public static final String LOGIN_REGISTER = "user/";
     //女优首页

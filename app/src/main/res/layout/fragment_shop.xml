@@ -35,7 +35,7 @@
                         android:maxHeight="1000dp"
                         android:maxWidth="1000dp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimary"
@@ -56,12 +56,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text=""
+                            android:layout_below="@+id/name"
                             android:textColor="#F51112"
                             android:textSize="@dimen/text_size_small" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/price"
                             android:layout_marginTop="5dp"
                             android:orientation="horizontal">
 
@@ -117,17 +119,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:layout_marginTop="45dp"
                             android:layout_marginRight="10dp"
-                            android:layout_marginTop="15dp"
                             android:background="@drawable/bg_big_shop_btn"
                             android:gravity="center"
                             android:paddingBottom="5dp"
                             android:paddingTop="5dp"
-                            android:text="购买商品赠送黄金会员"
+                            android:text=""
                             android:textColor="#29272A"
                             android:textSize="@dimen/text_size_big" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <ImageView
                         android:id="@+id/image2"
@@ -707,7 +709,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="140dp"
-            android:layout_marginLeft="10dp"
             android:src="@drawable/ic_send_glod_vip" />
     </RelativeLayout>
 </wiki.scene.statuslib.StatusViewLayout>

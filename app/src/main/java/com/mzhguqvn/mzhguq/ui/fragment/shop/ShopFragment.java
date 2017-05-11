@@ -406,7 +406,7 @@ public class ShopFragment extends BaseMainFragment {
         });
         noticeTextView.run();
 
-        if (goodsInfo.getImages() == null || goodsInfo.getImages().size() < 15) {
+        if (goodsInfo.getImages() == null) {
             if (isShowLoading) {
                 statusViewLayout.showNetError(retryListener);
             } else {

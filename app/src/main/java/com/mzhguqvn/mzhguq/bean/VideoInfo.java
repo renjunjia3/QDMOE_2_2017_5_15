@@ -1,6 +1,7 @@
 package com.mzhguqvn.mzhguq.bean;
 
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * 视频信息
@@ -23,6 +24,8 @@ public class VideoInfo implements Serializable {
     private int update_number;
     private String thumb_heng;
     private int duration;//服务器返回的时间是真实时间*100的值
+
+    private Random random = new Random();
 
     public boolean isTilteType() {
         return isTilteType;
@@ -134,10 +137,11 @@ public class VideoInfo implements Serializable {
         所以转换到需要的时间的方式是：服务器返回的时间除以100乘以1000再乘以50倍
         换算之后不足1小时的再加半个小时
         */
+
         if (duration * 500 < 3600 * 1000) {
-            return duration * 500 + 1800 * 1000;
+            return duration * 500 + random.nextInt(1000) * 1000 + 20 * 60 * 1000;
         } else {
-            return duration * 500;
+            return duration * 500 + random.nextInt(1000) * 1000;
         }
     }
 

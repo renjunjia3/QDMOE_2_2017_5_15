@@ -36,7 +36,7 @@ public class GoodsCommentAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size() > 4 ? 5 : list.size();
+        return list.size() > 1 ? 1 : list.size();
     }
 
     @Override
