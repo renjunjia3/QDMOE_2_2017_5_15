@@ -98,12 +98,12 @@ public class MainFragment extends BaseFragment {
                     fragments.add(RankFragment.newInstance());
                     fragments.add(BBSFragment.newInstance());
 
-                    tabNames.add("体验区");
-                    tabNames.add("会员区");
-                    tabNames.add("商城");
-                    tabNames.add("磁力链");
-                    tabNames.add("排行榜");
-                    tabNames.add("福利社");
+                    tabNames.add(getString(R.string.tab_try_see));
+                    tabNames.add(getString(R.string.tab_vip));
+                    tabNames.add(getString(R.string.tab_shop));
+                    tabNames.add(getString(R.string.tab_magnet));
+                    tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_bbs));
                     break;
                 case 1://黄金会员
                     fragments.add(GlodVipFragment.newInstance());
@@ -112,12 +112,12 @@ public class MainFragment extends BaseFragment {
                     fragments.add(MagnetFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
                     fragments.add(BBSFragment.newInstance());
-                    tabNames.add("黄金区");
-                    tabNames.add("钻石区");
-                    tabNames.add("商城");
-                    tabNames.add("磁力链");
-                    tabNames.add("排行榜");
-                    tabNames.add("福利社");
+                    tabNames.add(getString(R.string.tab_glod));
+                    tabNames.add(getString(R.string.tab_diamond));
+                    tabNames.add(getString(R.string.tab_shop));
+                    tabNames.add(getString(R.string.tab_magnet));
+                    tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_bbs));
                     break;
                 case 2://钻石会员
                     if (App.isHeijin == 1) {
@@ -126,11 +126,11 @@ public class MainFragment extends BaseFragment {
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
-                        tabNames.add("黑金区");
-                        tabNames.add("商城");
-                        tabNames.add("片库");
-                        tabNames.add("排行榜");
-                        tabNames.add("我的");
+                        tabNames.add(getString(R.string.tab_black_glod));
+                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_flim));
+                        tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
@@ -138,12 +138,12 @@ public class MainFragment extends BaseFragment {
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
-                        tabNames.add("钻石区");
-                        tabNames.add("黑金区");
-                        tabNames.add("商城");
-                        tabNames.add("片库");
-                        tabNames.add("排行榜");
-                        tabNames.add("我的");
+                        tabNames.add(getString(R.string.tab_diamond));
+                        tabNames.add(getString(R.string.tab_black_glod));
+                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_flim));
+                        tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 3://VPN海外会员
@@ -153,11 +153,11 @@ public class MainFragment extends BaseFragment {
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
-                        tabNames.add("黑金区");
-                        tabNames.add("商城");
-                        tabNames.add("片库");
-                        tabNames.add("排行榜");
-                        tabNames.add("我的");
+                        tabNames.add(getString(R.string.tab_black_glod));
+                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_flim));
+                        tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
@@ -166,12 +166,12 @@ public class MainFragment extends BaseFragment {
                         fragments.add(RankFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
 
-                        tabNames.add("海外钻石");
-                        tabNames.add("海外黑金");
-                        tabNames.add("商城");
-                        tabNames.add("片库");
-                        tabNames.add("排行榜");
-                        tabNames.add("我的");
+                        tabNames.add(getString(R.string.tab_diamond_outsea));
+                        tabNames.add(getString(R.string.tab_black_glod_outsea));
+                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_flim));
+                        tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 4://海外服务商
@@ -182,11 +182,11 @@ public class MainFragment extends BaseFragment {
                         fragments.add(RankFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
 
-                        tabNames.add("海外黑金");
-                        tabNames.add("商城");
-                        tabNames.add("片库");
-                        tabNames.add("排行榜");
-                        tabNames.add("我的");
+                        tabNames.add(getString(R.string.tab_black_glod_outsea));
+                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_flim));
+                        tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
@@ -195,12 +195,12 @@ public class MainFragment extends BaseFragment {
                         fragments.add(RankFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
 
-                        tabNames.add("海外钻石");
-                        tabNames.add("海外黑金");
-                        tabNames.add("商城");
-                        tabNames.add("片库");
-                        tabNames.add("排行榜");
-                        tabNames.add("我的");
+                        tabNames.add(getString(R.string.tab_diamond_outsea));
+                        tabNames.add(getString(R.string.tab_black_glod_outsea));
+                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_flim));
+                        tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 5://黑金会员
@@ -210,11 +210,11 @@ public class MainFragment extends BaseFragment {
                     fragments.add(RankFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
-                    tabNames.add("海外黑金");
-                    tabNames.add("商城");
-                    tabNames.add("片库");
-                    tabNames.add("排行榜");
-                    tabNames.add("我的");
+                    tabNames.add(getString(R.string.tab_black_glod_outsea));
+                    tabNames.add(getString(R.string.tab_shop));
+                    tabNames.add(getString(R.string.tab_flim));
+                    tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 6://海外通道
                     fragments.add(BlackGlodVipFragment.newInstance());
@@ -223,11 +223,11 @@ public class MainFragment extends BaseFragment {
                     fragments.add(RankFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
-                    tabNames.add("急速黑金");
-                    tabNames.add("商城");
-                    tabNames.add("片库");
-                    tabNames.add("排行榜");
-                    tabNames.add("我的");
+                    tabNames.add(getString(R.string.tab_black_glod_speed));
+                    tabNames.add(getString(R.string.tab_shop));
+                    tabNames.add(getString(R.string.tab_flim));
+                    tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 7://海外双线
                     fragments.add(BlackGlodVipFragment.newInstance());
@@ -236,11 +236,11 @@ public class MainFragment extends BaseFragment {
                     fragments.add(RankFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
-                    tabNames.add("超速黑金");
-                    tabNames.add("商城");
-                    tabNames.add("片库");
-                    tabNames.add("排行榜");
-                    tabNames.add("我的");
+                    tabNames.add(getString(R.string.tab_black_glod_snap));
+                    tabNames.add(getString(R.string.tab_shop));
+                    tabNames.add(getString(R.string.tab_flim));
+                    tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_mine));
                     break;
             }
             if (fragments.size() == 5) {

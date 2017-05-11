@@ -86,9 +86,6 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
     protected int mScreenHeight;
     protected AudioManager mAudioManager;
 
-    protected int mThreshold = 80;
-    protected float mDownX;
-    protected float mDownY;
     protected boolean mChangeVolume = false;
     protected boolean mChangePosition = false;
     protected int mDownPosition;
@@ -200,7 +197,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 //        if (JCMediaManager.instance().listener == this) {
 //          JCMediaManager.instance().releaseMediaPlayer();
                 cancelProgressTimer();
-                progressBar.setProgress(100);
+                progressBar.setProgress(3);
                 currentTimeTextView.setText(totalTimeTextView.getText());
 //        }
                 break;

@@ -20,6 +20,22 @@
     <string name="tips_not_wifi_cancel">退出</string>
     <string name="no_url">No mUrl</string>
 
+    <string name="tab_try_see">体验区</string>
+    <string name="tab_vip">会员区</string>
+    <string name="tab_glod">黄金区</string>
+    <string name="tab_diamond">钻石区</string>
+    <string name="tab_black_glod">黑金区</string>
+    <string name="tab_flim">片库</string>
+    <string name="tab_mine">我的</string>
+    <string name="tab_magnet">磁力链</string>
+    <string name="tab_rank">排行榜</string>
+    <string name="tab_bbs">福利社</string>
+    <string name="tab_shop">印度伟哥</string>
+    <string name="tab_diamond_outsea">海外钻石</string>
+    <string name="tab_black_glod_outsea">海外黑金</string>
+    <string name="tab_black_glod_speed">急速黑金</string>
+    <string name="tab_black_glod_snap">超速黑金</string>
+
 
     <string name="disclaime">\t1、一切移动客户端用户在下载并浏览皮皮乐科技软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本站，或直接、间接使用本站资料者，均被视为自愿接受本网站相关声明和用户服务协议的约束。
 \n\t2、皮皮乐科技转载的内容并不代表皮皮乐科技之意见及观点，也不意味着本站赞同其观点或证实其内容的真实性。

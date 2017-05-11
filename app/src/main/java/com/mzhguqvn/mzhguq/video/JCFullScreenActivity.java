@@ -22,6 +22,7 @@ import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.SubmitAndCancelDialog;
 import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.DialogUtil;
+import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.mzhguqvn.mzhguq.util.ToastUtils;
 import com.mzhguqvn.mzhguq.video.danmu.danmu.DanmuControl;
 import com.umeng.analytics.MobclickAgent;
@@ -106,6 +107,7 @@ public class JCFullScreenActivity extends Activity {
         mJcVideoPlayer.ACTION_BAR_EXIST = true;
         mJcVideoPlayer.mIfCurrentIsFullscreen = true;
         mJcVideoPlayer.mIfFullscreenIsDirectly = DIRECT_FULLSCREEN;
+        mJcVideoPlayer.mScreenWidth = ScreenUtils.instance(JCFullScreenActivity.this).getScreenWidth();
         mJcVideoPlayer.setUp(URL, videoInfo.getTitle());
         mJcVideoPlayer.setStateAndUi(CURRENT_STATE);
         mJcVideoPlayer.addTextureView();
@@ -321,7 +323,7 @@ public class JCFullScreenActivity extends Activity {
             final Activity activity = mActivityReference.get();
             if (activity != null) {
                 try {
-                    if (App.isVip == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration()  - 5000) {
+                    if (App.isVip == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
                         try {
                             timerTask.cancel();
                             mTimer.cancel();
