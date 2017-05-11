@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.bean.TrySeeContentInfo;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
@@ -103,7 +104,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder3.recommendName.setText(info.getData().get(0).getTitle());
                 viewHolder3.recommendSynop.setText(info.getData().get(0).getDescription());
                 if (info.getData().get(0).getThumb().endsWith("gif")) {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().centerCrop().into(viewHolder3.recommendImage);
+                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(viewHolder3.recommendImage);
                 } else {
                     Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(viewHolder3.recommendImage);
                 }
@@ -123,7 +124,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder1.vipName1.setText(info.getData().get(0).getTitle());
                 viewHolder1.vipPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
                 if (info.getData().get(0).getThumb().endsWith("gif")) {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().centerCrop().into(viewHolder1.vipImage1);
+                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(viewHolder1.vipImage1);
                 } else {
                     Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage1);
                 }
@@ -278,7 +279,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
                 viewHolder2.time1.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
                 if (info.getData().get(0).getThumb().endsWith("gif")) {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().centerCrop().into(viewHolder2.hotImage1);
+                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(viewHolder2.hotImage1);
                 } else {
                     Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().into(viewHolder2.hotImage1);
                 }

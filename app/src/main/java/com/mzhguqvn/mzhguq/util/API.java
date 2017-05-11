@@ -6,10 +6,10 @@ package com.mzhguqvn.mzhguq.util;
 
 public class API {
 
-        //正式环境
-    public static final String URL_PRE = "http://api.lfys8.com/video/";
-//    //测试环境
-//    public static final String URL_PRE = "http://tapi.lfys8.com/video/";
+//            //正式环境
+//    public static final String URL_PRE = "http://api.lfys8.com/video/";
+    //测试环境
+    public static final String URL_PRE = "http://tapi.lfys8.com/video/";
     //登录注册 每天只掉一次
     public static final String LOGIN_REGISTER = "user/";
     //女优首页
@@ -81,8 +81,8 @@ public class API {
     //购买商品支付是否成功:goods/is_pay_success/{user_id}/{order_id}
     public static final String CHECK_GOODS_ORDER = "goods/is_pay_success/";
     //获取订单列表goods/get_orders/{user_id}
-    public static final String GET_ORDERS="goods/get_orders/";
+    public static final String GET_ORDERS = "goods/get_orders/";
     //获取物流信息
-    public static final String GET_LOGISTICS="http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
+    public static final String GET_LOGISTICS = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
 
 }

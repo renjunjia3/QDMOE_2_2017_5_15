@@ -165,7 +165,6 @@ public class ShopFragment extends BaseMainFragment {
     @BindView(R.id.comment_layout)
     LinearLayout commentLayout;
 
-
     private RequestCall dataRequestCall;
     private RequestCall commentRequestCall;
 
@@ -416,21 +415,13 @@ public class ShopFragment extends BaseMainFragment {
             return;
         }
         List<String> images = goodsInfo.getImages();
-        Glide.with(getContext()).load(images.get(0)).into(image1);
-        Glide.with(getContext()).load(images.get(1)).into(image2);
-        Glide.with(getContext()).load(images.get(2)).into(image3);
-        Glide.with(getContext()).load(images.get(3)).into(image4);
-        Glide.with(getContext()).load(images.get(4)).into(image5);
-        Glide.with(getContext()).load(images.get(5)).into(image6);
-        Glide.with(getContext()).load(images.get(6)).into(image7);
-        Glide.with(getContext()).load(images.get(7)).into(image8);
-        Glide.with(getContext()).load(images.get(8)).into(image9);
-        Glide.with(getContext()).load(images.get(9)).into(image10);
-        Glide.with(getContext()).load(images.get(10)).into(image11);
-        Glide.with(getContext()).load(images.get(11)).into(image12);
-        Glide.with(getContext()).load(images.get(12)).into(image13);
-        Glide.with(getContext()).load(images.get(13)).into(image14);
-        Glide.with(getContext()).load(images.get(14)).into(image15);
+        //图片数组
+        ImageView imageViews[] = {image1, image2, image3, image4, image5, image6, image7, image8,
+                image9, image10, image11, image12, image12, image13, image14, image15};
+        for (int i = 0; i < images.size(); i++) {
+            Glide.with(getContext()).load(images.get(i)).into(imageViews[i]);
+        }
+
     }
 
 
