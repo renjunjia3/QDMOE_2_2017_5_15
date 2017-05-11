@@ -51,7 +51,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -227,6 +229,7 @@ public class ShopFragment extends BaseMainFragment {
         super.onLazyInitView(savedInstanceState);
         initView();
         initAddressData();
+        uploadCurrentPage();
     }
 
     private void initView() {
@@ -654,5 +657,16 @@ public class ShopFragment extends BaseMainFragment {
         EventBus.getDefault().unregister(this);
         mHandler.removeCallbacksAndMessages(null);
         super.onDestroyView();
+    }
+
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "17");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 }

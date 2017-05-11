@@ -490,6 +490,8 @@ public class MainActivity extends SupportActivity {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
+                            App.goodsOrderId=0;
+                            App.isNeedCheckOrder=false;
                             if (progressDialog != null && progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }

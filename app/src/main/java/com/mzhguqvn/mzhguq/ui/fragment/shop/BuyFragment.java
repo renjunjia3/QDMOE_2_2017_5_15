@@ -36,15 +36,19 @@ import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.ui.view.CustomListView;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.DataSetAdapter;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.VerticalRollingTextView;
+import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
 import com.mzhguqvn.mzhguq.util.ToastUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -189,6 +193,7 @@ public class BuyFragment extends BaseBackFragment {
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
+        uploadCurrentPage();
     }
 
     private void initView() {
@@ -468,6 +473,17 @@ public class BuyFragment extends BaseBackFragment {
             receiverInfo.setReceiverPhone(receiverPhone.getText().toString().trim());
             EventBus.getDefault().post(new StartBrotherEvent(PaySuccessFragment.newInstance(info, receiverInfo, buyNumber)));
         }
+    }
+
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "18");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
 }

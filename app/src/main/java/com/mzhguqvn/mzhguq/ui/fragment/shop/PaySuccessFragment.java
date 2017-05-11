@@ -18,7 +18,12 @@ import com.mzhguqvn.mzhguq.bean.GoodsInfo;
 import com.mzhguqvn.mzhguq.bean.ReceiverInfo;
 import com.mzhguqvn.mzhguq.config.AddressConfig;
 import com.mzhguqvn.mzhguq.event.ChangeTabEvent;
+import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,6 +102,7 @@ public class PaySuccessFragment extends BaseBackFragment {
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
+        uploadCurrentPage();
     }
 
     private void initView() {
@@ -146,5 +152,16 @@ public class PaySuccessFragment extends BaseBackFragment {
             }
         }
         return super.onBackPressedSupport();
+    }
+
+    /**
+     * Case By:上报当前页面
+     * Author: scene on 2017/4/27 17:05
+     */
+    private void uploadCurrentPage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", "20");
+        params.put("user_id", App.USER_ID + "");
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 }
