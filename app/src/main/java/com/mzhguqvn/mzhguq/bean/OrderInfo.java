@@ -33,6 +33,7 @@ public class OrderInfo implements Serializable {
     private String address;
     private String mobile;
     private String delivery_no;
+    private String delivery_code;
     private int number;
     //[1 => '未付款', 2 => '已付款', 3 => '已发货', 4 => '已完成', 5 => '支付失败']
     private int status;
@@ -123,6 +124,14 @@ public class OrderInfo implements Serializable {
 
     public void setDelivery_no(String delivery_no) {
         this.delivery_no = delivery_no;
+    }
+
+    public String getDelivery_code() {
+        return delivery_code;
+    }
+
+    public void setDelivery_code(String delivery_code) {
+        this.delivery_code = delivery_code;
     }
 
     public int getNumber() {
