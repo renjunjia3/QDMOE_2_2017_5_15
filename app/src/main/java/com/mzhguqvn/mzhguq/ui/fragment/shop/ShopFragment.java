@@ -417,7 +417,7 @@ public class ShopFragment extends BaseMainFragment {
         List<String> images = goodsInfo.getImages();
         //图片数组
         ImageView imageViews[] = {image1, image2, image3, image4, image5, image6, image7, image8,
-                image9, image10, image11, image12, image12, image13, image14, image15};
+                image9, image10, image11, image12, image13, image14, image15};
         for (int i = 0; i < images.size(); i++) {
             Glide.with(getContext()).load(images.get(i)).into(imageViews[i]);
         }
