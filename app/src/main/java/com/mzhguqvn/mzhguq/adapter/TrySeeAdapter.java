@@ -269,8 +269,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotName1.setText(info.getData().get(0).getTitle());
                 viewHolder2.hotPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
                 viewHolder2.time1.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
-                Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().
-                        placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage1);
+                Glide.with(context).load(info.getData().get(0).getThumb()).asGif().centerCrop().into(viewHolder2.hotImage1);
                 if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
                     viewHolder2.tag1.setText(info.getData().get(0).getTag());
                     viewHolder2.tag1.setVisibility(View.VISIBLE);

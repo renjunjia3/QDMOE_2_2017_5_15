@@ -69,6 +69,12 @@
                     android:layout_weight="1"
                     android:scaleType="centerCrop" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/jc_play_normal" />
 
                 <TextView
                     android:id="@+id/vip_tag1"
@@ -148,6 +154,12 @@
                     android:layout_weight="1"
                     android:scaleType="centerCrop" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/jc_play_normal" />
 
                 <TextView
                     android:id="@+id/vip_tag2"
@@ -226,6 +238,12 @@
                     android:layout_weight="1"
                     android:scaleType="centerCrop" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/jc_play_normal" />
 
                 <TextView
                     android:id="@+id/vip_tag3"
@@ -348,6 +366,12 @@
                     android:layout_weight="1"
                     android:scaleType="centerCrop" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/jc_play_normal" />
 
                 <TextView
                     android:id="@+id/vip_tag4"
@@ -426,6 +450,13 @@
                     android:layout_weight="1"
                     android:scaleType="centerCrop" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/jc_play_normal" />
+
                 <TextView
                     android:id="@+id/vip_tag5"
                     android:layout_width="wrap_content"
@@ -502,6 +533,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:src="@drawable/jc_play_normal" />
 
                 <TextView
                     android:id="@+id/vip_tag6"

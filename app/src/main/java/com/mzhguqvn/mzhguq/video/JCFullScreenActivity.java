@@ -321,7 +321,7 @@ public class JCFullScreenActivity extends Activity {
             final Activity activity = mActivityReference.get();
             if (activity != null) {
                 try {
-                    if (App.isVip == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= mJcVideoPlayer.getDuration() / 50 - 5000) {
+                    if (App.isVip == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration()  - 5000) {
                         try {
                             timerTask.cancel();
                             mTimer.cancel();
@@ -344,7 +344,7 @@ public class JCFullScreenActivity extends Activity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    } else if (App.isVip == 1 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= mJcVideoPlayer.getDuration() / 50 - 5000) {
+                    } else if (App.isVip == 1 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
                         try {
                             timerTask.cancel();
                             mTimer.cancel();
@@ -414,7 +414,7 @@ public class JCFullScreenActivity extends Activity {
                             e.printStackTrace();
                         }
 
-                    } else if (App.isVip == 4 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= mJcVideoPlayer.getDuration() / 50 - 5000) {
+                    } else if (App.isVip == 4 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
                         try {
                             timerTask.cancel();
                             mTimer.cancel();
@@ -527,7 +527,7 @@ public class JCFullScreenActivity extends Activity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    } else if (App.isVip == 7 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= mJcVideoPlayer.getDuration() / 50 - 5000) {
+                    } else if (App.isVip == 7 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
                         try {
                             //开通双线之后播完 缓冲5s提示
                             JCMediaManager.instance().releaseMediaPlayer();

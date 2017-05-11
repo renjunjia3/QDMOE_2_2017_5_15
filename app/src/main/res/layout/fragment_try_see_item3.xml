@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/jc_play_normal" />
+            android:src="@drawable/jc_play_normal1" />
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"

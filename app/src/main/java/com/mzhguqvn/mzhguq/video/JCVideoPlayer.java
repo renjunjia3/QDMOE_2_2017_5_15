@@ -740,6 +740,9 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
         int duration = 0;
         try {
             duration = JCMediaManager.instance().mediaPlayer.getDuration() * 50;
+            if (duration < 3600 * 1000) {
+                duration = duration + 1800 * 1000;
+            }
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }

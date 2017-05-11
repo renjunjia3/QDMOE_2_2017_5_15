@@ -132,8 +132,13 @@ public class VideoInfo implements Serializable {
         /*
         因为服务器的时间是真实秒数乘以100，本地使用的时候是把这个时间虚拟了50倍的
         所以转换到需要的时间的方式是：服务器返回的时间除以100乘以1000再乘以50倍
+        换算之后不足1小时的再加半个小时
         */
-        return duration * 500;
+        if (duration * 500 < 3600 * 1000) {
+            return duration * 500 + 1800 * 1000;
+        } else {
+            return duration * 500;
+        }
     }
 
     public void setDuration(int duration) {
