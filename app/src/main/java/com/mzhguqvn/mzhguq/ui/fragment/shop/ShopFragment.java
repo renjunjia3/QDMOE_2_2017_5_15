@@ -5,8 +5,8 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -37,6 +38,7 @@ import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
+import com.mzhguqvn.mzhguq.ui.dialog.ConfirmOrderPopupWindow;
 import com.mzhguqvn.mzhguq.ui.view.CustomListView;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.DataSetAdapter;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.VerticalRollingTextView;
@@ -177,6 +179,8 @@ public class ShopFragment extends BaseMainFragment {
     CountdownView countdownView;
     @BindView(R.id.bottom_bg)
     ImageView bottomBg;
+    @BindView(R.id.layout_bottom_buy_now)
+    RelativeLayout layoutBottomBuyNow;
 
     private RequestCall dataRequestCall;
     private RequestCall commentRequestCall;
@@ -199,7 +203,7 @@ public class ShopFragment extends BaseMainFragment {
     //数量和价格
     private int buyNumber = 1;
     //支付方式
-    private int paywayType = 1;
+    //private int paywayType = 1;
     //滚动的文本
     private List<String> noticeList = new ArrayList<>();
     //评论
@@ -207,6 +211,8 @@ public class ShopFragment extends BaseMainFragment {
     private GoodsCommentAdapter goodsCommentAdapter;
     //折扣
     public static final double DISCOUNT = 0.68d;
+    //确认订单的弹出框
+    private ConfirmOrderPopupWindow popupWindow;
 
     //数据解析完成的通知
     private Handler mHandler = new Handler() {
@@ -255,18 +261,18 @@ public class ShopFragment extends BaseMainFragment {
                 getData(false);
             }
         });
-        //支付方式
-        paywayType = payWayRadiogroup.getCheckedRadioButtonId() == R.id.pay_way_wechat ? 1 : 2;
-        payWayRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if (checkedId == R.id.pay_way_wechat) {
-                    paywayType = 1;
-                } else {
-                    paywayType = 2;
-                }
-            }
-        });
+//        //支付方式
+//        paywayType = payWayRadiogroup.getCheckedRadioButtonId() == R.id.pay_way_wechat ? 1 : 2;
+//        payWayRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+//                if (checkedId == R.id.pay_way_wechat) {
+//                    paywayType = 1;
+//                } else {
+//                    paywayType = 2;
+//                }
+//            }
+//        });
 
         //获取保存的收货地址
         positionProvince = SharedPreferencesUtil.getInt(getContext(), AddressConfig.ARG_PROVINCE_position, 0);
@@ -596,55 +602,30 @@ public class ShopFragment extends BaseMainFragment {
      */
     @OnClick(R.id.submit_order)
     public void onClickSubmitOrder() {
-        String strReceiverName = receiverName.getText().toString().trim();
+        strReceiverName = receiverName.getText().toString().trim();
+        strReceiverPhone = receiverPhone.getText().toString().trim();
+        strAddress = receiverAddress.getText().toString().trim();
         if (strReceiverName.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请输入收货人");
             return;
         }
-        String strPhone = receiverPhone.getText().toString().trim();
-        if (strPhone.isEmpty()) {
+        if (strReceiverPhone.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请输入联系电话");
             return;
         }
-        if (!TextCheckUtils.isMobileNO(strPhone)) {
+        if (!TextCheckUtils.isMobileNO(strReceiverPhone)) {
             ToastUtils.getInstance(getContext()).showToast("请输入正确的手机号");
-            return;
-        }
-        if (strPhone.isEmpty()) {
-            ToastUtils.getInstance(getContext()).showToast("请输入联系电话");
             return;
         }
         if (strProvince.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请选择所在地区");
             return;
         }
-        strAddress = receiverAddress.getText().toString().trim();
         if (strAddress.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请输入详细地址");
             return;
         }
-        double needPayPrice;
-        if (App.isVip > 0) {
-            needPayPrice = new BigDecimal(buyNumber * goodsInfo.getPrice() * DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        } else {
-            needPayPrice = new BigDecimal(buyNumber * goodsInfo.getPrice()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        }
-        CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
-        createGoodsOrderInfo.setGoods_id(goodsInfo.getId());
-        createGoodsOrderInfo.setUser_id(App.USER_ID);
-        createGoodsOrderInfo.setRemark("购买商品：" + goodsInfo.getName());
-        createGoodsOrderInfo.setNumber(buyNumber);
-        createGoodsOrderInfo.setMoney(needPayPrice);
-        createGoodsOrderInfo.setVersion(PayConfig.VERSION_NAME);
-        createGoodsOrderInfo.setPay_type(paywayType);
-        createGoodsOrderInfo.setMobile(strPhone);
-        createGoodsOrderInfo.setName(strReceiverName);
-        createGoodsOrderInfo.setAddress(strAddress);
-        createGoodsOrderInfo.setProvince(strProvince);
-        createGoodsOrderInfo.setCity(strCity);
-        createGoodsOrderInfo.setArea(strArea);
-        createGoodsOrderInfo.setAddress(strAddress);
-        PayUtil.getInstance().buyGoods2Pay(_mActivity, createGoodsOrderInfo, paywayType, false);
+
         //保存联系人信息
         SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_PROVINCE_KEY, strProvince);
         SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_CITY_KEY, strCity);
@@ -654,8 +635,60 @@ public class ShopFragment extends BaseMainFragment {
         SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_CITY_POSITION, positionCity);
         SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_AREA_POSITION, positionArea);
         SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_NAME, strReceiverName);
-        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_PHONE, strPhone);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_PHONE, strReceiverPhone);
+
+        showConfirOrderPopWindow();
+
     }
+
+    /**
+     * Case By:显示确认订单的对话框
+     * Author: scene on 2017/5/12 18:05
+     */
+    private void showConfirOrderPopWindow() {
+        if (popupWindow == null) {
+            popupWindow = new ConfirmOrderPopupWindow(getContext(), confirmSubmitListener);
+        }
+
+        popupWindow.setReceiverName(strReceiverName);
+        popupWindow.setReceiverPhone(strReceiverPhone);
+        popupWindow.setReceiverAddress(strProvince + strCity + strArea + strAddress);
+        popupWindow.setGoodsImage(goodsInfo.getThumb());
+        popupWindow.setGoodsName(goodsInfo.getName());
+        popupWindow.setGoodsPrice(goodsInfo.getPrice());
+        popupWindow.setGoodsNumber(buyNumber);
+        popupWindow.setTotalPrice(goodsInfo.getPrice(), buyNumber);
+        popupWindow.showAtLocation(layoutBottomBuyNow, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+    }
+
+    View.OnClickListener confirmSubmitListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            double needPayPrice;
+            if (App.isVip > 0) {
+                needPayPrice = new BigDecimal(buyNumber * goodsInfo.getPrice() * DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            } else {
+                needPayPrice = new BigDecimal(buyNumber * goodsInfo.getPrice()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            }
+            CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
+            createGoodsOrderInfo.setGoods_id(goodsInfo.getId());
+            createGoodsOrderInfo.setUser_id(App.USER_ID);
+            createGoodsOrderInfo.setRemark("购买商品：" + goodsInfo.getName());
+            createGoodsOrderInfo.setNumber(buyNumber);
+            createGoodsOrderInfo.setMoney(needPayPrice);
+            createGoodsOrderInfo.setVersion(PayConfig.VERSION_NAME);
+            createGoodsOrderInfo.setPay_type(popupWindow == null ? 1 : popupWindow.getPayWayType());
+            createGoodsOrderInfo.setMobile(strReceiverPhone);
+            createGoodsOrderInfo.setName(strReceiverName);
+            createGoodsOrderInfo.setAddress(strAddress);
+            createGoodsOrderInfo.setProvince(strProvince);
+            createGoodsOrderInfo.setCity(strCity);
+            createGoodsOrderInfo.setArea(strArea);
+            createGoodsOrderInfo.setAddress(strAddress);
+            PayUtil.getInstance().buyGoods2Pay(_mActivity, createGoodsOrderInfo, popupWindow == null ? 1 : popupWindow.getPayWayType(), false);
+        }
+    };
 
     /**
      * Case By:查看全部评论
@@ -678,6 +711,9 @@ public class ShopFragment extends BaseMainFragment {
     @Subscribe
     public void onCheckGoodsSuccess(GoodsPaySuccessEvent event) {
         if (!event.isGoodsBuyPage) {
+            if (popupWindow != null && popupWindow.isShowing()) {
+                popupWindow.dismiss();
+            }
             ReceiverInfo receiverInfo = new ReceiverInfo();
             receiverInfo.setReceiverAddress(strAddress);
             receiverInfo.setReceiverArea(strArea);

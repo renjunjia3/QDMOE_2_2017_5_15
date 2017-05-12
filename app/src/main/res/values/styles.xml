@@ -65,4 +65,10 @@
         <item name="android:indeterminateBehavior">repeat</item>
         <item name="android:minWidth">1.0dip</item>
     </style>
+
+    <!-- popupwindow 动画 -->
+    <style name="pop_animation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit</item>
+    </style>
 </resources>

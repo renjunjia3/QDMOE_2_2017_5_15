@@ -41,7 +41,7 @@
                         android:scaleType="centerCrop" />
 
                     <RelativeLayout
-                        android:layout_width="184dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:orientation="vertical">
@@ -83,11 +83,11 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="10dp"
                             android:layout_marginLeft="10dp"
-                            android:visibility="gone"
                             android:layout_toRightOf="@+id/goods_price"
                             android:text=""
                             android:textColor="@android:color/darker_gray"
-                            android:textSize="@dimen/text_size_small" />
+                            android:textSize="@dimen/text_size_small"
+                            android:visibility="gone" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -340,6 +340,7 @@
                 </LinearLayout>
 
                 <RadioGroup
+                    android:visibility="gone"
                     android:id="@+id/pay_way_radiogroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

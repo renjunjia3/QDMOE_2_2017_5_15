@@ -5,9 +5,9 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +33,7 @@ import com.mzhguqvn.mzhguq.config.AddressConfig;
 import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
+import com.mzhguqvn.mzhguq.ui.dialog.ConfirmOrderPopupWindow;
 import com.mzhguqvn.mzhguq.ui.view.CustomListView;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.DataSetAdapter;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.VerticalRollingTextView;
@@ -133,8 +134,8 @@ public class BuyFragment extends BaseBackFragment {
     private int positionArea = 0;
     //数量和价格
     private int buyNumber = 1;
-    //支付
-    private int paywayType = 1;
+    //    //支付
+//    private int paywayType = 1;
     //滚动的文本
     private List<String> noticeList = new ArrayList<>();
     //评论
@@ -144,6 +145,9 @@ public class BuyFragment extends BaseBackFragment {
     private GoodsInfo info;
     //位置信息是否解析完成
     private boolean isAddressDataSuccess = false;
+
+    //弹出窗
+    private ConfirmOrderPopupWindow popupWindow;
 
 
     //数据解析完成的通知
@@ -218,18 +222,18 @@ public class BuyFragment extends BaseBackFragment {
             city.setText(strCity);
             area.setText(strArea);
             receiverAddress.setText(strAddress);
-            //支付方式
-            paywayType = payWayRadiogroup.getCheckedRadioButtonId() == R.id.pay_way_wechat ? 1 : 2;
-            payWayRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                    if (checkedId == R.id.pay_way_wechat) {
-                        paywayType = 1;
-                    } else {
-                        paywayType = 2;
-                    }
-                }
-            });
+//            //支付方式
+//            paywayType = payWayRadiogroup.getCheckedRadioButtonId() == R.id.pay_way_wechat ? 1 : 2;
+//            payWayRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+//                    if (checkedId == R.id.pay_way_wechat) {
+//                        paywayType = 1;
+//                    } else {
+//                        paywayType = 2;
+//                    }
+//                }
+//            });
 
             Glide.with(getContext()).load(info.getThumb()).into(goodsImage);
             goodsName.setText(info.getName());
@@ -264,8 +268,6 @@ public class BuyFragment extends BaseBackFragment {
 
             //绑定评论数据
             if (commentList != null && commentList.size() > 0) {
-
-
                 goodsCommentAdapter = new GoodsCommentAdapter(getContext(), commentList);
                 commentListView.setAdapter(goodsCommentAdapter);
                 commentSize.setText("宝贝评价（" + commentList.size() + "）");
@@ -277,6 +279,7 @@ public class BuyFragment extends BaseBackFragment {
             text.requestFocus();
         }
     }
+
 
     /**
      * Case By:初始化省市区的数据
@@ -389,7 +392,7 @@ public class BuyFragment extends BaseBackFragment {
             buyNumber--;
             numbers1.setText(buyNumber + "");
             numbers2.setText(buyNumber + "");
-            if (App.isVip > 1) {
+            if (App.isVip > 0) {
                 totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             } else {
                 totalPrice.setText("￥" + new BigDecimal((info.getPrice() * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
@@ -430,17 +433,18 @@ public class BuyFragment extends BaseBackFragment {
     @OnClick(R.id.buy_now)
     public void onClickBuyNow() {
 
-        String strReceiverName = receiverName.getText().toString().trim();
+        strReceiverName = receiverName.getText().toString().trim();
+        strReceiverPhone = receiverPhone.getText().toString().trim();
+        strAddress = receiverAddress.getText().toString().trim();
         if (strReceiverName.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请输入收货人");
             return;
         }
-        String strPhone = receiverPhone.getText().toString().trim();
-        if (strPhone.isEmpty()) {
+        if (strReceiverPhone.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请输入联系电话");
             return;
         }
-        if (!TextCheckUtils.isMobileNO(strPhone)) {
+        if (!TextCheckUtils.isMobileNO(strReceiverPhone)) {
             ToastUtils.getInstance(getContext()).showToast("请输入正确的手机号");
             return;
         }
@@ -448,33 +452,11 @@ public class BuyFragment extends BaseBackFragment {
             ToastUtils.getInstance(getContext()).showToast("请选择所在地区");
             return;
         }
-        strAddress = receiverAddress.getText().toString().trim();
         if (strAddress.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请输入详细地址");
             return;
         }
-        double needPayPrice = buyNumber * info.getPrice();
-        if (App.isVip > 0) {
-            needPayPrice = new BigDecimal(needPayPrice * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        } else {
-            needPayPrice = new BigDecimal(needPayPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        }
-        CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
-        createGoodsOrderInfo.setGoods_id(info.getId());
-        createGoodsOrderInfo.setUser_id(App.USER_ID);
-        createGoodsOrderInfo.setRemark("购买商品：" + info.getName());
-        createGoodsOrderInfo.setNumber(buyNumber);
-        createGoodsOrderInfo.setMoney(needPayPrice);
-        createGoodsOrderInfo.setVersion(PayConfig.VERSION_NAME);
-        createGoodsOrderInfo.setPay_type(paywayType);
-        createGoodsOrderInfo.setMobile(strPhone);
-        createGoodsOrderInfo.setName(strReceiverName);
-        createGoodsOrderInfo.setAddress(strAddress);
-        createGoodsOrderInfo.setProvince(strProvince);
-        createGoodsOrderInfo.setCity(strCity);
-        createGoodsOrderInfo.setArea(strArea);
-        createGoodsOrderInfo.setAddress(strAddress);
-        PayUtil.getInstance().buyGoods2Pay(_mActivity, createGoodsOrderInfo, paywayType, true);
+
         //保存联系人信息
         SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_PROVINCE_KEY, strProvince);
         SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_CITY_KEY, strCity);
@@ -484,8 +466,60 @@ public class BuyFragment extends BaseBackFragment {
         SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_CITY_POSITION, positionCity);
         SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_AREA_POSITION, positionArea);
         SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_NAME, strReceiverName);
-        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_PHONE, strPhone);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_PHONE, strReceiverPhone);
+
+        showConfirOrderPopWindow();
     }
+
+
+    /**
+     * Case By:显示确认订单的对话框
+     * Author: scene on 2017/5/12 18:05
+     */
+    private void showConfirOrderPopWindow() {
+        if (popupWindow == null) {
+            popupWindow = new ConfirmOrderPopupWindow(getContext(), confirmOrderListener);
+        }
+        popupWindow.setReceiverName(strReceiverName);
+        popupWindow.setReceiverPhone(strReceiverPhone);
+        popupWindow.setReceiverAddress(strProvince + strCity + strArea + strAddress);
+        popupWindow.setGoodsImage(info.getThumb());
+        popupWindow.setGoodsName(info.getName());
+        popupWindow.setGoodsPrice(info.getPrice());
+        popupWindow.setGoodsNumber(buyNumber);
+        popupWindow.setTotalPrice(info.getPrice(), buyNumber);
+        popupWindow.showAtLocation(buyNow, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+
+    View.OnClickListener confirmOrderListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            double needPayPrice = buyNumber * info.getPrice();
+            if (App.isVip > 0) {
+                needPayPrice = new BigDecimal(needPayPrice * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            } else {
+                needPayPrice = new BigDecimal(needPayPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            }
+            CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
+            createGoodsOrderInfo.setGoods_id(info.getId());
+            createGoodsOrderInfo.setUser_id(App.USER_ID);
+            createGoodsOrderInfo.setRemark("购买商品：" + info.getName());
+            createGoodsOrderInfo.setNumber(buyNumber);
+            createGoodsOrderInfo.setMoney(needPayPrice);
+            createGoodsOrderInfo.setVersion(PayConfig.VERSION_NAME);
+            createGoodsOrderInfo.setPay_type(popupWindow == null ? 1 : popupWindow.getPayWayType());
+            createGoodsOrderInfo.setMobile(strReceiverPhone);
+            createGoodsOrderInfo.setName(strReceiverName);
+            createGoodsOrderInfo.setAddress(strAddress);
+            createGoodsOrderInfo.setProvince(strProvince);
+            createGoodsOrderInfo.setCity(strCity);
+            createGoodsOrderInfo.setArea(strArea);
+            createGoodsOrderInfo.setAddress(strAddress);
+            PayUtil.getInstance().buyGoods2Pay(_mActivity, createGoodsOrderInfo, popupWindow == null ? 1 : popupWindow.getPayWayType(), true);
+        }
+    };
+
 
     @Override
     public void onResume() {
@@ -507,6 +541,9 @@ public class BuyFragment extends BaseBackFragment {
     @Subscribe
     public void onCheckGoodsSuccess(GoodsPaySuccessEvent event) {
         if (event.isGoodsBuyPage) {
+            if (popupWindow != null && popupWindow.isShowing()) {
+                popupWindow.dismiss();
+            }
             ReceiverInfo receiverInfo = new ReceiverInfo();
             receiverInfo.setReceiverAddress(strAddress);
             receiverInfo.setReceiverArea(strArea);
