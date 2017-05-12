@@ -15,7 +15,7 @@
             android:id="@+id/type_wechat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
             android:button="@drawable/ic_pay_type_selector"
             android:checked="true"
             android:drawableLeft="@drawable/ic_wechat"
@@ -24,10 +24,15 @@
             android:text="微信支付"
             android:textColor="#ffffff" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="20dp"
             android:button="@drawable/ic_pay_type_selector"
             android:drawableLeft="@drawable/ic_alipay"
             android:drawablePadding="5dp"

@@ -80,6 +80,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/price_layout"
@@ -133,13 +134,33 @@
                                 android:textSize="@dimen/text_size_small" />
                         </LinearLayout>
 
+                        <cn.iwgang.countdownview.CountdownView
+                            android:id="@+id/countdown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/layout"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            app:isHideTimeBackground="true"
+                            app:isShowHour="true"
+                            app:isShowSecond="true"
+                            app:isTimeTextBold="true"
+                            app:suffixGravity="center"
+                            app:suffixHour=":"
+                            app:suffixMillisecond="毫秒"
+                            app:suffixMinute=":"
+                            app:suffixTextColor="#CFA972"
+                            app:suffixTextSize="12sp"
+                            app:timeTextColor="#CFA972"
+                            app:timeTextSize="22sp" />
+
                         <TextView
                             android:id="@+id/buy_send_vip"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:layout_marginTop="45dp"
+                            android:layout_marginTop="70dp"
                             android:background="@drawable/bg_big_shop_btn"
                             android:gravity="center"
                             android:paddingBottom="5dp"
@@ -734,8 +755,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="130dp"
             android:layout_marginRight="3dp"
             android:src="@drawable/ic_buy_now" />
 
@@ -744,6 +764,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:visibility="gone"
             android:layout_marginBottom="140dp"
             android:src="@drawable/ic_send_glod_vip" />
     </RelativeLayout>

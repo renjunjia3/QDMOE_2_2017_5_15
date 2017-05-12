@@ -3,6 +3,7 @@ package com.mzhguqvn.mzhguq.ui.fragment.shop;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.IdRes;
@@ -62,6 +63,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.iwgang.countdownview.CountdownView;
 import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
 
@@ -171,6 +173,8 @@ public class ShopFragment extends BaseMainFragment {
     TextView oldPrice;
     @BindView(R.id.goods_old_price)
     TextView goodsOldPrice;
+    @BindView(R.id.countdown)
+    CountdownView countdownView;
 
     private RequestCall dataRequestCall;
     private RequestCall commentRequestCall;
@@ -277,6 +281,7 @@ public class ShopFragment extends BaseMainFragment {
         city.setText(strCity);
         area.setText(strArea);
         receiverAddress.setText(strAddress);
+        countdownView.start(120 * 60 * 1000);
     }
 
 
@@ -289,7 +294,7 @@ public class ShopFragment extends BaseMainFragment {
             statusViewLayout.showLoading();
         }
         if (NetWorkUtils.isNetworkConnected(_mActivity)) {
-            dataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GOODS_DETAIL+"/"+App.USER_ID).build();
+            dataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GOODS_DETAIL + "/" + App.USER_ID).build();
             dataRequestCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {

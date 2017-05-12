@@ -167,6 +167,13 @@
                 android:src="@drawable/ic_vip_type_unchoosed" />
         </LinearLayout>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_vip_notice" />
+
         <include layout="@layout/dialog_pay_bottom" />
 
         <Button
@@ -174,9 +181,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_round_bg_white"
+            android:background="@drawable/bg_vip_dialog_btn"
+            android:textColor="#FFFFFF"
             android:text="立即开通"
-            android:textColor="#df298d"
             android:textSize="@dimen/text_size_big" />
 
         <TextView

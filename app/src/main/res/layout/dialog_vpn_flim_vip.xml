@@ -45,9 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_round_bg_white"
+            android:background="@drawable/bg_vip_dialog_btn"
+            android:textColor="#FFFFFF"
             android:text="立即开通"
-            android:textColor="#df298d"
             android:textSize="@dimen/text_size_big" />
 
         <TextView
