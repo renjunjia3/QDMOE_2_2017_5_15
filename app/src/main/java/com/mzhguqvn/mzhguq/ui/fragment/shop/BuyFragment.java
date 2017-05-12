@@ -389,7 +389,11 @@ public class BuyFragment extends BaseBackFragment {
             buyNumber--;
             numbers1.setText(buyNumber + "");
             numbers2.setText(buyNumber + "");
-            totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            if (App.isVip > 1) {
+                totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            } else {
+                totalPrice.setText("￥" + new BigDecimal((info.getPrice() * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            }
         }
 
     }
@@ -403,7 +407,11 @@ public class BuyFragment extends BaseBackFragment {
         buyNumber++;
         numbers1.setText(buyNumber + "");
         numbers2.setText(buyNumber + "");
-        totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        if (App.isVip > 0) {
+            totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        } else {
+            totalPrice.setText("￥" + new BigDecimal((info.getPrice() * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        }
     }
 
     /**

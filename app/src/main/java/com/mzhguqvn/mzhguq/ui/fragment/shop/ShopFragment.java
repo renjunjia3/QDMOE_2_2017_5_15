@@ -3,7 +3,6 @@ package com.mzhguqvn.mzhguq.ui.fragment.shop;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.IdRes;

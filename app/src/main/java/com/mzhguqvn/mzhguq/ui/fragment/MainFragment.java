@@ -92,153 +92,153 @@ public class MainFragment extends BaseFragment {
                 case 0://试看
                     fragments.add(TrySeeFragment.newInstance());
                     fragments.add(GlodVipFragment.newInstance());
-                    fragments.add(ShopFragment.newInstance());
                     fragments.add(MagnetFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
+                    fragments.add(ShopFragment.newInstance());
                     //fragments.add(BBSFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_try_see));
                     tabNames.add(getString(R.string.tab_vip));
-                    tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_magnet));
                     tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_shop));
                     //tabNames.add(getString(R.string.tab_bbs));
                     break;
                 case 1://黄金会员
                     fragments.add(GlodVipFragment.newInstance());
                     fragments.add(DiamondVipFragment.newInstance());
-                    fragments.add(ShopFragment.newInstance());
                     fragments.add(MagnetFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
+                    fragments.add(ShopFragment.newInstance());
                     // fragments.add(BBSFragment.newInstance());
                     tabNames.add(getString(R.string.tab_glod));
                     tabNames.add(getString(R.string.tab_diamond));
-                    tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_magnet));
                     tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_shop));
                     //tabNames.add(getString(R.string.tab_bbs));
                     break;
                 case 2://钻石会员
                     if (App.isHeijin == 1) {
                         fragments.add(BlackGlodVipFragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
                         //fragments.add(MineFragment.newInstance());
                         tabNames.add(getString(R.string.tab_black_glod));
-                        tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_shop));
                         //tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
                         //fragments.add(MineFragment.newInstance());
                         tabNames.add(getString(R.string.tab_diamond));
                         tabNames.add(getString(R.string.tab_black_glod));
-                        tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_shop));
                         //tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 3://VPN海外会员
                     if (App.isHeijin == 1) {
                         fragments.add(BlackGlodVipFragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
                         //fragments.add(MineFragment.newInstance());
                         tabNames.add(getString(R.string.tab_black_glod));
-                        tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_shop));
                         //tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
                         //fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_diamond_outsea));
                         tabNames.add(getString(R.string.tab_black_glod_outsea));
-                        tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_shop));
                         //tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 4://海外服务商
                     if (App.isHeijin == 1) {
                         fragments.add(BlackGlodVipFragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
                         //fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_black_glod_outsea));
-                        tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_shop));
                         //tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
                         // fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_diamond_outsea));
                         tabNames.add(getString(R.string.tab_black_glod_outsea));
-                        tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
+                        tabNames.add(getString(R.string.tab_shop));
                         // tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 5://黑金会员
                     fragments.add(BlackGlodVipFragment.newInstance());
-                    fragments.add(ShopFragment.newInstance());
                     fragments.add(FilmFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
+                    fragments.add(ShopFragment.newInstance());
                     // fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_black_glod_outsea));
-                    tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_flim));
                     tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_shop));
                     //tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 6://海外通道
                     fragments.add(BlackGlodVipFragment.newInstance());
-                    fragments.add(ShopFragment.newInstance());
                     fragments.add(FilmFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
+                    fragments.add(ShopFragment.newInstance());
                     //fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_black_glod_speed));
-                    tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_flim));
                     tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_shop));
                     //tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 7://海外双线
                     fragments.add(BlackGlodVipFragment.newInstance());
-                    fragments.add(ShopFragment.newInstance());
                     fragments.add(FilmFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
+                    fragments.add(ShopFragment.newInstance());
                     //fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_black_glod_snap));
-                    tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_flim));
                     tabNames.add(getString(R.string.tab_rank));
+                    tabNames.add(getString(R.string.tab_shop));
                     //tabNames.add(getString(R.string.tab_mine));
                     break;
             }
@@ -270,32 +270,32 @@ public class MainFragment extends BaseFragment {
                 case 0:
                     fragments.add(findChildFragment(TrySeeFragment.class));
                     fragments.add(findChildFragment(GlodVipFragment.class));
-                    fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(MagnetFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
+                    fragments.add(findChildFragment(ShopFragment.class));
                     //fragments.add(findChildFragment(BBSFragment.class));
                     break;
                 case 1:
                     fragments.add(findChildFragment(GlodVipFragment.class));
                     fragments.add(findChildFragment(DiamondVipFragment.class));
-                    fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(MagnetFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
+                    fragments.add(findChildFragment(ShopFragment.class));
                     //fragments.add(findChildFragment(BBSFragment.class));
                     break;
                 case 2:
                     if (App.isHeijin == 1) {
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
                         //fragments.add(findChildFragment(MineFragment.class));
                     } else {
                         fragments.add(findChildFragment(DiamondVipFragment.class));
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
                         // fragments.add(findChildFragment(MineFragment.class));
                     }
 
@@ -303,17 +303,17 @@ public class MainFragment extends BaseFragment {
                 case 3:
                     if (App.isHeijin == 1) {
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
                         //fragments.add(findChildFragment(MineFragment.class));
 
                     } else {
                         fragments.add(findChildFragment(DiamondVipFragment.class));
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
                         //fragments.add(findChildFragment(MineFragment.class));
                     }
 
@@ -321,38 +321,38 @@ public class MainFragment extends BaseFragment {
                 case 4:
                     if (App.isHeijin == 1) {
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
                         // fragments.add(findChildFragment(MineFragment.class));
                     } else {
                         fragments.add(findChildFragment(DiamondVipFragment.class));
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
                         //fragments.add(findChildFragment(MineFragment.class));
                     }
                     break;
                 case 5:
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                    fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
+                    fragments.add(findChildFragment(ShopFragment.class));
                     //fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 6:
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                    fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
+                    fragments.add(findChildFragment(ShopFragment.class));
                     // fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 7:
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                    fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
+                    fragments.add(findChildFragment(ShopFragment.class));
                     //fragments.add(findChildFragment(MineFragment.class));
                     break;
             }
@@ -374,35 +374,35 @@ public class MainFragment extends BaseFragment {
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_try_see);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(3)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(4)));
                 // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(5)));
                 break;
             case 1:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(3)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(4)));
                 //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(5)));
                 break;
             case 2:
                 if (App.isHeijin == 1) {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(3)));
                     //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 } else {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(3)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(4)));
                     // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
                 }
                 break;
@@ -410,17 +410,17 @@ public class MainFragment extends BaseFragment {
                 if (App.isHeijin == 1) {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(3)));
                     // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 } else {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(3)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(4)));
                     //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
                 }
 
@@ -430,42 +430,42 @@ public class MainFragment extends BaseFragment {
                 if (App.isHeijin == 1) {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(3)));
                     //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 } else {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(3)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(4)));
                     //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
                 }
                 break;
             case 5:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(3)));
                 // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
             case 6:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(3)));
                 // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
             case 7:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(3)));
                 //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
         }
