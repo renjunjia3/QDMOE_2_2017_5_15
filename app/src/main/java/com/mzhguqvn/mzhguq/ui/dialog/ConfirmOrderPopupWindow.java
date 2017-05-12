@@ -65,7 +65,7 @@ public class ConfirmOrderPopupWindow extends PopupWindow {
                 ConfirmOrderPopupWindow.this.dismiss();
             }
         });
-        confirmPay.setOnClickListener(clickConfirmOrderListener);
+        confirmPay.setOnClickListener(null);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {

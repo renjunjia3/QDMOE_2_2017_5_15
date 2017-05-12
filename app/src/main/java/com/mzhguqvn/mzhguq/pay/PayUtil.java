@@ -47,24 +47,24 @@ public class PayUtil {
     public static final int VIP_TYPE_8 = 8;
     public static final int VIP_TYPE_9 = 9;
 
-    //开通黄金会员 3800
-    private static final int VIP_MONEY_TYPE_1 = 1;
-    //优惠开通黄金会员 2800
-    private static final int VIP_MONEY_TYPE_2 = 1;
-    //直接开通钻石会员 6800
-    private static final int VIP_MONEY_TYPE_3 = 1;
-    //升级钻石会员 3000
-    private static final int VIP_MONEY_TYPE_4 = 1;
-    //开通VPN海外会员 2800
-    private static final int VIP_MONEY_TYPE_5 = 1;
-    //开通海外片库 1900
-    private static final int VIP_MONEY_TYPE_6 = 1;
-    //开通黑金会员 4800
-    private static final int VIP_MONEY_TYPE_7 = 1;
-    //开通海外加速通道 1500
-    private static final int VIP_MONEY_TYPE_8 = 1;
-    //开通海外急速双线通道 1000
-    private static final int VIP_MONEY_TYPE_9 = 1;
+//    //开通黄金会员 3800
+//    private static final int VIP_MONEY_TYPE_1 = 1;
+//    //优惠开通黄金会员 2800
+//    private static final int VIP_MONEY_TYPE_2 = 1;
+//    //直接开通钻石会员 6800
+//    private static final int VIP_MONEY_TYPE_3 = 1;
+//    //升级钻石会员 3000
+//    private static final int VIP_MONEY_TYPE_4 = 1;
+//    //开通VPN海外会员 2800
+//    private static final int VIP_MONEY_TYPE_5 = 1;
+//    //开通海外片库 1900
+//    private static final int VIP_MONEY_TYPE_6 = 1;
+//    //开通黑金会员 4800
+//    private static final int VIP_MONEY_TYPE_7 = 1;
+//    //开通海外加速通道 1500
+//    private static final int VIP_MONEY_TYPE_8 = 1;
+//    //开通海外急速双线通道 1000
+//    private static final int VIP_MONEY_TYPE_9 = 1;
 
 //    //开通黄金会员 3800
 //    private static final int VIP_MONEY_TYPE_1 = 10;
@@ -85,24 +85,24 @@ public class PayUtil {
 //    //开通海外急速双线通道 1000
 //    private static final int VIP_MONEY_TYPE_9 = 10;
 
-//    //开通黄金会员 3800
-//    private static final int VIP_MONEY_TYPE_1 = 3800;
-//    //优惠开通黄金会员 2800
-//    private static final int VIP_MONEY_TYPE_2 = 2800;
-//    //直接开通钻石会员 6800
-//    private static final int VIP_MONEY_TYPE_3 = 6800;
-//    //升级钻石会员 3000
-//    private static final int VIP_MONEY_TYPE_4 = 3000;
-//    //开通VPN海外会员 2800
-//    private static final int VIP_MONEY_TYPE_5 = 2800;
-//    //开通海外片库 1900
-//    private static final int VIP_MONEY_TYPE_6 = 1900;
-//    //开通黑金会员 4800
-//    private static final int VIP_MONEY_TYPE_7 = 4800;
-//    //开通海外加速通道 1500
-//    private static final int VIP_MONEY_TYPE_8 = 1500;
-//    //开通海外急速双线通道 1000
-//    private static final int VIP_MONEY_TYPE_9 = 1000;
+    //开通黄金会员 3800
+    private static final int VIP_MONEY_TYPE_1 = 6800;
+    //优惠开通黄金会员 2800
+    private static final int VIP_MONEY_TYPE_2 = 4800;
+    //直接开通钻石会员 6800
+    private static final int VIP_MONEY_TYPE_3 = 6800;
+    //升级钻石会员 3000
+    private static final int VIP_MONEY_TYPE_4 = 3000;
+    //开通VPN海外会员 2800
+    private static final int VIP_MONEY_TYPE_5 = 2800;
+    //开通海外片库 1900
+    private static final int VIP_MONEY_TYPE_6 = 1900;
+    //开通黑金会员 4800
+    private static final int VIP_MONEY_TYPE_7 = 4800;
+    //开通海外加速通道 1500
+    private static final int VIP_MONEY_TYPE_8 = 1500;
+    //开通海外急速双线通道 1000
+    private static final int VIP_MONEY_TYPE_9 = 1000;
 
     private static PayUtil instance = null;
 
@@ -319,7 +319,7 @@ public class PayUtil {
                         dialog.dismiss();
                     }
                     final PayTokenResultInfo info = JSON.parseObject(s, PayTokenResultInfo.class);
-                    App.order_id=info.getOrder_id();
+                    App.order_id = info.getOrder_id();
                     //调用客户端
                     if (info.getType() == 1 || info.getType() == 2) {
                         final ProgressDialog progressDialog12 = new ProgressDialog(context);
@@ -333,7 +333,7 @@ public class PayUtil {
                                 }
                                 //不管支付成功或者失败都检查一下支付结果
                                 App.goodsOrderId = info.getOrder_id_int();
-                                App.isGoodsBuyPage=isGoodsBuyPage;
+                                App.isGoodsBuyPage = isGoodsBuyPage;
                                 checkGoodsOrder(context, isGoodsBuyPage);
                             }
                         });
@@ -344,7 +344,7 @@ public class PayUtil {
                         wxQRCodePayDialog.show();
                         App.isNeedCheckOrder = true;
                         App.goodsOrderId = info.getOrder_id_int();
-                        App.isGoodsBuyPage=isGoodsBuyPage;
+                        App.isGoodsBuyPage = isGoodsBuyPage;
                         DialogUtil.getInstance().showCustomSubmitDialog(context, "支付二维码已经保存到您的相册，请前往微信扫一扫付费");
                     } else if (info.getType() == 4) {
                         //支付宝wap
@@ -352,7 +352,7 @@ public class PayUtil {
                         intent.putExtra(AliPayActivity.ALIPAY_URL, info.getPay_url());
                         context.startActivity(intent);
                         App.isNeedCheckOrder = true;
-                        App.isGoodsBuyPage=isGoodsBuyPage;
+                        App.isGoodsBuyPage = isGoodsBuyPage;
                         App.goodsOrderId = info.getOrder_id_int();
                     } else {
                         ToastUtils.getInstance(context).showToast("购买失败，请重试");
