@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GoodsCommentAdapter;
 import com.mzhguqvn.mzhguq.app.App;
@@ -174,6 +175,8 @@ public class ShopFragment extends BaseMainFragment {
     TextView goodsOldPrice;
     @BindView(R.id.countdown)
     CountdownView countdownView;
+    @BindView(R.id.bottom_bg)
+    ImageView bottomBg;
 
     private RequestCall dataRequestCall;
     private RequestCall commentRequestCall;
@@ -244,6 +247,7 @@ public class ShopFragment extends BaseMainFragment {
     }
 
     private void initView() {
+        Glide.with(getContext()).load(R.drawable.bg_shop_bottom_buy).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(bottomBg);
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
@@ -666,7 +670,7 @@ public class ShopFragment extends BaseMainFragment {
      * Case By:点击购买需要跳转到购买页
      * Author: scene on 2017/5/10 13:57
      */
-    @OnClick({R.id.buy_send_vip, R.id.send_glod_vip, R.id.buy_now_fly})
+    @OnClick({R.id.buy_send_vip, R.id.send_glod_vip, R.id.buy_now_fly, R.id.layout_bottom_buy_now})
     public void onClickBuyNeed2BuyPage() {
         EventBus.getDefault().post(new StartBrotherEvent(BuyFragment.newInstance(goodsInfo, commentList)));
     }
