@@ -143,7 +143,7 @@ public class GlodVipFragment extends BaseMainFragment {
             @Override
             public void onClickGlodVipItem(int position) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false, 2);
                 } else {
                     toVideoDetail(list.get(position));
                 }
@@ -170,9 +170,9 @@ public class GlodVipFragment extends BaseMainFragment {
         @Override
         public void onClick(View v) {
             if (App.isVip == 0) {
-                DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 2);
             } else if (App.isVip == 1) {
-                DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 2);
             } else {
                 if (progressDialog == null) {
                     progressDialog = new ProgressDialog(getContext());
@@ -231,7 +231,7 @@ public class GlodVipFragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, info.getVideo_id(), false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, info.getVideo_id(), false, 2);
                 } else {
                     toVideoDetail(info);
                 }

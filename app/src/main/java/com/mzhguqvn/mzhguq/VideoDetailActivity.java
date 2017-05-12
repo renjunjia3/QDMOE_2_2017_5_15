@@ -184,7 +184,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
     @OnClick({R.id.zan, R.id.fravetor, R.id.open_vip, R.id.addVip, R.id.open_vip1, R.id.sendComment, R.id.download, R.id.commend_number})
     public void onClick(View v) {
         if (App.isVip == 0) {
-            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "该功能为会员功能，请成为会员后使用", App.isVip, false, true, videoInfo.getVideo_id(), true);
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "该功能为会员功能，请成为会员后使用", App.isVip, false, true, videoInfo.getVideo_id(), true, 7);
         } else {
             if (v.getId() == R.id.sendComment) {
                 String content = commentContent.getText().toString().trim();
@@ -250,10 +250,10 @@ public class VideoDetailActivity extends SwipeBackActivity {
     public void onClickPlayVideo() {
         if (!isEnterFromTrySee && App.isVip == 0) {
             //不是首页进来自己也不是VIP，弹出开通会员的提示
-            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id(), true);
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看体验，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id(), true, 7);
         } else {
             if (App.tryCount >= VideoConfig.TRY_COUNT_TIME && App.isVip == 0) {
-                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id(), true);
+                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.isVip, false, true, videoInfo.getVideo_id(), true, 7);
             } else {
                 App.tryCount += 1;
                 SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);
@@ -277,31 +277,31 @@ public class VideoDetailActivity extends SwipeBackActivity {
             switch (dialogType) {
                 case JCFullScreenActivity.DIALOG_TYPE_GLOD:
                     //黄金
-                    DialogUtil.getInstance().showGoldVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
+                    DialogUtil.getInstance().showGoldVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, 7);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_DIAMOND:
                     //砖石
-                    DialogUtil.getInstance().showDiamondVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
+                    DialogUtil.getInstance().showDiamondVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, 7);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_VPN:
                     //VPN
-                    DialogUtil.getInstance().showVpnVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
+                    DialogUtil.getInstance().showVpnVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, 7);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_FLIM:
                     //片库
-                    DialogUtil.getInstance().showVpnFlimVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
+                    DialogUtil.getInstance().showVpnFlimVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, 7);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_BLACK_GLOD:
                     //黑金会员
-                    DialogUtil.getInstance().showBlackGlodVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
+                    DialogUtil.getInstance().showBlackGlodVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, 7);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_SPEED:
                     //海外加速
-                    DialogUtil.getInstance().showAccelerationChannelVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
+                    DialogUtil.getInstance().showAccelerationChannelVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, 7);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_OVERSEA_SNAP:
                     //海外双线
-                    DialogUtil.getInstance().showRapidDoubletVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true);
+                    DialogUtil.getInstance().showRapidDoubletVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, 7);
                     break;
 
             }

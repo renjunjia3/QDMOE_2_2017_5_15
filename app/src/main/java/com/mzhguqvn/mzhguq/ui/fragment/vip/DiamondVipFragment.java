@@ -146,7 +146,7 @@ public class DiamondVipFragment extends BaseMainFragment {
             @Override
             public void onClickDiamondVipItem(int position) {
                 if (App.isVip < 2) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请升级钻石会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请升级钻石会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false, 3);
                 } else {
                     toVideoDetail(list.get(position));
                 }
@@ -172,11 +172,11 @@ public class DiamondVipFragment extends BaseMainFragment {
             public void onClick(View v) {
                 if (App.isVip < 5 && App.isHeijin == 0) {
                     if (App.isVip == 0) {
-                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 3);
                     } else if (App.isVip == 1) {
-                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 3);
                     } else {
-                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false, 3);
                     }
                 } else {
                     if (progressDialog == null) {
@@ -210,7 +210,7 @@ public class DiamondVipFragment extends BaseMainFragment {
         @Override
         public void onClick(View v) {
             if (App.isVip < 2) {
-                DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 3);
             } else {
                 if (progressDialog == null) {
                     progressDialog = new ProgressDialog(getContext());
@@ -268,7 +268,7 @@ public class DiamondVipFragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.isVip < 2) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.isVip, false, true, info.getVideo_id(), false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.isVip, false, true, info.getVideo_id(), false, 3);
                 } else {
                     toVideoDetail(info);
                 }

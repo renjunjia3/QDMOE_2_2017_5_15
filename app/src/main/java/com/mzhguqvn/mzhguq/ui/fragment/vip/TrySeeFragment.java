@@ -110,7 +110,7 @@ public class TrySeeFragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.isVip == 0) {
-                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 1);
                 }
             }
         });

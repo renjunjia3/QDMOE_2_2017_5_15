@@ -110,7 +110,7 @@ public class MainFragment extends BaseFragment {
                     fragments.add(ShopFragment.newInstance());
                     fragments.add(MagnetFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
-                   // fragments.add(BBSFragment.newInstance());
+                    // fragments.add(BBSFragment.newInstance());
                     tabNames.add(getString(R.string.tab_glod));
                     tabNames.add(getString(R.string.tab_diamond));
                     tabNames.add(getString(R.string.tab_shop));
@@ -124,25 +124,25 @@ public class MainFragment extends BaseFragment {
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
-                        fragments.add(MineFragment.newInstance());
+                        //fragments.add(MineFragment.newInstance());
                         tabNames.add(getString(R.string.tab_black_glod));
                         tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
-                        tabNames.add(getString(R.string.tab_mine));
+                        //tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
-                        fragments.add(MineFragment.newInstance());
+                        //fragments.add(MineFragment.newInstance());
                         tabNames.add(getString(R.string.tab_diamond));
                         tabNames.add(getString(R.string.tab_black_glod));
                         tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
-                        tabNames.add(getString(R.string.tab_mine));
+                        //tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 3://VPN海外会员
@@ -151,26 +151,26 @@ public class MainFragment extends BaseFragment {
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
-                        fragments.add(MineFragment.newInstance());
+                        //fragments.add(MineFragment.newInstance());
                         tabNames.add(getString(R.string.tab_black_glod));
                         tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
-                        tabNames.add(getString(R.string.tab_mine));
+                        //tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
-                        fragments.add(MineFragment.newInstance());
+                        //fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_diamond_outsea));
                         tabNames.add(getString(R.string.tab_black_glod_outsea));
                         tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
-                        tabNames.add(getString(R.string.tab_mine));
+                        //tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 4://海外服务商
@@ -179,27 +179,27 @@ public class MainFragment extends BaseFragment {
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
-                        fragments.add(MineFragment.newInstance());
+                        //fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_black_glod_outsea));
                         tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
-                        tabNames.add(getString(R.string.tab_mine));
+                        //tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(DiamondVipFragment.newInstance());
                         fragments.add(BlackGlodVipFragment.newInstance());
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(FilmFragment.newInstance());
                         fragments.add(RankFragment.newInstance());
-                        fragments.add(MineFragment.newInstance());
+                        // fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_diamond_outsea));
                         tabNames.add(getString(R.string.tab_black_glod_outsea));
                         tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_flim));
                         tabNames.add(getString(R.string.tab_rank));
-                        tabNames.add(getString(R.string.tab_mine));
+                        // tabNames.add(getString(R.string.tab_mine));
                     }
                     break;
                 case 5://黑金会员
@@ -207,49 +207,56 @@ public class MainFragment extends BaseFragment {
                     fragments.add(ShopFragment.newInstance());
                     fragments.add(FilmFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
-                    fragments.add(MineFragment.newInstance());
+                    // fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_black_glod_outsea));
                     tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_flim));
                     tabNames.add(getString(R.string.tab_rank));
-                    tabNames.add(getString(R.string.tab_mine));
+                    //tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 6://海外通道
                     fragments.add(BlackGlodVipFragment.newInstance());
                     fragments.add(ShopFragment.newInstance());
                     fragments.add(FilmFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
-                    fragments.add(MineFragment.newInstance());
+                    //fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_black_glod_speed));
                     tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_flim));
                     tabNames.add(getString(R.string.tab_rank));
-                    tabNames.add(getString(R.string.tab_mine));
+                    //tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 7://海外双线
                     fragments.add(BlackGlodVipFragment.newInstance());
                     fragments.add(ShopFragment.newInstance());
                     fragments.add(FilmFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
-                    fragments.add(MineFragment.newInstance());
+                    //fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_black_glod_snap));
                     tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_flim));
                     tabNames.add(getString(R.string.tab_rank));
-                    tabNames.add(getString(R.string.tab_mine));
+                    //tabNames.add(getString(R.string.tab_mine));
                     break;
             }
-            if (fragments.size() == 5) {
+
+            if (fragments.size() == 4) {
+                loadMultipleRootFragment(R.id.fl_container, TAB_1,
+                        fragments.get(TAB_1),
+                        fragments.get(TAB_2),
+                        fragments.get(TAB_3),
+                        fragments.get(TAB_4));
+            } else if (fragments.size() == 5) {
                 loadMultipleRootFragment(R.id.fl_container, TAB_1,
                         fragments.get(TAB_1),
                         fragments.get(TAB_2),
                         fragments.get(TAB_3),
                         fragments.get(TAB_4),
                         fragments.get(TAB_5));
-            } else {
+            } else if (fragments.size() == 6) {
                 loadMultipleRootFragment(R.id.fl_container, TAB_1,
                         fragments.get(TAB_1),
                         fragments.get(TAB_2),
@@ -282,14 +289,14 @@ public class MainFragment extends BaseFragment {
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
-                        fragments.add(findChildFragment(MineFragment.class));
+                        //fragments.add(findChildFragment(MineFragment.class));
                     } else {
                         fragments.add(findChildFragment(DiamondVipFragment.class));
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
-                        fragments.add(findChildFragment(MineFragment.class));
+                        // fragments.add(findChildFragment(MineFragment.class));
                     }
 
                     break;
@@ -299,7 +306,7 @@ public class MainFragment extends BaseFragment {
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
-                        fragments.add(findChildFragment(MineFragment.class));
+                        //fragments.add(findChildFragment(MineFragment.class));
 
                     } else {
                         fragments.add(findChildFragment(DiamondVipFragment.class));
@@ -307,7 +314,7 @@ public class MainFragment extends BaseFragment {
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
-                        fragments.add(findChildFragment(MineFragment.class));
+                        //fragments.add(findChildFragment(MineFragment.class));
                     }
 
                     break;
@@ -317,14 +324,14 @@ public class MainFragment extends BaseFragment {
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
-                        fragments.add(findChildFragment(MineFragment.class));
+                        // fragments.add(findChildFragment(MineFragment.class));
                     } else {
                         fragments.add(findChildFragment(DiamondVipFragment.class));
                         fragments.add(findChildFragment(BlackGlodVipFragment.class));
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(FilmFragment.class));
                         fragments.add(findChildFragment(RankFragment.class));
-                        fragments.add(findChildFragment(MineFragment.class));
+                        //fragments.add(findChildFragment(MineFragment.class));
                     }
                     break;
                 case 5:
@@ -332,21 +339,21 @@ public class MainFragment extends BaseFragment {
                     fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
-                    fragments.add(findChildFragment(MineFragment.class));
+                    //fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 6:
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
                     fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
-                    fragments.add(findChildFragment(MineFragment.class));
+                    // fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 7:
                     fragments.add(findChildFragment(BlackGlodVipFragment.class));
                     fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(FilmFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
-                    fragments.add(findChildFragment(MineFragment.class));
+                    //fragments.add(findChildFragment(MineFragment.class));
                     break;
             }
         }
@@ -370,7 +377,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(3)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
-               // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(5)));
+                // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(5)));
                 break;
             case 1:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
@@ -388,7 +395,7 @@ public class MainFragment extends BaseFragment {
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
+                    //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 } else {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
@@ -396,7 +403,7 @@ public class MainFragment extends BaseFragment {
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(3)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
+                    // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
                 }
                 break;
             case 3:
@@ -406,7 +413,7 @@ public class MainFragment extends BaseFragment {
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
+                    // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 } else {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
@@ -414,7 +421,7 @@ public class MainFragment extends BaseFragment {
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(3)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
+                    //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
                 }
 
 
@@ -426,7 +433,7 @@ public class MainFragment extends BaseFragment {
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
+                    //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 } else {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
@@ -434,7 +441,7 @@ public class MainFragment extends BaseFragment {
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(3)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
+                    //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(5)));
                 }
                 break;
             case 5:
@@ -443,7 +450,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
+                // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
             case 6:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
@@ -451,7 +458,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_flim, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
+                // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
             case 7:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_black_glod);
@@ -459,7 +466,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_index, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(3)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
+                //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(4)));
                 break;
         }
 
@@ -548,11 +555,12 @@ public class MainFragment extends BaseFragment {
     /**
      * 弹出支付窗口之后调用
      */
-    public static void openPayDialog(int video_id) {
+    public static void openPayDialog(int video_id, int pay_position_id) {
         Map<String, String> params = new HashMap<>();
         params.put("position_id", "15");
         params.put("user_id", App.USER_ID + "");
         params.put("video_id", video_id + "");
+        params.put("pay_position_id", pay_position_id + "");
         OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 

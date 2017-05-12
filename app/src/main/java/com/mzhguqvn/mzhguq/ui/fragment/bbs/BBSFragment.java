@@ -127,11 +127,11 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
             public void onClick(View v) {
                 if (App.isVip < 5 && App.isHeijin == 0) {
                     if (App.isVip == 0) {
-                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 11);
                     } else if (App.isVip == 1) {
-                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 11);
                     } else {
-                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false, 11);
                     }
                 } else {
                     if (progressDialog == null) {
@@ -220,9 +220,9 @@ public class BBSFragment extends BaseMainFragment implements BBSAdapter.BBSItemO
     @Override
     public void onBBsItemOnClick(int position) {
         if (App.isVip == 0) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目只对会员开放，请先升级会员", App.isVip, true);
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目只对会员开放，请先升级会员", App.isVip, true, 11);
         } else if (App.isVip == 1) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "您的会员权限不足，请先升级钻石会员", App.isVip, true);
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "您的会员权限不足，请先升级钻石会员", App.isVip, true, 11);
         }
     }
 

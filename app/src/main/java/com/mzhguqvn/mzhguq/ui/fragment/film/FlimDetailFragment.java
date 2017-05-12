@@ -139,7 +139,7 @@ public class FlimDetailFragment extends BaseBackFragment {
                 if (App.isVip > 0) {
                     toVideoDetail(list.get(positon));
                 } else {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(positon).getVideo_id(), false);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(positon).getVideo_id(), false,10);
                 }
             }
         });
@@ -162,11 +162,11 @@ public class FlimDetailFragment extends BaseBackFragment {
             public void onClick(View v) {
                 if (App.isVip < 5 && App.isHeijin == 0) {
                     if (App.isVip == 0) {
-                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false,10);
                     } else if (App.isVip == 1) {
-                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false,10);
                     } else {
-                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false,10);
                     }
                 } else {
                     if (progressDialog == null) {

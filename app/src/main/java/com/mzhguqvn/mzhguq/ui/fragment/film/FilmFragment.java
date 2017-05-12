@@ -134,11 +134,11 @@ public class FilmFragment extends BaseMainFragment {
             public void onClick(View v) {
                 if (App.isVip < 5 && App.isHeijin == 0) {
                     if (App.isVip == 0) {
-                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 9);
                     } else if (App.isVip == 1) {
-                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 9);
                     } else {
-                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false, 9);
                     }
                 } else {
                     if (progressDialog == null) {

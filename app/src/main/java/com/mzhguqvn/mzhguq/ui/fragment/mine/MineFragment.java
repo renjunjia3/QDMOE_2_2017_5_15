@@ -126,9 +126,9 @@ public class MineFragment extends BaseMainFragment {
     @OnClick(R.id.open_vip)
     public void onClickOpenVip() {
         if (App.isVip == 0) {
-            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 14);
         } else if (App.isVip == 1) {
-            DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+            DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 14);
         }
     }
 
@@ -138,9 +138,9 @@ public class MineFragment extends BaseMainFragment {
     @OnClick({R.id.shoucang, R.id.download, R.id.lishi})
     public void onClick(View view) {
         if (App.isVip == 0) {
-            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 14);
             MainFragment.clickWantPay();
-            MainFragment.openPayDialog(0);
+            MainFragment.openPayDialog(0, 14);
         }
     }
 

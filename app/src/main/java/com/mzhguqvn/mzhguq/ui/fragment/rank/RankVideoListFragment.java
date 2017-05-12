@@ -159,12 +159,12 @@ public class RankVideoListFragment extends BaseBackFragment {
                     toVideoDetail(list.get(position));
                 } else {
                     if (App.isVip == 0) {
-                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false);
+                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false, 6);
                     } else if (App.isVip == 1) {
-                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为黄金会员视频，请升级钻石会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false);
+                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为黄金会员视频，请升级钻石会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false, 6);
                     } else {
                         //为了让直接开通黑金虚构会员等级为4
-                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为黑金会员视频，请升级黑金会员后观看", 4, false, true, list.get(position).getVideo_id(), false);
+                        DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为黑金会员视频，请升级黑金会员后观看", 4, false, true, list.get(position).getVideo_id(), false, 6);
                     }
                 }
             }
@@ -199,11 +199,11 @@ public class RankVideoListFragment extends BaseBackFragment {
             public void onClick(View v) {
                 if (App.isVip < 5 && App.isHeijin == 0) {
                     if (App.isVip == 0) {
-                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 6);
                     } else if (App.isVip == 1) {
-                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 6);
                     } else {
-                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false);
+                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false, 6);
                     }
                 } else {
                     if (progressDialog == null) {

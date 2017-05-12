@@ -78,8 +78,8 @@ public class DialogUtil {
      * @param myVipType        我的VIP类型 App.isVip
      * @param isShowOpenVip    是否进入显示开通会员的对话框
      */
-    public void showSubmitDialog(Context context, boolean isCancelAsSubmit, String message, int myVipType, final boolean isShowOpenVip) {
-        showSubmitDialog(context, isCancelAsSubmit, message, myVipType, false, isShowOpenVip, 0, false);
+    public void showSubmitDialog(Context context, boolean isCancelAsSubmit, String message, int myVipType, final boolean isShowOpenVip, int pay_position_id) {
+        showSubmitDialog(context, isCancelAsSubmit, message, myVipType, false, isShowOpenVip, 0, false, pay_position_id);
     }
 
     /**
@@ -94,8 +94,9 @@ public class DialogUtil {
      * @param isShowOpenVip      是否进入显示开通会员的对话框
      * @param isDetailPage       视频详情页
      */
-    public void showSubmitDialog(Context context, boolean isCancelAsSubmit, String message, int myVipType, boolean isOpenBlackGlodVip, final boolean isShowOpenVip, final boolean isDetailPage) {
-        showSubmitDialog(context, isCancelAsSubmit, message, myVipType, isOpenBlackGlodVip, isShowOpenVip, 0, isDetailPage);
+    public void showSubmitDialog(Context context, boolean isCancelAsSubmit, String message,
+                                 int myVipType, boolean isOpenBlackGlodVip, final boolean isShowOpenVip, final boolean isDetailPage, int pay_position_id) {
+        showSubmitDialog(context, isCancelAsSubmit, message, myVipType, isOpenBlackGlodVip, isShowOpenVip, 0, isDetailPage, pay_position_id);
     }
 
     /**
@@ -111,7 +112,7 @@ public class DialogUtil {
      * @param videoId            视频Id
      * @param isDetailPage       视频详情页
      */
-    public void showSubmitDialog(final Context context, final boolean isCancelAsSubmit, String message, final int myVipType, final boolean isOpenBlackGlodVip, final boolean isShowOpenVip, final int videoId, final boolean isDetailPage) {
+    public void showSubmitDialog(final Context context, final boolean isCancelAsSubmit, String message, final int myVipType, final boolean isOpenBlackGlodVip, final boolean isShowOpenVip, final int videoId, final boolean isDetailPage, final int pay_position_id) {
 
         if (submitAndCancelDialog != null && submitAndCancelDialog.isShowing()) {
             submitAndCancelDialog.cancel();
@@ -124,7 +125,7 @@ public class DialogUtil {
             public void onClick(DialogInterface dialog, int which) {
                 submitAndCancelDialog.dismiss();
                 if (isShowOpenVip) {
-                    showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId, isDetailPage);
+                    showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId, isDetailPage, pay_position_id);
                 }
 
             }
@@ -135,7 +136,7 @@ public class DialogUtil {
             public void onClick(DialogInterface dialog, int which) {
                 submitAndCancelDialog.dismiss();
                 if (isShowOpenVip && isCancelAsSubmit) {
-                    showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId, isDetailPage);
+                    showVipDialog(context, myVipType, isOpenBlackGlodVip, videoId, isDetailPage, pay_position_id);
                 }
             }
         });
@@ -153,36 +154,36 @@ public class DialogUtil {
      * @param videoId            视频Id
      * @param isDetailPage       视频详情页
      */
-    private void showVipDialog(Context context, int myVipType, boolean isOPenBlackGlodVip, int videoId, boolean isDetailPage) {
+    private void showVipDialog(Context context, int myVipType, boolean isOPenBlackGlodVip, int videoId, boolean isDetailPage, int pay_position_id) {
         switch (myVipType) {
             case 0://开通黄金会员
-                showGoldVipDialog(context, videoId, isDetailPage);
+                showGoldVipDialog(context, videoId, isDetailPage, pay_position_id);
                 break;
             case 1://开通砖石会员
-                showDiamondVipDialog(context, videoId, isDetailPage);
+                showDiamondVipDialog(context, videoId, isDetailPage, pay_position_id);
                 break;
             case 2://当前VPN会员
                 if (isOPenBlackGlodVip) {
-                    showBlackGlodVipDialog(context, videoId, isDetailPage);
+                    showBlackGlodVipDialog(context, videoId, isDetailPage, pay_position_id);
                 } else {
-                    showVpnVipDialog(context, videoId, isDetailPage);
+                    showVpnVipDialog(context, videoId, isDetailPage, pay_position_id);
                 }
                 break;
             case 3://开通海外片库
                 if (isOPenBlackGlodVip) {
-                    showBlackGlodVipDialog(context, videoId, isDetailPage);
+                    showBlackGlodVipDialog(context, videoId, isDetailPage, pay_position_id);
                 } else {
-                    showVpnFlimVipDialog(context, videoId, isDetailPage);
+                    showVpnFlimVipDialog(context, videoId, isDetailPage, pay_position_id);
                 }
                 break;
             case 4://升级黑金会员
-                showBlackGlodVipDialog(context, videoId, isDetailPage);
+                showBlackGlodVipDialog(context, videoId, isDetailPage, pay_position_id);
                 break;
             case 5://开通海外加速
-                showAccelerationChannelVipDialog(context, videoId, isDetailPage);
+                showAccelerationChannelVipDialog(context, videoId, isDetailPage, pay_position_id);
                 break;
             case 6://海外双线
-                showRapidDoubletVipDialog(context, videoId, isDetailPage);
+                showRapidDoubletVipDialog(context, videoId, isDetailPage, pay_position_id);
                 break;
         }
     }
@@ -195,7 +196,7 @@ public class DialogUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 是否视频详情页进来的
      */
-    public void showGoldVipDialog(Context context, int videoId, boolean isVideoDetailPage) {
+    public void showGoldVipDialog(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
         if (glodVipDialog != null && glodVipDialog.isShowing()) {
             glodVipDialog.cancel();
         }
@@ -203,7 +204,7 @@ public class DialogUtil {
         glodVipDialog = glodVipDialogBuilder.create();
         glodVipDialog.show();
         MainFragment.clickWantPay();
-        MainFragment.openPayDialog(videoId);
+        MainFragment.openPayDialog(videoId, pay_position_id);
     }
 
     /**
@@ -214,7 +215,7 @@ public class DialogUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 是否视频详情页进来的
      */
-    public void showDiamondVipDialog(Context context, int videoId, boolean isVideoDetailPage) {
+    public void showDiamondVipDialog(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
         if (diamondVipDialog != null && diamondVipDialog.isShowing()) {
             diamondVipDialog.cancel();
         }
@@ -222,7 +223,7 @@ public class DialogUtil {
         diamondVipDialog = diamondVipDialogBuilder.create();
         diamondVipDialog.show();
         MainFragment.clickWantPay();
-        MainFragment.openPayDialog(videoId);
+        MainFragment.openPayDialog(videoId, pay_position_id);
     }
 
     /**
@@ -233,7 +234,7 @@ public class DialogUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 是否视频详情页进来的
      */
-    public void showVpnVipDialog(Context context, int videoId, boolean isVideoDetailPage) {
+    public void showVpnVipDialog(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
         if (vpnVipDialog != null && vpnVipDialog.isShowing()) {
             vpnVipDialog.cancel();
         }
@@ -241,7 +242,7 @@ public class DialogUtil {
         vpnVipDialog = vpnVipDialogBuilder.create();
         vpnVipDialog.show();
         MainFragment.clickWantPay();
-        MainFragment.openPayDialog(videoId);
+        MainFragment.openPayDialog(videoId, pay_position_id);
     }
 
     /**
@@ -252,7 +253,7 @@ public class DialogUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 是否视频详情页进来的
      */
-    public void showVpnFlimVipDialog(Context context, int videoId, boolean isVideoDetailPage) {
+    public void showVpnFlimVipDialog(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
         if (vpnFlimVipDialog != null && vpnFlimVipDialog.isShowing()) {
             vpnFlimVipDialog.cancel();
         }
@@ -260,7 +261,7 @@ public class DialogUtil {
         vpnFlimVipDialog = vpnFlimVipDialogBuilder.create();
         vpnFlimVipDialog.show();
         MainFragment.clickWantPay();
-        MainFragment.openPayDialog(videoId);
+        MainFragment.openPayDialog(videoId, pay_position_id);
     }
 
     /**
@@ -271,7 +272,7 @@ public class DialogUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 是否视频详情页进来的
      */
-    public void showBlackGlodVipDialog(Context context, int videoId, boolean isVideoDetailPage) {
+    public void showBlackGlodVipDialog(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
         if (blackGlodVipDialog != null && blackGlodVipDialog.isShowing()) {
             blackGlodVipDialog.cancel();
         }
@@ -280,7 +281,7 @@ public class DialogUtil {
         blackGlodVipDialog.show();
         App.isOPenBlackGlodVip = true;
         MainFragment.clickWantPay();
-        MainFragment.openPayDialog(videoId);
+        MainFragment.openPayDialog(videoId, pay_position_id);
     }
 
     /**
@@ -291,7 +292,7 @@ public class DialogUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 是否视频详情页进来的
      */
-    public void showAccelerationChannelVipDialog(Context context, int videoId, boolean isVideoDetailPage) {
+    public void showAccelerationChannelVipDialog(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
         if (accelerationChannelVipDialog != null && accelerationChannelVipDialog.isShowing()) {
             accelerationChannelVipDialog.cancel();
         }
@@ -299,7 +300,7 @@ public class DialogUtil {
         accelerationChannelVipDialog = accelerationChannelVipDialogBuilder.create();
         accelerationChannelVipDialog.show();
         MainFragment.clickWantPay();
-        MainFragment.openPayDialog(videoId);
+        MainFragment.openPayDialog(videoId, pay_position_id);
     }
 
     /**
@@ -310,7 +311,7 @@ public class DialogUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 是否视频详情页进来的
      */
-    public void showRapidDoubletVipDialog(Context context, int videoId, boolean isVideoDetailPage) {
+    public void showRapidDoubletVipDialog(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
         if (rapidDoubletVipDialog != null && rapidDoubletVipDialog.isShowing()) {
             rapidDoubletVipDialog.cancel();
         }
@@ -318,7 +319,7 @@ public class DialogUtil {
         rapidDoubletVipDialog = rapidDoubletVipDialogBuilder.create();
         rapidDoubletVipDialog.show();
         MainFragment.clickWantPay();
-        MainFragment.openPayDialog(videoId);
+        MainFragment.openPayDialog(videoId, pay_position_id);
     }
 
     /**
