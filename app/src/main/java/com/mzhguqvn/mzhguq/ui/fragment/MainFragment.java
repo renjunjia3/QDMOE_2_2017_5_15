@@ -15,7 +15,6 @@ import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseFragment;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
 import com.mzhguqvn.mzhguq.event.TabSelectedEvent;
-import com.mzhguqvn.mzhguq.ui.fragment.bbs.BBSFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.film.FilmFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.magnet.MagnetFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.HotLineFragment;
@@ -96,14 +95,14 @@ public class MainFragment extends BaseFragment {
                     fragments.add(ShopFragment.newInstance());
                     fragments.add(MagnetFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
-                    fragments.add(BBSFragment.newInstance());
+                    //fragments.add(BBSFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_try_see));
                     tabNames.add(getString(R.string.tab_vip));
                     tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_magnet));
                     tabNames.add(getString(R.string.tab_rank));
-                    tabNames.add(getString(R.string.tab_bbs));
+                    //tabNames.add(getString(R.string.tab_bbs));
                     break;
                 case 1://黄金会员
                     fragments.add(GlodVipFragment.newInstance());
@@ -111,13 +110,13 @@ public class MainFragment extends BaseFragment {
                     fragments.add(ShopFragment.newInstance());
                     fragments.add(MagnetFragment.newInstance());
                     fragments.add(RankFragment.newInstance());
-                    fragments.add(BBSFragment.newInstance());
+                   // fragments.add(BBSFragment.newInstance());
                     tabNames.add(getString(R.string.tab_glod));
                     tabNames.add(getString(R.string.tab_diamond));
                     tabNames.add(getString(R.string.tab_shop));
                     tabNames.add(getString(R.string.tab_magnet));
                     tabNames.add(getString(R.string.tab_rank));
-                    tabNames.add(getString(R.string.tab_bbs));
+                    //tabNames.add(getString(R.string.tab_bbs));
                     break;
                 case 2://钻石会员
                     if (App.isHeijin == 1) {
@@ -267,7 +266,7 @@ public class MainFragment extends BaseFragment {
                     fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(MagnetFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
-                    fragments.add(findChildFragment(BBSFragment.class));
+                    //fragments.add(findChildFragment(BBSFragment.class));
                     break;
                 case 1:
                     fragments.add(findChildFragment(GlodVipFragment.class));
@@ -275,7 +274,7 @@ public class MainFragment extends BaseFragment {
                     fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(MagnetFragment.class));
                     fragments.add(findChildFragment(RankFragment.class));
-                    fragments.add(findChildFragment(BBSFragment.class));
+                    //fragments.add(findChildFragment(BBSFragment.class));
                     break;
                 case 2:
                     if (App.isHeijin == 1) {
@@ -371,7 +370,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(3)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(5)));
+               // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(5)));
                 break;
             case 1:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
@@ -380,7 +379,7 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_magnet, tabNames.get(3)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank, tabNames.get(4)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(5)));
+                //mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_bbs, tabNames.get(5)));
                 break;
             case 2:
                 if (App.isHeijin == 1) {

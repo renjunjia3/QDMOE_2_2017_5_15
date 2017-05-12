@@ -52,7 +52,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text=""
-                            android:textColor="#F1CF9F" />
+                            android:textColor="#F1CF9F"
+                            android:textSize="@dimen/text_size_big" />
 
                         <TextView
                             android:id="@+id/text"
@@ -61,7 +62,8 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="10dp"
                             android:text="价格"
-                            android:textColor="#F1CF9F" />
+                            android:textColor="#F1CF9F"
+                            android:textSize="@dimen/text_size_big" />
 
                         <TextView
                             android:id="@+id/goods_price"
@@ -71,7 +73,21 @@
                             android:layout_marginBottom="10dp"
                             android:layout_toRightOf="@+id/text"
                             android:text=""
-                            android:textColor="#F2517A" />
+                            android:textColor="#F2517A"
+                            android:textSize="@dimen/text_size_big" />
+
+                        <TextView
+                            android:id="@+id/goods_old_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone"
+                            android:layout_toRightOf="@+id/goods_price"
+                            android:text=""
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/text_size_small" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -152,6 +168,7 @@
                         android:textSize="@dimen/text_size_small" />
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -361,6 +378,7 @@
 
                 </RadioGroup>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

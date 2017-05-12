@@ -22,6 +22,7 @@ import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,8 +110,14 @@ public class PaySuccessFragment extends BaseBackFragment {
         Glide.with(getContext()).load(goodsInfo.getThumb()).centerCrop().into(image);
         orderId.setText(App.order_id);
         goodsName.setText(goodsInfo.getName());
-        price.setText("￥" + goodsInfo.getPrice());
-        totalPrice.setText("￥" + (goodsInfo.getPrice() * buyNumber));
+        if (App.isVip > 0) {
+            price.setText("￥" + new BigDecimal(goodsInfo.getPrice() * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            totalPrice.setText("￥" + new BigDecimal(goodsInfo.getPrice() * buyNumber * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        } else {
+            price.setText("￥" + goodsInfo.getPrice());
+            totalPrice.setText("￥" + (goodsInfo.getPrice() * buyNumber));
+        }
+
         number.setText(buyNumber + "件");
         receiverName.setText(receiverInfo.getReceiverName());
         receiverPhone.setText(receiverInfo.getReceiverPhone());

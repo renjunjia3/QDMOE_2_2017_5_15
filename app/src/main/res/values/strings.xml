@@ -27,10 +27,10 @@
     <string name="tab_black_glod">黑金区</string>
     <string name="tab_flim">片库</string>
     <string name="tab_mine">我的</string>
-    <string name="tab_magnet">磁力链</string>
+    <string name="tab_magnet">搜索</string>
     <string name="tab_rank">排行榜</string>
     <string name="tab_bbs">福利社</string>
-    <string name="tab_shop">印度伟哥</string>
+    <string name="tab_shop">进口伟哥</string>
     <string name="tab_diamond_outsea">海外钻石</string>
     <string name="tab_black_glod_outsea">海外黑金</string>
     <string name="tab_black_glod_speed">急速黑金</string>

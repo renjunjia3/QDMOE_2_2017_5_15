@@ -1,6 +1,7 @@
 package com.mzhguqvn.mzhguq.ui.fragment.shop;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,7 +32,6 @@ import com.mzhguqvn.mzhguq.bean.ReceiverInfo;
 import com.mzhguqvn.mzhguq.config.AddressConfig;
 import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
-import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.ui.view.CustomListView;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.DataSetAdapter;
@@ -39,12 +39,14 @@ import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.VerticalRollingTextVi
 import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
+import com.mzhguqvn.mzhguq.util.TextCheckUtils;
 import com.mzhguqvn.mzhguq.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,6 +115,8 @@ public class BuyFragment extends BaseBackFragment {
     TextView buyNow;
     @BindView(R.id.text1)
     TextView text;
+    @BindView(R.id.goods_old_price)
+    TextView goodsOldPrice;
 
     //选择省市区
     private List<ProvinceInfo> options1Items = new ArrayList<>();
@@ -229,10 +233,22 @@ public class BuyFragment extends BaseBackFragment {
 
             Glide.with(getContext()).load(info.getThumb()).into(goodsImage);
             goodsName.setText(info.getName());
-            goodsPrice.setText("￥" + info.getPrice());
             numbers1.setText("1");
             numbers2.setText("1");
-            totalPrice.setText("￥" + info.getPrice());
+
+            goodsOldPrice.setText("原价：￥" + info.getPrice());
+            goodsOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            if (App.isVip > 0) {
+                goodsOldPrice.setVisibility(View.VISIBLE);
+                double oldprice = new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                goodsPrice.setText("￥" + oldprice);
+                totalPrice.setText("￥" + oldprice);
+            } else {
+                goodsOldPrice.setVisibility(View.GONE);
+                goodsPrice.setText("￥" + info.getPrice());
+                totalPrice.setText("￥" + info.getPrice());
+            }
+
             //滚动文本
             Random random = new Random();
             for (int i = 0; i < 50; i++) {
@@ -373,7 +389,7 @@ public class BuyFragment extends BaseBackFragment {
             buyNumber--;
             numbers1.setText(buyNumber + "");
             numbers2.setText(buyNumber + "");
-            totalPrice.setText("￥" + buyNumber * info.getPrice());
+            totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         }
 
     }
@@ -387,7 +403,7 @@ public class BuyFragment extends BaseBackFragment {
         buyNumber++;
         numbers1.setText(buyNumber + "");
         numbers2.setText(buyNumber + "");
-        totalPrice.setText("￥" + buyNumber * info.getPrice());
+        totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
     }
 
     /**
@@ -416,6 +432,10 @@ public class BuyFragment extends BaseBackFragment {
             ToastUtils.getInstance(getContext()).showToast("请输入联系电话");
             return;
         }
+        if (!TextCheckUtils.isMobileNO(strPhone)) {
+            ToastUtils.getInstance(getContext()).showToast("请输入正确的手机号");
+            return;
+        }
         if (strProvince.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请选择所在地区");
             return;
@@ -426,6 +446,11 @@ public class BuyFragment extends BaseBackFragment {
             return;
         }
         double needPayPrice = buyNumber * info.getPrice();
+        if (App.isVip > 0) {
+            needPayPrice = new BigDecimal(needPayPrice * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        } else {
+            needPayPrice = new BigDecimal(needPayPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        }
         CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
         createGoodsOrderInfo.setGoods_id(info.getId());
         createGoodsOrderInfo.setUser_id(App.USER_ID);
@@ -442,6 +467,16 @@ public class BuyFragment extends BaseBackFragment {
         createGoodsOrderInfo.setArea(strArea);
         createGoodsOrderInfo.setAddress(strAddress);
         PayUtil.getInstance().buyGoods2Pay(_mActivity, createGoodsOrderInfo, paywayType, true);
+        //保存联系人信息
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_PROVINCE_KEY, strProvince);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_CITY_KEY, strCity);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_AREA_KEY, strArea);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_ADDRESS, strAddress);
+        SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_PROVINCE_position, positionProvince);
+        SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_CITY_POSITION, positionCity);
+        SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_AREA_POSITION, positionArea);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_NAME, strReceiverName);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_PHONE, strPhone);
     }
 
     @Override
@@ -471,7 +506,7 @@ public class BuyFragment extends BaseBackFragment {
             receiverInfo.setReceiverProvince(strProvince);
             receiverInfo.setReceiverName(receiverName.getText().toString().trim());
             receiverInfo.setReceiverPhone(receiverPhone.getText().toString().trim());
-            EventBus.getDefault().post(new StartBrotherEvent(PaySuccessFragment.newInstance(info, receiverInfo, buyNumber)));
+            start(PaySuccessFragment.newInstance(info, receiverInfo, buyNumber));
         }
     }
 

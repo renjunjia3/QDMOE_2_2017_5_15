@@ -1,6 +1,7 @@
 package com.mzhguqvn.mzhguq.ui.fragment.shop;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -42,6 +43,7 @@ import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 import com.mzhguqvn.mzhguq.util.NetWorkUtils;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
+import com.mzhguqvn.mzhguq.util.TextCheckUtils;
 import com.mzhguqvn.mzhguq.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -50,6 +52,7 @@ import com.zhy.http.okhttp.request.RequestCall;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,6 +167,10 @@ public class ShopFragment extends BaseMainFragment {
     ImageView sendGlodVip;
     @BindView(R.id.comment_layout)
     LinearLayout commentLayout;
+    @BindView(R.id.old_price)
+    TextView oldPrice;
+    @BindView(R.id.goods_old_price)
+    TextView goodsOldPrice;
 
     private RequestCall dataRequestCall;
     private RequestCall commentRequestCall;
@@ -192,6 +199,8 @@ public class ShopFragment extends BaseMainFragment {
     //评论
     private ArrayList<GoodsCommentInfo> commentList = new ArrayList<>();
     private GoodsCommentAdapter goodsCommentAdapter;
+    //折扣
+    public static final double DISCOUNT = 0.68d;
 
     //数据解析完成的通知
     private Handler mHandler = new Handler() {
@@ -280,7 +289,7 @@ public class ShopFragment extends BaseMainFragment {
             statusViewLayout.showLoading();
         }
         if (NetWorkUtils.isNetworkConnected(_mActivity)) {
-            dataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GOODS_DETAIL).build();
+            dataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GOODS_DETAIL+"/"+App.USER_ID).build();
             dataRequestCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
@@ -383,16 +392,32 @@ public class ShopFragment extends BaseMainFragment {
      */
     private void initData(boolean isShowLoading) {
         name.setText(goodsInfo.getName());
-        price.setText("￥" + goodsInfo.getPrice());
         saleNumber.setText("" + goodsInfo.getSales());
         shopAddress.setText(goodsInfo.getAddress());
-        kuaidiPrice.setText(goodsInfo.getDelivery_money() == 0 ? "免费" : goodsInfo.getDelivery_money() + "");
+        kuaidiPrice.setText(goodsInfo.getDelivery_money() == 0 ? "免费" : "￥" + goodsInfo.getDelivery_money());
         goodsName.setText(goodsInfo.getName());
-        goodsPrice.setText("￥" + goodsInfo.getPrice());
         Glide.with(getContext()).load(goodsInfo.getThumb()).into(goodsImage);
-        totalPrice.setText("￥" + goodsInfo.getPrice());
         numbers1.setText("1");
-        numbers2.setText("2");
+        numbers2.setText("1");
+        oldPrice.setText("原价：￥" + goodsInfo.getPrice());
+        oldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        goodsOldPrice.setText("原价：￥" + goodsInfo.getPrice());
+        goodsOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        if (App.isVip > 0) {
+            oldPrice.setVisibility(View.VISIBLE);
+            goodsOldPrice.setVisibility(View.VISIBLE);
+
+            price.setText("优惠价：￥" + new BigDecimal((goodsInfo.getPrice() * DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            goodsPrice.setText("￥" + new BigDecimal((goodsInfo.getPrice() * DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            totalPrice.setText("￥" + new BigDecimal((goodsInfo.getPrice() * DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        } else {
+            oldPrice.setVisibility(View.GONE);
+            goodsOldPrice.setVisibility(View.GONE);
+            price.setText("单价：￥" + goodsInfo.getPrice());
+            goodsPrice.setText("￥" + goodsInfo.getPrice());
+            totalPrice.setText("￥" + goodsInfo.getPrice());
+        }
+
         //滚动文本
         Random random = new Random();
         for (int i = 0; i < 50; i++) {
@@ -531,7 +556,11 @@ public class ShopFragment extends BaseMainFragment {
             buyNumber--;
             numbers1.setText(buyNumber + "");
             numbers2.setText(buyNumber + "");
-            totalPrice.setText("￥" + buyNumber * goodsInfo.getPrice());
+            if (App.isVip > 0) {
+                totalPrice.setText("￥" + new BigDecimal((buyNumber * goodsInfo.getPrice() * DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            } else {
+                totalPrice.setText("￥" + buyNumber * goodsInfo.getPrice());
+            }
         }
 
     }
@@ -545,7 +574,11 @@ public class ShopFragment extends BaseMainFragment {
         buyNumber++;
         numbers1.setText(buyNumber + "");
         numbers2.setText(buyNumber + "");
-        totalPrice.setText("￥" + buyNumber * goodsInfo.getPrice());
+        if (App.isVip > 0) {
+            totalPrice.setText("￥" + new BigDecimal((buyNumber * goodsInfo.getPrice() * DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        } else {
+            totalPrice.setText("￥" + buyNumber * goodsInfo.getPrice());
+        }
     }
 
 
@@ -565,6 +598,14 @@ public class ShopFragment extends BaseMainFragment {
             ToastUtils.getInstance(getContext()).showToast("请输入联系电话");
             return;
         }
+        if (!TextCheckUtils.isMobileNO(strPhone)) {
+            ToastUtils.getInstance(getContext()).showToast("请输入正确的手机号");
+            return;
+        }
+        if (strPhone.isEmpty()) {
+            ToastUtils.getInstance(getContext()).showToast("请输入联系电话");
+            return;
+        }
         if (strProvince.isEmpty()) {
             ToastUtils.getInstance(getContext()).showToast("请选择所在地区");
             return;
@@ -574,7 +615,12 @@ public class ShopFragment extends BaseMainFragment {
             ToastUtils.getInstance(getContext()).showToast("请输入详细地址");
             return;
         }
-        double needPayPrice = buyNumber * goodsInfo.getPrice();
+        double needPayPrice;
+        if (App.isVip > 0) {
+            needPayPrice = new BigDecimal(buyNumber * goodsInfo.getPrice() * DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        } else {
+            needPayPrice = new BigDecimal(buyNumber * goodsInfo.getPrice()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        }
         CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
         createGoodsOrderInfo.setGoods_id(goodsInfo.getId());
         createGoodsOrderInfo.setUser_id(App.USER_ID);
@@ -591,6 +637,16 @@ public class ShopFragment extends BaseMainFragment {
         createGoodsOrderInfo.setArea(strArea);
         createGoodsOrderInfo.setAddress(strAddress);
         PayUtil.getInstance().buyGoods2Pay(_mActivity, createGoodsOrderInfo, paywayType, false);
+        //保存联系人信息
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_PROVINCE_KEY, strProvince);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_CITY_KEY, strCity);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_AREA_KEY, strArea);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_ADDRESS, strAddress);
+        SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_PROVINCE_position, positionProvince);
+        SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_CITY_POSITION, positionCity);
+        SharedPreferencesUtil.putInt(getContext(), AddressConfig.ARG_AREA_POSITION, positionArea);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_NAME, strReceiverName);
+        SharedPreferencesUtil.putString(getContext(), AddressConfig.ARG_RECEIVER_PHONE, strPhone);
     }
 
     /**
