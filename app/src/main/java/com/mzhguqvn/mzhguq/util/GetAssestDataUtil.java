@@ -16,8 +16,7 @@ import java.io.InputStreamReader;
 
 public class GetAssestDataUtil {
 
-
-    public String getAssestJson(Context context, String fileName) {
+    public static String getAssestJson(Context context, String fileName) {
 
         StringBuilder stringBuilder = new StringBuilder();
         try {

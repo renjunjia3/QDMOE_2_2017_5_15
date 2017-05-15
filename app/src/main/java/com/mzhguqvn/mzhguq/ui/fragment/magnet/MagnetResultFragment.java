@@ -2,6 +2,8 @@ package com.mzhguqvn.mzhguq.ui.fragment.magnet;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.mzhguqvn.mzhguq.bean.SearchInfo;
 import com.mzhguqvn.mzhguq.ui.dialog.DownLoadDialog;
 import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.DialogUtil;
+import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 import com.mzhguqvn.mzhguq.util.NetWorkUtils;
 import com.mzhguqvn.mzhguq.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -103,46 +106,39 @@ public class MagnetResultFragment extends BaseBackFragment implements SearchAdap
             addFooter();
         }
         searchLayout.setBackgroundColor(getResources().getColor(R.color.black));
+
         if (position != -1) {
-            switch (position) {
-                case 0:
-                    lists = JSON.parseArray(getString(R.string.search_tag_1), SearchInfo.class);
-                    break;
-                case 1:
-                    lists = JSON.parseArray(getString(R.string.search_tag_2), SearchInfo.class);
-                    break;
-                case 2:
-                    lists = JSON.parseArray(getString(R.string.search_tag_3), SearchInfo.class);
-                    break;
-                case 3:
-                    lists = JSON.parseArray(getString(R.string.search_tag_4), SearchInfo.class);
-                    break;
-                case 4:
-                    lists = JSON.parseArray(getString(R.string.search_tag_5), SearchInfo.class);
-                    break;
-                case 5:
-                    lists = JSON.parseArray(getString(R.string.search_tag_6), SearchInfo.class);
-                    break;
-                case 6:
-                    lists = JSON.parseArray(getString(R.string.search_tag_7), SearchInfo.class);
-                    break;
-                case 7:
-                    lists = JSON.parseArray(getString(R.string.search_tag_8), SearchInfo.class);
-                    break;
-            }
-            statusViewLayout.showContent();
+            statusViewLayout.showLoading();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    lists = JSON.parseArray(GetAssestDataUtil.getAssestJson(getContext(), "search_tag_"+(position+1)+".json"), SearchInfo.class);
+                    handler.sendEmptyMessage(0);
+                }
+            }).start();
+
         } else {
             lists = new ArrayList<>();
         }
-        adapter = new SearchAdapter(getContext(), lists);
-        listview.setAdapter(adapter);
-        adapter.setOnClickDownloadListener(this);
-        if (position == -1) {
-            getData();
-        }
+
         initDialog();
         uploadCurrentPage();
     }
+
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            adapter = new SearchAdapter(getContext(), lists);
+            listview.setAdapter(adapter);
+            adapter.setOnClickDownloadListener(MagnetResultFragment.this);
+            statusViewLayout.showContent();
+            if (position == -1) {
+                getData();
+            }
+        }
+    };
 
     /**
      * Case By:上报当前页面
@@ -194,6 +190,7 @@ public class MagnetResultFragment extends BaseBackFragment implements SearchAdap
         if (requestCall != null) {
             requestCall.cancel();
         }
+        handler.removeCallbacksAndMessages(null);
         listview.setAdapter(null);
         super.onDestroyView();
     }

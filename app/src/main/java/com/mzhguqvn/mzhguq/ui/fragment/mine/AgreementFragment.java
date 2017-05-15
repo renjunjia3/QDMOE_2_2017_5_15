@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.base.BaseBackFragment;
+import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,11 +59,11 @@ public class AgreementFragment extends BaseBackFragment {
         switch (type) {
             case TYPE_AGREEMENT:
                 toolbarTitle.setText("用户协议");
-                content.setText(getString(R.string.agreement));
+                content.setText(GetAssestDataUtil.getAssestJson(getContext(), "agreement"));
                 break;
             case TYPE_DISCLAIME:
                 toolbarTitle.setText("免责声明");
-                content.setText(getString(R.string.disclaime));
+                content.setText(GetAssestDataUtil.getAssestJson(getContext(), "disclaime"));
                 break;
         }
         initToolbarNav(toolbar);

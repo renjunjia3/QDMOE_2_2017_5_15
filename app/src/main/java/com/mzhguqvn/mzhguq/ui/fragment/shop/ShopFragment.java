@@ -474,7 +474,7 @@ public class ShopFragment extends BaseMainFragment {
             @Override
             public void run() {
                 // 写子线程中的操作,解析省市区数据
-                String provinceJsonStr = new GetAssestDataUtil().getAssestJson(getContext(), "province.json");
+                String provinceJsonStr = GetAssestDataUtil.getAssestJson(getContext(), "province.json");
                 List<ProvinceInfo> provinceList = JSON.parseArray(provinceJsonStr, ProvinceInfo.class);
                 options1Items = provinceList;
                 int provinceListSize = provinceList.size();

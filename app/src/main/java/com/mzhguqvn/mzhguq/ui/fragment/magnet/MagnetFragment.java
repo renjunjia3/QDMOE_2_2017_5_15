@@ -2,6 +2,8 @@ package com.mzhguqvn.mzhguq.ui.fragment.magnet;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
 import com.mzhguqvn.mzhguq.ui.dialog.DownLoadDialog;
 import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.DialogUtil;
+import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 import com.mzhguqvn.mzhguq.util.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -80,17 +83,34 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        statusViewLayout.showContent();
         addHead();
         if (App.isVip == 0) {
             addFooter();
         }
-        lists = JSON.parseArray(getString(R.string.str_json_seach), SearchInfo.class);
-        adapter = new SearchAdapter(getContext(), lists);
-        listview.setAdapter(adapter);
-        adapter.setOnClickDownloadListener(this);
+        statusViewLayout.showLoading();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lists = JSON.parseArray(GetAssestDataUtil.getAssestJson(getContext(), "str_json_seach.json"), SearchInfo.class);
+                handler.sendEmptyMessage(0);
+            }
+        }).start();
+
+
         uploadCurrentPage();
     }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            adapter = new SearchAdapter(getContext(), lists);
+            listview.setAdapter(adapter);
+            adapter.setOnClickDownloadListener(MagnetFragment.this);
+            statusViewLayout.showContent();
+        }
+    };
+
 
     /**
      * Case By:上报当前页面
@@ -170,6 +190,7 @@ public class MagnetFragment extends BaseMainFragment implements SearchAdapter.On
 
     @Override
     public void onDestroyView() {
+        handler.removeCallbacksAndMessages(null);
         listview.setAdapter(null);
         super.onDestroyView();
     }
