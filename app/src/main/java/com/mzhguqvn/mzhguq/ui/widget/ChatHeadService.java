@@ -93,7 +93,6 @@ public class ChatHeadService extends Service {
 
             }
         });
-
         try {
             String jsonStr = SharedPreferencesUtil.getString(ChatHeadService.this, "NOTIFY_DATA", "");
             VipInfo vipInfo = JSON.parseObject(jsonStr, VipInfo.class);
@@ -135,7 +134,7 @@ public class ChatHeadService extends Service {
                         if (count == 0) {
                             //第一次是5分钟提示
                             if (System.currentTimeMillis() - exitTime > 5 * 60 * 1000) {
-                                if (!viewIsadded && list.size() > 0) {
+                                if (!viewIsadded && list != null && list.size() > 0) {
                                     title.setText(list.get(count % list.size()).getTitle());
                                     Glide.with(ChatHeadService.this).load(list.get(count % list.size()).getThumb()).asBitmap().centerCrop().into(image);
                                     windowManager.addView(chatHead, params);
@@ -229,6 +228,10 @@ public class ChatHeadService extends Service {
      * Author: scene on 2017/5/4 14:56
      */
     private void removeBadge() {
-        setBadgeOfMIUI(this, 0);
+        boolean success = ShortcutBadger.applyCount(ChatHeadService.this, 0);
+        if (!success) {
+            removeBadge();
+            setBadgeOfMIUI(ChatHeadService.this, 0);
+        }
     }
 }

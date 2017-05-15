@@ -40,6 +40,10 @@ public class LuncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_luncher);
         //申请权限---内存读写权限
         loginTime = System.currentTimeMillis();
@@ -117,6 +121,7 @@ public class LuncherActivity extends AppCompatActivity {
                             loginAndRegister();
                         } else {
                             ToastUtils.getInstance(LuncherActivity.this).showToast("请检查网络连接");
+                            ActivityCompat.finishAffinity(LuncherActivity.this);
                         }
                     }
 
@@ -145,6 +150,7 @@ public class LuncherActivity extends AppCompatActivity {
                                 startActivity(new Intent(LuncherActivity.this, MainActivity.class));
                                 ActivityCompat.finishAffinity(LuncherActivity.this);
                             }
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             loginAndRegister();

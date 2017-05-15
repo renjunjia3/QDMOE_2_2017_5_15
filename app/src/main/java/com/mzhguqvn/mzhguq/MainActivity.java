@@ -171,16 +171,21 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
-        if (isNeedChangeTab) {
-            isNeedChangeTab = false;
-            changeTab(new ChangeTabEvent(App.isVip));
+        try {
+            MobclickAgent.onResume(this);
+            if (isNeedChangeTab) {
+                isNeedChangeTab = false;
+                changeTab(new ChangeTabEvent(App.isVip));
+            }
+            if (App.isGoodsPay && App.isNeedCheckOrder && App.goodsOrderId != 0) {
+                checkGoodsOrder();
+            } else if (App.isNeedCheckOrder && App.orderIdInt != 0) {
+                checkOrder();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (App.isGoodsPay && App.isNeedCheckOrder && App.goodsOrderId != 0) {
-            checkGoodsOrder();
-        } else if (App.isNeedCheckOrder && App.orderIdInt != 0) {
-            checkOrder();
-        }
+
 
     }
 
@@ -490,8 +495,8 @@ public class MainActivity extends SupportActivity {
                     @Override
                     public void onResponse(String s, int i) {
                         try {
-                            App.goodsOrderId=0;
-                            App.isNeedCheckOrder=false;
+                            App.goodsOrderId = 0;
+                            App.isNeedCheckOrder = false;
                             if (progressDialog != null && progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
@@ -666,11 +671,9 @@ public class MainActivity extends SupportActivity {
         if (!file.exists()) {
             return;
         }
-        Intent intent = new Intent();
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(Intent.ACTION_VIEW);
-        String fileUrl = Environment.getExternalStorageDirectory() + "/NNY_1001.apk";
-        intent.setDataAndType(Uri.parse("file://" + fileUrl), "application/vnd.android.package-archive");
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setDataAndType(Uri.parse("file://" + fileName), "application/vnd.android.package-archive");
         mContext.startActivity(intent);
     }
 
