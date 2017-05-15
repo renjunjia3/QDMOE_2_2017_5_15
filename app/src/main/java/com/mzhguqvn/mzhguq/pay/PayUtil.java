@@ -86,9 +86,9 @@ public class PayUtil {
 //    private static final int VIP_MONEY_TYPE_9 = 10;
 
     //开通黄金会员 3800
-    private static final int VIP_MONEY_TYPE_1 = 6800;
+    private static final int VIP_MONEY_TYPE_1 = 3800;
     //优惠开通黄金会员 2800
-    private static final int VIP_MONEY_TYPE_2 = 4800;
+    private static final int VIP_MONEY_TYPE_2 = 2800;
     //直接开通钻石会员 6800
     private static final int VIP_MONEY_TYPE_3 = 6800;
     //升级钻石会员 3000

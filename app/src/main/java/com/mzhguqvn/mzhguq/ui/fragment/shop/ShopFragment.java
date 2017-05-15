@@ -308,7 +308,7 @@ public class ShopFragment extends BaseMainFragment {
                 @Override
                 public void onError(Call call, Exception e, int i) {
                     if (isShowLoading) {
-                        statusViewLayout.showNetError(retryListener);
+                        statusViewLayout.showFailed(retryListener);
                     } else {
                         ptrLayout.refreshComplete();
                     }
@@ -323,7 +323,7 @@ public class ShopFragment extends BaseMainFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         if (isShowLoading) {
-                            statusViewLayout.showNetError(retryListener);
+                            statusViewLayout.showFailed(retryListener);
                         } else {
                             ptrLayout.refreshComplete();
                         }
