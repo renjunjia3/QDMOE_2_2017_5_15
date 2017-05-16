@@ -11,10 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.bean.TrySeeContentInfo;
+import com.mzhguqvn.mzhguq.util.GlideUtils;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.mzhguqvn.mzhguq.util.ViewUtils;
 import com.mzhguqvn.mzhguq.video.JCUtils;
@@ -103,11 +102,7 @@ public class TrySeeAdapter extends BaseAdapter {
             if (info.getData() != null && info.getData().size() > 0) {
                 viewHolder3.recommendName.setText(info.getData().get(0).getTitle());
                 viewHolder3.recommendSynop.setText(info.getData().get(0).getDescription());
-                if (info.getData().get(0).getThumb().endsWith("gif")) {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(viewHolder3.recommendImage);
-                } else {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(viewHolder3.recommendImage);
-                }
+                GlideUtils.loadImage(context, viewHolder3.recommendImage, info.getData().get(0).getThumb());
                 viewHolder3.time.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
                 viewHolder3.recommendLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -123,11 +118,7 @@ public class TrySeeAdapter extends BaseAdapter {
             try {
                 viewHolder1.vipName1.setText(info.getData().get(0).getTitle());
                 viewHolder1.vipPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
-                if (info.getData().get(0).getThumb().endsWith("gif")) {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(viewHolder1.vipImage1);
-                } else {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage1);
-                }
+                GlideUtils.loadImage(context, viewHolder1.vipImage1, info.getData().get(0).getThumb());
                 viewHolder1.time1.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
                 if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
                     viewHolder1.vipTag1.setText(info.getData().get(0).getTag());
@@ -149,7 +140,6 @@ public class TrySeeAdapter extends BaseAdapter {
                     }
                 });
 
-
                 viewHolder1.vipName2.setText(info.getData().get(1).getTitle());
                 viewHolder1.vipPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
                 viewHolder1.time2.setText(JCUtils.stringForTime(info.getData().get(2).getDuration()));
@@ -164,7 +154,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 } else {
                     viewHolder1.vipTag2.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
-                Glide.with(context).load(info.getData().get(1).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage2);
+                GlideUtils.loadImage(context, viewHolder1.vipImage2, info.getData().get(1).getThumb());
                 viewHolder1.vipLayout2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -188,7 +178,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 } else {
                     viewHolder1.vipTag3.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
-                Glide.with(context).load(info.getData().get(2).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage3);
+                GlideUtils.loadImage(context, viewHolder1.vipImage3, info.getData().get(2).getThumb());
                 viewHolder1.vipLayout3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -212,7 +202,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 } else {
                     viewHolder1.vipTag4.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
-                Glide.with(context).load(info.getData().get(3).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage4);
+                GlideUtils.loadImage(context, viewHolder1.vipImage4, info.getData().get(3).getThumb());
                 viewHolder1.vipLayout4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -236,7 +226,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 } else {
                     viewHolder1.vipTag5.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
-                Glide.with(context).load(info.getData().get(4).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage5);
+                GlideUtils.loadImage(context, viewHolder1.vipImage5, info.getData().get(4).getThumb());
                 viewHolder1.vipLayout5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -259,7 +249,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 } else {
                     viewHolder1.vipTag6.setBackgroundColor(Color.parseColor("#FF33CC"));
                 }
-                Glide.with(context).load(info.getData().get(5).getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(viewHolder1.vipImage6);
+                GlideUtils.loadImage(context, viewHolder1.vipImage6, info.getData().get(5).getThumb());
                 viewHolder1.vipLayout6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -278,11 +268,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotName1.setText(info.getData().get(0).getTitle());
                 viewHolder2.hotPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
                 viewHolder2.time1.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
-                if (info.getData().get(0).getThumb().endsWith("gif")) {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(viewHolder2.hotImage1);
-                } else {
-                    Glide.with(context).load(info.getData().get(0).getThumb()).asBitmap().centerCrop().into(viewHolder2.hotImage1);
-                }
+                GlideUtils.loadImage(context, viewHolder2.hotImage1, info.getData().get(0).getThumb());
                 if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
                     viewHolder2.tag1.setText(info.getData().get(0).getTag());
                     viewHolder2.tag1.setVisibility(View.VISIBLE);
@@ -308,8 +294,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotName2.setText(info.getData().get(1).getTitle());
                 viewHolder2.hotPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
                 viewHolder2.time2.setText(JCUtils.stringForTime(info.getData().get(1).getDuration()));
-                Glide.with(context).load(info.getData().get(1).getThumb()).asBitmap().centerCrop().
-                        placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage2);
+                GlideUtils.loadImage(context, viewHolder2.hotImage2, info.getData().get(1).getThumb());
                 if (info.getData().get(1).getTag() != null && !info.getData().get(1).getTag().isEmpty()) {
                     viewHolder2.tag2.setText(info.getData().get(1).getTag());
                     viewHolder2.tag2.setVisibility(View.VISIBLE);
@@ -333,8 +318,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotName3.setText(info.getData().get(2).getTitle());
                 viewHolder2.hotPlayTime3.setText(info.getData().get(2).getHits() + "次播放");
                 viewHolder2.time3.setText(JCUtils.stringForTime(info.getData().get(2).getDuration()));
-                Glide.with(context).load(info.getData().get(2).getThumb()).asBitmap().centerCrop().
-                        placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage3);
+                GlideUtils.loadImage(context, viewHolder2.hotImage3, info.getData().get(2).getThumb());
                 if (info.getData().get(2).getTag() != null && !info.getData().get(2).getTag().isEmpty()) {
                     viewHolder2.tag3.setText(info.getData().get(2).getTag());
                     viewHolder2.tag3.setVisibility(View.VISIBLE);
@@ -359,8 +343,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotName4.setText(info.getData().get(3).getTitle());
                 viewHolder2.hotPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
                 viewHolder2.time4.setText(JCUtils.stringForTime(info.getData().get(3).getDuration()));
-                Glide.with(context).load(info.getData().get(3).getThumb()).asBitmap().centerCrop().
-                        placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage4);
+                GlideUtils.loadImage(context, viewHolder2.hotImage4, info.getData().get(3).getThumb());
                 if (info.getData().get(3).getTag() != null && !info.getData().get(3).getTag().isEmpty()) {
                     viewHolder2.tag4.setText(info.getData().get(3).getTag());
                     viewHolder2.tag4.setVisibility(View.VISIBLE);
@@ -385,8 +368,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotName5.setText(info.getData().get(4).getTitle());
                 viewHolder2.hotPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
                 viewHolder2.time5.setText(JCUtils.stringForTime(info.getData().get(4).getDuration()));
-                Glide.with(context).load(info.getData().get(4).getThumb()).asBitmap().centerCrop().
-                        placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage5);
+                GlideUtils.loadImage(context, viewHolder2.hotImage5, info.getData().get(4).getThumb());
                 if (info.getData().get(4).getTag() != null && !info.getData().get(4).getTag().isEmpty()) {
                     viewHolder2.tag5.setText(info.getData().get(4).getTag());
                     viewHolder2.tag5.setVisibility(View.VISIBLE);
@@ -410,8 +392,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 viewHolder2.hotName6.setText(info.getData().get(5).getTitle());
                 viewHolder2.hotPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
                 viewHolder2.time6.setText(JCUtils.stringForTime(info.getData().get(5).getDuration()));
-                Glide.with(context).load(info.getData().get(5).getThumb()).asBitmap().centerCrop().
-                        placeholder(R.drawable.bg_loading).placeholder(R.drawable.bg_error).into(viewHolder2.hotImage6);
+                GlideUtils.loadImage(context, viewHolder2.hotImage6, info.getData().get(5).getThumb());
                 if (info.getData().get(5).getTag() != null && !info.getData().get(5).getTag().isEmpty()) {
                     viewHolder2.tag6.setText(info.getData().get(5).getTag());
                     viewHolder2.tag6.setVisibility(View.VISIBLE);
