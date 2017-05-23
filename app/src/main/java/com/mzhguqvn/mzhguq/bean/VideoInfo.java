@@ -24,6 +24,7 @@ public class VideoInfo implements Serializable {
     private int update_number;
     private String thumb_heng;
     private int duration;//服务器返回的时间是真实时间*100的值
+    private int real_duration;
 
     private Random random = new Random();
 
@@ -149,19 +150,11 @@ public class VideoInfo implements Serializable {
         this.duration = duration;
     }
 
-    @Override
-    public String toString() {
-        return "VideoInfo{" +
-                "thumb='" + thumb + '\'' +
-                ", tag='" + tag + '\'' +
-                ", tag_color='" + tag_color + '\'' +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", video_id=" + video_id +
-                ", description='" + description + '\'' +
-                ", hits=" + hits +
-                ", score=" + score +
-                ", update_number=" + update_number +
-                '}';
+    public int getReal_duration() {
+        return duration;
+    }
+
+    public void setReal_duration(int real_duration) {
+        this.real_duration = real_duration;
     }
 }

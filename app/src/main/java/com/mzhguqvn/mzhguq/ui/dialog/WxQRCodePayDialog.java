@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -76,12 +77,14 @@ public class WxQRCodePayDialog extends Dialog {
                 public void onClick(View v) {
                     try {
                         if (isWeixinAvilible(context)) {
-                            Intent intent = new Intent();
-                            ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
-                            intent.setAction(Intent.ACTION_MAIN);
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.setComponent(cmp);
+//                            Intent intent = new Intent();
+//                            ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+//                            intent.setAction(Intent.ACTION_MAIN);
+//                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            intent.setComponent(cmp);
+//                            context.startActivity(intent);
+                            Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
                             context.startActivity(intent);
                             if (dialog != null) {
                                 dialog.cancel();
