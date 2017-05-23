@@ -106,7 +106,6 @@
             android:thumb="@drawable/jc_seek_thumb" />
 
         <SeekBar
-            android:id="@+id/progress1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

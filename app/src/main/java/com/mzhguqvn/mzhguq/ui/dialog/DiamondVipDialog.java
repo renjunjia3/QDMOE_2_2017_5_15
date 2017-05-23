@@ -2,14 +2,20 @@ package com.mzhguqvn.mzhguq.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -38,6 +44,15 @@ public class DiamondVipDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
+    @Override
+    public void show() {
+        Window dialogWindow = getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        lp.width = (int) (ScreenUtils.instance(getContext()).getScreenWidth() * 0.95f); // 宽度
+        dialogWindow.setAttributes(lp);
+        super.show();
+    }
+
     public static class Builder {
         private Context context;
         private int videoId;
@@ -57,11 +72,16 @@ public class DiamondVipDialog extends Dialog {
 
             View layout = inflater.inflate(R.layout.dialog_diamond_vip, null);
 
-            ((TextView) layout.findViewById(R.id.diamond_old_price)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
             ImageView image = (ImageView) layout.findViewById(R.id.image);
+            TextView discount = (TextView) dialog.findViewById(R.id.discount);
+            SpannableStringBuilder builder = new SpannableStringBuilder(discount.getText().toString());
+            ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.parseColor("#D3121A"));
+            builder.setSpan(redSpan, 10, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            discount.setText(builder);
+
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
             image.setLayoutParams(layoutParams);
@@ -92,9 +112,9 @@ public class DiamondVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, dialog, PayUtil.VIP_TYPE_4, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByWeChat(context, PayUtil.VIP_TYPE_4, videoId, isVideoDetailPage);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, dialog, PayUtil.VIP_TYPE_4, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByAliPay(context, PayUtil.VIP_TYPE_4, videoId, isVideoDetailPage);
                     }
 
                 }

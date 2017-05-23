@@ -12,7 +12,9 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/dialig_vip_glod_top" />
+            android:adjustViewBounds="true"
+            android:background="@drawable/dialog_vip_top_bg"
+            android:maxHeight="500dp" />
 
         <ImageView
             android:id="@+id/close"
@@ -20,159 +22,123 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:padding="8dp"
-            android:src="@drawable/ic_dialog_close_white" />
+            android:src="@drawable/ic_dialog_vip_close" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_dialog_bottom"
+        android:background="@drawable/shape_dialog_vip_bottom_bg"
         android:orientation="vertical"
         android:padding="15dp">
 
         <LinearLayout
             android:id="@+id/layout_type_glod"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_round_bg_white"
+            android:layout_height="50dp"
+            android:background="@drawable/dialog_vip_type_bg"
             android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_dialog_vip_glod" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="开通黄金会员"
-                    android:textColor="#1e95c8"
-                    android:textSize="@dimen/text_size_middle"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="约百部成人体验电影大片"
-                    android:textColor="#1cb452"
-                    android:textSize="@dimen/text_size_small" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="38元"
-                    android:textColor="#db182c"
-                    android:textSize="@dimen/text_size_big" />
-
-                <TextView
-                    android:id="@+id/glod_old_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="原价：88元"
-                    android:textColor="#999999"
-                    android:textSize="10sp" />
-            </LinearLayout>
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:id="@+id/glod_choosed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_vip_type_choosed" />
+                android:src="@drawable/ic_vip_type_s" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="黄金包月"
+                android:textColor="#F78650"
+                android:textSize="@dimen/text_size_big" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="会员"
+                android:textColor="#282828"
+                android:textSize="@dimen/text_size_big" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="￥38.00"
+                android:textColor="#db182c"
+                android:textSize="@dimen/text_size_big" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_type_diamond"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_round_bg_white"
+            android:background="@drawable/dialog_vip_type_bg"
             android:orientation="horizontal"
             android:padding="10dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_dialog_vip_dimond" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="开通钻石会员"
-                    android:textColor="#1e95c8"
-                    android:textSize="@dimen/text_size_middle"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="海量成人电影大片（定期更新）"
-                    android:textColor="#1cb452"
-                    android:textSize="@dimen/text_size_small" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="68元"
-                    android:textColor="#db182c"
-                    android:textSize="@dimen/text_size_big" />
-
-                <TextView
-                    android:id="@+id/diamond_old_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="原价：178元"
-                    android:textColor="#999999"
-                    android:textSize="10sp" />
-            </LinearLayout>
 
             <ImageView
                 android:id="@+id/diamond_choosed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_vip_type_unchoosed" />
+                android:src="@drawable/ic_vip_type_d" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="钻石永久"
+                android:textColor="#F78650"
+                android:textSize="@dimen/text_size_big" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="会员"
+                android:textColor="#282828"
+                android:textSize="@dimen/text_size_big" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="￥68.00"
+                android:textColor="#db182c"
+                android:textSize="@dimen/text_size_big" />
+
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_vip_notice" />
+            android:gravity="center"
+            android:text="开通会员以后商城独享8.8折优惠"
+            android:textColor="#F1A353"
+            android:textSize="@dimen/text_size_big" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="如果对我们的服务不满意可申请退款"
+            android:textColor="#888888"
+            android:textSize="@dimen/text_size_small" />
 
         <include layout="@layout/dialog_pay_bottom" />
 
@@ -180,7 +146,6 @@
             android:id="@+id/open_vip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:background="@drawable/bg_vip_dialog_btn"
             android:text="立即开通"
             android:textColor="#FFFFFF"
@@ -192,9 +157,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:text="温馨提示：如果遇到微信不可支付，请重试！或使用支付宝完成支付，推荐使用支付宝支付"
-            android:textColor="#AAFFFFFF"
-            android:textSize="10sp" />
+            android:text="@string/vip_dialog_notice"
+            android:textColor="#ED2020"
+            android:textSize="@dimen/text_size_small" />
 
     </LinearLayout>
 </LinearLayout>

@@ -11,11 +11,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.OrderAdapter;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseBackFragment;
 import com.mzhguqvn.mzhguq.bean.OrderInfo;
+import com.mzhguqvn.mzhguq.bean.OrderListResultInfo;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
@@ -28,7 +31,6 @@ import com.zhy.http.okhttp.request.RequestCall;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +80,7 @@ public class OrderFragment extends BaseBackFragment {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
         getData(true);
-        uploadCurrentPage();
+        MainActivity.upLoadPageInfo(PageConfig.ORDER_LIST_POSITOTN_ID, 0, 0);
     }
 
     private void initView() {
@@ -111,7 +113,9 @@ public class OrderFragment extends BaseBackFragment {
             statusViewLayout.showLoading();
         }
         if (NetWorkUtils.isNetworkConnected(getContext())) {
-            getDataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GET_ORDERS + App.USER_ID).build();
+            HashMap<String, String> params = API.createParams();
+            params.put("user_id", String.valueOf(App.user_id));
+            getDataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GET_ORDERS).params(params).build();
             getDataRequestCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
@@ -125,13 +129,17 @@ public class OrderFragment extends BaseBackFragment {
                 @Override
                 public void onResponse(String s, int i) {
                     try {
+                        OrderListResultInfo orderListResultInfo = JSON.parseObject(s, OrderListResultInfo.class);
                         list.clear();
-                        list.addAll(JSON.parseArray(s, OrderInfo.class));
+                        list.addAll(orderListResultInfo.getData());
                         adapter.notifyDataSetChanged();
                         if (isShowLoading) {
                             statusViewLayout.showContent();
                         } else {
                             ptrLayout.refreshComplete();
+                        }
+                        if (list.size() == 0) {
+                            statusViewLayout.showNone(retryListener);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -169,14 +177,4 @@ public class OrderFragment extends BaseBackFragment {
         super.onDestroyView();
     }
 
-    /**
-     * Case By:上报当前页面
-     * Author: scene on 2017/4/27 17:05
-     */
-    private void uploadCurrentPage() {
-        Map<String, String> params = new HashMap<>();
-        params.put("position_id", "21");
-        params.put("user_id", App.USER_ID + "");
-        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
-    }
 }

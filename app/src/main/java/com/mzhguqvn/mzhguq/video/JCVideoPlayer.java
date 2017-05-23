@@ -604,7 +604,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
             textureViewContainer.removeAllViews();
         }
         //if fullscreen finish activity what ever the activity is directly or click fullscreen
-        if (App.isVip >= 7) {
+        if (App.role >= 7) {
             if (getContext() instanceof JCFullScreenActivity) {
                 Log.i(TAG, "finishFullscreenActivity [" + this.hashCode() + "] ");
                 ((JCFullScreenActivity) getContext()).finish();

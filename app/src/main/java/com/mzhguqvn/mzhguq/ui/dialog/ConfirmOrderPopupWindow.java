@@ -109,7 +109,7 @@ public class ConfirmOrderPopupWindow extends PopupWindow {
     }
 
     public void setGoodsPrice(double goodsPrice) {
-        this.goodsPrice.setText("￥：" + (App.isVip > 0 ?
+        this.goodsPrice.setText("￥：" + (App.role > 0 ?
                 new BigDecimal(goodsPrice * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() : goodsPrice));
     }
 
@@ -118,7 +118,7 @@ public class ConfirmOrderPopupWindow extends PopupWindow {
     }
 
     public void setTotalPrice(double goodsPrice, int goodsNumber) {
-        this.totalPrice.setText("￥：" + (App.isVip > 0 ?
+        this.totalPrice.setText("￥：" + (App.role > 0 ?
                 new BigDecimal(goodsPrice * ShopFragment.DISCOUNT * goodsNumber).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()
                 : new BigDecimal(goodsPrice * goodsNumber).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
     }

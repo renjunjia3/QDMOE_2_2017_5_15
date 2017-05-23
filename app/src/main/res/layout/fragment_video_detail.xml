@@ -65,6 +65,17 @@
                             android:text=""
                             android:textColor="#333333"
                             android:textSize="@dimen/text_size_middle" />
+                        <TextView
+                            android:id="@+id/play_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_list_play_count"
+                            android:gravity="center_vertical"
+                            android:text="13次"
+                            android:drawablePadding="5dp"
+                            android:layout_alignParentRight="true"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/text_size_middle" />
 
                         <TextView
                             android:id="@+id/zan"
@@ -86,6 +97,7 @@
                             android:layout_toLeftOf="@+id/download"
                             android:drawableLeft="@drawable/ic_collect"
                             android:gravity="center_vertical"
+                            android:visibility="gone"
                             android:text="收藏"
                             android:textColor="#333333" />
 
@@ -95,6 +107,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginLeft="10dp"
+                            android:visibility="gone"
                             android:drawableLeft="@drawable/ic_download"
                             android:gravity="center_vertical"
                             android:text="下载"

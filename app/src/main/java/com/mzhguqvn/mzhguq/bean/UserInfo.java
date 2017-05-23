@@ -7,9 +7,19 @@ import java.io.Serializable;
  */
 
 public class UserInfo implements Serializable {
+
+
+    /**
+     * user_id : 2
+     * role : 0
+     * cdn : 1
+     */
+
     private int user_id;
-    private int is_vip;
-    private int is_heijin;
+    //0：游客，1：黄金，2 ：钻石
+    private int role;
+    //0：未开通cdn ,1：已开通cdn
+    private int cdn;
 
     public int getUser_id() {
         return user_id;
@@ -19,19 +29,19 @@ public class UserInfo implements Serializable {
         this.user_id = user_id;
     }
 
-    public int getIs_vip() {
-        return is_vip;
+    public int getRole() {
+        return role;
     }
 
-    public void setIs_vip(int is_vip) {
-        this.is_vip = is_vip;
+    public void setRole(int role) {
+        this.role = role;
     }
 
-    public int getIs_heijin() {
-        return is_heijin;
+    public int getCdn() {
+        return cdn;
     }
 
-    public void setIs_heijin(int is_heijin) {
-        this.is_heijin = is_heijin;
+    public void setCdn(int cdn) {
+        this.cdn = cdn;
     }
 }

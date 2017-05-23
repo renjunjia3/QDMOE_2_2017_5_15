@@ -31,6 +31,7 @@ import com.mzhguqvn.mzhguq.bean.UpdateInfo;
 import com.mzhguqvn.mzhguq.event.ChangeTabEvent;
 import com.mzhguqvn.mzhguq.event.CheckOrderEvent;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
+import com.mzhguqvn.mzhguq.ui.dialog.AgreementDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.DownLoadDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.UpdateDialog;
@@ -66,6 +67,7 @@ import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import okhttp3.Call;
+import okhttp3.Request;
 
 /**
  * 类知乎 复杂嵌套Demo tip: 多使用右上角的"查看栈视图"
@@ -109,6 +111,14 @@ public class MainActivity extends SupportActivity {
         progressDialog.setMessage("支付结果获取中...");
         getUpdateData();
         startService(new Intent(MainActivity.this, ChatHeadService.class));
+
+        boolean isFirst = SharedPreferencesUtil.getBoolean(MainActivity.this, "isFirst", true);
+        if (isFirst) {
+            AgreementDialog dialog = new AgreementDialog(this, R.style.Dialog);
+            dialog.show();
+        }
+
+
     }
 
     private void showNoticeToast(int id) {
@@ -175,7 +185,7 @@ public class MainActivity extends SupportActivity {
             MobclickAgent.onResume(this);
             if (isNeedChangeTab) {
                 isNeedChangeTab = false;
-                changeTab(new ChangeTabEvent(App.isVip));
+                changeTab(new ChangeTabEvent(App.role));
             }
             if (App.isGoodsPay && App.isNeedCheckOrder && App.goodsOrderId != 0) {
                 checkGoodsOrder();
@@ -228,19 +238,15 @@ public class MainActivity extends SupportActivity {
         thread.start();
     }
 
+    /**
+     * 上报用户信息
+     */
     private void upLoadUseInfo() {
-        upLoadUserInfoCall = OkHttpUtils.get().url(API.URL_PRE + API.UPLOAD_INFP + App.IMEI).build();
-        upLoadUserInfoCall.execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int i) {
-
-            }
-
-            @Override
-            public void onResponse(String s, int i) {
-
-            }
-        });
+        HashMap<String, String> params = API.createParams();
+        params.put("user_id", App.user_id + "");
+        params.put("postion_id", "0");
+        upLoadUserInfoCall = OkHttpUtils.get().url(API.URL_PRE + API.UPLOAD_INFP).params(params).build();
+        upLoadUserInfoCall.execute(null);
     }
 
     @Override
@@ -285,9 +291,8 @@ public class MainActivity extends SupportActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Map<String, String> params = new HashMap<>();
+                Map<String, String> params = API.createParams();
                 params.put("order_id", App.orderIdInt + "");
-                params.put("imei", App.IMEI);
                 App.isNeedCheckOrder = false;
                 App.orderIdInt = 0;
                 requestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_ORDER).params(params).build();
@@ -310,21 +315,19 @@ public class MainActivity extends SupportActivity {
                             CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
                             if (checkOrderInfo.isStatus()) {
                                 MainActivity.onPaySuccess();
-                                App.isHeijin = checkOrderInfo.getIs_heijin();
-                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
-                                switch (App.isVip) {
+                                switch (App.role) {
                                     case 0:
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                App.isVip = 1;
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                App.role = 1;
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
                                                 String message = "恭喜您成为黄金会员";
                                                 CustomSubmitDialog customSubmitDialog0 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
                                                 customSubmitDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                                     @Override
                                                     public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                        changeTab(new ChangeTabEvent(App.role));
                                                     }
                                                 });
                                             }
@@ -335,14 +338,14 @@ public class MainActivity extends SupportActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                App.isVip = 2;
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                App.role = 2;
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
                                                 String message = "恭喜您成为钻石会员";
                                                 CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
                                                 customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                                     @Override
                                                     public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                        changeTab(new ChangeTabEvent(App.role));
                                                     }
                                                 });
                                             }
@@ -353,98 +356,14 @@ public class MainActivity extends SupportActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                String message;
-                                                if (App.isOPenBlackGlodVip) {
-                                                    App.isVip = 2;
-                                                    message = "恭喜您成为最牛逼的黑金会员";
-                                                } else {
-                                                    App.isVip = 3;
-                                                    message = "恭喜您成功注册VPN海外会员";
-                                                }
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
+                                                App.cdn = 1;
+                                                String message = "恭喜您成功开通CDN加速服务";
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
                                                 CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
                                                 customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                                     @Override
                                                     public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.isVip));
-                                                    }
-                                                });
-
-                                            }
-                                        });
-
-                                        break;
-                                    case 3:
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if (App.isHeijin == 1) {
-                                                    App.isVip = 5;
-                                                } else {
-                                                    App.isVip = 4;
-                                                }
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                                String message = "恭喜你进入海外片库，我们将携手为您服务";
-                                                CustomSubmitDialog customSubmitDialog3 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                                customSubmitDialog3.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                    @Override
-                                                    public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.isVip));
-                                                    }
-                                                });
-                                            }
-                                        });
-                                        break;
-                                    case 4:
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if (App.isVip >= 4) {
-                                                    App.isVip = 5;
-                                                    SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                                }
-                                                App.isHeijin = 1;
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
-                                                String message = "恭喜您成为最牛逼的黑金会员";
-                                                CustomSubmitDialog customSubmitDialog4 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                                customSubmitDialog4.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                    @Override
-                                                    public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.isVip));
-                                                    }
-                                                });
-                                            }
-                                        });
-                                        break;
-                                    case 5:
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                App.isVip = 6;
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                                String message = "恭喜您开通海外高速通道";
-                                                CustomSubmitDialog customSubmitDialog5 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                                customSubmitDialog5.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                    @Override
-                                                    public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.isVip));
-                                                    }
-                                                });
-                                            }
-                                        });
-                                        break;
-                                    case 6:
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                App.isVip = 7;
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ISVIP_KEY, App.isVip);
-                                                String message = "恭喜您开通海外双线通道";
-                                                CustomSubmitDialog customSubmitDialog6 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                                customSubmitDialog6.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                    @Override
-                                                    public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.isVip));
+                                                        changeTab(new ChangeTabEvent(App.role));
                                                     }
                                                 });
                                             }
@@ -458,7 +377,6 @@ public class MainActivity extends SupportActivity {
                             } else {
                                 ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
                             }
-                            App.isOPenBlackGlodVip = false;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -482,8 +400,16 @@ public class MainActivity extends SupportActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                checkGoodsOrderRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_GOODS_ORDER + App.USER_ID + "/" + App.goodsOrderId).build();
+                HashMap<String, String> params = API.createParams();
+                params.put("order_id", String.valueOf(App.goodsOrderId));
+                params.put("user_id", String.valueOf(App.user_id));
+                checkGoodsOrderRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.CHECK_GOODS_ORDER).params(params).tag("checkGoodsOrder").build();
                 checkGoodsOrderRequestCall.execute(new StringCallback() {
+                    @Override
+                    public void onBefore(Request request, int id) {
+                        super.onBefore(request, id);
+                    }
+
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         if (progressDialog != null && progressDialog.isShowing()) {
@@ -533,7 +459,7 @@ public class MainActivity extends SupportActivity {
     public static void onPaySuccess() {
         Map<String, String> params = new HashMap<>();
         params.put("position_id", "16");
-        params.put("user_id", App.USER_ID + "");
+        params.put("user_id", App.user_id + "");
         OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
@@ -542,11 +468,12 @@ public class MainActivity extends SupportActivity {
      * Author: scene on 2017/4/25 16:55
      */
     private void getUpdateData() {
-        updateRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.UPDATE + App.CHANNEL_ID).build();
+        HashMap<String, String> params = API.createParams();
+        updateRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.UPDATE).params(params).build();
         updateRequestCall.execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-
+                e.printStackTrace();
             }
 
             @Override
@@ -766,6 +693,23 @@ public class MainActivity extends SupportActivity {
         if (mBroadcastReceiver != null) {
             unregisterReceiver(mBroadcastReceiver);
         }
+    }
+
+
+    /**
+     * 上传使用页面信息
+     */
+    public static void upLoadPageInfo(int position_id, int video_id, int pay_position_id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("position_id", String.valueOf(position_id));
+        params.put("user_id", String.valueOf(App.user_id));
+        if (video_id != 0) {
+            params.put("video_id", String.valueOf(video_id));
+        }
+        if (pay_position_id != 0) {
+            params.put("pay_position_id", String.valueOf(pay_position_id));
+        }
+        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
 }

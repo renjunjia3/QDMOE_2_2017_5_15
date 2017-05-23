@@ -15,12 +15,11 @@ import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseFragment;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
 import com.mzhguqvn.mzhguq.event.TabSelectedEvent;
-import com.mzhguqvn.mzhguq.ui.fragment.magnet.MagnetFragment;
+import com.mzhguqvn.mzhguq.ui.fragment.anchor.AnchorFragment;
+import com.mzhguqvn.mzhguq.ui.fragment.gallery.GalleryFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.HotLineFragment;
-import com.mzhguqvn.mzhguq.ui.fragment.mine.Mine2Fragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.MineFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.shop.ShopFragment;
-import com.mzhguqvn.mzhguq.ui.fragment.vip.BlackGlodVipFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.DiamondVipFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.GlodVipFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.TrySeeFragment;
@@ -35,7 +34,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +83,7 @@ public class MainFragment extends BaseFragment {
         if (savedInstanceState == null || tabNames.size() == 0 || fragments.size() == 0) {
             tabNames.clear();
             fragments.clear();
-            switch (App.isVip) {
+            switch (App.role) {
                 case 0://试看
                     fragments.add(TrySeeFragment.newInstance());
                     fragments.add(GlodVipFragment.newInstance());
@@ -109,15 +107,30 @@ public class MainFragment extends BaseFragment {
                     tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 2://钻石会员
-                    fragments.add(DiamondVipFragment.newInstance());
-                    fragments.add(BlackGlodVipFragment.newInstance());
-                    fragments.add(ShopFragment.newInstance());
-                    fragments.add(MineFragment.newInstance());
+                    if (App.cdn == 0) {
+                        //未开通cdn
+                        fragments.add(DiamondVipFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
+                        fragments.add(AnchorFragment.newInstance());
+                        fragments.add(MineFragment.newInstance());
 
-                    tabNames.add(getString(R.string.tab_diamond));
-                    tabNames.add(getString(R.string.tab_black_glod));
-                    tabNames.add(getString(R.string.tab_shop));
-                    tabNames.add(getString(R.string.tab_mine));
+                        tabNames.add(getString(R.string.tab_diamond));
+                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_anchor));
+                        tabNames.add(getString(R.string.tab_mine));
+                    } else {
+                        //已开通cdn
+                        fragments.add(AnchorFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
+                        fragments.add(GalleryFragment.newInstance());
+                        fragments.add(MineFragment.newInstance());
+
+                        tabNames.add(getString(R.string.tab_anchor));
+                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_gallery));
+                        tabNames.add(getString(R.string.tab_mine));
+                    }
+
                     break;
             }
 
@@ -144,7 +157,7 @@ public class MainFragment extends BaseFragment {
                         fragments.get(TAB_6));
             }
         } else {
-            switch (App.isVip) {
+            switch (App.role) {
                 case 0:
                     fragments.add(findChildFragment(TrySeeFragment.class));
                     fragments.add(findChildFragment(GlodVipFragment.class));
@@ -158,10 +171,19 @@ public class MainFragment extends BaseFragment {
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 2:
-                    fragments.add(findChildFragment(DiamondVipFragment.class));
-                    fragments.add(findChildFragment(BlackGlodVipFragment.class));
-                    fragments.add(findChildFragment(ShopFragment.class));
-                    fragments.add(findChildFragment(MineFragment.class));
+                    if (App.cdn == 0) {
+                        //未开通cdn
+                        fragments.add(findChildFragment(DiamondVipFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
+                        fragments.add(findChildFragment(AnchorFragment.class));
+                        fragments.add(findChildFragment(MineFragment.class));
+                    } else {
+                        //已开通cdn
+                        fragments.add(findChildFragment(AnchorFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
+                        fragments.add(findChildFragment(GalleryFragment.class));
+                        fragments.add(findChildFragment(MineFragment.class));
+                    }
                     break;
             }
         }
@@ -177,27 +199,38 @@ public class MainFragment extends BaseFragment {
 
     private void initView() {
         EventBus.getDefault().register(this);
-        switch (App.isVip) {
+        switch (App.role) {
             case 0:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_try_see);
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see_d, R.drawable.ic_bottom_bar_try_see_s, tabNames.get(0)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
             case 1:
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
             case 2:
-                toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_black_glod, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine, tabNames.get(3)));
+                if (App.cdn == 0) {
+                    toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(0)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(1)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(2)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
+                } else {
+                    toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(0)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(1)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(2)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
+                }
+                break;
+            case 3:
+
                 break;
         }
 
@@ -246,19 +279,11 @@ public class MainFragment extends BaseFragment {
         EventBus.getDefault().post(new StartBrotherEvent(HotLineFragment.newInstance()));
     }
 
-    @OnClick({R.id.search, R.id.to_user})
-    public void onClickTop(View v) {
-        if (v.getId() == R.id.search) {
-            EventBus.getDefault().post(new StartBrotherEvent(MagnetFragment.newInstance()));
-        } else {
-            if (fragments.get(fragments.size() - 1) instanceof MineFragment) {
-                mBottomBar.setCurrentItem(fragments.size() - 1);
-            } else {
-                EventBus.getDefault().post(new StartBrotherEvent(Mine2Fragment.newInstance()));
-            }
-
+    @OnClick(R.id.to_user)
+    public void onClickTop() {
+        if (fragments.get(fragments.size() - 1) instanceof MineFragment) {
+            mBottomBar.setCurrentItem(fragments.size() - 1);
         }
-
     }
 
 
@@ -275,19 +300,8 @@ public class MainFragment extends BaseFragment {
      * 弹出支付窗口之后调用
      */
     public static void clickWantPay() {
-        OkHttpUtils.get().url(API.URL_PRE + API.PAY_CLICK + App.IMEI).build().execute(null);
-    }
-
-    /**
-     * 弹出支付窗口之后调用
-     */
-    public static void openPayDialog(int video_id, int pay_position_id) {
-        Map<String, String> params = new HashMap<>();
-        params.put("position_id", "15");
-        params.put("user_id", App.USER_ID + "");
-        params.put("video_id", video_id + "");
-        params.put("pay_position_id", pay_position_id + "");
-        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
+        HashMap<String, String> params = API.createParams();
+        OkHttpUtils.get().url(API.URL_PRE + API.PAY_CLICK).params(params).build().execute(null);
     }
 
 }

@@ -7,15 +7,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * TODO<读取Json文件的工具类>
- *
- * @author: 小嵩
- * @date: 2017/3/16 16:22
- */
 
+/**
+ * Case By: 获取Assest文件夹的工具类
+ * package:com.mzhguqvn.mzhguq.util
+ * Author：scene on 2017/5/19 15:34
+ */
 public class GetAssestDataUtil {
 
+    /**
+     * Case By:获取json字符串
+     * Author: scene on 2017/5/19 15:34
+     */
     public static String getAssestJson(Context context, String fileName) {
 
         StringBuilder stringBuilder = new StringBuilder();

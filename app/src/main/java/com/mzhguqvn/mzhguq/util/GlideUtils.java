@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mzhguqvn.mzhguq.R;
 
 /**
- * Case By:
+ * Case By:glide工具类
  * package:com.mzhguqvn.mzhguq.util
  * Author：scene on 2017/5/16 10:47
  */
@@ -21,7 +21,7 @@ public class GlideUtils {
         if (url.endsWith("gif")) {
             Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(imageView);
         } else {
-            Glide.with(context).load(url).asBitmap().centerCrop().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
+            Glide.with(context).load(url).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
         }
     }
 
@@ -29,7 +29,7 @@ public class GlideUtils {
         if (url.endsWith("gif")) {
             Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(imageView);
         } else {
-            Glide.with(context).load(url).asBitmap().centerCrop().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
+            Glide.with(context).load(url).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
         }
     }
 
@@ -37,7 +37,7 @@ public class GlideUtils {
         if (url.endsWith("gif")) {
             Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(imageView);
         } else {
-            Glide.with(context).load(url).asBitmap().centerCrop().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
+            Glide.with(context).load(url).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
         }
     }
 
@@ -45,7 +45,7 @@ public class GlideUtils {
         if (url.endsWith("gif")) {
             Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(imageView);
         } else {
-            Glide.with(context).load(url).asBitmap().centerCrop().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
+            Glide.with(context).load(url).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
         }
     }
 
@@ -53,7 +53,7 @@ public class GlideUtils {
         if (url.endsWith("gif")) {
             Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(imageView);
         } else {
-            Glide.with(context).load(url).asBitmap().centerCrop().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
+            Glide.with(context).load(url).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
         }
     }
 

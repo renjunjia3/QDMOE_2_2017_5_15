@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GoodsCommentAdapter;
 import com.mzhguqvn.mzhguq.app.App;
@@ -30,6 +31,7 @@ import com.mzhguqvn.mzhguq.bean.GoodsInfo;
 import com.mzhguqvn.mzhguq.bean.ProvinceInfo;
 import com.mzhguqvn.mzhguq.bean.ReceiverInfo;
 import com.mzhguqvn.mzhguq.config.AddressConfig;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
@@ -201,7 +203,7 @@ public class BuyFragment extends BaseBackFragment {
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
-        uploadCurrentPage();
+        MainActivity.upLoadPageInfo(PageConfig.SHOP_BUY_POSITOTN_ID, 0, 0);
     }
 
     private void initView() {
@@ -222,18 +224,6 @@ public class BuyFragment extends BaseBackFragment {
             city.setText(strCity);
             area.setText(strArea);
             receiverAddress.setText(strAddress);
-//            //支付方式
-//            paywayType = payWayRadiogroup.getCheckedRadioButtonId() == R.id.pay_way_wechat ? 1 : 2;
-//            payWayRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-//                    if (checkedId == R.id.pay_way_wechat) {
-//                        paywayType = 1;
-//                    } else {
-//                        paywayType = 2;
-//                    }
-//                }
-//            });
 
             Glide.with(getContext()).load(info.getThumb()).into(goodsImage);
             goodsName.setText(info.getName());
@@ -242,7 +232,7 @@ public class BuyFragment extends BaseBackFragment {
 
             goodsOldPrice.setText("原价：￥" + info.getPrice());
             goodsOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            if (App.isVip > 0) {
+            if (App.user_id > 0) {
                 goodsOldPrice.setVisibility(View.VISIBLE);
                 double oldprice = new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 goodsPrice.setText("￥" + oldprice);
@@ -392,7 +382,7 @@ public class BuyFragment extends BaseBackFragment {
             buyNumber--;
             numbers1.setText(buyNumber + "");
             numbers2.setText(buyNumber + "");
-            if (App.isVip > 0) {
+            if (App.user_id > 0) {
                 totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             } else {
                 totalPrice.setText("￥" + new BigDecimal((info.getPrice() * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
@@ -410,7 +400,7 @@ public class BuyFragment extends BaseBackFragment {
         buyNumber++;
         numbers1.setText(buyNumber + "");
         numbers2.setText(buyNumber + "");
-        if (App.isVip > 0) {
+        if (App.user_id > 0) {
             totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         } else {
             totalPrice.setText("￥" + new BigDecimal((info.getPrice() * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
@@ -480,6 +470,7 @@ public class BuyFragment extends BaseBackFragment {
         if (popupWindow == null) {
             popupWindow = new ConfirmOrderPopupWindow(getContext(), confirmOrderListener);
         }
+        hideSoftInput();
         popupWindow.setReceiverName(strReceiverName);
         popupWindow.setReceiverPhone(strReceiverPhone);
         popupWindow.setReceiverAddress(strProvince + strCity + strArea + strAddress);
@@ -496,14 +487,14 @@ public class BuyFragment extends BaseBackFragment {
         @Override
         public void onClick(View v) {
             double needPayPrice = buyNumber * info.getPrice();
-            if (App.isVip > 0) {
+            if (App.user_id > 0) {
                 needPayPrice = new BigDecimal(needPayPrice * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             } else {
                 needPayPrice = new BigDecimal(needPayPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             }
             CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
             createGoodsOrderInfo.setGoods_id(info.getId());
-            createGoodsOrderInfo.setUser_id(App.USER_ID);
+            createGoodsOrderInfo.setUser_id(App.user_id);
             createGoodsOrderInfo.setRemark("购买商品：" + info.getName());
             createGoodsOrderInfo.setNumber(buyNumber);
             createGoodsOrderInfo.setMoney(needPayPrice);
@@ -553,17 +544,6 @@ public class BuyFragment extends BaseBackFragment {
             receiverInfo.setReceiverPhone(receiverPhone.getText().toString().trim());
             start(PaySuccessFragment.newInstance(info, receiverInfo, buyNumber));
         }
-    }
-
-    /**
-     * Case By:上报当前页面
-     * Author: scene on 2017/4/27 17:05
-     */
-    private void uploadCurrentPage() {
-        Map<String, String> params = new HashMap<>();
-        params.put("position_id", "18");
-        params.put("user_id", App.USER_ID + "");
-        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 
 }

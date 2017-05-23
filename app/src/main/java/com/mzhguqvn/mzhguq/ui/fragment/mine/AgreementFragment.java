@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.base.BaseBackFragment;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 
 import butterknife.BindView;
@@ -68,5 +70,11 @@ public class AgreementFragment extends BaseBackFragment {
         }
         initToolbarNav(toolbar);
         return attachToSwipeBack(view);
+    }
+
+    @Override
+    protected void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        MainActivity.upLoadPageInfo(PageConfig.AGREEMENT_POSITOTN_ID, 0, 0);
     }
 }

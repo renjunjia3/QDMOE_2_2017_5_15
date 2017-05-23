@@ -2,11 +2,15 @@ package com.mzhguqvn.mzhguq.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +72,6 @@ public class GlodVipDialog extends Dialog {
             LayoutInflater inflater = LayoutInflater.from(context);
             final GlodVipDialog dialog = new GlodVipDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_glod_vip, null);
-            ((TextView) layout.findViewById(R.id.glod_old_price)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            ((TextView) layout.findViewById(R.id.diamond_old_price)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             final ImageView glodChoosed = (ImageView) layout.findViewById(R.id.glod_choosed);
@@ -78,6 +80,12 @@ public class GlodVipDialog extends Dialog {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
             image.setLayoutParams(layoutParams);
+            TextView discount = (TextView) dialog.findViewById(R.id.discount);
+            SpannableStringBuilder builder = new SpannableStringBuilder(discount.getText().toString());
+            ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.parseColor("#D3121A"));
+            builder.setSpan(redSpan, 10, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            discount.setText(builder);
+
             layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,16 +96,16 @@ public class GlodVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     vip_type = PayUtil.VIP_TYPE_1;
-                    glodChoosed.setImageResource(R.drawable.ic_vip_type_choosed);
-                    diamondChoosed.setImageResource(R.drawable.ic_vip_type_unchoosed);
+                    glodChoosed.setImageResource(R.drawable.ic_vip_type_s);
+                    diamondChoosed.setImageResource(R.drawable.ic_vip_type_d);
                 }
             });
             layout.findViewById(R.id.layout_type_diamond).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     vip_type = PayUtil.VIP_TYPE_3;
-                    glodChoosed.setImageResource(R.drawable.ic_vip_type_unchoosed);
-                    diamondChoosed.setImageResource(R.drawable.ic_vip_type_choosed);
+                    glodChoosed.setImageResource(R.drawable.ic_vip_type_d);
+                    diamondChoosed.setImageResource(R.drawable.ic_vip_type_s);
                 }
             });
             RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
@@ -121,9 +129,9 @@ public class GlodVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, dialog, vip_type, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByWeChat(context, vip_type, videoId, isVideoDetailPage);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, dialog, vip_type, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByAliPay(context, vip_type, videoId, isVideoDetailPage);
                     }
 
                 }

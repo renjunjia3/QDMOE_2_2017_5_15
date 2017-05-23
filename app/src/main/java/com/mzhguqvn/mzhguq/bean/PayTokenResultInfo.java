@@ -7,12 +7,21 @@ package com.mzhguqvn.mzhguq.bean;
  */
 
 public class PayTokenResultInfo {
-    private int type;//1：微信，2支付宝，3微信扫码4支付宝WAP
+    private int pay_type;//1：微信扫码，2支付宝扫码
     private String pay_url;//支付宝wap路径
     private String payinfo;//吊起客户端的数据
     private int order_id_int;//订单号
     private String order_id;
-    private String code_img;//微信的二维码地址，
+    private String code_img_url;//微信的二维码地址，
+    private boolean status;
+
+    public int getPay_type() {
+        return pay_type;
+    }
+
+    public void setPay_type(int pay_type) {
+        this.pay_type = pay_type;
+    }
 
     public String getPay_url() {
         return pay_url;
@@ -20,14 +29,6 @@ public class PayTokenResultInfo {
 
     public void setPay_url(String pay_url) {
         this.pay_url = pay_url;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public String getPayinfo() {
@@ -46,19 +47,27 @@ public class PayTokenResultInfo {
         this.order_id_int = order_id_int;
     }
 
-    public String getCode_img() {
-        return code_img;
-    }
-
-    public void setCode_img(String code_img) {
-        this.code_img = code_img;
-    }
-
     public String getOrder_id() {
         return order_id;
     }
 
     public void setOrder_id(String order_id) {
         this.order_id = order_id;
+    }
+
+    public String getCode_img_url() {
+        return code_img_url;
+    }
+
+    public void setCode_img_url(String code_img_url) {
+        this.code_img_url = code_img_url;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

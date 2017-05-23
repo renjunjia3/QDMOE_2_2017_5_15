@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.VideoDetailActivity;
 import com.mzhguqvn.mzhguq.adapter.TrySeeAdapter;
@@ -18,6 +19,7 @@ import com.mzhguqvn.mzhguq.base.BaseMainFragment;
 import com.mzhguqvn.mzhguq.bean.TrySeeContentInfo;
 import com.mzhguqvn.mzhguq.bean.VideoInfo;
 import com.mzhguqvn.mzhguq.bean.VipInfo;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
@@ -97,37 +99,25 @@ public class TrySeeFragment extends BaseMainFragment {
         addFooterView();
         initView();
         getTrySeeData(true);
-        uploadCurrentPage();
+        MainActivity.upLoadPageInfo(PageConfig.TRY_SEE_POSITOTN_ID, 0, 0);
     }
 
     private void addFooterView() {
         footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
         footerText = (TextView) footerView.findViewById(R.id.footer_text);
-        if (App.isVip == 0) {
+        if (App.role == 0) {
             footerText.setText("请开通会员开放更多影片资源");
         }
         footerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (App.isVip == 0) {
+                if (App.role == 0) {
                     DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 1);
                 }
             }
         });
         listView.addFooterView(footerView);
     }
-
-    /**
-     * Case By:上报当前页面
-     * Author: scene on 2017/4/27 17:05
-     */
-    private void uploadCurrentPage() {
-        Map<String, String> params = new HashMap<>();
-        params.put("position_id", "1");
-        params.put("user_id", App.USER_ID + "");
-        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
-    }
-
 
     private void initView() {
         ptrLayout.disableWhenHorizontalMove(true);
@@ -205,7 +195,9 @@ public class TrySeeFragment extends BaseMainFragment {
             if (isShowLoad) {
                 statusViewLayout.showLoading();
             }
-            getDataCall = OkHttpUtils.get().url(API.URL_PRE + API.VIP_INDEX + 1).build();
+            HashMap<String, String> params = API.createParams();
+            params.put("position_id", "1");
+            getDataCall = OkHttpUtils.get().url(API.URL_PRE + API.VIP_INDEX).params(params).build();
             getDataCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {

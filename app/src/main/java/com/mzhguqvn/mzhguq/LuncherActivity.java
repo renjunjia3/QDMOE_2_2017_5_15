@@ -41,7 +41,7 @@ public class LuncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //解决重复启动的问题
-        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
         }
@@ -85,7 +85,6 @@ public class LuncherActivity extends AppCompatActivity {
             ToastUtils.getInstance(LuncherActivity.this).showToast("请检查网络连接");
             finish();
             return;
-            
         }
 
         retryTime++;
@@ -93,9 +92,9 @@ public class LuncherActivity extends AppCompatActivity {
         App.IMEI = tm.getDeviceId();
         long lastLoginTime = SharedPreferencesUtil.getLong(LuncherActivity.this, App.LAST_LOGIN_TIME, 0);
         if (!DateUtils.isDifferentDay(System.currentTimeMillis(), lastLoginTime)) {
-            App.USER_ID = SharedPreferencesUtil.getInt(LuncherActivity.this, App.USERID_KEY, 0);
-            App.isVip = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ISVIP_KEY, 0);
-            App.isHeijin = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ISHEIJIN_KEY, 0);
+            App.user_id = SharedPreferencesUtil.getInt(LuncherActivity.this, App.USERID_KEY, 0);
+            App.role = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ROLE_KEY, 0);
+            App.cdn = SharedPreferencesUtil.getInt(LuncherActivity.this, App.CDN_KEY, 0);
             if (System.currentTimeMillis() - loginTime < TIME) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -111,10 +110,11 @@ public class LuncherActivity extends AppCompatActivity {
 
             return;
         }
-        HashMap<String, String> params = new HashMap<>();
-        params.put("device", Build.DEVICE);
-        params.put("system", Build.VERSION.CODENAME);
-        OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER + App.CHANNEL_ID + "/" + App.IMEI).params(params).build()
+
+        HashMap<String, String> params = API.createParams();
+        params.put("device", Build.BRAND);
+        params.put("system", Build.VERSION.SDK);
+        OkHttpUtils.get().url(API.URL_PRE + API.LOGIN_REGISTER).params(params).build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int i) {
@@ -131,12 +131,13 @@ public class LuncherActivity extends AppCompatActivity {
                     public void onResponse(String s, int i) {
                         try {
                             UserInfo info = JSON.parseObject(s, UserInfo.class);
-                            App.USER_ID = info.getUser_id();
-                            App.isVip = info.getIs_vip();
-                            App.isHeijin = info.getIs_heijin();
-                            SharedPreferencesUtil.putInt(LuncherActivity.this, App.USERID_KEY, App.USER_ID);
-                            SharedPreferencesUtil.putInt(LuncherActivity.this, App.ISVIP_KEY, App.isVip);
-                            SharedPreferencesUtil.putInt(LuncherActivity.this, App.ISHEIJIN_KEY, App.isHeijin);
+                            App.user_id = info.getUser_id();
+                            App.role = info.getRole();
+                            App.cdn = info.getCdn();
+
+                            SharedPreferencesUtil.putInt(LuncherActivity.this, App.USERID_KEY, App.user_id);
+                            SharedPreferencesUtil.putInt(LuncherActivity.this, App.ROLE_KEY, App.role);
+                            SharedPreferencesUtil.putInt(LuncherActivity.this, App.CDN_KEY, App.cdn);
 
                             SharedPreferencesUtil.putLong(LuncherActivity.this, App.LAST_LOGIN_TIME, System.currentTimeMillis());
                             if (System.currentTimeMillis() - loginTime < TIME) {

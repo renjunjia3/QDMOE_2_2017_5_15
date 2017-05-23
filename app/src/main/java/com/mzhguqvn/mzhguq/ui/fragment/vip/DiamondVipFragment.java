@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.VideoDetailActivity;
 import com.mzhguqvn.mzhguq.adapter.DiamondVipAdapter;
@@ -23,6 +24,7 @@ import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseMainFragment;
 import com.mzhguqvn.mzhguq.bean.VideoInfo;
 import com.mzhguqvn.mzhguq.bean.VipInfo;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.itemdecoration.DiamondItemDecoration;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
@@ -41,7 +43,6 @@ import com.zhy.http.okhttp.request.RequestCall;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,19 +98,9 @@ public class DiamondVipFragment extends BaseMainFragment {
         super.onLazyInitView(savedInstanceState);
         initView();
         getDiamondVipData(true);
-        uploadCurrentPage();
+        MainActivity.upLoadPageInfo(PageConfig.DIAMOND_POSITOTN_ID, 0, 0);
     }
 
-    /**
-     * Case By:上报当前页面
-     * Author: scene on 2017/4/27 17:05
-     */
-    private void uploadCurrentPage() {
-        Map<String, String> params = new HashMap<>();
-        params.put("position_id", "3");
-        params.put("user_id", App.USER_ID + "");
-        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
-    }
 
     private void initView() {
         ptrLayout.setLastUpdateTimeRelateObject(this);
@@ -140,13 +131,13 @@ public class DiamondVipFragment extends BaseMainFragment {
         adapter = new DiamondVipAdapter(getContext(), list);
         mAdapter = new RecyclerAdapterWithHF(adapter);
         addFooterView();
-        recyclerView.addItemDecoration(new DiamondItemDecoration((int) ScreenUtils.instance(getContext()).dip2px(3), list, App.isVip < 2));
+        recyclerView.addItemDecoration(new DiamondItemDecoration((int) ScreenUtils.instance(getContext()).dip2px(3), list, App.role < 2));
         recyclerView.setAdapter(mAdapter);
         adapter.setOnClickDiamondVipItemListener(new DiamondVipAdapter.OnClickDiamondVipItemListener() {
             @Override
             public void onClickDiamondVipItem(int position) {
-                if (App.isVip < 2) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请升级钻石会员后观看", App.isVip, false, true, list.get(position).getVideo_id(), false, 3);
+                if (App.role < 2) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请升级钻石会员后观看", App.role, false, true, list.get(position).getVideo_id(), false, 3);
                 } else {
                     toVideoDetail(list.get(position));
                 }
@@ -158,25 +149,21 @@ public class DiamondVipFragment extends BaseMainFragment {
     private void addFooterView() {
         View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
         TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
-        if (App.isVip == 0) {
+        if (App.role == 0) {
             footerText.setText("请开通会员开放更多影片资源");
-        } else if (App.isVip == 1) {
+        } else if (App.role == 1) {
             footerText.setText("请升级钻石会员开放更多影片资源");
-        } else if (App.isVip < 5 && App.isHeijin == 0) {
-            footerText.setText("请升级黑金会员开放更多影片资源");
         } else {
             footerText.setVisibility(View.GONE);
         }
         footerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (App.isVip < 5 && App.isHeijin == 0) {
-                    if (App.isVip == 0) {
+                if (App.role < 2) {
+                    if (App.role == 0) {
                         DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 3);
-                    } else if (App.isVip == 1) {
+                    } else if (App.role == 1) {
                         DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 3);
-                    } else {
-                        DialogUtil.getInstance().showBlackGlodVipDialog(getContext(), 0, false, 3);
                     }
                 } else {
                     if (progressDialog == null) {
@@ -204,37 +191,6 @@ public class DiamondVipFragment extends BaseMainFragment {
         });
         mAdapter.addFooter(footerView);
     }
-
-    //footer点击事件
-    private View.OnClickListener footerClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (App.isVip < 2) {
-                DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 3);
-            } else {
-                if (progressDialog == null) {
-                    progressDialog = new ProgressDialog(getContext());
-                    progressDialog.setMessage("加载中...");
-                }
-                if (!progressDialog.isShowing()) {
-                    progressDialog.show();
-                }
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (progressDialog != null && progressDialog.isShowing()) {
-                                    progressDialog.cancel();
-                                }
-                            }
-                        });
-                    }
-                }, 3000);
-            }
-        }
-    };
 
     /**
      * Case By:初始化Header
@@ -267,8 +223,8 @@ public class DiamondVipFragment extends BaseMainFragment {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (App.isVip < 2) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.isVip, false, true, info.getVideo_id(), false, 3);
+                if (App.role < 2) {
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.role, false, true, info.getVideo_id(), false, 3);
                 } else {
                     toVideoDetail(info);
                 }
@@ -287,7 +243,9 @@ public class DiamondVipFragment extends BaseMainFragment {
             if (isShowLoad) {
                 statusViewLayout.showLoading();
             }
-            getDataCall = OkHttpUtils.get().url(API.URL_PRE + API.VIP_INDEX + 3).build();
+            HashMap<String, String> params = API.createParams();
+            params.put("position_id", "3");
+            getDataCall = OkHttpUtils.get().url(API.URL_PRE + API.VIP_INDEX).params(params).build();
             getDataCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {

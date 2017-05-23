@@ -31,20 +31,25 @@ public class BottomBarTab extends FrameLayout {
 
     private TextView mTvUnreadCount;
 
-    public BottomBarTab(Context context, @DrawableRes int icon, CharSequence title) {
-        this(context, null, icon, title);
+    private int resIcon_d;
+    private int resIcon_s;
+
+    public BottomBarTab(Context context, @DrawableRes int icon_d, @DrawableRes int icon_s, CharSequence title) {
+        this(context, null, icon_d, icon_s, title);
     }
 
-    public BottomBarTab(Context context, AttributeSet attrs, int icon, CharSequence title) {
-        this(context, attrs, 0, icon, title);
+    public BottomBarTab(Context context, AttributeSet attrs, int icon_d, @DrawableRes int icon_s, CharSequence title) {
+        this(context, attrs, 0, icon_d, icon_s, title);
     }
 
-    public BottomBarTab(Context context, AttributeSet attrs, int defStyleAttr, int icon, CharSequence title) {
+    public BottomBarTab(Context context, AttributeSet attrs, int defStyleAttr, int icon_d, @DrawableRes int icon_s, CharSequence title) {
         super(context, attrs, defStyleAttr);
-        init(context, icon, title);
+        init(context, icon_d, icon_s, title);
     }
 
-    private void init(Context context, int icon, CharSequence title) {
+    private void init(Context context, int icon_d, int icon_s, CharSequence title) {
+        resIcon_d = icon_d;
+        resIcon_s = icon_s;
         mContext = context;
         TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
         Drawable drawable = typedArray.getDrawable(0);
@@ -61,9 +66,8 @@ public class BottomBarTab extends FrameLayout {
         mIcon = new ImageView(context);
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 27, getResources().getDisplayMetrics());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
-        mIcon.setImageResource(icon);
+        mIcon.setImageResource(icon_d);
         mIcon.setLayoutParams(params);
-        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.tab_unselect));
         lLContainer.addView(mIcon);
 
         mTvTitle = new TextView(context);
@@ -100,11 +104,11 @@ public class BottomBarTab extends FrameLayout {
         super.setSelected(selected);
         if (selected) {
             //this.setBackgroundColor(Color.parseColor("#FE9697"));
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.tab_select));
+            mIcon.setImageResource(resIcon_s);
             mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.tab_select));
         } else {
             //this.setBackgroundColor(ContextCompat.getColor(mContext, R.color.black));
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.tab_unselect));
+            mIcon.setImageResource(resIcon_d);
             mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.tab_unselect));
         }
     }

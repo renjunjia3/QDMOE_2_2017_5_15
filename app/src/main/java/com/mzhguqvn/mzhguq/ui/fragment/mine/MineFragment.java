@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseMainFragment;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
 import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
 import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
@@ -63,59 +65,34 @@ public class MineFragment extends BaseMainFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initView();
-        uploadCurrentPage();
+        MainActivity.upLoadPageInfo(PageConfig.MINE_POSITOTN_ID, 0, 0);
     }
 
-    /**
-     * Case By:上报当前页面
-     * Author: scene on 2017/4/27 17:05
-     */
-    private void uploadCurrentPage() {
-        Map<String, String> params = new HashMap<>();
-        params.put("position_id", "14");
-        params.put("user_id", App.USER_ID + "");
-        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
-    }
 
     private void initView() {
-        switch (App.isVip) {
+        switch (App.role) {
             case 0:
-                vipId.setText("游客" + App.USER_ID);
+                vipId.setText("游客" + App.user_id);
                 break;
             case 1:
-                vipId.setText("黄金会员" + App.USER_ID);
+                vipId.setText("黄金会员" + App.user_id);
                 break;
             case 2:
-                vipId.setText("钻石会员" + App.USER_ID);
-                break;
-            case 3:
-                vipId.setText("海外钻石会员" + App.USER_ID);
-                break;
-            case 4:
-                vipId.setText("海外钻石会员" + App.USER_ID);
-                break;
-            case 5:
-                vipId.setText("海外黑金会员" + App.USER_ID);
-                break;
-            case 6:
-                vipId.setText("海外急速黑金会员" + App.USER_ID);
-                break;
-            case 7:
-                vipId.setText("海超速速黑金会员" + App.USER_ID);
+                vipId.setText("钻石会员" + App.user_id);
                 break;
         }
-        if (App.isVip == 0) {
+        if (App.role == 0) {
             openVip.setImageResource(R.drawable.ic_mine_open_vip);
         } else {
             openVip.setImageResource(R.drawable.ic_mine_update_vip);
         }
 
-        if (App.isVip == 0 || App.isVip == 1) {
+        if (App.role == 0 || App.role == 1) {
             openVip.setVisibility(View.VISIBLE);
         } else {
             openVip.setVisibility(View.GONE);
         }
-        account.setText("ac00" + (App.USER_ID + 235));
+        account.setText("ac00" + (App.user_id + 235));
         password.setText("qdacp1pd5");
 
     }
@@ -125,9 +102,9 @@ public class MineFragment extends BaseMainFragment {
      */
     @OnClick(R.id.open_vip)
     public void onClickOpenVip() {
-        if (App.isVip == 0) {
+        if (App.role == 0) {
             DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 14);
-        } else if (App.isVip == 1) {
+        } else if (App.role == 1) {
             DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 14);
         }
     }
@@ -137,10 +114,8 @@ public class MineFragment extends BaseMainFragment {
      */
     @OnClick({R.id.shoucang, R.id.download, R.id.lishi})
     public void onClick(View view) {
-        if (App.isVip == 0) {
+        if (App.role == 0) {
             DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 14);
-            MainFragment.clickWantPay();
-            MainFragment.openPayDialog(0, 14);
         }
     }
 

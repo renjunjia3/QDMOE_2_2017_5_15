@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GoodsComment2Adapter;
 import com.mzhguqvn.mzhguq.adapter.GoodsCommentAdapter;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseBackFragment;
 import com.mzhguqvn.mzhguq.bean.GoodsCommentInfo;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.util.API;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -78,18 +80,7 @@ public class GoodsCommentFragment extends BaseBackFragment {
             adapter = new GoodsComment2Adapter(getContext(), list);
             listview.setAdapter(adapter);
         }
-        uploadCurrentPage();
-    }
-
-    /**
-     * Case By:上报当前页面
-     * Author: scene on 2017/4/27 17:05
-     */
-    private void uploadCurrentPage() {
-        Map<String, String> params = new HashMap<>();
-        params.put("position_id", "19");
-        params.put("user_id", App.USER_ID + "");
-        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
+        MainActivity.upLoadPageInfo(PageConfig.GOODS_COMMENT_LIST_POSITOTN_ID, 0, 0);
     }
 
 }

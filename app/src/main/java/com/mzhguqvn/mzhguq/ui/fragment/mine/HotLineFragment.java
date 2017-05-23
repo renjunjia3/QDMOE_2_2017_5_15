@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.base.BaseBackFragment;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,9 +43,9 @@ public class HotLineFragment extends BaseBackFragment {
         return attachToSwipeBack(view);
     }
 
-    @OnClick(R.id.online_complaint)
-    public void onClickOnLineComplaint() {
-        start(OnlineComplaintFragment.newInstance());
+    @Override
+    protected void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        MainActivity.upLoadPageInfo(PageConfig.REBACK_POSITOTN_ID,0,0);
     }
-
 }

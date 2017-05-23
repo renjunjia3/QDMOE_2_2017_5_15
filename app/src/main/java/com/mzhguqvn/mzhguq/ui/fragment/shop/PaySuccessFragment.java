@@ -17,6 +17,7 @@ import com.mzhguqvn.mzhguq.base.BaseBackFragment;
 import com.mzhguqvn.mzhguq.bean.GoodsInfo;
 import com.mzhguqvn.mzhguq.bean.ReceiverInfo;
 import com.mzhguqvn.mzhguq.config.AddressConfig;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.event.ChangeTabEvent;
 import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
@@ -103,14 +104,14 @@ public class PaySuccessFragment extends BaseBackFragment {
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
-        uploadCurrentPage();
+        MainActivity.upLoadPageInfo(PageConfig.SHOP_BUY_SUCCESS_POSITOTN_ID,0,0);
     }
 
     private void initView() {
         Glide.with(getContext()).load(goodsInfo.getThumb()).centerCrop().into(image);
         orderId.setText(App.order_id);
         goodsName.setText(goodsInfo.getName());
-        if (App.isVip > 0) {
+        if (App.role > 0) {
             price.setText("￥" + new BigDecimal(goodsInfo.getPrice() * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             totalPrice.setText("￥" + new BigDecimal(goodsInfo.getPrice() * buyNumber * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         } else {
@@ -136,12 +137,12 @@ public class PaySuccessFragment extends BaseBackFragment {
 
     @OnClick(R.id.ok)
     public void onClickOK() {
-        if (App.isVip == 0) {
-            App.isVip = 1;
-            SharedPreferencesUtil.putInt(getContext(), App.ISVIP_KEY, App.isVip);
+        if (App.role == 0) {
+            App.role = 1;
+            SharedPreferencesUtil.putInt(getContext(), App.ROLE_KEY, App.role);
             //开通黄金会员
             if (_mActivity instanceof MainActivity) {
-                ((MainActivity) _mActivity).changeTab(new ChangeTabEvent(App.isVip));
+                ((MainActivity) _mActivity).changeTab(new ChangeTabEvent(App.role));
             }
         } else {
             _mActivity.onBackPressed();
@@ -150,25 +151,14 @@ public class PaySuccessFragment extends BaseBackFragment {
 
     @Override
     public boolean onBackPressedSupport() {
-        if (App.isVip == 0) {
-            App.isVip = 1;
-            SharedPreferencesUtil.putInt(getContext(), App.ISVIP_KEY, App.isVip);
+        if (App.role == 0) {
+            App.role = 1;
+            SharedPreferencesUtil.putInt(getContext(), App.ROLE_KEY, App.role);
             //开通黄金会员
             if (_mActivity instanceof MainActivity) {
-                ((MainActivity) _mActivity).changeTab(new ChangeTabEvent(App.isVip));
+                ((MainActivity) _mActivity).changeTab(new ChangeTabEvent(App.role));
             }
         }
         return super.onBackPressedSupport();
-    }
-
-    /**
-     * Case By:上报当前页面
-     * Author: scene on 2017/4/27 17:05
-     */
-    private void uploadCurrentPage() {
-        Map<String, String> params = new HashMap<>();
-        params.put("position_id", "20");
-        params.put("user_id", App.USER_ID + "");
-        OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 }

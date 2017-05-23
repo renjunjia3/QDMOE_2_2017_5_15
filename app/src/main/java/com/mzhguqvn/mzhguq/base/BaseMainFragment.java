@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.app.App;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.ui.dialog.BackOpenVipDialog;
 import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
@@ -49,38 +51,31 @@ public abstract class BaseMainFragment extends BaseFragment {
      */
     @Override
     public boolean onBackPressedSupport() {
-        if (App.isVip == 0) {
-            //if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+        if (App.role == 0) {
+            if (builder == null) {
+                builder = new BackOpenVipDialog.Builder(_mActivity);
+                builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        PayUtil.getInstance().payByWeChat(_mActivity, PayUtil.VIP_TYPE_2, 0, false);
+                    }
+                });
 
-                if (builder == null) {
-                    builder = new BackOpenVipDialog.Builder(_mActivity);
-                    builder.setWeChatPayClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            PayUtil.getInstance().payByWeChat(_mActivity, null, PayUtil.VIP_TYPE_2, 0, false);
-                        }
-                    });
-
-                    builder.setAliPayClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            PayUtil.getInstance().payByAliPay(_mActivity, null, PayUtil.VIP_TYPE_2, 0, false);
-                        }
-                    });
-                }
-                if (dialog == null) {
-                    dialog = builder.create();
-                }
-                dialog.show();
-                MainFragment.clickWantPay();
-                MainFragment.openPayDialog(0,23);
-
-//            } else {
-//                TOUCH_TIME = System.currentTimeMillis();
-//                ToastUtils.getInstance(_mActivity).showToast(getString(R.string.press_again_exit));
-//            }
+                builder.setAliPayClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        PayUtil.getInstance().payByAliPay(_mActivity, PayUtil.VIP_TYPE_2, 0, false);
+                    }
+                });
+            }
+            if (dialog == null) {
+                dialog = builder.create();
+            }
+            dialog.show();
+            MainFragment.clickWantPay();
+            MainActivity.upLoadPageInfo(PageConfig.BACK_OPEN_VIP_POSITOTN_ID, 0, 0);
         }
         return true;
     }

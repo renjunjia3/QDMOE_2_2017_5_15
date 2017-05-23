@@ -104,7 +104,8 @@
                     android:paddingTop="2dp"
                     android:text="50:28"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_small" />
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
 
@@ -189,7 +190,8 @@
                     android:paddingTop="2dp"
                     android:text="50:28"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_small" />
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 
@@ -273,7 +275,8 @@
                     android:paddingTop="2dp"
                     android:text="50:28"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_small" />
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 
@@ -401,7 +404,8 @@
                     android:paddingTop="2dp"
                     android:text="50:28"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_small" />
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 
@@ -485,7 +489,8 @@
                     android:paddingTop="2dp"
                     android:text="50:28"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_small" />
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 
@@ -569,7 +574,8 @@
                     android:paddingTop="2dp"
                     android:text="50:28"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_size_small" />
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 

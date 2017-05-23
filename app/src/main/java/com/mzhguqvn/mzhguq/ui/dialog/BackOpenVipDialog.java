@@ -16,11 +16,12 @@ import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.mzhguqvn.mzhguq.util.ViewUtils;
 
-/**
- * 观看完整视频需要支付的dialog
- * Created by Administrator on 2017/3/17.
- */
 
+/**
+ * Case By: 退出的时候提示的界面
+ * package:com.mzhguqvn.mzhguq.ui.dialog
+ * Author：scene on 2017/5/22 10:13
+ */
 public class BackOpenVipDialog extends Dialog {
 
 

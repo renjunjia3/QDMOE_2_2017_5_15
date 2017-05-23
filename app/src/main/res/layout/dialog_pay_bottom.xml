@@ -22,7 +22,7 @@
             android:drawablePadding="5dp"
             android:padding="5dp"
             android:text="微信支付"
-            android:textColor="#ffffff" />
+            android:textColor="#12CC23" />
 
         <View
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:drawablePadding="5dp"
             android:padding="5dp"
             android:text="支付宝支付"
-            android:textColor="#ffffff" />
+            android:textColor="#37ADDE" />
 
     </RadioGroup>
 </LinearLayout>

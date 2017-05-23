@@ -21,16 +21,19 @@ import com.alibaba.fastjson.JSON;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GoodsCommentAdapter;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseMainFragment;
 import com.mzhguqvn.mzhguq.bean.CreateGoodsOrderInfo;
 import com.mzhguqvn.mzhguq.bean.GoodsCommentInfo;
+import com.mzhguqvn.mzhguq.bean.GoodsCommentsResultInfo;
 import com.mzhguqvn.mzhguq.bean.GoodsInfo;
 import com.mzhguqvn.mzhguq.bean.ProvinceInfo;
 import com.mzhguqvn.mzhguq.bean.ReceiverInfo;
 import com.mzhguqvn.mzhguq.config.AddressConfig;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
@@ -76,7 +79,6 @@ import wiki.scene.statuslib.StatusViewLayout;
  */
 
 public class ShopFragment extends BaseMainFragment {
-
     private static final int MSG_LOAD_SUCCESS = 10000;
 
     @BindView(R.id.image1)
@@ -210,7 +212,7 @@ public class ShopFragment extends BaseMainFragment {
     private ArrayList<GoodsCommentInfo> commentList = new ArrayList<>();
     private GoodsCommentAdapter goodsCommentAdapter;
     //折扣
-    public static final double DISCOUNT = 0.68d;
+    public static final double DISCOUNT = 0.88d;
     //确认订单的弹出框
     private ConfirmOrderPopupWindow popupWindow;
 
@@ -249,7 +251,7 @@ public class ShopFragment extends BaseMainFragment {
         super.onLazyInitView(savedInstanceState);
         initView();
         initAddressData();
-        uploadCurrentPage();
+        MainActivity.upLoadPageInfo(PageConfig.SHOP_GOODS_DETAIL_POSITOTN_ID, 0, 0);
     }
 
     private void initView() {
@@ -261,18 +263,6 @@ public class ShopFragment extends BaseMainFragment {
                 getData(false);
             }
         });
-//        //支付方式
-//        paywayType = payWayRadiogroup.getCheckedRadioButtonId() == R.id.pay_way_wechat ? 1 : 2;
-//        payWayRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-//                if (checkedId == R.id.pay_way_wechat) {
-//                    paywayType = 1;
-//                } else {
-//                    paywayType = 2;
-//                }
-//            }
-//        });
 
         //获取保存的收货地址
         positionProvince = SharedPreferencesUtil.getInt(getContext(), AddressConfig.ARG_PROVINCE_position, 0);
@@ -303,7 +293,10 @@ public class ShopFragment extends BaseMainFragment {
             statusViewLayout.showLoading();
         }
         if (NetWorkUtils.isNetworkConnected(_mActivity)) {
-            dataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GOODS_DETAIL + "/" + App.USER_ID).build();
+            HashMap<String, String> params = API.createParams();
+            params.put("goods_id", String.valueOf(1));
+            params.put("user_id", String.valueOf(App.user_id));
+            dataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GOODS_DETAIL).params(params).build();
             dataRequestCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
@@ -345,7 +338,8 @@ public class ShopFragment extends BaseMainFragment {
      * Author: scene on 2017/5/10 11:52
      */
     private void getCommentData(final boolean isShowLoading) {
-        commentRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GOODS_COMMENT).build();
+        HashMap<String, String> params = API.createParams();
+        commentRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GOODS_COMMENT).params(params).build();
         commentRequestCall.execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
@@ -361,7 +355,8 @@ public class ShopFragment extends BaseMainFragment {
             public void onResponse(String s, int i) {
                 try {
                     commentList.clear();
-                    commentList.addAll(JSON.parseArray(s, GoodsCommentInfo.class));
+                    GoodsCommentsResultInfo goodsCommentsResultInfo = JSON.parseObject(s, GoodsCommentsResultInfo.class);
+                    commentList.addAll(goodsCommentsResultInfo.getData());
                     if (commentList == null || commentList.size() == 0) {
                         seeAllComment.setVisibility(View.GONE);
                         commentLayout.setVisibility(View.GONE);
@@ -417,7 +412,7 @@ public class ShopFragment extends BaseMainFragment {
         oldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         goodsOldPrice.setText("原价：￥" + goodsInfo.getPrice());
         goodsOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        if (App.isVip > 0) {
+        if (App.role > 0) {
             oldPrice.setVisibility(View.VISIBLE);
             goodsOldPrice.setVisibility(View.VISIBLE);
 
@@ -570,7 +565,7 @@ public class ShopFragment extends BaseMainFragment {
             buyNumber--;
             numbers1.setText(buyNumber + "");
             numbers2.setText(buyNumber + "");
-            if (App.isVip > 0) {
+            if (App.role > 0) {
                 totalPrice.setText("￥" + new BigDecimal((buyNumber * goodsInfo.getPrice() * DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             } else {
                 totalPrice.setText("￥" + buyNumber * goodsInfo.getPrice());
@@ -588,7 +583,7 @@ public class ShopFragment extends BaseMainFragment {
         buyNumber++;
         numbers1.setText(buyNumber + "");
         numbers2.setText(buyNumber + "");
-        if (App.isVip > 0) {
+        if (App.role > 0) {
             totalPrice.setText("￥" + new BigDecimal((buyNumber * goodsInfo.getPrice() * DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         } else {
             totalPrice.setText("￥" + buyNumber * goodsInfo.getPrice());
@@ -649,7 +644,7 @@ public class ShopFragment extends BaseMainFragment {
         if (popupWindow == null) {
             popupWindow = new ConfirmOrderPopupWindow(getContext(), confirmSubmitListener);
         }
-
+        hideSoftInput();
         popupWindow.setReceiverName(strReceiverName);
         popupWindow.setReceiverPhone(strReceiverPhone);
         popupWindow.setReceiverAddress(strProvince + strCity + strArea + strAddress);
@@ -659,6 +654,7 @@ public class ShopFragment extends BaseMainFragment {
         popupWindow.setGoodsNumber(buyNumber);
         popupWindow.setTotalPrice(goodsInfo.getPrice(), buyNumber);
         popupWindow.showAtLocation(layoutBottomBuyNow, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        MainActivity.upLoadPageInfo(PageConfig.POP_CONFIRM_ORDER_POSITOTN_ID, 0, 0);
 
     }
 
@@ -666,14 +662,14 @@ public class ShopFragment extends BaseMainFragment {
         @Override
         public void onClick(View v) {
             double needPayPrice;
-            if (App.isVip > 0) {
+            if (App.role > 0) {
                 needPayPrice = new BigDecimal(buyNumber * goodsInfo.getPrice() * DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             } else {
                 needPayPrice = new BigDecimal(buyNumber * goodsInfo.getPrice()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             }
             CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
             createGoodsOrderInfo.setGoods_id(goodsInfo.getId());
-            createGoodsOrderInfo.setUser_id(App.USER_ID);
+            createGoodsOrderInfo.setUser_id(App.user_id);
             createGoodsOrderInfo.setRemark("购买商品：" + goodsInfo.getName());
             createGoodsOrderInfo.setNumber(buyNumber);
             createGoodsOrderInfo.setMoney(needPayPrice);
@@ -757,7 +753,7 @@ public class ShopFragment extends BaseMainFragment {
     private void uploadCurrentPage() {
         Map<String, String> params = new HashMap<>();
         params.put("position_id", "17");
-        params.put("user_id", App.USER_ID + "");
+        params.put("user_id", App.user_id + "");
         OkHttpUtils.post().url(API.URL_PRE + API.UPLOAD_CURRENT_PAGE).params(params).build().execute(null);
     }
 }

@@ -248,6 +248,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:background="#46433e" />
 
             <LinearLayout
@@ -256,6 +257,7 @@
                 android:layout_height="wrap_content"
                 android:background="#333333"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -324,6 +326,7 @@
                 android:layout_height="wrap_content"
                 android:background="#333333"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -350,6 +353,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:background="#46433e" />
 
             <View
@@ -435,7 +439,7 @@
                 android:background="#f1d09e"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="投诉建议"
+                android:text="联系客服/申请退款"
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
 
