@@ -92,8 +92,8 @@ public class PayUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 当前是否在视频详情页
      */
-    public void payByWeChat(Context context, int type, int videoId, boolean isVideoDetailPage) {
-        getOrderNo(context, type, true, videoId, isVideoDetailPage);
+    public void payByWeChat(Context context, int type, int videoId, boolean isVideoDetailPage, int pay_position_id) {
+        getOrderNo(context, type, true, videoId, isVideoDetailPage, pay_position_id);
     }
 
     /**
@@ -104,8 +104,8 @@ public class PayUtil {
      * @param videoId           视频id
      * @param isVideoDetailPage 当前是否在视频详情页
      */
-    public void payByAliPay(Context context, int type, int videoId, boolean isVideoDetailPage) {
-        getOrderNo(context, type, false, videoId, isVideoDetailPage);
+    public void payByAliPay(Context context, int type, int videoId, boolean isVideoDetailPage, int pay_position_id) {
+        getOrderNo(context, type, false, videoId, isVideoDetailPage, pay_position_id);
     }
 
     /**
@@ -130,7 +130,7 @@ public class PayUtil {
      * @param video_id          视频id
      * @param isVideoDetailPage 当前是否在视频详情页
      */
-    private void getOrderNo(final Context context, final int type, final boolean isWechat, final int video_id, final boolean isVideoDetailPage) {
+    private void getOrderNo(final Context context, final int type, final boolean isWechat, final int video_id, final boolean isVideoDetailPage, int pay_position_id) {
         App.isGoodsPay = false;
         if (dialog != null && dialog.isShowing()) {
             dialog.cancel();
@@ -160,7 +160,7 @@ public class PayUtil {
                 break;
         }
         params.put("video_id", String.valueOf(video_id));
-        params.put("position_id", String.valueOf(0));
+        params.put("position_id", String.valueOf(pay_position_id));
         params.put("pay_type", isWechat ? "1" : "2");
         params.put("type", String.valueOf(type));
 

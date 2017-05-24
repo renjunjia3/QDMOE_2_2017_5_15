@@ -56,13 +56,15 @@ public class CDNVipDialog extends Dialog {
         private Context context;
         private int videoId;
         private boolean isVideoDetailPage;
+        private int pay_position_id;
 
         private int type = 1;
 
-        public Builder(Context context, int videoId, boolean isVideoDetailPage) {
+        public Builder(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
             this.context = context;
             this.videoId = videoId;
             this.isVideoDetailPage = isVideoDetailPage;
+            this.pay_position_id = pay_position_id;
         }
 
         public CDNVipDialog create() {
@@ -113,9 +115,9 @@ public class CDNVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, PayUtil.VIP_TYPE_5, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByWeChat(context, PayUtil.VIP_TYPE_5, videoId, isVideoDetailPage, pay_position_id);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, PayUtil.VIP_TYPE_5, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByAliPay(context, PayUtil.VIP_TYPE_5, videoId, isVideoDetailPage, pay_position_id);
                     }
 
                 }

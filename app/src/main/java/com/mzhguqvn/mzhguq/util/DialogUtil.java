@@ -166,7 +166,7 @@ public class DialogUtil {
         if (glodVipDialog != null && glodVipDialog.isShowing()) {
             glodVipDialog.cancel();
         }
-        glodVipDialogBuilder = new GlodVipDialog.Builder(context, videoId, isVideoDetailPage);
+        glodVipDialogBuilder = new GlodVipDialog.Builder(context, videoId, isVideoDetailPage, pay_position_id);
         glodVipDialog = glodVipDialogBuilder.create();
         glodVipDialog.show();
         MainFragment.clickWantPay();
@@ -185,7 +185,7 @@ public class DialogUtil {
         if (diamondVipDialog != null && diamondVipDialog.isShowing()) {
             diamondVipDialog.cancel();
         }
-        diamondVipDialogBuilder = new DiamondVipDialog.Builder(context, videoId, isVideoDetailPage);
+        diamondVipDialogBuilder = new DiamondVipDialog.Builder(context, videoId, isVideoDetailPage, pay_position_id);
         diamondVipDialog = diamondVipDialogBuilder.create();
         diamondVipDialog.show();
         MainFragment.clickWantPay();
@@ -204,7 +204,7 @@ public class DialogUtil {
         if (vpnVipDialog != null && vpnVipDialog.isShowing()) {
             vpnVipDialog.cancel();
         }
-        vpnVipDialogBuilder = new CDNVipDialog.Builder(context, videoId, isVideoDetailPage);
+        vpnVipDialogBuilder = new CDNVipDialog.Builder(context, videoId, isVideoDetailPage, pay_position_id);
         vpnVipDialog = vpnVipDialogBuilder.create();
         vpnVipDialog.show();
         MainFragment.clickWantPay();

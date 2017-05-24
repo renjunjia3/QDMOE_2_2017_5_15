@@ -3,7 +3,6 @@ package com.mzhguqvn.mzhguq.ui.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -58,14 +57,16 @@ public class GlodVipDialog extends Dialog {
         private Context context;
         private int videoId;
         private boolean isVideoDetailPage;
+        private int pay_position_id;
 
         private int type = 1;
         private int vip_type = 1;
 
-        public Builder(Context context, int videoId, boolean isVideoDetailPage) {
+        public Builder(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
             this.context = context;
             this.videoId = videoId;
             this.isVideoDetailPage = isVideoDetailPage;
+            this.pay_position_id = pay_position_id;
         }
 
         public GlodVipDialog create() {
@@ -129,9 +130,9 @@ public class GlodVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, vip_type, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByWeChat(context, vip_type, videoId, isVideoDetailPage, pay_position_id);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, vip_type, videoId, isVideoDetailPage);
+                        PayUtil.getInstance().payByAliPay(context, vip_type, videoId, isVideoDetailPage, pay_position_id);
                     }
 
                 }

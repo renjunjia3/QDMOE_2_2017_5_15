@@ -700,7 +700,7 @@ public class MainActivity extends SupportActivity {
      * 上传使用页面信息
      */
     public static void upLoadPageInfo(int position_id, int video_id, int pay_position_id) {
-        Map<String, String> params = new HashMap<>();
+        Map<String, String> params = API.createParams();
         params.put("position_id", String.valueOf(position_id));
         params.put("user_id", String.valueOf(App.user_id));
         if (video_id != 0) {

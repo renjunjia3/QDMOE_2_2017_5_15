@@ -58,7 +58,7 @@ public abstract class BaseMainFragment extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        PayUtil.getInstance().payByWeChat(_mActivity, PayUtil.VIP_TYPE_2, 0, false);
+                        PayUtil.getInstance().payByWeChat(_mActivity, PayUtil.VIP_TYPE_2, 0, false, PageConfig.REBACK_POSITOTN_ID);
                     }
                 });
 
@@ -66,7 +66,7 @@ public abstract class BaseMainFragment extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        PayUtil.getInstance().payByAliPay(_mActivity, PayUtil.VIP_TYPE_2, 0, false);
+                        PayUtil.getInstance().payByAliPay(_mActivity, PayUtil.VIP_TYPE_2, 0, false, PageConfig.REBACK_POSITOTN_ID);
                     }
                 });
             }
