@@ -22,7 +22,6 @@ import com.mzhguqvn.mzhguq.bean.VideoInfo;
 import com.mzhguqvn.mzhguq.bean.VipInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.itemdecoration.AnchorItemDecoration;
-import com.mzhguqvn.mzhguq.itemdecoration.CustomItemDecotation;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
