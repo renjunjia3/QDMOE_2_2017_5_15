@@ -130,13 +130,6 @@ public class JCFullScreenActivity extends Activity {
             mJcVideoPlayer.text3.setText("开通会员观看完整视频");
             mJcVideoPlayer.openVip.setText("开通黄金会员");
         } else if (App.role == 1) {
-            mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
-            mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
-            mJcVideoPlayer.text2.setText("升级钻石观看超长视频");
-            mJcVideoPlayer.text3.setText("升级钻石观看超长视频");
-
-            mJcVideoPlayer.openVip.setText("升级钻石会员");
-        } else if (App.role == 2) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
             mJcVideoPlayer.openVip.setText("开通CDN加速");
@@ -152,9 +145,6 @@ public class JCFullScreenActivity extends Activity {
                         intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_GLOD);
                         break;
                     case 1:
-                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
-                        break;
-                    case 2:
                         intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_CDN);
                         break;
                 }
@@ -301,26 +291,7 @@ public class JCFullScreenActivity extends Activity {
                                 }
                             });
                         }
-                    } else if (App.role == 1 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
-                        timerTask.cancel();
-                        mTimer.cancel();
-                        JCMediaManager.instance().mediaPlayer.stop();
-                        if (builder != null && dialog != null) {
-                            builder.setMessage("请升级钻石会员，观看完整影片");
-                            dialog.show();
-                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    //黄金会员看完视频 弹出开通砖石会员界面
-                                    Intent intent = new Intent();
-                                    intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
-                                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
-                                    setResult(RESULT_OK, intent);
-                                    finish();
-                                }
-                            });
-                        }
-                    } else if (App.role == 2 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30 * 1000) {
+                    } else if (App.role == 1 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30 * 1000) {
                         timerTask.cancel();
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
@@ -396,7 +367,7 @@ public class JCFullScreenActivity extends Activity {
             @Override
             public void onResponse(String s, int i) {
                 try {
-                    VideoCommentResultInfo resultInfo=JSON.parseObject(s,VideoCommentResultInfo.class);
+                    VideoCommentResultInfo resultInfo = JSON.parseObject(s, VideoCommentResultInfo.class);
                     List<CommentInfo> comemnts = resultInfo.getData();
                     commentInfoList = new ArrayList<>();
                     commentInfoList.addAll(comemnts);

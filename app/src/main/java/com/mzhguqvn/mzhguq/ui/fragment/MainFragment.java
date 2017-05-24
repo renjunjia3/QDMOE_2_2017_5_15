@@ -20,7 +20,6 @@ import com.mzhguqvn.mzhguq.ui.fragment.gallery.GalleryFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.HotLineFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.MineFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.shop.ShopFragment;
-import com.mzhguqvn.mzhguq.ui.fragment.vip.DiamondVipFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.GlodVipFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.TrySeeFragment;
 import com.mzhguqvn.mzhguq.ui.view.BottomBar;
@@ -96,30 +95,17 @@ public class MainFragment extends BaseFragment {
                     tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 1://黄金会员
-                    fragments.add(GlodVipFragment.newInstance());
-                    fragments.add(DiamondVipFragment.newInstance());
-                    fragments.add(ShopFragment.newInstance());
-                    fragments.add(MineFragment.newInstance());
-
-                    tabNames.add(getString(R.string.tab_glod));
-                    tabNames.add(getString(R.string.tab_diamond));
-                    tabNames.add(getString(R.string.tab_shop));
-                    tabNames.add(getString(R.string.tab_mine));
-                    break;
-                case 2://钻石会员
                     if (App.cdn == 0) {
-                        //未开通cdn
-                        fragments.add(DiamondVipFragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
+                        fragments.add(GlodVipFragment.newInstance());
                         fragments.add(AnchorFragment.newInstance());
+                        fragments.add(ShopFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
 
-                        tabNames.add(getString(R.string.tab_diamond));
-                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_glod));
                         tabNames.add(getString(R.string.tab_anchor));
+                        tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_mine));
                     } else {
-                        //已开通cdn
                         fragments.add(AnchorFragment.newInstance());
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(GalleryFragment.newInstance());
@@ -165,17 +151,10 @@ public class MainFragment extends BaseFragment {
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 1:
-                    fragments.add(findChildFragment(GlodVipFragment.class));
-                    fragments.add(findChildFragment(DiamondVipFragment.class));
-                    fragments.add(findChildFragment(ShopFragment.class));
-                    fragments.add(findChildFragment(MineFragment.class));
-                    break;
-                case 2:
                     if (App.cdn == 0) {
-                        //未开通cdn
-                        fragments.add(findChildFragment(DiamondVipFragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
+                        fragments.add(findChildFragment(GlodVipFragment.class));
                         fragments.add(findChildFragment(AnchorFragment.class));
+                        fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(MineFragment.class));
                     } else {
                         //已开通cdn
@@ -208,29 +187,19 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
             case 1:
-                toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
-                break;
-            case 2:
                 if (App.cdn == 0) {
-                    toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(0)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(2)));
+                    toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(1)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 } else {
-                    toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
+                    toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(0)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(1)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 }
-                break;
-            case 3:
-
                 break;
         }
 

@@ -488,21 +488,21 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                         });
                                         break;
                                     case 1:
-                                        App.role = 2;
-                                        message = "恭喜您成为钻石会员";
-                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
-                                        CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
-                                        customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                            @Override
-                                            public void onDismiss(DialogInterface dialog) {
-                                                closeVideoDetail(new CloseVideoDetailEvent());
-                                            }
-                                        });
-                                        break;
-                                    case 2:
+//                                        App.role = 2;
+//                                        message = "恭喜您成为钻石会员";
+//                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
+//                                        CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+//                                        customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                                            @Override
+//                                            public void onDismiss(DialogInterface dialog) {
+//                                                closeVideoDetail(new CloseVideoDetailEvent());
+//                                            }
+//                                        });
+
                                         App.cdn = 1;
                                         message = "恭喜您成功开通CDN加速服务";
-                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
+                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.CDN_KEY, App.cdn);
+
                                         CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
                                         customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                             @Override
@@ -511,6 +511,18 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                             }
                                         });
                                         break;
+//                                    case 2:
+//                                        App.cdn = 1;
+//                                        message = "恭喜您成功开通CDN加速服务";
+//                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
+//                                        CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
+//                                        customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                                            @Override
+//                                            public void onDismiss(DialogInterface dialog) {
+//                                                closeVideoDetail(new CloseVideoDetailEvent());
+//                                            }
+//                                        });
+//                                        break;
                                     default:
                                         break;
                                 }

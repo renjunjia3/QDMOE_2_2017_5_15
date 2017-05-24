@@ -150,8 +150,9 @@ public class GlodVipFragment extends BaseMainFragment {
         TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
         if (App.role == 0) {
             footerText.setText("请开通会员开放更多影片资源");
-        } else if (App.role == 1) {
-            footerText.setText("请升级成为钻石会员开放更多影片资源");
+            footerText.setVisibility(View.VISIBLE);
+        } else {
+            footerText.setVisibility(View.GONE);
         }
         mAdapter.addFooter(footerView);
     }
@@ -162,8 +163,6 @@ public class GlodVipFragment extends BaseMainFragment {
         public void onClick(View v) {
             if (App.role == 0) {
                 DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 2);
-            } else if (App.role == 1) {
-                DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 2);
             } else {
                 if (progressDialog == null) {
                     progressDialog = new ProgressDialog(getContext());

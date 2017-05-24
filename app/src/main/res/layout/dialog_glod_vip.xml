@@ -82,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:background="@drawable/dialog_vip_type_bg"
             android:orientation="horizontal"
             android:padding="10dp">

@@ -77,17 +77,13 @@ public class MineFragment extends BaseMainFragment {
             case 1:
                 vipId.setText("黄金会员" + App.user_id);
                 break;
-            case 2:
-                vipId.setText("钻石会员" + App.user_id);
-                break;
         }
         if (App.role == 0) {
             openVip.setImageResource(R.drawable.ic_mine_open_vip);
         } else {
             openVip.setImageResource(R.drawable.ic_mine_update_vip);
         }
-
-        if (App.role == 0 || App.role == 1) {
+        if (App.role == 0 ) {
             openVip.setVisibility(View.VISIBLE);
         } else {
             openVip.setVisibility(View.GONE);
@@ -104,8 +100,6 @@ public class MineFragment extends BaseMainFragment {
     public void onClickOpenVip() {
         if (App.role == 0) {
             DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 14);
-        } else if (App.role == 1) {
-            DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 14);
         }
     }
 

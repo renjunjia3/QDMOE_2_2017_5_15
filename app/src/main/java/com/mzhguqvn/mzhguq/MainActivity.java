@@ -335,30 +335,27 @@ public class MainActivity extends SupportActivity {
 
                                         break;
                                     case 1:
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                App.role = 2;
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
-                                                String message = "恭喜您成为钻石会员";
-                                                CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                                customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                    @Override
-                                                    public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.role));
-                                                    }
-                                                });
-                                            }
-                                        });
-
-                                        break;
-                                    case 2:
+//                                        runOnUiThread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                App.role = 2;
+//                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
+//                                                String message = "恭喜您成为钻石会员";
+//                                                CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+//                                                customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                                                    @Override
+//                                                    public void onDismiss(DialogInterface dialog) {
+//                                                        changeTab(new ChangeTabEvent(App.role));
+//                                                    }
+//                                                });
+//                                            }
+//                                        });
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 App.cdn = 1;
                                                 String message = "恭喜您成功开通CDN加速服务";
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
+                                                SharedPreferencesUtil.putInt(MainActivity.this, App.CDN_KEY, App.cdn);
                                                 CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
                                                 customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                                     @Override
@@ -369,6 +366,23 @@ public class MainActivity extends SupportActivity {
                                             }
                                         });
                                         break;
+//                                    case 2:
+//                                        runOnUiThread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                App.cdn = 1;
+//                                                String message = "恭喜您成功开通CDN加速服务";
+//                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
+//                                                CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
+//                                                customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                                                    @Override
+//                                                    public void onDismiss(DialogInterface dialog) {
+//                                                        changeTab(new ChangeTabEvent(App.role));
+//                                                    }
+//                                                });
+//                                            }
+//                                        });
+//                                        break;
                                     default:
                                         break;
                                 }
