@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.app.App;
+import com.mzhguqvn.mzhguq.util.ToastUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -465,6 +466,13 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 //                        vpup.requestDisallowInterceptTouchEvent(false);
 //                        vpup = vpup.getParent();
 //                    }
+                    if (App.role == 0) {
+                        ToastUtils.getInstance(getContext()).showToast("请开通会员");
+                    } else if (App.role == 1) {
+                        ToastUtils.getInstance(getContext()).showToast("请升级钻石会员");
+                    } else if (App.role == 2 && App.cdn != 0) {
+                        ToastUtils.getInstance(getContext()).showToast("请开通CDN加速服务");
+                    }
                     break;
             }
         }
