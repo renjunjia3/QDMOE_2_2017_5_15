@@ -151,7 +151,7 @@ public class VideoInfo implements Serializable {
     }
 
     public int getReal_duration() {
-        return duration;
+        return duration * 10;
     }
 
     public void setReal_duration(int real_duration) {

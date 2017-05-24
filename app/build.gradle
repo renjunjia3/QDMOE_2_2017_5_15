@@ -16,106 +16,10 @@ android {
     productFlavors {
 
         NNY_1001 {
-            manifestPlaceholders = [CHANNEL_ID: 1008]
+            manifestPlaceholders = [CHANNEL_ID: 1001]
         }
         NNY_1002 {
-            manifestPlaceholders = [CHANNEL_ID: 1009]
-        }
-        NNY_1003 {
-            manifestPlaceholders = [CHANNEL_ID: 1010]
-        }
-        NNY_1004 {
-            manifestPlaceholders = [CHANNEL_ID: 1013]
-        }
-        NNY_1005 {
-            manifestPlaceholders = [CHANNEL_ID: 1015]
-        }
-        NNY_1006 {
-            manifestPlaceholders = [CHANNEL_ID: 1016]
-        }
-        NNY_1007 {
-            manifestPlaceholders = [CHANNEL_ID: 1017]
-        }
-        NNY_1008 {
-            manifestPlaceholders = [CHANNEL_ID: 1018]
-        }
-        NNY_1009 {
-            manifestPlaceholders = [CHANNEL_ID: 1019]
-        }
-        NNY_1010 {
-            manifestPlaceholders = [CHANNEL_ID: 1020]
-        }
-        NNY_1011 {
-            manifestPlaceholders = [CHANNEL_ID: 1021]
-        }
-        NNY_1012 {
-            manifestPlaceholders = [CHANNEL_ID: 1022]
-        }
-        NNY_1019 {
-            manifestPlaceholders = [CHANNEL_ID: 1029]
-        }
-        NNY_1020 {
-            manifestPlaceholders = [CHANNEL_ID: 1030]
-        }
-        NNY_1021 {
-            manifestPlaceholders = [CHANNEL_ID: 1031]
-        }
-        NNY_1022 {
-            manifestPlaceholders = [CHANNEL_ID: 1032]
-        }
-        NNY_1023 {
-            manifestPlaceholders = [CHANNEL_ID: 1033]
-        }
-        NNY_1024 {
-            manifestPlaceholders = [CHANNEL_ID: 1034]
-        }
-        NNY_1025 {
-            manifestPlaceholders = [CHANNEL_ID: 1035]
-        }
-        NNY_1026 {
-            manifestPlaceholders = [CHANNEL_ID: 1036]
-        }
-        NNY_1027 {
-            manifestPlaceholders = [CHANNEL_ID: 1037]
-        }
-        NNY_1030{
-            manifestPlaceholders = [CHANNEL_ID: 1040]
-        }
-        NNY_1031{
-            manifestPlaceholders = [CHANNEL_ID: 1041]
-        }
-        NNY_1032{
-            manifestPlaceholders = [CHANNEL_ID: 1042]
-        }
-        NNY_1033{
-            manifestPlaceholders = [CHANNEL_ID: 1043]
-        }
-        NNY_1034{
-            manifestPlaceholders = [CHANNEL_ID: 1044]
-        }
-        NNY_1035{
-            manifestPlaceholders = [CHANNEL_ID: 1045]
-        }
-        NNY_1036{
-            manifestPlaceholders = [CHANNEL_ID: 1046]
-        }
-        NNY_1037{
-            manifestPlaceholders = [CHANNEL_ID: 1047]
-        }
-        NNY_1038{
-            manifestPlaceholders = [CHANNEL_ID: 1048]
-        }
-        NNY_1039{
-            manifestPlaceholders = [CHANNEL_ID: 1049]
-        }
-        NNY_1040{
-            manifestPlaceholders = [CHANNEL_ID: 1050]
-        }
-        NNY_1041{
-            manifestPlaceholders = [CHANNEL_ID: 1051]
-        }
-        NNY_1042{
-            manifestPlaceholders = [CHANNEL_ID: 1052]
+            manifestPlaceholders = [CHANNEL_ID: 1002]
         }
 
     }

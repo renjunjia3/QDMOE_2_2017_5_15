@@ -197,7 +197,7 @@ public class DiamondVipFragment extends BaseMainFragment {
      * Author: scene on 2017/4/19 11:26
      */
     private void initHeaderView(final List<VideoInfo> headerLists) {
-        if (headerLists.get(0) == null) {
+        if (headerLists == null || headerLists.get(0) == null) {
             return;
         }
         final VideoInfo info = headerLists.get(0);

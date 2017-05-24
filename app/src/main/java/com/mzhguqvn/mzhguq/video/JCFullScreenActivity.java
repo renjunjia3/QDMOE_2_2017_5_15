@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import com.alibaba.fastjson.JSON;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.bean.CommentInfo;
+import com.mzhguqvn.mzhguq.bean.VideoCommentResultInfo;
 import com.mzhguqvn.mzhguq.bean.VideoInfo;
 import com.mzhguqvn.mzhguq.ui.dialog.SubmitAndCancelDialog;
 import com.mzhguqvn.mzhguq.util.API;
@@ -395,7 +396,8 @@ public class JCFullScreenActivity extends Activity {
             @Override
             public void onResponse(String s, int i) {
                 try {
-                    List<CommentInfo> comemnts = JSON.parseArray(s, CommentInfo.class);
+                    VideoCommentResultInfo resultInfo=JSON.parseObject(s,VideoCommentResultInfo.class);
+                    List<CommentInfo> comemnts = resultInfo.getData();
                     commentInfoList = new ArrayList<>();
                     commentInfoList.addAll(comemnts);
                     initDanmuConfig();

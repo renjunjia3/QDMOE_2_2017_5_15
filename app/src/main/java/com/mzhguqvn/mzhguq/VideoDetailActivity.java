@@ -27,7 +27,9 @@ import com.mzhguqvn.mzhguq.adapter.IndexItemAdapter;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.bean.CheckOrderInfo;
 import com.mzhguqvn.mzhguq.bean.CommentInfo;
+import com.mzhguqvn.mzhguq.bean.VideoCommentResultInfo;
 import com.mzhguqvn.mzhguq.bean.VideoInfo;
+import com.mzhguqvn.mzhguq.bean.VideoRelateResultInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.event.CloseVideoDetailEvent;
 import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
@@ -316,8 +318,10 @@ public class VideoDetailActivity extends SwipeBackActivity {
                 @Override
                 public void onResponse(String s, int i) {
                     try {
+                        VideoRelateResultInfo relateResultInfo = JSON.parseObject(s, VideoRelateResultInfo.class);
+
                         videoRelateList.clear();
-                        videoRelateList.addAll(JSON.parseArray(s, VideoInfo.class));
+                        videoRelateList.addAll(relateResultInfo.getData());
                         videoRelateAdapter.notifyDataSetChanged();
                         if (videoRelateList.size() > 0) {
                             aboutCommendTextView.setVisibility(View.VISIBLE);
@@ -381,7 +385,10 @@ public class VideoDetailActivity extends SwipeBackActivity {
             @Override
             public void onResponse(String s, int i) {
                 try {
-                    List<CommentInfo> comemnts = JSON.parseArray(s, CommentInfo.class);
+
+                    VideoCommentResultInfo resultInfo = JSON.parseObject(s, VideoCommentResultInfo.class);
+
+                    List<CommentInfo> comemnts = resultInfo.getData();
                     commentInfoList = new ArrayList<>();
                     commentInfoList.addAll(comemnts);
                     commentAdapter = new CommentAdapter(VideoDetailActivity.this, commentInfoList);
