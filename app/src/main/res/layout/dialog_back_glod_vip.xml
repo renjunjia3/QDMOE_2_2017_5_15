@@ -35,8 +35,9 @@
         <LinearLayout
             android:id="@+id/layout_type_glod"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/dialog_vip_type_bg"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
@@ -53,14 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="开通"
-                android:textColor="#282828"
-                android:textSize="@dimen/text_size_big" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:text="包月"
                 android:textColor="#F78650"
                 android:textSize="@dimen/text_size_big" />
@@ -70,27 +63,44 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="会员"
+                android:text="大礼包"
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
 
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="￥38.00"
-                android:textColor="#db182c"
-                android:textSize="@dimen/text_size_big" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥28.00"
+                    android:textColor="#db182c"
+                    android:textSize="@dimen/text_size_big" />
+
+                <TextView
+                    android:id="@+id/old_price_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="3dp"
+                    android:text="￥38.00"
+                    android:textColor="#B5B5B5"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_type_diamond"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/dialog_vip_type_bg"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="10dp">
 
@@ -106,14 +116,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="开通"
-                android:textColor="#282828"
-                android:textSize="@dimen/text_size_big" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:text="永久"
                 android:textColor="#EE313A"
                 android:textSize="@dimen/text_size_big" />
@@ -123,17 +125,34 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="会员"
+                android:text="大礼包"
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="￥68.00"
-                android:textColor="#db182c"
-                android:textSize="@dimen/text_size_big" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥58.00"
+                    android:textColor="#db182c"
+                    android:textSize="@dimen/text_size_big" />
+
+                <TextView
+                    android:id="@+id/old_price_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="3dp"
+                    android:text="￥68.00"
+                    android:textColor="#B5B5B5"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -37,17 +37,24 @@ public class PayUtil {
     public static final int VIP_TYPE_3 = 3;
     public static final int VIP_TYPE_4 = 4;
     public static final int VIP_TYPE_5 = 5;
+    public static final int VIP_TYPE_6 = 6;
+    public static final int VIP_TYPE_7 = 7;
+
 
     //开通黄金会员 3800
     private static final int VIP_MONEY_TYPE_1 = 1;
     //优惠开通黄金会员 2800
-    private static final int VIP_MONEY_TYPE_2 = 1;
+    private static final int VIP_MONEY_TYPE_2 = 4;
     //直接开通钻石会员 6800
     private static final int VIP_MONEY_TYPE_3 = 1;
     //升级钻石会员 3000
     private static final int VIP_MONEY_TYPE_4 = 1;
     //开通CDN海外会员 2800
     private static final int VIP_MONEY_TYPE_5 = 1;
+    //开通黄金永久会员 6800
+    private static final int VIP_MONEY_TYPE_6 = 2;
+    //优惠开通黄金永久会员 5800
+    private static final int VIP_MONEY_TYPE_7 = 3;
 
 //    //开通黄金会员 3800
 //    private static final int VIP_MONEY_TYPE_1 = 10;
@@ -140,11 +147,11 @@ public class PayUtil {
         switch (type) {
             case 1:
                 params.put("money", String.valueOf(VIP_MONEY_TYPE_1));
-                params.put("title", "开通黄金会员");
+                params.put("title", "开通会员");
                 break;
             case 2:
                 params.put("money", String.valueOf(VIP_MONEY_TYPE_2));
-                params.put("title", "优惠开通黄金会员");
+                params.put("title", "优惠开通会员");
                 break;
             case 3:
                 params.put("money", String.valueOf(VIP_MONEY_TYPE_3));
@@ -158,11 +165,19 @@ public class PayUtil {
                 params.put("money", String.valueOf(VIP_MONEY_TYPE_5));
                 params.put("title", "开通CDN加速服务");
                 break;
+            case 6:
+                params.put("money", String.valueOf(VIP_MONEY_TYPE_6));
+                params.put("title", "开通永久会员");
+                break;
+            case 7:
+                params.put("money", String.valueOf(VIP_MONEY_TYPE_7));
+                params.put("title", "优惠开通永久会员");
+                break;
         }
         params.put("video_id", String.valueOf(video_id));
         params.put("position_id", String.valueOf(pay_position_id));
         params.put("pay_type", isWechat ? "1" : "2");
-        params.put("type", String.valueOf(type));
+        params.put("type", String.valueOf((type == 6 || type == 7) ? 1 : type));
 
         OkHttpUtils.post().url(API.URL_PRE + API.GET_ORDER_INFO_TYPE_2).params(params).build().execute(new StringCallback() {
             @Override

@@ -20,10 +20,10 @@
 
     <string name="tab_try_see">体验区</string>
     <string name="tab_vip">会员区</string>
-    <string name="tab_glod">黄金区</string>
+    <string name="tab_glod">会员区</string>
     <string name="tab_diamond">钻石区</string>
     <string name="tab_mine">我的</string>
-    <string name="tab_shop">进口伟哥</string>
+    <string name="tab_shop">商城</string>
     <string name="tab_anchor">主播</string>
     <string name="tab_gallery">图库</string>
 

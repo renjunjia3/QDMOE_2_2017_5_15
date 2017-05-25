@@ -3,6 +3,7 @@ package com.mzhguqvn.mzhguq.ui.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,16 +32,16 @@ import com.mzhguqvn.mzhguq.util.ViewUtils;
  * package:
  * Author：scene on 2017/4/18 13:53
  */
-public class GlodVipDialog extends Dialog {
-    public GlodVipDialog(@NonNull Context context) {
+public class BackGlodVipDialog extends Dialog {
+    public BackGlodVipDialog(@NonNull Context context) {
         super(context);
     }
 
-    public GlodVipDialog(@NonNull Context context, @StyleRes int themeResId) {
+    public BackGlodVipDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
     }
 
-    protected GlodVipDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+    protected BackGlodVipDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
@@ -69,10 +70,10 @@ public class GlodVipDialog extends Dialog {
             this.pay_position_id = pay_position_id;
         }
 
-        public GlodVipDialog create() {
+        public BackGlodVipDialog create() {
             LayoutInflater inflater = LayoutInflater.from(context);
-            final GlodVipDialog dialog = new GlodVipDialog(context, R.style.Dialog);
-            View layout = inflater.inflate(R.layout.dialog_glod_vip, null);
+            final BackGlodVipDialog dialog = new BackGlodVipDialog(context, R.style.Dialog);
+            View layout = inflater.inflate(R.layout.dialog_back_glod_vip, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             final ImageView glodChoosed = (ImageView) layout.findViewById(R.id.glod_choosed);
@@ -87,6 +88,11 @@ public class GlodVipDialog extends Dialog {
             builder.setSpan(redSpan, 10, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             discount.setText(builder);
 
+            TextView oldPrice1 = (TextView) dialog.findViewById(R.id.old_price_1);
+            TextView oldPrice2 = (TextView) dialog.findViewById(R.id.old_price_2);
+            oldPrice1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            oldPrice2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
             layout.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,7 +102,7 @@ public class GlodVipDialog extends Dialog {
             layout.findViewById(R.id.layout_type_glod).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    vip_type = PayUtil.VIP_TYPE_1;
+                    vip_type = PayUtil.VIP_TYPE_2;
                     glodChoosed.setImageResource(R.drawable.ic_vip_type_s);
                     diamondChoosed.setImageResource(R.drawable.ic_vip_type_d);
                 }
@@ -104,7 +110,7 @@ public class GlodVipDialog extends Dialog {
             layout.findViewById(R.id.layout_type_diamond).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    vip_type = PayUtil.VIP_TYPE_6;
+                    vip_type = PayUtil.VIP_TYPE_7;
                     glodChoosed.setImageResource(R.drawable.ic_vip_type_d);
                     diamondChoosed.setImageResource(R.drawable.ic_vip_type_s);
                 }
