@@ -32,8 +32,8 @@ import com.mzhguqvn.mzhguq.event.ChangeTabEvent;
 import com.mzhguqvn.mzhguq.event.CheckOrderEvent;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
 import com.mzhguqvn.mzhguq.ui.dialog.AgreementDialog;
-import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.DownLoadDialog;
+import com.mzhguqvn.mzhguq.ui.dialog.OpenVipNoticeDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.UpdateDialog;
 import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
 import com.mzhguqvn.mzhguq.ui.widget.ChatHeadService;
@@ -322,9 +322,10 @@ public class MainActivity extends SupportActivity {
                                             public void run() {
                                                 App.role = 1;
                                                 SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
-                                                String message = "恭喜您成为黄金会员";
-                                                CustomSubmitDialog customSubmitDialog0 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                                customSubmitDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                String message1 = "黄金会员";
+                                                String message2 = "价值38元";
+                                                OpenVipNoticeDialog openVipNoticeDialog0 = DialogUtil.getInstance().showOpenVipNoticeDialog(MainActivity.this, message1, message2);
+                                                openVipNoticeDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                                     @Override
                                                     public void onDismiss(DialogInterface dialog) {
                                                         changeTab(new ChangeTabEvent(App.role));
@@ -354,10 +355,11 @@ public class MainActivity extends SupportActivity {
                                             @Override
                                             public void run() {
                                                 App.cdn = 1;
-                                                String message = "恭喜您成功开通CDN加速服务";
+                                                String message1 = "CDN加速";
+                                                String message2 = "价值28元";
                                                 SharedPreferencesUtil.putInt(MainActivity.this, App.CDN_KEY, App.cdn);
-                                                CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-                                                customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                OpenVipNoticeDialog openVipNoticeDialog = DialogUtil.getInstance().showOpenVipNoticeDialog(MainActivity.this, message1, message2);
+                                                openVipNoticeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                                     @Override
                                                     public void onDismiss(DialogInterface dialog) {
                                                         changeTab(new ChangeTabEvent(App.role));

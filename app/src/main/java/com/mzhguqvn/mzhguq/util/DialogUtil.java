@@ -11,6 +11,7 @@ import com.mzhguqvn.mzhguq.ui.dialog.CDNVipDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.DiamondVipDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.GlodVipDialog;
+import com.mzhguqvn.mzhguq.ui.dialog.OpenVipNoticeDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.SubmitAndCancelDialog;
 import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
 
@@ -27,6 +28,9 @@ public class DialogUtil {
     //只有确定的对话框
     private CustomSubmitDialog customSubmitDialog;
     private CustomSubmitDialog.Builder customSubmitDialgBuiler;
+    //成功开通会员的弹窗
+    private OpenVipNoticeDialog openVipNoticeDialog;
+    private OpenVipNoticeDialog.Builder openVipNoticeDialogBuidler;
 
     //确定取消的对话框
     private SubmitAndCancelDialog submitAndCancelDialog;
@@ -66,6 +70,7 @@ public class DialogUtil {
     public void showSubmitDialog(Context context, boolean isCancelAsSubmit, String message, int myVipType, final boolean isShowOpenVip, int pay_position_id) {
         showSubmitDialog(context, isCancelAsSubmit, message, myVipType, false, isShowOpenVip, 0, false, pay_position_id);
     }
+
 
     /**
      * Case By:
@@ -214,6 +219,35 @@ public class DialogUtil {
 
     /**
      * Case By:显示只有确定按钮的dialog
+     * Author: scene on 2017/4/25 16:43
+     *
+     * @param context  上下文
+     * @param message1 文字内容
+     * @param message2 文字内容
+     */
+    public OpenVipNoticeDialog showOpenVipNoticeDialog(Context context, String message1, String message2) {
+        if (openVipNoticeDialog != null && openVipNoticeDialog.isShowing()) {
+            openVipNoticeDialog.cancel();
+        }
+        openVipNoticeDialogBuidler = new OpenVipNoticeDialog.Builder(context);
+        openVipNoticeDialogBuidler.setMessage1(message1);
+        openVipNoticeDialogBuidler.setMessage2(message2);
+        openVipNoticeDialogBuidler.setButtonText(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (openVipNoticeDialog != null && openVipNoticeDialog.isShowing()) {
+                    openVipNoticeDialog.cancel();
+                }
+            }
+        });
+        openVipNoticeDialog = openVipNoticeDialogBuidler.create();
+        openVipNoticeDialog.show();
+        return openVipNoticeDialog;
+    }
+
+
+    /**
+     * Case By:开通会员之后的提示框
      * Author: scene on 2017/4/25 16:43
      *
      * @param context 上下文

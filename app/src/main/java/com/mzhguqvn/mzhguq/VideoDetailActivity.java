@@ -32,7 +32,7 @@ import com.mzhguqvn.mzhguq.bean.VideoInfo;
 import com.mzhguqvn.mzhguq.bean.VideoRelateResultInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.event.CloseVideoDetailEvent;
-import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
+import com.mzhguqvn.mzhguq.ui.dialog.OpenVipNoticeDialog;
 import com.mzhguqvn.mzhguq.ui.view.CustomListView;
 import com.mzhguqvn.mzhguq.ui.view.CustomeGridView;
 import com.mzhguqvn.mzhguq.util.API;
@@ -473,14 +473,16 @@ public class VideoDetailActivity extends SwipeBackActivity {
                             if (checkOrderInfo.isStatus()) {
                                 MainActivity.onPaySuccess();
                                 MainActivity.isNeedChangeTab = true;
-                                String message = "";
+                                String message1 = "";
+                                String message2 = "";
                                 switch (App.role) {
                                     case 0:
                                         App.role = 1;
-                                        message = "恭喜您成为黄金会员";
+                                        message1 = "黄金会员";
+                                        message2 = "价值38元";
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
-                                        CustomSubmitDialog customSubmitDialog0 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
-                                        customSubmitDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                        OpenVipNoticeDialog openVipNoticeDialog0 = DialogUtil.getInstance().showOpenVipNoticeDialog(VideoDetailActivity.this, message1, message2);
+                                        openVipNoticeDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                             @Override
                                             public void onDismiss(DialogInterface dialog) {
                                                 closeVideoDetail(new CloseVideoDetailEvent());
@@ -500,11 +502,11 @@ public class VideoDetailActivity extends SwipeBackActivity {
 //                                        });
 
                                         App.cdn = 1;
-                                        message = "恭喜您成功开通CDN加速服务";
+                                        message1 = "CDN加速";
+                                        message2 = "价值28元";
                                         SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.CDN_KEY, App.cdn);
-
-                                        CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
-                                        customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                        OpenVipNoticeDialog openVipNoticeDialog1 = DialogUtil.getInstance().showOpenVipNoticeDialog(VideoDetailActivity.this, message1, message2);
+                                        openVipNoticeDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                             @Override
                                             public void onDismiss(DialogInterface dialog) {
                                                 closeVideoDetail(new CloseVideoDetailEvent());
