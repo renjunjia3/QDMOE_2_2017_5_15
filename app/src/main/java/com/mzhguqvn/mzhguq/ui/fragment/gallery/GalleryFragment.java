@@ -44,7 +44,7 @@ import wiki.scene.statuslib.StatusViewLayout;
  * Author：scene on 2017/5/19 10:13
  */
 
-public class GalleryFragment extends BaseMainFragment implements GalleryAdapter.OnGalleryClickListener{
+public class GalleryFragment extends BaseMainFragment implements GalleryAdapter.OnGalleryClickListener {
     private static final String TAG = "GalleryFragment";
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -93,8 +93,8 @@ public class GalleryFragment extends BaseMainFragment implements GalleryAdapter.
         adapter = new GalleryAdapter(getContext(), list);
         ScreenUtils screenUtils = ScreenUtils.instance(getContext());
         int space = (int) screenUtils.dip2px(3);
-        CustomItemDecotation itemDecotation = new CustomItemDecotation(space, space, 3, true);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        CustomItemDecotation itemDecotation = new CustomItemDecotation(space, space, 2, true);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(itemDecotation);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.bean.GalleryResultInfo;
 import com.mzhguqvn.mzhguq.util.GlideUtils;
-import com.mzhguqvn.mzhguq.util.ScreenUtils;
-import com.mzhguqvn.mzhguq.util.ViewUtils;
 
 import java.util.List;
 
@@ -42,10 +40,7 @@ public class GalleryAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ScreenUtils screenUtils = ScreenUtils.instance(context);
         GalleryViewHolder viewHolder = new GalleryViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_gallery_item, parent, false));
-        int height = (int) ((screenUtils.getScreenWidth() - screenUtils.dp2px(3)) * 17f / 14f / 3f);
-        ViewUtils.setViewHeightByViewGroup(viewHolder.image, height);
         return viewHolder;
     }
 
@@ -56,7 +51,7 @@ public class GalleryAdapter extends RecyclerView.Adapter {
         viewHolder.name.setText(info.getTitle());
         viewHolder.hits.setText(String.valueOf(info.getHits()));
 
-        GlideUtils.loadImage(context, viewHolder.image, info.getThumb());
+        GlideUtils.loadIntoUseFitWidth(context, info.getThumb(), R.drawable.bg_error, viewHolder.image);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
