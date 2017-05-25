@@ -22,6 +22,7 @@ public class CreateGoodsOrderInfo implements Serializable {
     private String province;
     private String city;
     private String area;
+    private int voucher_id;
 
     public int getUser_id() {
         return user_id;
@@ -125,5 +126,13 @@ public class CreateGoodsOrderInfo implements Serializable {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public int getVoucher_id() {
+        return voucher_id;
+    }
+
+    public void setVoucher_id(int voucher_id) {
+        this.voucher_id = voucher_id;
     }
 }

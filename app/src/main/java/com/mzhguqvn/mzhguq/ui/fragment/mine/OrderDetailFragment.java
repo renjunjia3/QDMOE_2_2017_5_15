@@ -24,6 +24,7 @@ import com.mzhguqvn.mzhguq.bean.OrderInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.pull_loadmore.recyclerview.RecyclerAdapterWithHF;
 import com.mzhguqvn.mzhguq.util.API;
+import com.mzhguqvn.mzhguq.util.DecimalUtils;
 import com.mzhguqvn.mzhguq.util.MD5Util;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -124,8 +125,8 @@ public class OrderDetailFragment extends BaseBackFragment {
             Glide.with(getContext()).load(orderInfo.getGoods_thumb()).centerCrop().into(image);
             orderId.setText(orderInfo.getOrder_id());
             goodsName.setText(orderInfo.getGood_name());
-            price.setText("￥" + orderInfo.getPrice());
-            totalPrice.setText("￥" + orderInfo.getMoney());
+            price.setText("￥" + DecimalUtils.formatPrice2BlankToBlank(orderInfo.getPrice()));
+            totalPrice.setText("￥" + DecimalUtils.formatPrice2BlankToBlank(orderInfo.getMoney()));
             number.setText(orderInfo.getNumber() + "件");
             receiverName.setText(orderInfo.getAddress_name());
             receiverAddress.setText(orderInfo.getAddress());

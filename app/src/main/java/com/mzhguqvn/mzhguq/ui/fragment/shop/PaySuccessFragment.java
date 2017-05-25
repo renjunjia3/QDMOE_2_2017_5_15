@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,13 +20,8 @@ import com.mzhguqvn.mzhguq.bean.ReceiverInfo;
 import com.mzhguqvn.mzhguq.config.AddressConfig;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.event.ChangeTabEvent;
-import com.mzhguqvn.mzhguq.util.API;
+import com.mzhguqvn.mzhguq.util.DecimalUtils;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +37,7 @@ public class PaySuccessFragment extends BaseBackFragment {
     private static final String ARG_GOODS_INFO = "goods_info";
     private static final String ARG_RECEIVER_INFO = "receiver_info";
     private static final String ARG_BUY_NUMBER = "buy_number";
+    private static final String ARG_VOUCHER_MONEY = "ARG_VOUCHER_MONEY";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -63,18 +60,24 @@ public class PaySuccessFragment extends BaseBackFragment {
     TextView receiverPhone;
     @BindView(R.id.receiver_address)
     TextView receiverAddress;
+    @BindView(R.id.voucher_money)
+    TextView voucherMoneyView;
+    @BindView(R.id.layout_voucher)
+    LinearLayout layoutVoucher;
 
     private GoodsInfo goodsInfo;
     private ReceiverInfo receiverInfo;
 
     private int buyNumber = 1;
+    private int voucherMoney = 0;
 
-    public static PaySuccessFragment newInstance(GoodsInfo goodsInfo, ReceiverInfo receiverInfo, int buyNumber) {
+    public static PaySuccessFragment newInstance(GoodsInfo goodsInfo, ReceiverInfo receiverInfo, int buyNumber, int voucherMoney) {
         PaySuccessFragment fragment = new PaySuccessFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_GOODS_INFO, goodsInfo);
         args.putSerializable(ARG_RECEIVER_INFO, receiverInfo);
         args.putInt(ARG_BUY_NUMBER, buyNumber);
+        args.putInt(ARG_VOUCHER_MONEY, voucherMoney);
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,6 +90,7 @@ public class PaySuccessFragment extends BaseBackFragment {
             goodsInfo = (GoodsInfo) args.getSerializable(ARG_GOODS_INFO);
             receiverInfo = (ReceiverInfo) args.getSerializable(ARG_RECEIVER_INFO);
             buyNumber = args.getInt(ARG_BUY_NUMBER, 1);
+            voucherMoney = args.getInt(ARG_VOUCHER_MONEY, 0);
         }
     }
 
@@ -104,20 +108,17 @@ public class PaySuccessFragment extends BaseBackFragment {
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
-        MainActivity.upLoadPageInfo(PageConfig.SHOP_BUY_SUCCESS_POSITOTN_ID,0,0);
+        MainActivity.upLoadPageInfo(PageConfig.SHOP_BUY_SUCCESS_POSITOTN_ID, 0, 0);
     }
 
     private void initView() {
         Glide.with(getContext()).load(goodsInfo.getThumb()).centerCrop().into(image);
         orderId.setText(App.order_id);
         goodsName.setText(goodsInfo.getName());
-        if (App.role > 0) {
-            price.setText("￥" + new BigDecimal(goodsInfo.getPrice() * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-            totalPrice.setText("￥" + new BigDecimal(goodsInfo.getPrice() * buyNumber * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-        } else {
-            price.setText("￥" + goodsInfo.getPrice());
-            totalPrice.setText("￥" + (goodsInfo.getPrice() * buyNumber));
-        }
+        price.setText("￥" + goodsInfo.getPrice());
+        layoutVoucher.setVisibility(voucherMoney == 0 ? View.GONE : View.VISIBLE);
+        voucherMoneyView.setText("￥" + DecimalUtils.formatPrice2BlankToBlank(voucherMoney / 100D));
+        totalPrice.setText("￥" + (goodsInfo.getPrice() * buyNumber - voucherMoney / 100D));
 
         number.setText(buyNumber + "件");
         receiverName.setText(receiverInfo.getReceiverName());
@@ -160,5 +161,10 @@ public class PaySuccessFragment extends BaseBackFragment {
             }
         }
         return super.onBackPressedSupport();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

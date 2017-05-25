@@ -1,7 +1,8 @@
 package com.mzhguqvn.mzhguq.bean;
 
+import com.mzhguqvn.mzhguq.util.DecimalUtils;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -38,6 +39,7 @@ public class GoodsInfo implements Serializable {
     private int sales;
     private String address;
     private double delivery_money;
+    private List<VoucherInfo> voucher;
 
     public int getSales() {
         return sales;
@@ -88,7 +90,7 @@ public class GoodsInfo implements Serializable {
     }
 
     public double getPrice() {
-        return new BigDecimal(price/100d).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return price / 100d;
     }
 
     public void setPrice(double price) {
@@ -141,5 +143,13 @@ public class GoodsInfo implements Serializable {
 
     public void setDelivery_money(double delivery_money) {
         this.delivery_money = delivery_money;
+    }
+
+    public List<VoucherInfo> getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(List<VoucherInfo> voucher) {
+        this.voucher = voucher;
     }
 }

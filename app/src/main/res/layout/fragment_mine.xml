@@ -210,6 +210,39 @@
                     android:src="@drawable/ic_arrow_glod" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#46433e" />
+
+            <LinearLayout
+                android:id="@+id/voucher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#333333"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mine_voucher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="我的代金券"
+                    android:textColor="#f1d09e"
+                    android:textSize="@dimen/text_size_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_glod" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -248,8 +281,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="gone"
-                android:background="#46433e" />
+                android:background="#46433e"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/download"
@@ -257,9 +290,9 @@
                 android:layout_height="wrap_content"
                 android:background="#333333"
                 android:gravity="center_vertical"
-                android:visibility="gone"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -326,9 +359,9 @@
                 android:layout_height="wrap_content"
                 android:background="#333333"
                 android:gravity="center_vertical"
-                android:visibility="gone"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -353,8 +386,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="gone"
-                android:background="#46433e" />
+                android:background="#46433e"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="match_parent"

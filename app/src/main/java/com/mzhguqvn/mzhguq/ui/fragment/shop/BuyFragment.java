@@ -1,7 +1,6 @@
 package com.mzhguqvn.mzhguq.ui.fragment.shop;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -30,30 +29,29 @@ import com.mzhguqvn.mzhguq.bean.GoodsCommentInfo;
 import com.mzhguqvn.mzhguq.bean.GoodsInfo;
 import com.mzhguqvn.mzhguq.bean.ProvinceInfo;
 import com.mzhguqvn.mzhguq.bean.ReceiverInfo;
+import com.mzhguqvn.mzhguq.bean.VoucherInfo;
 import com.mzhguqvn.mzhguq.config.AddressConfig;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.ui.dialog.ConfirmOrderPopupWindow;
+import com.mzhguqvn.mzhguq.ui.fragment.mine.VoucherFragment;
 import com.mzhguqvn.mzhguq.ui.view.CustomListView;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.DataSetAdapter;
 import com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.VerticalRollingTextView;
-import com.mzhguqvn.mzhguq.util.API;
+import com.mzhguqvn.mzhguq.util.DecimalUtils;
 import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
 import com.mzhguqvn.mzhguq.util.TextCheckUtils;
 import com.mzhguqvn.mzhguq.util.ToastUtils;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -136,8 +134,6 @@ public class BuyFragment extends BaseBackFragment {
     private int positionArea = 0;
     //数量和价格
     private int buyNumber = 1;
-    //    //支付
-//    private int paywayType = 1;
     //滚动的文本
     private List<String> noticeList = new ArrayList<>();
     //评论
@@ -230,18 +226,9 @@ public class BuyFragment extends BaseBackFragment {
             numbers1.setText("1");
             numbers2.setText("1");
 
-            goodsOldPrice.setText("原价：￥" + info.getPrice());
-            goodsOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            if (App.user_id > 0) {
-                goodsOldPrice.setVisibility(View.VISIBLE);
-                double oldprice = new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                goodsPrice.setText("￥" + oldprice);
-                totalPrice.setText("￥" + oldprice);
-            } else {
-                goodsOldPrice.setVisibility(View.GONE);
-                goodsPrice.setText("￥" + info.getPrice());
-                totalPrice.setText("￥" + info.getPrice());
-            }
+            String priceStr = DecimalUtils.formatPrice2BlankToBlank(info.getPrice());
+            goodsPrice.setText("￥" + priceStr);
+            totalPrice.setText("￥" + priceStr);
 
             //滚动文本
             Random random = new Random();
@@ -382,11 +369,7 @@ public class BuyFragment extends BaseBackFragment {
             buyNumber--;
             numbers1.setText(buyNumber + "");
             numbers2.setText(buyNumber + "");
-            if (App.user_id > 0) {
-                totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-            } else {
-                totalPrice.setText("￥" + new BigDecimal((info.getPrice() * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-            }
+            totalPrice.setText("￥" + DecimalUtils.formatPrice2BlankToBlank(info.getPrice() * buyNumber));
         }
 
     }
@@ -400,11 +383,7 @@ public class BuyFragment extends BaseBackFragment {
         buyNumber++;
         numbers1.setText(buyNumber + "");
         numbers2.setText(buyNumber + "");
-        if (App.user_id > 0) {
-            totalPrice.setText("￥" + new BigDecimal((info.getPrice() * ShopFragment.DISCOUNT * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-        } else {
-            totalPrice.setText("￥" + new BigDecimal((info.getPrice() * buyNumber)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-        }
+        totalPrice.setText("￥" + DecimalUtils.formatPrice2BlankToBlank(info.getPrice() * buyNumber));
     }
 
     /**
@@ -468,7 +447,7 @@ public class BuyFragment extends BaseBackFragment {
      */
     private void showConfirOrderPopWindow() {
         if (popupWindow == null) {
-            popupWindow = new ConfirmOrderPopupWindow(getContext(), confirmOrderListener);
+            popupWindow = new ConfirmOrderPopupWindow(getActivity(), confirmOrderListener, onClickChooseVoucherListener);
         }
         hideSoftInput();
         popupWindow.setReceiverName(strReceiverName);
@@ -478,25 +457,31 @@ public class BuyFragment extends BaseBackFragment {
         popupWindow.setGoodsName(info.getName());
         popupWindow.setGoodsPrice(info.getPrice());
         popupWindow.setGoodsNumber(buyNumber);
+        popupWindow.setVoucherList(info.getVoucher());
         popupWindow.setTotalPrice(info.getPrice(), buyNumber);
         popupWindow.showAtLocation(buyNow, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
+    View.OnClickListener onClickChooseVoucherListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (popupWindow != null) {
+                popupWindow.dismiss();
+            }
+            startForResult(VoucherFragment.newInstance(2), 200);
+        }
+    };
 
     View.OnClickListener confirmOrderListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             double needPayPrice = buyNumber * info.getPrice();
-            if (App.user_id > 0) {
-                needPayPrice = new BigDecimal(needPayPrice * ShopFragment.DISCOUNT).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            } else {
-                needPayPrice = new BigDecimal(needPayPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            }
+            needPayPrice = new BigDecimal(needPayPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             CreateGoodsOrderInfo createGoodsOrderInfo = new CreateGoodsOrderInfo();
             createGoodsOrderInfo.setGoods_id(info.getId());
             createGoodsOrderInfo.setUser_id(App.user_id);
             createGoodsOrderInfo.setRemark("购买商品：" + info.getName());
-            createGoodsOrderInfo.setNumber(buyNumber);
+            createGoodsOrderInfo.setNumber(popupWindow != null ? popupWindow.getBuyNumber() : buyNumber);
             createGoodsOrderInfo.setMoney(needPayPrice);
             createGoodsOrderInfo.setVersion(PayConfig.VERSION_NAME);
             createGoodsOrderInfo.setPay_type(popupWindow == null ? 1 : popupWindow.getPayWayType());
@@ -507,6 +492,7 @@ public class BuyFragment extends BaseBackFragment {
             createGoodsOrderInfo.setCity(strCity);
             createGoodsOrderInfo.setArea(strArea);
             createGoodsOrderInfo.setAddress(strAddress);
+            createGoodsOrderInfo.setVoucher_id(popupWindow == null ? 0 : popupWindow.getVoucherId());
             PayUtil.getInstance().buyGoods2Pay(_mActivity, createGoodsOrderInfo, popupWindow == null ? 1 : popupWindow.getPayWayType(), true);
         }
     };
@@ -529,6 +515,7 @@ public class BuyFragment extends BaseBackFragment {
         super.onDestroyView();
     }
 
+    private int voucherMoney=0;
     @Subscribe
     public void onCheckGoodsSuccess(GoodsPaySuccessEvent event) {
         if (event.isGoodsBuyPage) {
@@ -542,8 +529,26 @@ public class BuyFragment extends BaseBackFragment {
             receiverInfo.setReceiverProvince(strProvince);
             receiverInfo.setReceiverName(receiverName.getText().toString().trim());
             receiverInfo.setReceiverPhone(receiverPhone.getText().toString().trim());
-            start(PaySuccessFragment.newInstance(info, receiverInfo, buyNumber));
+            start(PaySuccessFragment.newInstance(info, receiverInfo, buyNumber,voucherMoney));
         }
     }
 
+    @Override
+    protected void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if (requestCode == 200) {
+            if (popupWindow != null) {
+                popupWindow.showAtLocation(buyNow, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            }
+            if (resultCode == RESULT_OK) {
+                //选择代金券返回
+                VoucherInfo choosedVoucherInfo = (VoucherInfo) data.getSerializable("voucher");
+                if (popupWindow != null) {
+                    voucherMoney=choosedVoucherInfo.getMoney();
+                    popupWindow.setVoucherInfo(choosedVoucherInfo);
+                }
+            }
+
+        }
+    }
 }

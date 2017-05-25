@@ -1,0 +1,17 @@
+package com.mzhguqvn.mzhguq.event;
+
+import com.mzhguqvn.mzhguq.bean.VoucherInfo;
+
+/**
+ * Case By:选择代金券之后返回shopFragment调用
+ * package:com.mzhguqvn.mzhguq.event
+ * Author：scene on 2017/5/25 16:41
+ */
+
+public class ChoosedVoucherBackEvent {
+    public VoucherInfo voucherInfo;
+
+    public ChoosedVoucherBackEvent(VoucherInfo voucherInfo) {
+        this.voucherInfo = voucherInfo;
+    }
+}

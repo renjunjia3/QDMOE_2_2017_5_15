@@ -13,12 +13,13 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
-import com.mzhguqvn.mzhguq.adapter.OrderAdapter;
+import com.mzhguqvn.mzhguq.adapter.VoucherAdapter;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseBackFragment;
-import com.mzhguqvn.mzhguq.bean.OrderInfo;
-import com.mzhguqvn.mzhguq.bean.OrderListResultInfo;
+import com.mzhguqvn.mzhguq.bean.VoucherInfo;
+import com.mzhguqvn.mzhguq.bean.VoucherListResultInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
+import com.mzhguqvn.mzhguq.event.ChoosedVoucherBackEvent;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
@@ -26,7 +27,8 @@ import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.NetWorkUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-import com.zhy.http.okhttp.request.RequestCall;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +40,14 @@ import okhttp3.Call;
 import wiki.scene.statuslib.StatusViewLayout;
 
 /**
- * Case By:我的订单
- * package:com.fldhqd.nspmalf.ui.fragment.mine
- * Author：scene on 2017/5/9 11:03
+ * Case By:我的代金券
+ * package:com.mzhguqvn.mzhguq.ui.fragment.mine
+ * Author：scene on 2017/5/25 09:31
  */
 
-public class OrderFragment extends BaseBackFragment {
+public class VoucherFragment extends BaseBackFragment {
+    private static final String TAG = "VoucherFragment";
+    private static final String ARG_ENTER_PAGE = "arg_enter_page";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -55,22 +59,35 @@ public class OrderFragment extends BaseBackFragment {
     @BindView(R.id.ptr_layout)
     PtrClassicFrameLayout ptrLayout;
 
-    private List<OrderInfo> list;
-    private OrderAdapter adapter;
+    private List<VoucherInfo> list;
+    private VoucherAdapter adapter;
 
-    private RequestCall getDataRequestCall;
+    private int enterPage = 0;
 
-    public static OrderFragment newInstance() {
-        return new OrderFragment();
+    public static VoucherFragment newInstance(int enterPage) {
+        VoucherFragment fragment = new VoucherFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_ENTER_PAGE, enterPage);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            enterPage = args.getInt(ARG_ENTER_PAGE);
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_voucher, container, false);
         unbinder = ButterKnife.bind(this, view);
         initToolbarNav(toolbar);
-        toolbarTitle.setText("订单");
+        toolbarTitle.setText("代金券");
         return attachToSwipeBack(view);
     }
 
@@ -79,7 +96,7 @@ public class OrderFragment extends BaseBackFragment {
         super.onEnterAnimationEnd(savedInstanceState);
         initView();
         getData(true);
-        MainActivity.upLoadPageInfo(PageConfig.ORDER_LIST_POSITOTN_ID, 0, 0);
+        MainActivity.upLoadPageInfo(PageConfig.MY_VOUCHER_POSITION_ID, 0, 0);
     }
 
     private void initView() {
@@ -91,12 +108,21 @@ public class OrderFragment extends BaseBackFragment {
             }
         });
         list = new ArrayList<>();
-        adapter = new OrderAdapter(getContext(), list);
+        adapter = new VoucherAdapter(getContext(), list);
         listView.setAdapter(adapter);
+        listView.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.fragment_voucher_header, null));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                start(OrderDetailFragment.newInstance(list.get(position)));
+                if (enterPage == 1) {
+                    EventBus.getDefault().post(new ChoosedVoucherBackEvent(list.get(position - 1)));
+                    pop();
+                } else if (enterPage == 2) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("voucher", list.get(position - 1));
+                    setFragmentResult(RESULT_OK, bundle);
+                    pop();
+                }
             }
         });
     }
@@ -114,8 +140,7 @@ public class OrderFragment extends BaseBackFragment {
         if (NetWorkUtils.isNetworkConnected(getContext())) {
             HashMap<String, String> params = API.createParams();
             params.put("user_id", String.valueOf(App.user_id));
-            getDataRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.GET_ORDERS).params(params).build();
-            getDataRequestCall.execute(new StringCallback() {
+            OkHttpUtils.get().url(API.URL_PRE + API.VOUCHER).params(params).tag(TAG).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
                     if (isShowLoading) {
@@ -128,9 +153,9 @@ public class OrderFragment extends BaseBackFragment {
                 @Override
                 public void onResponse(String s, int i) {
                     try {
-                        OrderListResultInfo orderListResultInfo = JSON.parseObject(s, OrderListResultInfo.class);
+                        VoucherListResultInfo resultInfo = JSON.parseObject(s, VoucherListResultInfo.class);
                         list.clear();
-                        list.addAll(orderListResultInfo.getData());
+                        list.addAll(resultInfo.getData());
                         adapter.notifyDataSetChanged();
                         if (isShowLoading) {
                             statusViewLayout.showContent();
@@ -170,10 +195,7 @@ public class OrderFragment extends BaseBackFragment {
 
     @Override
     public void onDestroyView() {
-        if (getDataRequestCall != null) {
-            getDataRequestCall.cancel();
-        }
+        OkHttpUtils.getInstance().cancelTag(TAG);
         super.onDestroyView();
     }
-
 }

@@ -68,6 +68,8 @@ public class API {
     public static final String GET_LOGISTICS = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
     //获取图库数据
     public static final String GALLERY = "gallery";
+    //获取代金券列表
+    public static final String VOUCHER="user/voucher";
 
     /**
      * Case By:创建参数基础信息

@@ -139,6 +139,31 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_voucher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="优惠："
+                            android:textColor="#F0D09D"
+                            android:textSize="@dimen/text_size_middle" />
+
+                        <TextView
+                            android:id="@+id/voucher_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:text=""
+                            android:textColor="#F15177"
+                            android:textSize="@dimen/text_size_middle" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"

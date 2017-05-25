@@ -5,31 +5,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mzhguqvn.mzhguq.R;
-import com.mzhguqvn.mzhguq.bean.OrderInfo;
+import com.mzhguqvn.mzhguq.bean.VoucherInfo;
 import com.mzhguqvn.mzhguq.util.DecimalUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Case By:订单
+ * Case By:我的代金券
  * package:com.mzhguqvn.mzhguq.adapter
  * Author：scene on 2017/5/10 17:34
  */
 
-public class OrderAdapter extends BaseAdapter {
+public class VoucherAdapter extends BaseAdapter {
     private Context context;
-    private List<OrderInfo> list;
+    private List<VoucherInfo> list;
     private LayoutInflater inflater;
 
-    public OrderAdapter(Context context, List<OrderInfo> list) {
+    public VoucherAdapter(Context context, List<VoucherInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -54,38 +53,27 @@ public class OrderAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         OrderViewHolder viewHolder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_mine_order_item, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_voucher_item, parent, false);
             viewHolder = new OrderViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (OrderViewHolder) convertView.getTag();
         }
-        OrderInfo info = list.get(position);
+        VoucherInfo info = list.get(position);
         if (info != null) {
-            Glide.with(context).load(info.getGoods_thumb()).centerCrop().into(viewHolder.image);
-            viewHolder.orderId.setText(info.getOrder_id());
-            viewHolder.goodsName.setText(info.getGood_name());
-            viewHolder.price.setText("￥" + DecimalUtils.formatPrice2BlankToBlank(info.getPrice()));
-            viewHolder.totalPrice.setText("￥" + DecimalUtils.formatPrice2BlankToBlank(info.getMoney()));
-            viewHolder.number.setText(info.getNumber() + "件");
+            viewHolder.price.setText(String.valueOf(DecimalUtils.toRound2(info.getMoney() / 100d)));
+            viewHolder.name.setText(String.valueOf(DecimalUtils.toRound2(info.getMoney() / 100d)) + "元商城代金券");
         }
 
         return convertView;
     }
 
     static class OrderViewHolder {
-        @BindView(R.id.image)
-        ImageView image;
-        @BindView(R.id.order_id)
-        TextView orderId;
-        @BindView(R.id.goods_name)
-        TextView goodsName;
+
         @BindView(R.id.price)
         TextView price;
-        @BindView(R.id.number)
-        TextView number;
-        @BindView(R.id.total_price)
-        TextView totalPrice;
+        @BindView(R.id.name)
+        TextView name;
 
         OrderViewHolder(View view) {
             ButterKnife.bind(this, view);

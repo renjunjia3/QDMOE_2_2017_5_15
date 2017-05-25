@@ -16,15 +16,9 @@ import com.mzhguqvn.mzhguq.base.BaseMainFragment;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
 import com.mzhguqvn.mzhguq.ui.dialog.CustomSubmitDialog;
-import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
-import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.DialogUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,7 +77,7 @@ public class MineFragment extends BaseMainFragment {
         } else {
             openVip.setImageResource(R.drawable.ic_mine_update_vip);
         }
-        if (App.role == 0 ) {
+        if (App.role == 0) {
             openVip.setVisibility(View.VISIBLE);
         } else {
             openVip.setVisibility(View.GONE);
@@ -135,6 +129,10 @@ public class MineFragment extends BaseMainFragment {
         }
     }
 
+    @OnClick(R.id.voucher)
+    public void onClickVoucher() {
+        EventBus.getDefault().post(new StartBrotherEvent(VoucherFragment.newInstance(0)));
+    }
 
     /**
      * 检查更新,清除缓存

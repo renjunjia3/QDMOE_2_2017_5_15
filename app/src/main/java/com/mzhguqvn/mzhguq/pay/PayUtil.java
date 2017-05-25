@@ -222,17 +222,18 @@ public class PayUtil {
         }
         dialog = ProgressDialog.show(context, "", "订单提交中...");
         HashMap<String, String> params = API.createParams();
-        params.put("goods_id", info.getGoods_id() + "");
-        params.put("user_id", info.getUser_id() + "");
-        params.put("number", info.getNumber() + "");
-        params.put("remark", info.getRemark());
-        params.put("pay_type", payType + "");
+        params.put("goods_id", String.valueOf(info.getGoods_id()));
+        params.put("user_id", String.valueOf(info.getUser_id()));
+        params.put("number", String.valueOf(info.getNumber()));
+        params.put("remark", String.valueOf(info.getRemark()));
+        params.put("pay_type", String.valueOf(payType));
         params.put("mobile", info.getMobile());
         params.put("name", info.getName());
         params.put("address", info.getAddress());
         params.put("province", info.getProvince());
         params.put("city", info.getCity());
         params.put("area", info.getArea());
+        params.put("voucher_id", String.valueOf(info.getVoucher_id()));
         OkHttpUtils.post().url(API.URL_PRE + API.GOODS_CREATE_ORDER).params(params).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
