@@ -10,8 +10,10 @@ import com.mzhguqvn.mzhguq.bean.VoucherInfo;
 
 public class ChoosedVoucherBackEvent {
     public VoucherInfo voucherInfo;
+    public int page;
 
-    public ChoosedVoucherBackEvent(VoucherInfo voucherInfo) {
+    public ChoosedVoucherBackEvent(VoucherInfo voucherInfo, int page) {
         this.voucherInfo = voucherInfo;
+        this.page = page;
     }
 }

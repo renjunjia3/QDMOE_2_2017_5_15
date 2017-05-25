@@ -33,6 +33,7 @@ import com.mzhguqvn.mzhguq.bean.VoucherInfo;
 import com.mzhguqvn.mzhguq.config.AddressConfig;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.config.PayConfig;
+import com.mzhguqvn.mzhguq.event.ChoosedVoucherBackEvent;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.ui.dialog.ConfirmOrderPopupWindow;
@@ -468,7 +469,7 @@ public class BuyFragment extends BaseBackFragment {
             if (popupWindow != null) {
                 popupWindow.dismiss();
             }
-            startForResult(VoucherFragment.newInstance(2), 200);
+            start(VoucherFragment.newInstance(2));
         }
     };
 
@@ -515,7 +516,8 @@ public class BuyFragment extends BaseBackFragment {
         super.onDestroyView();
     }
 
-    private int voucherMoney=0;
+    private int voucherMoney = 0;
+
     @Subscribe
     public void onCheckGoodsSuccess(GoodsPaySuccessEvent event) {
         if (event.isGoodsBuyPage) {
@@ -529,26 +531,23 @@ public class BuyFragment extends BaseBackFragment {
             receiverInfo.setReceiverProvince(strProvince);
             receiverInfo.setReceiverName(receiverName.getText().toString().trim());
             receiverInfo.setReceiverPhone(receiverPhone.getText().toString().trim());
-            start(PaySuccessFragment.newInstance(info, receiverInfo, buyNumber,voucherMoney));
+            start(PaySuccessFragment.newInstance(info, receiverInfo, buyNumber, voucherMoney));
         }
     }
 
-    @Override
-    protected void onFragmentResult(int requestCode, int resultCode, Bundle data) {
-        super.onFragmentResult(requestCode, resultCode, data);
-        if (requestCode == 200) {
+    @Subscribe
+    public void onChooesdVoucherResult(ChoosedVoucherBackEvent event) {
+        if (event.page == 2) {
             if (popupWindow != null) {
                 popupWindow.showAtLocation(buyNow, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
             }
-            if (resultCode == RESULT_OK) {
-                //选择代金券返回
-                VoucherInfo choosedVoucherInfo = (VoucherInfo) data.getSerializable("voucher");
-                if (popupWindow != null) {
-                    voucherMoney=choosedVoucherInfo.getMoney();
-                    popupWindow.setVoucherInfo(choosedVoucherInfo);
-                }
+            //选择代金券返回
+            VoucherInfo choosedVoucherInfo = event.voucherInfo;
+            if (popupWindow != null) {
+                voucherMoney = choosedVoucherInfo.getMoney();
+                popupWindow.setVoucherInfo(choosedVoucherInfo);
             }
-
         }
+
     }
 }

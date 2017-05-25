@@ -756,14 +756,16 @@ public class ShopFragment extends BaseMainFragment {
 
     @Subscribe
     public void onChooesdVoucherResult(ChoosedVoucherBackEvent event) {
-        if (popupWindow != null) {
-            popupWindow.showAtLocation(layoutBottomBuyNow, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        }
-        //选择代金券返回
-        VoucherInfo choosedVoucherInfo = event.voucherInfo;
-        if (popupWindow != null) {
-            voucherMoney = choosedVoucherInfo.getMoney();
-            popupWindow.setVoucherInfo(choosedVoucherInfo);
+        if (event.page == 1) {
+            if (popupWindow != null) {
+                popupWindow.showAtLocation(layoutBottomBuyNow, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            }
+            //选择代金券返回
+            VoucherInfo choosedVoucherInfo = event.voucherInfo;
+            if (popupWindow != null) {
+                voucherMoney = choosedVoucherInfo.getMoney();
+                popupWindow.setVoucherInfo(choosedVoucherInfo);
+            }
         }
     }
 }

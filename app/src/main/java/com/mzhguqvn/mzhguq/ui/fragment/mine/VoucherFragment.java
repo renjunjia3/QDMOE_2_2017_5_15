@@ -114,13 +114,8 @@ public class VoucherFragment extends BaseBackFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (enterPage == 1) {
-                    EventBus.getDefault().post(new ChoosedVoucherBackEvent(list.get(position - 1)));
-                    pop();
-                } else if (enterPage == 2) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("voucher", list.get(position - 1));
-                    setFragmentResult(RESULT_OK, bundle);
+                if (enterPage !=0) {
+                    EventBus.getDefault().post(new ChoosedVoucherBackEvent(list.get(position - 1), enterPage));
                     pop();
                 }
             }
