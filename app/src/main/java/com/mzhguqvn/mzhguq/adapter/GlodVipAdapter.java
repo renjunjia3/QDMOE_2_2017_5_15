@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.bean.VideoInfo;
+import com.mzhguqvn.mzhguq.ui.view.RatioImageView;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.mzhguqvn.mzhguq.util.ViewUtils;
 import com.mzhguqvn.mzhguq.video.JCUtils;
@@ -49,8 +50,6 @@ public class GlodVipAdapter extends RecyclerView.Adapter {
             return new TitleViewHolder(inflater.inflate(R.layout.fragment_glod_vip_item, parent, false));
         } else {
             ItemViewHolder itemViewHolder = new ItemViewHolder(inflater.inflate(R.layout.fragment_glod_vip_item_item, parent, false));
-            int height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(12)) * 24f / 3f / 18f);
-            ViewUtils.setViewHeightByViewGroup(itemViewHolder.image, height);
             return itemViewHolder;
         }
     }
@@ -116,7 +115,7 @@ public class GlodVipAdapter extends RecyclerView.Adapter {
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image)
-        ImageView image;
+        RatioImageView image;
         @BindView(R.id.tag)
         TextView tag;
         @BindView(R.id.title)
