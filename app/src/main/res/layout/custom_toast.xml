@@ -14,6 +14,6 @@
         android:inAnimation="@anim/slide_in_top"
         android:outAnimation="@anim/slide_out_top"
         android:padding="5dp"
-        android:text="恭喜VIP4541554 成为永久钻石会员"
+        android:text="恭喜VIP4541554成功开通永久会员"
         android:textColor="#fe2c8b" />
 </LinearLayout>

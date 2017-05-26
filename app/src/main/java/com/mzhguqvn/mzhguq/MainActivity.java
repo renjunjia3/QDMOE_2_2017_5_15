@@ -118,7 +118,6 @@ public class MainActivity extends SupportActivity {
             dialog.show();
         }
 
-
     }
 
     private void showNoticeToast(int id) {
@@ -130,7 +129,7 @@ public class MainActivity extends SupportActivity {
             toast.setView(v);
             toast.setGravity(Gravity.TOP, 0, (int) ScreenUtils.instance(MainActivity.this).dip2px(80));
         }
-        toasrContent.setText("恭喜VIP" + id + "成为永久钻石会员");
+        toasrContent.setText("恭喜VIP" + id + (id % 2 == 0 ? "成功开通永久会员" : "成功开通会员"));
         toast.show();
     }
 

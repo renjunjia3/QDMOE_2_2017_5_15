@@ -12,9 +12,9 @@ import java.util.HashMap;
 public class API {
 
     //    //正式环境
-//    public static final String URL_PRE = "http://api.lfys8.com/video/";
+//    public static final String URL_PRE = "http://api.alpv.pw/video/";
     //测试环境
-    public static final String URL_PRE = "http://tapi.lfys8.com/video/";
+    public static final String URL_PRE = "http://tapi.alpv.pw/video/";
 
     //默认的key
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
