@@ -651,7 +651,6 @@
                                 android:visibility="invisible" />
 
                             <RadioButton
-                                android:id="@+id/pay_way_wechat"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:button="@drawable/ic_goods_pay_way_selector"
