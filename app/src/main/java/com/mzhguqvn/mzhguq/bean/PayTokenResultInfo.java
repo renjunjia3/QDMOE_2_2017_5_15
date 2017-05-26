@@ -14,6 +14,7 @@ public class PayTokenResultInfo {
     private String order_id;
     private String code_img_url;//微信的二维码地址，
     private boolean status;
+    private String code_url;
 
     public int getPay_type() {
         return pay_type;
@@ -69,5 +70,13 @@ public class PayTokenResultInfo {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getCode_url() {
+        return code_url;
+    }
+
+    public void setCode_url(String code_url) {
+        this.code_url = code_url;
     }
 }

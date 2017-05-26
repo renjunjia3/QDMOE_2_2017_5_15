@@ -66,6 +66,10 @@ public class PayUtil {
 //    private static final int VIP_MONEY_TYPE_4 = 10;
 //    //开通VPN海外会员 2800
 //    private static final int VIP_MONEY_TYPE_5 = 10;
+//    //开通黄金永久会员 6800
+//    private static final int VIP_MONEY_TYPE_6 = 10;
+//    //优惠开通黄金永久会员 5800
+//    private static final int VIP_MONEY_TYPE_7 = 10;
 
 //    //开通黄金会员 3800
 //    private static final int VIP_MONEY_TYPE_1 = 3800;
@@ -77,6 +81,10 @@ public class PayUtil {
 //    private static final int VIP_MONEY_TYPE_4 = 3000;
 //    //开通VPN海外会员 2800
 //    private static final int VIP_MONEY_TYPE_5 = 2800;
+//    //开通黄金永久会员 6800
+//    private static final int VIP_MONEY_TYPE_6 = 6800;
+//    //优惠开通黄金永久会员 5800
+//    private static final int VIP_MONEY_TYPE_7 = 5800;
 
     private static PayUtil instance = null;
 
@@ -206,7 +214,7 @@ public class PayUtil {
                     } else if (info.getPay_type() == 2) {
                         //支付宝wap
                         Intent intent = new Intent(context, AliPayActivity.class);
-                        intent.putExtra(AliPayActivity.ALIPAY_URL, info.getPay_url());
+                        intent.putExtra(AliPayActivity.ALIPAY_URL, info.getCode_url());
                         context.startActivity(intent);
                         App.isNeedCheckOrder = true;
                         App.orderIdInt = info.getOrder_id_int();
