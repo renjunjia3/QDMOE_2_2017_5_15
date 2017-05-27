@@ -24,9 +24,6 @@ android {
 
     }
 
-
-
-
     signingConfigs {
         release {
             storeFile file('C:\\Users\\Administrator\\Desktop/qdmoe.jks')

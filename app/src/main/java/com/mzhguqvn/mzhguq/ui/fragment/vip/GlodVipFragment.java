@@ -165,7 +165,7 @@ public class GlodVipFragment extends BaseMainFragment {
                 DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 2);
             } else {
                 if (progressDialog == null) {
-                    progressDialog = new ProgressDialog(getContext());
+                    progressDialog = new ProgressDialog (getContext());
                     progressDialog.setMessage("加载中...");
                 }
                 if (!progressDialog.isShowing()) {
