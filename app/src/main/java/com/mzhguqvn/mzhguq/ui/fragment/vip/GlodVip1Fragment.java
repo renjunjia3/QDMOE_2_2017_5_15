@@ -111,7 +111,7 @@ public class GlodVip1Fragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.role == 0) {
-                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 2);
+                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, PageConfig.GLOD_POSITOTN_ID);
                 }
             }
         });
@@ -256,7 +256,7 @@ public class GlodVip1Fragment extends BaseMainFragment {
      */
     private void toVideoDetail(VideoInfo videoInfo) {
         if (App.role == 0) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.role, false, true, videoInfo.getVideo_id(), false, 2);
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.GLOD_POSITOTN_ID);
         } else {
             Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
             intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);

@@ -233,6 +233,7 @@ public class AnchorFragment extends BaseMainFragment {
             Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
             intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
             intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
+            intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_ANCHOR,true);
             _mActivity.startActivityForResult(intent, 9999);
         }
     }

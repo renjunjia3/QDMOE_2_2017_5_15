@@ -15,94 +15,94 @@ android {
     }
     productFlavors {
 
-        NNY1 {
+        NNY_1001 {
             manifestPlaceholders = [CHANNEL_ID: 1001]
         }
-        NNY2 {
+        NNY_1002 {
             manifestPlaceholders = [CHANNEL_ID: 1002]
         }
-        NNY3 {
+        NNY_1003 {
             manifestPlaceholders = [CHANNEL_ID: 1003]
         }
-        NNY4 {
+        NNY_1004 {
             manifestPlaceholders = [CHANNEL_ID: 1004]
         }
-        NNY5 {
+        NNY_1005 {
             manifestPlaceholders = [CHANNEL_ID: 1005]
         }
-        NNY6 {
+        NNY_1006 {
             manifestPlaceholders = [CHANNEL_ID: 1006]
         }
-        NNY7 {
+        NNY_1007 {
             manifestPlaceholders = [CHANNEL_ID: 1007]
         }
-        NNY8 {
+        NNY_1008 {
             manifestPlaceholders = [CHANNEL_ID: 1008]
         }
-        NNY9 {
+        NNY_1009 {
             manifestPlaceholders = [CHANNEL_ID: 1009]
         }
-        NNY12 {
+        NNY_1010 {
             manifestPlaceholders = [CHANNEL_ID: 1010]
         }
-        NNY11 {
+        NNY_1011 {
             manifestPlaceholders = [CHANNEL_ID: 1011]
         }
-        NNY12 {
+        NNY_1012 {
             manifestPlaceholders = [CHANNEL_ID: 1012]
         }
-        NNY13 {
+        NNY_1013 {
             manifestPlaceholders = [CHANNEL_ID: 1013]
         }
-        NNY14 {
+        NNY_1014 {
             manifestPlaceholders = [CHANNEL_ID: 1014]
         }
-        NNY15 {
+        NNY_1015 {
             manifestPlaceholders = [CHANNEL_ID: 1015]
         }
-        NNY16 {
+        NNY_1016 {
             manifestPlaceholders = [CHANNEL_ID: 1016]
         }
-        NNY17 {
+        NNY_1017 {
             manifestPlaceholders = [CHANNEL_ID: 1017]
         }
-        NNY18 {
+        NNY_1018 {
             manifestPlaceholders = [CHANNEL_ID: 1018]
         }
-        NNY19 {
+        NNY_1019 {
             manifestPlaceholders = [CHANNEL_ID: 1019]
         }
-        NNY20 {
+        NNY_1020 {
             manifestPlaceholders = [CHANNEL_ID: 1020]
         }
-        NNY21 {
+        NNY_1021 {
             manifestPlaceholders = [CHANNEL_ID: 1021]
         }
-        NNY22 {
+        NNY_1022 {
             manifestPlaceholders = [CHANNEL_ID: 1022]
         }
-        NNY23 {
+        NNY_1023 {
             manifestPlaceholders = [CHANNEL_ID: 1023]
         }
-        NNY24 {
+        NNY_1024 {
             manifestPlaceholders = [CHANNEL_ID: 1024]
         }
-        NNY25 {
+        NNY_1025 {
             manifestPlaceholders = [CHANNEL_ID: 1025]
         }
-        NNY26 {
+        NNY_1026 {
             manifestPlaceholders = [CHANNEL_ID: 1026]
         }
-        NNY27 {
+        NNY_1027 {
             manifestPlaceholders = [CHANNEL_ID: 1027]
         }
-        NNY28 {
+        NNY_1028 {
             manifestPlaceholders = [CHANNEL_ID: 1028]
         }
-        NNY29 {
+        NNY_1029 {
             manifestPlaceholders = [CHANNEL_ID: 1029]
         }
-        NNY30 {
+        NNY_1030 {
             manifestPlaceholders = [CHANNEL_ID: 1030]
         }
 

@@ -90,6 +90,14 @@ public class LuncherActivity extends AppCompatActivity {
         retryTime++;
         TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         App.IMEI = tm.getDeviceId();
+        if (App.IMEI.isEmpty()) {
+            App.IMEI = SharedPreferencesUtil.getString(LuncherActivity.this, "IMEI", "");
+            if (App.IMEI.isEmpty()) {
+                String imei = createRandom(false, 20);
+                SharedPreferencesUtil.putString(LuncherActivity.this, "IMEI", imei);
+                App.IMEI = imei;
+            }
+        }
         long lastLoginTime = SharedPreferencesUtil.getLong(LuncherActivity.this, App.LAST_LOGIN_TIME, 0);
         if (!DateUtils.isDifferentDay(System.currentTimeMillis(), lastLoginTime)) {
             App.user_id = SharedPreferencesUtil.getInt(LuncherActivity.this, App.USERID_KEY, 0);
@@ -160,5 +168,30 @@ public class LuncherActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public static String createRandom(boolean numberFlag, int length) {
+        String retStr = "";
+        String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyz";
+        int len = strTable.length();
+        boolean bDone = true;
+        do {
+            retStr = "";
+            int count = 0;
+            for (int i = 0; i < length; i++) {
+                double dblR = Math.random() * len;
+                int intR = (int) Math.floor(dblR);
+                char c = strTable.charAt(intR);
+                if (('0' <= c) && (c <= '9')) {
+                    count++;
+                }
+                retStr += strTable.charAt(intR);
+            }
+            if (count >= 20) {
+                bDone = false;
+            }
+        } while (bDone);
+
+        return retStr;
     }
 }

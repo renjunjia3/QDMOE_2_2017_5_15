@@ -41,20 +41,20 @@ public class PayUtil {
     public static final int VIP_TYPE_7 = 7;
 
 
-    //开通黄金会员 3800
-    private static final int VIP_MONEY_TYPE_1 = 1;
-    //优惠开通黄金会员 2800
-    private static final int VIP_MONEY_TYPE_2 = 4;
-    //直接开通钻石会员 6800
-    private static final int VIP_MONEY_TYPE_3 = 1;
-    //升级钻石会员 3000
-    private static final int VIP_MONEY_TYPE_4 = 1;
-    //开通CDN海外会员 2800
-    private static final int VIP_MONEY_TYPE_5 = 1;
-    //开通黄金永久会员 6800
-    private static final int VIP_MONEY_TYPE_6 = 2;
-    //优惠开通黄金永久会员 5800
-    private static final int VIP_MONEY_TYPE_7 = 3;
+//    //开通黄金会员 3800
+//    private static final int VIP_MONEY_TYPE_1 = 1;
+//    //优惠开通黄金会员 2800
+//    private static final int VIP_MONEY_TYPE_2 = 4;
+//    //直接开通钻石会员 6800
+//    private static final int VIP_MONEY_TYPE_3 = 1;
+//    //升级钻石会员 3000
+//    private static final int VIP_MONEY_TYPE_4 = 1;
+//    //开通CDN海外会员 2800
+//    private static final int VIP_MONEY_TYPE_5 = 1;
+//    //开通黄金永久会员 6800
+//    private static final int VIP_MONEY_TYPE_6 = 2;
+//    //优惠开通黄金永久会员 5800
+//    private static final int VIP_MONEY_TYPE_7 = 3;
 
 //    //开通黄金会员 3800
 //    private static final int VIP_MONEY_TYPE_1 = 10;
@@ -71,20 +71,20 @@ public class PayUtil {
 //    //优惠开通黄金永久会员 5800
 //    private static final int VIP_MONEY_TYPE_7 = 10;
 
-//    //开通黄金会员 3800
-//    private static final int VIP_MONEY_TYPE_1 = 3800;
-//    //优惠开通黄金会员 2800
-//    private static final int VIP_MONEY_TYPE_2 = 2800;
-//    //直接开通钻石会员 6800
-//    private static final int VIP_MONEY_TYPE_3 = 6800;
-//    //升级钻石会员 3000
-//    private static final int VIP_MONEY_TYPE_4 = 3000;
-//    //开通VPN海外会员 2800
-//    private static final int VIP_MONEY_TYPE_5 = 2800;
-//    //开通黄金永久会员 6800
-//    private static final int VIP_MONEY_TYPE_6 = 6800;
-//    //优惠开通黄金永久会员 5800
-//    private static final int VIP_MONEY_TYPE_7 = 5800;
+    //开通黄金会员 3800
+    private static final int VIP_MONEY_TYPE_1 = 3800;
+    //优惠开通黄金会员 2800
+    private static final int VIP_MONEY_TYPE_2 = 2800;
+    //直接开通钻石会员 6800
+    private static final int VIP_MONEY_TYPE_3 = 6800;
+    //升级钻石会员 3000
+    private static final int VIP_MONEY_TYPE_4 = 3000;
+    //开通CDN海外会员 2800
+    private static final int VIP_MONEY_TYPE_5 = 2800;
+    //开通黄金永久会员 6800
+    private static final int VIP_MONEY_TYPE_6 = 6800;
+    //优惠开通黄金永久会员 5800
+    private static final int VIP_MONEY_TYPE_7 = 5800;
 
     private static PayUtil instance = null;
 

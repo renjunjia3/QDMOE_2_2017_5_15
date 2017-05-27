@@ -137,7 +137,7 @@ public class DiamondVipFragment extends BaseMainFragment {
             @Override
             public void onClickDiamondVipItem(int position) {
                 if (App.role < 2) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请升级钻石会员后观看", App.role, false, true, list.get(position).getVideo_id(), false, 3);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请升级钻石会员后观看", App.role, false, true, list.get(position).getVideo_id(), false, PageConfig.DIAMOND_POSITOTN_ID);
                 } else {
                     toVideoDetail(list.get(position));
                 }
@@ -161,9 +161,9 @@ public class DiamondVipFragment extends BaseMainFragment {
             public void onClick(View v) {
                 if (App.role < 2) {
                     if (App.role == 0) {
-                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, 3);
+                        DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, PageConfig.DIAMOND_POSITOTN_ID);
                     } else if (App.role == 1) {
-                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, 3);
+                        DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, false, PageConfig.DIAMOND_POSITOTN_ID);
                     }
                 } else {
                     if (progressDialog == null) {
@@ -224,7 +224,8 @@ public class DiamondVipFragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.role < 2) {
-                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，请开通钻石会员后观看", App.role, false, true, info.getVideo_id(), false, 3);
+                    DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为钻石会员视频，" +
+                            "请开通钻石会员后观看", App.role, false, true, info.getVideo_id(), false, PageConfig.DIAMOND_POSITOTN_ID);
                 } else {
                     toVideoDetail(info);
                 }

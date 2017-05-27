@@ -124,15 +124,19 @@ public class JCFullScreenActivity extends Activity {
         getDanmuData();
 
         if (App.role == 0) {
-            mJcVideoPlayer.text2.setVisibility(View.VISIBLE);
-            mJcVideoPlayer.text3.setVisibility(View.VISIBLE);
+            mJcVideoPlayer.text2.setVisibility(View.GONE);
+            mJcVideoPlayer.text3.setVisibility(View.GONE);
             mJcVideoPlayer.text2.setText("开通会员观看完整视频");
             mJcVideoPlayer.text3.setText("开通会员观看完整视频");
-            mJcVideoPlayer.openVip.setText("开通黄金会员");
-        } else if (App.role == 1) {
+            mJcVideoPlayer.openVip.setText("开通VIP会员");
+        } else if (App.role == 1 && App.cdn == 0) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
             mJcVideoPlayer.openVip.setText("开通CDN加速");
+        } else {
+            mJcVideoPlayer.text2.setVisibility(View.GONE);
+            mJcVideoPlayer.text3.setVisibility(View.GONE);
+            mJcVideoPlayer.openVip.setVisibility(View.GONE);
         }
 
         mJcVideoPlayer.openVip.setOnClickListener(new View.OnClickListener() {
@@ -291,7 +295,7 @@ public class JCFullScreenActivity extends Activity {
                                 }
                             });
                         }
-                    } else if (App.role == 1&&App.cdn==0 &&  mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
+                    } else if (App.role == 1 && App.cdn == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
                         timerTask.cancel();
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();

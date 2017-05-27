@@ -72,6 +72,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
 
     public static final String ARG_VIDEO_INFO = "arg_video_info";
     public static final String ARG_IS_ENTER_FROM_TRY_SEE = "is_enter_from_try_see";
+    public static final String ARG_IS_ENTER_ANCHOR = "is_enter_anchor";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.zan)
@@ -120,6 +121,9 @@ public class VideoDetailActivity extends SwipeBackActivity {
     private List<VideoInfo> videoRelateList = new ArrayList<>();
     private IndexItemAdapter videoRelateAdapter;
 
+
+    private boolean isAnchor = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +132,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         registerBoradcastReceiver();
         unbinder = ButterKnife.bind(this);
         videoInfo = (VideoInfo) getIntent().getSerializableExtra(ARG_VIDEO_INFO);
+        isAnchor = getIntent().getBooleanExtra(ARG_IS_ENTER_ANCHOR, false);
         isEnterFromTrySee = getIntent().getBooleanExtra(ARG_IS_ENTER_FROM_TRY_SEE, false);
 
         initToolbarNav(toolbar);
@@ -161,6 +166,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList.get(position));
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_ANCHOR, isAnchor);
                 startActivity(intent);
                 finish();
             }
@@ -177,7 +183,8 @@ public class VideoDetailActivity extends SwipeBackActivity {
     @OnClick({R.id.zan, R.id.fravetor, R.id.open_vip, R.id.addVip, R.id.open_vip1, R.id.sendComment, R.id.download, R.id.commend_number})
     public void onClick(View v) {
         if (App.role == 0) {
-            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "该功能为会员功能，请成为会员后使用", App.role, false, true, videoInfo.getVideo_id(), true, 7);
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                    "该功能为会员功能，请成为会员后使用", App.role, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
         } else {
             if (v.getId() == R.id.sendComment) {
                 String content = commentContent.getText().toString().trim();
@@ -246,10 +253,12 @@ public class VideoDetailActivity extends SwipeBackActivity {
     public void onClickPlayVideo() {
         if (!isEnterFromTrySee && App.role == 0) {
             //不是首页进来自己也不是VIP，弹出开通会员的提示
-            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看体验，请成为会员继续观看", App.role, false, true, videoInfo.getVideo_id(), true, 7);
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                    "非会员只能试看体验，请成为会员继续观看", App.role, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
         } else {
             if (App.tryCount >= VideoConfig.TRY_COUNT_TIME && App.role == 0) {
-                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.user_id, false, true, videoInfo.getVideo_id(), true, 7);
+                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                        "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.user_id, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
             } else {
                 App.tryCount += 1;
                 SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);
@@ -299,6 +308,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         if (NetWorkUtils.isNetworkConnected(VideoDetailActivity.this)) {
             HashMap<String, String> params = API.createParams();
             params.put("video_id", videoInfo.getVideo_id() + "");
+            params.put("zhubo", isAnchor ? String.valueOf(1) : String.valueOf(0));
             recommendRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_RELATED).params(params).build();
             recommendRequestCall.execute(new StringCallback() {
                 @Override

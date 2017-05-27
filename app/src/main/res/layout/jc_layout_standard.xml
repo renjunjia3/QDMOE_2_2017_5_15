@@ -186,7 +186,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="3dp"
-        android:text="开通海外加速服务"
+        android:text=""
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_small" />
 
