@@ -20,7 +20,7 @@ import com.mzhguqvn.mzhguq.ui.fragment.gallery.GalleryFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.HotLineFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.MineFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.shop.ShopFragment;
-import com.mzhguqvn.mzhguq.ui.fragment.vip.GlodVipFragment;
+import com.mzhguqvn.mzhguq.ui.fragment.vip.GlodVip1Fragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.TrySeeFragment;
 import com.mzhguqvn.mzhguq.ui.view.BottomBar;
 import com.mzhguqvn.mzhguq.ui.view.BottomBarTab;
@@ -85,7 +85,7 @@ public class MainFragment extends BaseFragment {
             switch (App.role) {
                 case 0://试看
                     fragments.add(TrySeeFragment.newInstance());
-                    fragments.add(GlodVipFragment.newInstance());
+                    fragments.add(GlodVip1Fragment.newInstance());
                     fragments.add(ShopFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
@@ -96,7 +96,7 @@ public class MainFragment extends BaseFragment {
                     break;
                 case 1://黄金会员
                     if (App.cdn == 0) {
-                        fragments.add(GlodVipFragment.newInstance());
+                        fragments.add(GlodVip1Fragment.newInstance());
                         fragments.add(AnchorFragment.newInstance());
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
@@ -146,13 +146,13 @@ public class MainFragment extends BaseFragment {
             switch (App.role) {
                 case 0:
                     fragments.add(findChildFragment(TrySeeFragment.class));
-                    fragments.add(findChildFragment(GlodVipFragment.class));
+                    fragments.add(findChildFragment(GlodVip1Fragment.class));
                     fragments.add(findChildFragment(ShopFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 1:
                     if (App.cdn == 0) {
-                        fragments.add(findChildFragment(GlodVipFragment.class));
+                        fragments.add(findChildFragment(GlodVip1Fragment.class));
                         fragments.add(findChildFragment(AnchorFragment.class));
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(MineFragment.class));

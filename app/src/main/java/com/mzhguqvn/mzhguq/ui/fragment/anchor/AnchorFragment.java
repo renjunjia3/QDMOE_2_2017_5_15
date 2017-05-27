@@ -17,6 +17,7 @@ import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.VideoDetailActivity;
 import com.mzhguqvn.mzhguq.adapter.AnchorAdapter;
+import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseMainFragment;
 import com.mzhguqvn.mzhguq.bean.VideoInfo;
 import com.mzhguqvn.mzhguq.bean.VipInfo;
@@ -27,6 +28,7 @@ import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.recyclerview.RecyclerAdapterWithHF;
 import com.mzhguqvn.mzhguq.util.API;
+import com.mzhguqvn.mzhguq.util.DialogUtil;
 import com.mzhguqvn.mzhguq.util.NetWorkUtils;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
@@ -225,10 +227,14 @@ public class AnchorFragment extends BaseMainFragment {
      * @param videoInfo 视频信息
      */
     private void toVideoDetail(VideoInfo videoInfo) {
-        Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
-        intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
-        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
-        _mActivity.startActivityForResult(intent, 9999);
+        if (App.cdn==0) {
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "由于服务器开销较大，如需观看需缴纳CDN费用", App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.ANCHOR_POSITOTN_ID);
+        } else {
+            Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
+            intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
+            intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
+            _mActivity.startActivityForResult(intent, 9999);
+        }
     }
 
     @Override

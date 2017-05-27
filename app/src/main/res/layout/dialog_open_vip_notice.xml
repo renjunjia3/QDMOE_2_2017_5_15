@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:visibility="gone"
             android:gravity="center_horizontal"
             android:text="如果您对我们的服务不满意，请及时联系客服"
             android:textColor="#ED2020"

@@ -312,7 +312,6 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-
                 }
 
                 @Override

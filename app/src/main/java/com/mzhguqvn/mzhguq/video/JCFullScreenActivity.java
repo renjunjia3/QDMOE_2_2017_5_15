@@ -291,7 +291,7 @@ public class JCFullScreenActivity extends Activity {
                                 }
                             });
                         }
-                    } else if (App.role == 1 && mJcVideoPlayer.getCurrentPositionWhenPlaying() > 30 * 1000) {
+                    } else if (App.role == 1&&App.cdn==0 &&  mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
                         timerTask.cancel();
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();

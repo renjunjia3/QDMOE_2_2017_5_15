@@ -61,13 +61,13 @@ public class AgreementFragment extends BaseBackFragment {
         switch (type) {
             case TYPE_AGREEMENT:
                 toolbarTitle.setText("用户协议");
-                String str = GetAssestDataUtil.getAssestJson(getContext(), "agreement");
+                String str = GetAssestDataUtil.getString(getContext(), "agreement");
                 str.split("[\\n]");
                 content.setText(str);
                 break;
             case TYPE_DISCLAIME:
                 toolbarTitle.setText("免责声明");
-                content.setText(GetAssestDataUtil.getAssestJson(getContext(), "disclaime"));
+                content.setText(GetAssestDataUtil.getString(getContext(), "disclaime"));
                 break;
         }
         initToolbarNav(toolbar);

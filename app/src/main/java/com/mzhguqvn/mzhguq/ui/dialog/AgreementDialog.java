@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.mzhguqvn.mzhguq.R;
+import com.mzhguqvn.mzhguq.util.GetAssestDataUtil;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
 
 /**
@@ -46,6 +47,7 @@ public class AgreementDialog extends Dialog implements View.OnClickListener {
         cancel = (TextView) findViewById(R.id.cancel);
         content = (TextView) findViewById(R.id.content);
         content.setMovementMethod(new ScrollingMovementMethod());
+        content.setText(GetAssestDataUtil.getString(getContext(),"agreement"));
 
         agreement.setOnClickListener(this);
         cancel.setOnClickListener(this);

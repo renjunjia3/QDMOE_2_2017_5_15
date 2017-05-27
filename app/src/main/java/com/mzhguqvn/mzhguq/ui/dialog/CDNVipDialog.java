@@ -3,6 +3,7 @@ package com.mzhguqvn.mzhguq.ui.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -77,7 +78,8 @@ public class CDNVipDialog extends Dialog {
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
             ImageView image = (ImageView) layout.findViewById(R.id.image);
-
+            TextView oldPrice1 = (TextView) dialog.findViewById(R.id.old_price_1);
+            oldPrice1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             TextView discount = (TextView) dialog.findViewById(R.id.discount);
             SpannableStringBuilder builder = new SpannableStringBuilder(discount.getText().toString());
             ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.parseColor("#D3121A"));

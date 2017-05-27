@@ -56,6 +56,14 @@ public class AnchorAdapter extends RecyclerView.Adapter {
         viewHolder.hits.setText(String.valueOf(info.getHits()));
         viewHolder.title.setText(String.valueOf(info.getTitle()));
         viewHolder.time.setText(JCUtils.stringForTime(info.getReal_duration()));
+        ScreenUtils screenUtils = ScreenUtils.instance(context);
+        if(position==0){
+            int width = screenUtils.getScreenWidth();
+            ViewUtils.setDialogViewWidth(viewHolder.image, width);
+        }else{
+            int width = (screenUtils.getScreenWidth()-screenUtils.dp2px(10))/2;
+            ViewUtils.setDialogViewWidth(viewHolder.image, width);
+        }
         GlideUtils.loadImage(context, viewHolder.image, info.getThumb());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

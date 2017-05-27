@@ -35,7 +35,8 @@
         <LinearLayout
             android:id="@+id/layout_type_glod"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:background="@drawable/dialog_vip_type_bg"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
@@ -74,22 +75,37 @@
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
 
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="￥38.00"
-                android:textColor="#db182c"
-                android:textSize="@dimen/text_size_big" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥38.00"
+                    android:textColor="#db182c"
+                    android:textSize="@dimen/text_size_big" />
+
+                <TextView
+                    android:id="@+id/old_price_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥88.00"
+                    android:textColor="#B5B5B5"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_type_diamond"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
             android:background="@drawable/dialog_vip_type_bg"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -127,13 +143,29 @@
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="￥68.00"
-                android:textColor="#db182c"
-                android:textSize="@dimen/text_size_big" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥68.00"
+                    android:textColor="#db182c"
+                    android:textSize="@dimen/text_size_big" />
+
+                <TextView
+                    android:id="@+id/old_price_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥128.00"
+                    android:textColor="#B5B5B5"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
 
         </LinearLayout>
 

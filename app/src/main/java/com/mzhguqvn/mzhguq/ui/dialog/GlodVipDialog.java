@@ -3,6 +3,7 @@ package com.mzhguqvn.mzhguq.ui.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -78,6 +79,10 @@ public class GlodVipDialog extends Dialog {
             final ImageView glodChoosed = (ImageView) layout.findViewById(R.id.glod_choosed);
             final ImageView diamondChoosed = (ImageView) layout.findViewById(R.id.diamond_choosed);
             ImageView image = (ImageView) layout.findViewById(R.id.image);
+            TextView oldPrice1 = (TextView) dialog.findViewById(R.id.old_price_1);
+            TextView oldPrice2 = (TextView) dialog.findViewById(R.id.old_price_2);
+            oldPrice1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            oldPrice2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
             image.setLayoutParams(layoutParams);

@@ -35,5 +35,30 @@ public class GetAssestDataUtil {
         }
         return stringBuilder.toString();
     }
+
+    /**
+     * Case By:获取字符串
+     * Author: scene on 2017/5/19 15:34
+     */
+    public static String getString(Context context, String fileName) {
+
+        //StringBuilder stringBuilder = new StringBuilder();
+        String result = "";
+        try {
+            AssetManager assetManager = context.getAssets();
+            BufferedReader bf = new BufferedReader(new InputStreamReader(
+                    assetManager.open(fileName)));
+
+            String line = "";
+            while ((line = bf.readLine()) != null) {
+                result += line;
+                result+="\n\t";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }
 

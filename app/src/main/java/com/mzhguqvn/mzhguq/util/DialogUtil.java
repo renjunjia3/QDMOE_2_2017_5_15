@@ -150,7 +150,7 @@ public class DialogUtil {
                 showGoldVipDialog(context, videoId, isDetailPage, pay_position_id);
                 break;
             case 1://开通砖石会员
-                showDiamondVipDialog(context, videoId, isDetailPage, pay_position_id);
+                showCdnVipDialog(context, videoId, isDetailPage, pay_position_id);
                 break;
             case 2://开通cdn服务
                 showCdnVipDialog(context, videoId, isDetailPage, pay_position_id);

@@ -15,11 +15,95 @@ android {
     }
     productFlavors {
 
-        NNY_1001 {
+        NNY1 {
             manifestPlaceholders = [CHANNEL_ID: 1001]
         }
-        NNY_1002 {
+        NNY2 {
             manifestPlaceholders = [CHANNEL_ID: 1002]
+        }
+        NNY3 {
+            manifestPlaceholders = [CHANNEL_ID: 1003]
+        }
+        NNY4 {
+            manifestPlaceholders = [CHANNEL_ID: 1004]
+        }
+        NNY5 {
+            manifestPlaceholders = [CHANNEL_ID: 1005]
+        }
+        NNY6 {
+            manifestPlaceholders = [CHANNEL_ID: 1006]
+        }
+        NNY7 {
+            manifestPlaceholders = [CHANNEL_ID: 1007]
+        }
+        NNY8 {
+            manifestPlaceholders = [CHANNEL_ID: 1008]
+        }
+        NNY9 {
+            manifestPlaceholders = [CHANNEL_ID: 1009]
+        }
+        NNY12 {
+            manifestPlaceholders = [CHANNEL_ID: 1010]
+        }
+        NNY11 {
+            manifestPlaceholders = [CHANNEL_ID: 1011]
+        }
+        NNY12 {
+            manifestPlaceholders = [CHANNEL_ID: 1012]
+        }
+        NNY13 {
+            manifestPlaceholders = [CHANNEL_ID: 1013]
+        }
+        NNY14 {
+            manifestPlaceholders = [CHANNEL_ID: 1014]
+        }
+        NNY15 {
+            manifestPlaceholders = [CHANNEL_ID: 1015]
+        }
+        NNY16 {
+            manifestPlaceholders = [CHANNEL_ID: 1016]
+        }
+        NNY17 {
+            manifestPlaceholders = [CHANNEL_ID: 1017]
+        }
+        NNY18 {
+            manifestPlaceholders = [CHANNEL_ID: 1018]
+        }
+        NNY19 {
+            manifestPlaceholders = [CHANNEL_ID: 1019]
+        }
+        NNY20 {
+            manifestPlaceholders = [CHANNEL_ID: 1020]
+        }
+        NNY21 {
+            manifestPlaceholders = [CHANNEL_ID: 1021]
+        }
+        NNY22 {
+            manifestPlaceholders = [CHANNEL_ID: 1022]
+        }
+        NNY23 {
+            manifestPlaceholders = [CHANNEL_ID: 1023]
+        }
+        NNY24 {
+            manifestPlaceholders = [CHANNEL_ID: 1024]
+        }
+        NNY25 {
+            manifestPlaceholders = [CHANNEL_ID: 1025]
+        }
+        NNY26 {
+            manifestPlaceholders = [CHANNEL_ID: 1026]
+        }
+        NNY27 {
+            manifestPlaceholders = [CHANNEL_ID: 1027]
+        }
+        NNY28 {
+            manifestPlaceholders = [CHANNEL_ID: 1028]
+        }
+        NNY29 {
+            manifestPlaceholders = [CHANNEL_ID: 1029]
+        }
+        NNY30 {
+            manifestPlaceholders = [CHANNEL_ID: 1030]
         }
 
     }

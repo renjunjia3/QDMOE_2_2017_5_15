@@ -78,13 +78,30 @@
                     android:textSize="@dimen/text_size_middle" />
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="￥28元"
-                android:textColor="#db182c"
-                android:textSize="@dimen/text_size_big" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥28.00"
+                    android:textColor="#db182c"
+                    android:textSize="@dimen/text_size_big" />
+
+                <TextView
+                    android:id="@+id/old_price_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="3dp"
+                    android:text="￥48.00"
+                    android:textColor="#B5B5B5"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
 
         </LinearLayout>
 

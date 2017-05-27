@@ -287,7 +287,7 @@ public class PayUtil {
                     } else if (info.getPay_type() == 2) {
                         //支付宝wap
                         Intent intent = new Intent(context, AliPayActivity.class);
-                        intent.putExtra(AliPayActivity.ALIPAY_URL, info.getPay_url());
+                        intent.putExtra(AliPayActivity.ALIPAY_URL, info.getCode_url());
                         context.startActivity(intent);
                         App.isNeedCheckOrder = true;
                         App.isGoodsBuyPage = isGoodsBuyPage;
