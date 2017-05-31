@@ -125,7 +125,6 @@ public class MainActivity extends SupportActivity {
             View v = LayoutInflater.from(MainActivity.this).inflate(R.layout.custom_toast, null);
             toasrContent = (TextView) v.findViewById(R.id.content);
             toast = new Toast(MainActivity.this);
-            toast.setDuration(3000);
             toast.setView(v);
             toast.setGravity(Gravity.TOP, 0, (int) ScreenUtils.instance(MainActivity.this).dip2px(80));
         }
