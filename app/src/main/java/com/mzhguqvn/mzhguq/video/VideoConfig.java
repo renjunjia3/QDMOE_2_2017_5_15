@@ -1,7 +1,7 @@
 package com.mzhguqvn.mzhguq.video;
 
 /**
- * Case By:
+ * Case By:视频配置
  * package:fm.jiecao.jcvideoplayer_lib
  * Author：scene on 2017/4/13 10:15
  */
