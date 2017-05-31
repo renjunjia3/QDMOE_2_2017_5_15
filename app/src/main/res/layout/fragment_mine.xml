@@ -472,7 +472,7 @@
                 android:background="#f1d09e"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="联系客服/申请退款"
+                android:text="求片/投诉"
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
 
