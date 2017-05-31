@@ -8,6 +8,10 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.mylhyl.acp.Acp;
@@ -37,6 +41,8 @@ public class LuncherActivity extends AppCompatActivity {
     private int retryTime = 0;
     private static final int TIME = 2000;
 
+    private ImageView loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,13 @@ public class LuncherActivity extends AppCompatActivity {
             loginAndRegister();
         }
         //ToastUtils.getInstance(LuncherActivity.this).showToast("渠道：" + App.CHANNEL_ID);
+        loading= (ImageView) findViewById(R.id.loading);
+        Animation operatingAnim = AnimationUtils.loadAnimation(this, R.anim.tip);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim.setInterpolator(lin);
+        if (operatingAnim != null) {
+            loading.startAnimation(operatingAnim);
+        }
     }
 
     private void applyExternalPer() {
@@ -193,5 +206,11 @@ public class LuncherActivity extends AppCompatActivity {
         } while (bDone);
 
         return retStr;
+    }
+
+    @Override
+    protected void onDestroy() {
+        loading.clearAnimation();
+        super.onDestroy();
     }
 }

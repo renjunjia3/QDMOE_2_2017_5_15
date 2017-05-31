@@ -15,7 +15,7 @@ import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseFragment;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
 import com.mzhguqvn.mzhguq.event.TabSelectedEvent;
-import com.mzhguqvn.mzhguq.ui.fragment.anchor.AnchorFragment;
+import com.mzhguqvn.mzhguq.ui.fragment.anchor.Anchor1Fragment;
 import com.mzhguqvn.mzhguq.ui.fragment.gallery.GalleryFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.HotLineFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.MineFragment;
@@ -97,16 +97,16 @@ public class MainFragment extends BaseFragment {
                 case 1://黄金会员
                     if (App.cdn == 0) {
                         fragments.add(GlodVip1Fragment.newInstance());
-                        fragments.add(AnchorFragment.newInstance());
+                        fragments.add(GalleryFragment.newInstance());
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_glod));
-                        tabNames.add(getString(R.string.tab_anchor));
+                        tabNames.add(getString(R.string.tab_gallery));
                         tabNames.add(getString(R.string.tab_shop));
                         tabNames.add(getString(R.string.tab_mine));
                     } else {
-                        fragments.add(AnchorFragment.newInstance());
+                        fragments.add(Anchor1Fragment.newInstance());
                         fragments.add(ShopFragment.newInstance());
                         fragments.add(GalleryFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
@@ -153,12 +153,12 @@ public class MainFragment extends BaseFragment {
                 case 1:
                     if (App.cdn == 0) {
                         fragments.add(findChildFragment(GlodVip1Fragment.class));
-                        fragments.add(findChildFragment(AnchorFragment.class));
+                        fragments.add(findChildFragment(GalleryFragment.class));
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(MineFragment.class));
                     } else {
                         //已开通cdn
-                        fragments.add(findChildFragment(AnchorFragment.class));
+                        fragments.add(findChildFragment(Anchor1Fragment.class));
                         fragments.add(findChildFragment(ShopFragment.class));
                         fragments.add(findChildFragment(GalleryFragment.class));
                         fragments.add(findChildFragment(MineFragment.class));
@@ -190,7 +190,7 @@ public class MainFragment extends BaseFragment {
                 if (App.cdn == 0) {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(1)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(1)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(2)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 } else {
