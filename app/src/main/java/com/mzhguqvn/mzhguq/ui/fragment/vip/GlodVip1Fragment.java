@@ -255,14 +255,14 @@ public class GlodVip1Fragment extends BaseMainFragment {
      * @param videoInfo 视频信息
      */
     private void toVideoDetail(VideoInfo videoInfo) {
-        if (App.role == 0) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.GLOD_POSITOTN_ID);
-        } else {
+//        if (App.role == 0) {
+//            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.GLOD_POSITOTN_ID);
+//        } else {
             Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
             intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
             intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
             _mActivity.startActivityForResult(intent, 9999);
-        }
+//        }
 
     }
 

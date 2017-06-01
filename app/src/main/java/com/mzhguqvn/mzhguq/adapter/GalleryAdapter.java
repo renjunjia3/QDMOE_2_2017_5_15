@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.bean.GalleryResultInfo;
 import com.mzhguqvn.mzhguq.util.GlideUtils;
@@ -52,7 +53,7 @@ public class GalleryAdapter extends RecyclerView.Adapter {
         viewHolder.hits.setText(String.valueOf(info.getHits()));
 
         GlideUtils.loadIntoUseFitWidth(context, info.getThumb(), R.drawable.bg_error, viewHolder.image);
-
+        //Glide.with(context).load(info.getThumb()).into(viewHolder.image);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,6 +3,7 @@ package com.mzhguqvn.mzhguq.ui.fragment.mine;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,8 +63,7 @@ public class AgreementFragment extends BaseBackFragment {
             case TYPE_AGREEMENT:
                 toolbarTitle.setText("用户协议");
                 String str = GetAssestDataUtil.getString(getContext(), "agreement");
-                str.split("[\\n]");
-                content.setText(str);
+                content.setText(Html.fromHtml(str));
                 break;
             case TYPE_DISCLAIME:
                 toolbarTitle.setText("免责声明");

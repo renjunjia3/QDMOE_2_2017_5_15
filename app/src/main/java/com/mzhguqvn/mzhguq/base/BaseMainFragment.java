@@ -1,7 +1,6 @@
 package com.mzhguqvn.mzhguq.base;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -9,9 +8,7 @@ import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.config.PageConfig;
-import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.ui.dialog.BackGlodVipDialog;
-import com.mzhguqvn.mzhguq.ui.dialog.BackOpenVipDialog;
 import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
 
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
@@ -54,7 +51,7 @@ public abstract class BaseMainFragment extends BaseFragment {
     public boolean onBackPressedSupport() {
         if (App.role == 0) {
             if (builder == null) {
-                builder = new BackGlodVipDialog.Builder(_mActivity, 0, false, PageConfig.REBACK_POSITOTN_ID);
+                builder = new BackGlodVipDialog.Builder(_mActivity, 0, false, PageConfig.BACK_OPEN_VIP_POSITOTN_ID);
             }
             if (dialog == null) {
                 dialog = builder.create();

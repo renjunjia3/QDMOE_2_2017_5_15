@@ -107,7 +107,7 @@ public class Anchor1Fragment extends BaseMainFragment {
         if (App.cdn == 0) {
             footerText.setVisibility(View.VISIBLE);
             footerText.setText("请开通CDN开放更多影片资源");
-        }else{
+        } else {
             footerText.setVisibility(View.GONE);
         }
         footerView.setOnClickListener(new View.OnClickListener() {
@@ -258,14 +258,14 @@ public class Anchor1Fragment extends BaseMainFragment {
      * @param videoInfo 视频信息
      */
     private void toVideoDetail(VideoInfo videoInfo) {
-        if (App.cdn == 0) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "由于服务器开销较大，如需观看需缴纳CDN费用", App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.ANCHOR_POSITOTN_ID);
-        } else {
-            Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
-            intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
-            intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
-            _mActivity.startActivityForResult(intent, 9999);
-        }
+//        if (App.cdn == 0) {
+//            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "由于服务器开销较大，如需观看需缴纳CDN费用", App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.ANCHOR_POSITOTN_ID);
+//        } else {
+        Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
+        intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
+        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
+        _mActivity.startActivityForResult(intent, 9999);
+        // }
     }
 
 

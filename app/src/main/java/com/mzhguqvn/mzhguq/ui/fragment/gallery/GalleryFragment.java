@@ -2,15 +2,14 @@ package com.mzhguqvn.mzhguq.ui.fragment.gallery;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GalleryAdapter;
@@ -61,8 +60,7 @@ public class GalleryFragment extends BaseMainFragment implements GalleryAdapter.
     private BigImageDialog bigImageDialog;
 
     public static GalleryFragment newInstance() {
-        GalleryFragment fragment = new GalleryFragment();
-        return fragment;
+        return new GalleryFragment();
     }
 
     @Nullable
@@ -96,11 +94,35 @@ public class GalleryFragment extends BaseMainFragment implements GalleryAdapter.
         ScreenUtils screenUtils = ScreenUtils.instance(getContext());
         int space = (int) screenUtils.dip2px(3);
         CustomItemDecotation itemDecotation = new CustomItemDecotation(space, space, 2, true);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.addItemDecoration(itemDecotation);
+        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                layoutManager.invalidateSpanAssignments(); //防止第一行到顶部有空白区域
+            }
+        });
+        recyclerView.addItemDecoration(itemDecotation);
         recyclerView.setAdapter(adapter);
         adapter.setOnGalleryClickListener(this);
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                try {
+//                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                        Glide.with(getContext()).pauseRequests();
+//                    } else {
+//                        Glide.with(getContext()).resumeRequests();
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        });
     }
 
     /**

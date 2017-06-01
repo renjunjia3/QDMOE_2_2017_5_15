@@ -60,7 +60,7 @@ public class LuncherActivity extends AppCompatActivity {
             loginAndRegister();
         }
         //ToastUtils.getInstance(LuncherActivity.this).showToast("渠道：" + App.CHANNEL_ID);
-        loading= (ImageView) findViewById(R.id.loading);
+        loading = (ImageView) findViewById(R.id.loading);
         Animation operatingAnim = AnimationUtils.loadAnimation(this, R.anim.tip);
         LinearInterpolator lin = new LinearInterpolator();
         operatingAnim.setInterpolator(lin);
@@ -210,7 +210,12 @@ public class LuncherActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        loading.clearAnimation();
-        super.onDestroy();
+        try {
+            loading.clearAnimation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            super.onDestroy();
+        }
     }
 }

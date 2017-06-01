@@ -79,20 +79,18 @@ public class GlideUtils {
                         if (imageView == null) {
                             return false;
                         }
-                        if (imageView.getScaleType() != ImageView.ScaleType.FIT_XY) {
-                            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                        }
                         ViewGroup.LayoutParams params = imageView.getLayoutParams();
                         int vw = imageView.getWidth() - imageView.getPaddingLeft() - imageView.getPaddingRight();
                         float scale = (float) vw / (float) resource.getIntrinsicWidth();
                         int vh = Math.round(resource.getIntrinsicHeight() * scale);
                         params.height = vh + imageView.getPaddingTop() + imageView.getPaddingBottom();
                         imageView.setLayoutParams(params);
+                        if (imageView.getScaleType() != ImageView.ScaleType.FIT_XY) {
+                            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        }
                         return false;
                     }
                 })
-                .placeholder(errorImageId)
-                .error(errorImageId)
                 .into(imageView);
     }
 

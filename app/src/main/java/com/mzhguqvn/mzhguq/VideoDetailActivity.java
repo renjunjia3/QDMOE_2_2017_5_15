@@ -251,23 +251,47 @@ public class VideoDetailActivity extends SwipeBackActivity {
 
     @OnClick(R.id.play_video)
     public void onClickPlayVideo() {
-        if (!isEnterFromTrySee && App.role == 0) {
-            //不是首页进来自己也不是VIP，弹出开通会员的提示
+        if (isEnterFromTrySee && App.role == 0 && App.tryCount >= VideoConfig.TRY_COUNT_TIME) {
+            //游客试看区进来的没有试看次数
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
-                    "非会员只能试看体验，请成为会员继续观看", App.role, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
+                    "游客只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请开通会员继续观看", App.role, false, true, videoInfo.getVideo_id(),
+                    true, PageConfig.VIDEO_DETAIL_POSITION_ID);
+        } else if (!isEnterFromTrySee && App.role == 0) {
+            //游客不是试看区进来的
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                    "该片为会员视频，请开通会员继续观看", App.role, false, true, videoInfo.getVideo_id(),
+                    true, PageConfig.VIDEO_DETAIL_POSITION_ID);
+        } else if (isAnchor && App.cdn == 0) {
+            //主播进来的但是没开cdn
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "由于服务器开销较大，如需观看需缴纳CDN费用",
+                    App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.VIDEO_DETAIL_POSITION_ID);
         } else {
-            if (App.tryCount >= VideoConfig.TRY_COUNT_TIME && App.role == 0) {
-                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
-                        "非会员只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请成为会员继续观看", App.user_id, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
-            } else {
-                App.tryCount += 1;
-                SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);
-                Intent intent = new Intent(VideoDetailActivity.this, JCFullScreenActivity.class);
-                intent.putExtra(JCFullScreenActivity.PARAM_VIDEO_INFO, videoInfo);
-                intent.putExtra(JCFullScreenActivity.PARAM_CURRENT_TIME, currentTime);
-                startActivityForResult(intent, 101);
-            }
+            App.tryCount += 1;
+            SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);
+            Intent intent = new Intent(VideoDetailActivity.this, JCFullScreenActivity.class);
+            intent.putExtra(JCFullScreenActivity.PARAM_VIDEO_INFO, videoInfo);
+            intent.putExtra(JCFullScreenActivity.PARAM_CURRENT_TIME, currentTime);
+            startActivityForResult(intent, 101);
         }
+
+
+//        if (!isEnterFromTrySee && App.role == 0) {
+//            //不是首页进来自己也不是VIP，弹出开通会员的提示
+//            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+//                    "该片为会员视频，请开通会员继续观看", App.role, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
+//        } else {
+//            if (App.tryCount >= VideoConfig.TRY_COUNT_TIME && App.role == 0) {
+//                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+//                        "游客只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请开通会员继续观看", App.user_id, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
+//            } else {
+//                App.tryCount += 1;
+//                SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);
+//                Intent intent = new Intent(VideoDetailActivity.this, JCFullScreenActivity.class);
+//                intent.putExtra(JCFullScreenActivity.PARAM_VIDEO_INFO, videoInfo);
+//                intent.putExtra(JCFullScreenActivity.PARAM_CURRENT_TIME, currentTime);
+//                startActivityForResult(intent, 101);
+//            }
+//        }
 
     }
 

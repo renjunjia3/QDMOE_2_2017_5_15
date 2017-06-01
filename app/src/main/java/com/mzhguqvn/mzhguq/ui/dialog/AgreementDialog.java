@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
+import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.CheckBox;
@@ -47,7 +48,8 @@ public class AgreementDialog extends Dialog implements View.OnClickListener {
         cancel = (TextView) findViewById(R.id.cancel);
         content = (TextView) findViewById(R.id.content);
         content.setMovementMethod(new ScrollingMovementMethod());
-        content.setText(GetAssestDataUtil.getString(getContext(),"agreement"));
+        String str = GetAssestDataUtil.getString(getContext(), "agreement");
+        content.setText(Html.fromHtml(str));
 
         agreement.setOnClickListener(this);
         cancel.setOnClickListener(this);
