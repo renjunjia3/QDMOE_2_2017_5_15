@@ -52,7 +52,6 @@ public class MainFragment extends BaseFragment {
     public static final int TAB_3 = 2;
     public static final int TAB_4 = 3;
     public static final int TAB_5 = 4;
-    public static final int TAB_6 = 5;
 
     @BindView(R.id.bottomBar)
     BottomBar mBottomBar;
@@ -172,7 +171,7 @@ public class MainFragment extends BaseFragment {
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_try_see);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see_d, R.drawable.ic_bottom_bar_try_see_s, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
             case 1:

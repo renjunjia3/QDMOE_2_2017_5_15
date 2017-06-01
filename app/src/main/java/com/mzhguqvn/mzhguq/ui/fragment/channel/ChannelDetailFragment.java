@@ -65,9 +65,9 @@ public class ChannelDetailFragment extends BaseBackFragment implements GalleryAd
 
     private BigImageDialog bigImageDialog;
     private int cateId = 0;
-    private String cateName="";
+    private String cateName = "";
 
-    public static ChannelDetailFragment newInstance(int cateId,String cateName) {
+    public static ChannelDetailFragment newInstance(int cateId, String cateName) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_CATEID, cateId);
         bundle.putString(ARG_CATENAME, cateName);
@@ -82,7 +82,7 @@ public class ChannelDetailFragment extends BaseBackFragment implements GalleryAd
         Bundle args = getArguments();
         if (args != null) {
             cateId = args.getInt(ARG_CATEID);
-            cateName=args.getString(ARG_CATENAME);
+            cateName = args.getString(ARG_CATENAME);
         }
     }
 
@@ -154,7 +154,7 @@ public class ChannelDetailFragment extends BaseBackFragment implements GalleryAd
         }
 
         HashMap<String, String> params = API.createParams();
-        //params.put("cate_id", String.valueOf(cateId));
+        params.put("cate_id", String.valueOf(cateId));
         OkHttpUtils.get().url(API.URL_PRE + API.CHANNEL_DETAIL).params(params).tag(TAG).build().execute(new StringCallback() {
             @Override
             public void onBefore(Request request, int id) {
