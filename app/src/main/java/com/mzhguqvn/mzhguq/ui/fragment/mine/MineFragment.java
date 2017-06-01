@@ -66,10 +66,10 @@ public class MineFragment extends BaseMainFragment {
     private void initView() {
         switch (App.role) {
             case 0:
-                vipId.setText("游客" + App.user_id);
+                vipId.setText("游客ID" + App.user_id);
                 break;
             case 1:
-                vipId.setText("黄金会员" + App.user_id);
+                vipId.setText("黄金会员ID" + App.user_id);
                 break;
         }
         if (App.role == 0) {

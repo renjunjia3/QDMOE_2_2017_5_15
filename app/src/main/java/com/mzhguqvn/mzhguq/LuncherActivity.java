@@ -111,26 +111,26 @@ public class LuncherActivity extends AppCompatActivity {
                 App.IMEI = imei;
             }
         }
-        long lastLoginTime = SharedPreferencesUtil.getLong(LuncherActivity.this, App.LAST_LOGIN_TIME, 0);
-        if (!DateUtils.isDifferentDay(System.currentTimeMillis(), lastLoginTime)) {
-            App.user_id = SharedPreferencesUtil.getInt(LuncherActivity.this, App.USERID_KEY, 0);
-            App.role = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ROLE_KEY, 0);
-            App.cdn = SharedPreferencesUtil.getInt(LuncherActivity.this, App.CDN_KEY, 0);
-            if (System.currentTimeMillis() - loginTime < TIME) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(LuncherActivity.this, MainActivity.class));
-                        ActivityCompat.finishAffinity(LuncherActivity.this);
-                    }
-                }, TIME - (System.currentTimeMillis() - loginTime));
-            } else {
-                startActivity(new Intent(LuncherActivity.this, MainActivity.class));
-                ActivityCompat.finishAffinity(LuncherActivity.this);
-            }
-
-            return;
-        }
+//        long lastLoginTime = SharedPreferencesUtil.getLong(LuncherActivity.this, App.LAST_LOGIN_TIME, 0);
+//        if (!DateUtils.isDifferentDay(System.currentTimeMillis(), lastLoginTime)) {
+//            App.user_id = SharedPreferencesUtil.getInt(LuncherActivity.this, App.USERID_KEY, 0);
+//            App.role = SharedPreferencesUtil.getInt(LuncherActivity.this, App.ROLE_KEY, 0);
+//            App.cdn = SharedPreferencesUtil.getInt(LuncherActivity.this, App.CDN_KEY, 0);
+//            if (System.currentTimeMillis() - loginTime < TIME) {
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        startActivity(new Intent(LuncherActivity.this, MainActivity.class));
+//                        ActivityCompat.finishAffinity(LuncherActivity.this);
+//                    }
+//                }, TIME - (System.currentTimeMillis() - loginTime));
+//            } else {
+//                startActivity(new Intent(LuncherActivity.this, MainActivity.class));
+//                ActivityCompat.finishAffinity(LuncherActivity.this);
+//            }
+//
+//            return;
+//        }
 
         HashMap<String, String> params = API.createParams();
         params.put("device", Build.BRAND);

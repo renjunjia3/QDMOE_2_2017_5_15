@@ -109,8 +109,8 @@ public class VoucherFragment extends BaseBackFragment {
         });
         list = new ArrayList<>();
         adapter = new VoucherAdapter(getContext(), list);
-        listView.setAdapter(adapter);
         listView.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.fragment_voucher_header, null));
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

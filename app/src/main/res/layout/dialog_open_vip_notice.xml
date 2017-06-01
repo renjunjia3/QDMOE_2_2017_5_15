@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:gravity="center"
-            android:text="成功开通CDN加速,并荣获商城价值38元代金券"
+            android:text="成功开通CDN加速"
             android:textColor="#009FDB"
             android:textSize="@dimen/text_size_large" />
 

@@ -11,10 +11,10 @@ import java.util.HashMap;
  */
 public class API {
 
-        //正式环境
+    //正式环境
     public static final String URL_PRE = "http://api.alpv.pw/video/";
 //    //测试环境
-//    public static final String URL_PRE = "http://tapi.alpv.pw/video/";
+   // public static final String URL_PRE = "http://tapi.alpv.pw/video/";
 
     //默认的key
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
@@ -68,8 +68,12 @@ public class API {
     public static final String GET_LOGISTICS = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
     //获取图库数据
     public static final String GALLERY = "gallery";
+    //频道
+    public static final String CHANNEL = "gallery/cate";
+    //频道内页
+    public static final String CHANNEL_DETAIL = "gallery";
     //获取代金券列表
-    public static final String VOUCHER="user/voucher";
+    public static final String VOUCHER = "user/voucher";
 
     /**
      * Case By:创建参数基础信息

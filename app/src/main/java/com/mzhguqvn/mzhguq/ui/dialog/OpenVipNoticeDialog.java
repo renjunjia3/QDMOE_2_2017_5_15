@@ -77,16 +77,13 @@ public class OpenVipNoticeDialog extends Dialog {
             }
 
             TextView content = (TextView) dialog.findViewById(R.id.content);
-            SpannableStringBuilder builder = new SpannableStringBuilder("成功开通" + message1 + ",并荣获商城" + message2 + "代金券");
+            SpannableStringBuilder builder = new SpannableStringBuilder("成功开通" + message1);
 
             ForegroundColorSpan span1 = new ForegroundColorSpan(Color.parseColor("#FF6724"));
-            ForegroundColorSpan span2 = new ForegroundColorSpan(Color.parseColor("#E52D2B"));
             StyleSpan styleSpan_B = new StyleSpan(Typeface.BOLD);
 
             builder.setSpan(span1, 4, message1.length() + 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            builder.setSpan(span2, message1.length() + 10, message1.length() + message2.length() + 10, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             builder.setSpan(styleSpan_B, 4, message1.length() + 4, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            builder.setSpan(styleSpan_B, message1.length() + 10, message1.length() + message2.length() + 10, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             content.setText(builder);
             dialog.setContentView(layout);
             dialog.setCanceledOnTouchOutside(false);

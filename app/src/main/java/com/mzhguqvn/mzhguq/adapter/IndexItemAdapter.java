@@ -2,6 +2,7 @@ package com.mzhguqvn.mzhguq.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,7 @@ public class IndexItemAdapter extends BaseAdapter {
         holder.tag.setBackgroundColor(Color.parseColor(colors[new Random().nextInt(4)]));
         int height = (int) ((screenUtils.getScreenWidth() - screenUtils.dip2px(40f)) * 210f / 3f / 150f);
         ViewUtils.setViewHeightByViewGroup(holder.image, height);
-        Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(holder.image);
+        Glide.with(context).load(TextUtils.isEmpty(info.getThumb())?info.getThumb_heng():info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(holder.image);
         holder.playTime.setText(info.getHits() + "次播放");
         holder.time.setText(JCUtils.stringForTime(info.getDuration()));
         return convertView;
