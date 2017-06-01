@@ -8,4 +8,5 @@ package com.mzhguqvn.mzhguq.video;
 
 public class VideoConfig {
     public static final int TRY_COUNT_TIME = 10;
+    public static boolean isFromAnchor = false;
 }

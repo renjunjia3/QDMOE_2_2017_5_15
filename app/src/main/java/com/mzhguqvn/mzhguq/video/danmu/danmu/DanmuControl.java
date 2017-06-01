@@ -285,7 +285,8 @@ public class DanmuControl {
                                 danmaku.textSize = DANMU_TEXT_SIZE/* * (mDanmakuContext.getDisplayer().getDensity() - 0.6f)*/;
                                 danmaku.textColor = Color.WHITE;
                                 danmaku.textShadowColor = 0; // 重要：如果有图文混排，最好不要设置描边(设textShadowColor=0)，否则会进行两次复杂的绘制导致运行效率降低
-                                mDanmakuView.addDanmaku(danmaku);
+                                if (mDanmakuView != null && danmaku != null)
+                                    mDanmakuView.addDanmaku(danmaku);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

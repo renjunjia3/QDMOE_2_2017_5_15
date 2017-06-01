@@ -16,10 +16,9 @@ import com.mzhguqvn.mzhguq.base.BaseFragment;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
 import com.mzhguqvn.mzhguq.event.TabSelectedEvent;
 import com.mzhguqvn.mzhguq.ui.fragment.anchor.Anchor1Fragment;
-import com.mzhguqvn.mzhguq.ui.fragment.gallery.GalleryFragment;
+import com.mzhguqvn.mzhguq.ui.fragment.channel.ChannelFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.HotLineFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.MineFragment;
-import com.mzhguqvn.mzhguq.ui.fragment.shop.ShopFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.GlodVip1Fragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.TrySeeFragment;
 import com.mzhguqvn.mzhguq.ui.view.BottomBar;
@@ -86,41 +85,41 @@ public class MainFragment extends BaseFragment {
                 case 0://试看
                     fragments.add(TrySeeFragment.newInstance());
                     fragments.add(GlodVip1Fragment.newInstance());
-                    fragments.add(ShopFragment.newInstance());
+                    fragments.add(ChannelFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_try_see));
                     tabNames.add(getString(R.string.tab_vip));
-                    tabNames.add(getString(R.string.tab_shop));
+                    tabNames.add(getString(R.string.tab_channel));
                     tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 1://黄金会员
                     if (App.cdn == 0) {
                         fragments.add(GlodVip1Fragment.newInstance());
-                        fragments.add(GalleryFragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
+                        fragments.add(ChannelFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_glod));
-                        tabNames.add(getString(R.string.tab_gallery));
-                        tabNames.add(getString(R.string.tab_shop));
+                        tabNames.add(getString(R.string.tab_channel));
                         tabNames.add(getString(R.string.tab_mine));
                     } else {
                         fragments.add(Anchor1Fragment.newInstance());
-                        fragments.add(ShopFragment.newInstance());
-                        fragments.add(GalleryFragment.newInstance());
+                        fragments.add(ChannelFragment.newInstance());
                         fragments.add(MineFragment.newInstance());
 
                         tabNames.add(getString(R.string.tab_anchor));
-                        tabNames.add(getString(R.string.tab_shop));
-                        tabNames.add(getString(R.string.tab_gallery));
+                        tabNames.add(getString(R.string.tab_channel));
                         tabNames.add(getString(R.string.tab_mine));
                     }
 
                     break;
             }
-
-            if (fragments.size() == 4) {
+            if (fragments.size() == 3) {
+                loadMultipleRootFragment(R.id.fl_container, TAB_1,
+                        fragments.get(TAB_1),
+                        fragments.get(TAB_2),
+                        fragments.get(TAB_3));
+            } else if (fragments.size() == 4) {
                 loadMultipleRootFragment(R.id.fl_container, TAB_1,
                         fragments.get(TAB_1),
                         fragments.get(TAB_2),
@@ -133,34 +132,24 @@ public class MainFragment extends BaseFragment {
                         fragments.get(TAB_3),
                         fragments.get(TAB_4),
                         fragments.get(TAB_5));
-            } else if (fragments.size() == 6) {
-                loadMultipleRootFragment(R.id.fl_container, TAB_1,
-                        fragments.get(TAB_1),
-                        fragments.get(TAB_2),
-                        fragments.get(TAB_3),
-                        fragments.get(TAB_4),
-                        fragments.get(TAB_5),
-                        fragments.get(TAB_6));
             }
         } else {
             switch (App.role) {
                 case 0:
                     fragments.add(findChildFragment(TrySeeFragment.class));
                     fragments.add(findChildFragment(GlodVip1Fragment.class));
-                    fragments.add(findChildFragment(ShopFragment.class));
+                    fragments.add(findChildFragment(ChannelFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 1:
                     if (App.cdn == 0) {
                         fragments.add(findChildFragment(GlodVip1Fragment.class));
-                        fragments.add(findChildFragment(GalleryFragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
+                        fragments.add(findChildFragment(ChannelFragment.class));
                         fragments.add(findChildFragment(MineFragment.class));
                     } else {
                         //已开通cdn
                         fragments.add(findChildFragment(Anchor1Fragment.class));
-                        fragments.add(findChildFragment(ShopFragment.class));
-                        fragments.add(findChildFragment(GalleryFragment.class));
+                        fragments.add(findChildFragment(ChannelFragment.class));
                         fragments.add(findChildFragment(MineFragment.class));
                     }
                     break;
@@ -183,7 +172,7 @@ public class MainFragment extends BaseFragment {
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_try_see);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see_d, R.drawable.ic_bottom_bar_try_see_s, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
             case 1:
@@ -191,14 +180,12 @@ public class MainFragment extends BaseFragment {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(2)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
                 } else {
                     toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
                     mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(0)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_shop_d, R.drawable.ic_bottom_bar_shop_s, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(2)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(1)));
+                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
                 }
                 break;
         }

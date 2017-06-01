@@ -742,19 +742,21 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
     protected int getDuration() {
         int duration = 0;
         try {
-            if (JCMediaManager.instance().mediaPlayer.getDuration() < 10 * 60 * 1000) {
+            if (VideoConfig.isFromAnchor) {
+                duration = JCMediaManager.instance().mediaPlayer.getDuration();
+            } else {
                 duration = JCMediaManager.instance().mediaPlayer.getDuration() * 50;
                 if (duration < 3600 * 1000) {
                     duration = duration + 1800 * 1000;
                 }
-            } else {
-                duration = JCMediaManager.instance().mediaPlayer.getDuration();
+
             }
 
         } catch (IllegalStateException e) {
             e.printStackTrace();
+        } finally {
+            return duration == 0 ? 1 : duration;
         }
-        return duration == 0 ? 1 : duration;
     }
 
     protected void setTextAndProgress(int secProgress) {
@@ -802,7 +804,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
     protected void finishFullscreenActivity() {
         if (getContext() instanceof JCFullScreenActivity) {
             Log.i(TAG, "finishFullscreenActivity [" + this.hashCode() + "] ");
-            //((JCFullScreenActivity) getContext()).finish();
+            ((JCFullScreenActivity) getContext()).finish();
         }
     }
 

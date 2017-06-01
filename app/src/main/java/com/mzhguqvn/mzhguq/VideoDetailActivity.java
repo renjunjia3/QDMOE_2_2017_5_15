@@ -266,6 +266,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "由于服务器开销较大，如需观看需缴纳CDN费用",
                     App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.VIDEO_DETAIL_POSITION_ID);
         } else {
+            VideoConfig.isFromAnchor = isAnchor;
             App.tryCount += 1;
             SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);
             Intent intent = new Intent(VideoDetailActivity.this, JCFullScreenActivity.class);

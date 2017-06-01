@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
 import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GalleryAdapter;
@@ -107,22 +106,6 @@ public class GalleryFragment extends BaseMainFragment implements GalleryAdapter.
         recyclerView.addItemDecoration(itemDecotation);
         recyclerView.setAdapter(adapter);
         adapter.setOnGalleryClickListener(this);
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                try {
-//                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                        Glide.with(getContext()).pauseRequests();
-//                    } else {
-//                        Glide.with(getContext()).resumeRequests();
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        });
     }
 
     /**

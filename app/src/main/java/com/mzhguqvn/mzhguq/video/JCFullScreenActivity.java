@@ -56,7 +56,6 @@ public class JCFullScreenActivity extends Activity {
     public static final String PARAM_DIALOG_TYPE = "dialog_type";
     public static final String PARAM_VIDEO_INFO = "video_info";
 
-
     private static VideoInfo videoInfo;
     private static Timer mTimer;
 
@@ -276,7 +275,7 @@ public class JCFullScreenActivity extends Activity {
             final Activity activity = mActivityReference.get();
             if (activity != null) {
                 try {
-                    if (App.role == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
+                    if (App.role == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 1000) {
                         timerTask.cancel();
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
@@ -295,7 +294,7 @@ public class JCFullScreenActivity extends Activity {
                                 }
                             });
                         }
-                    } else if (App.role == 1 && App.cdn == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 5000) {
+                    } else if (App.role == 1 && App.cdn == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 1000) {
                         timerTask.cancel();
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();

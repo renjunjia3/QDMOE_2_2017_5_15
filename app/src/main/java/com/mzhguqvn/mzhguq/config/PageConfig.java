@@ -28,5 +28,7 @@ public class PageConfig {
     public static final int GOODS_COMMENT_LIST_POSITOTN_ID = 19;
     public static final int VIDEO_DETAIL_POSITION_ID = 20;
     public static final int MY_VOUCHER_POSITION_ID = 21;
+    public static final int CHANNEL_POSITION_ID = 22;
+    public static final int CHANNEL_DETAIL_POSITION_ID = 23;
 
 }
