@@ -25,6 +25,7 @@
     <string name="tab_shop">商城</string>
     <string name="tab_anchor">VIP视频</string>
     <string name="tab_gallery">写真</string>
+    <string name="tab_channel">频道</string>
 
     <string name="vip_dialog_notice">温馨提示：微信首次支付可能会出现无反应的情况，请耐心等待数秒，如果一直无反应或支付失败，请重新点击再试!</string>
     <string name="hot_line_notice">尊敬的客户，您有任何问题，可以咨询客服中心，我们将竭诚为你服务：</string>
