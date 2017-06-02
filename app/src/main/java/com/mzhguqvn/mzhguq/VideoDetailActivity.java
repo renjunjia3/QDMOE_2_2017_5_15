@@ -275,25 +275,6 @@ public class VideoDetailActivity extends SwipeBackActivity {
             startActivityForResult(intent, 101);
         }
 
-
-//        if (!isEnterFromTrySee && App.role == 0) {
-//            //不是首页进来自己也不是VIP，弹出开通会员的提示
-//            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
-//                    "该片为会员视频，请开通会员继续观看", App.role, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
-//        } else {
-//            if (App.tryCount >= VideoConfig.TRY_COUNT_TIME && App.role == 0) {
-//                DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
-//                        "游客只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请开通会员继续观看", App.user_id, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
-//            } else {
-//                App.tryCount += 1;
-//                SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);
-//                Intent intent = new Intent(VideoDetailActivity.this, JCFullScreenActivity.class);
-//                intent.putExtra(JCFullScreenActivity.PARAM_VIDEO_INFO, videoInfo);
-//                intent.putExtra(JCFullScreenActivity.PARAM_CURRENT_TIME, currentTime);
-//                startActivityForResult(intent, 101);
-//            }
-//        }
-
     }
 
     private int currentTime = 0;

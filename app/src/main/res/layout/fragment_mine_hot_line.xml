@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="quduo888@yeah.net"
+                android:text="akj4b2kd93nh_3b@sina.com"
                 android:textColor="#666666"
                 android:textSize="@dimen/text_size_middle" />
         </LinearLayout>
@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9:00--12:00 14:00-17:00（周一至周五）"
+                android:text="工作时间：早上9:00-12:00，下午13：00-18:00（周一至周五）\n非工作时间收到的问题邮件工作人员会在正常上班后第一时间处理"
                 android:textColor="#666666"
                 android:textSize="@dimen/text_size_middle" />
         </LinearLayout>
