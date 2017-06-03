@@ -8,5 +8,5 @@ import com.mzhguqvn.mzhguq.app.App;
 
 public class PayConfig {
     //当前应用版本号
-    public static final String VERSION_NAME = App.versionCode + "-2017/6/2-Relase-" + App.CHANNEL_ID;
+    public static final String VERSION_NAME = App.versionCode + "-2017/6/3-Relase-" + App.CHANNEL_ID;
 }
