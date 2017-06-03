@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:button="@drawable/ic_pay_type_selector"
-            android:checked="true"
             android:drawableLeft="@drawable/ic_wechat"
             android:drawablePadding="5dp"
             android:padding="5dp"
@@ -30,11 +29,13 @@
             android:layout_weight="1" />
 
         <RadioButton
+            android:id="@+id/type_alipay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:button="@drawable/ic_pay_type_selector"
             android:drawableLeft="@drawable/ic_alipay"
+            android:checked="true"
             android:drawablePadding="5dp"
             android:padding="5dp"
             android:text="支付宝支付"

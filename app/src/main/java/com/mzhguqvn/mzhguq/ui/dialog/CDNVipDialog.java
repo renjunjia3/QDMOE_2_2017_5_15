@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -96,26 +95,15 @@ public class CDNVipDialog extends Dialog {
                 }
             });
 
-            RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
-            if (radioGroup.getCheckedRadioButtonId() == R.id.type_wechat) {
-                type = 1;
-            } else {
-                type = 2;
-            }
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            final RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
+            layout.findViewById(R.id.open_vip).setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-
-                    if (checkedId == R.id.type_wechat) {
+                public void onClick(View v) {
+                    if (radioGroup.getCheckedRadioButtonId() == R.id.type_wechat) {
                         type = 1;
                     } else {
                         type = 2;
                     }
-                }
-            });
-            layout.findViewById(R.id.open_vip).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
                     if (type == 1) {
                         PayUtil.getInstance().payByWeChat(context, PayUtil.VIP_TYPE_5, videoId, isVideoDetailPage, pay_position_id);
                     } else {
