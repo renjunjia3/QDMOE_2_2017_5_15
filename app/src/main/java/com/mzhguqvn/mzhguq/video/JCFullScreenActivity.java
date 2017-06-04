@@ -120,7 +120,7 @@ public class JCFullScreenActivity extends Activity {
 
         mTimer = new Timer();
         mTimer.schedule(timerTask, 50, 50);
-        getDanmuData();
+        //getDanmuData();
 
         if (App.role == 0) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);

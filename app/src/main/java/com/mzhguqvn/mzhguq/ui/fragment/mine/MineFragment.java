@@ -137,9 +137,19 @@ public class MineFragment extends BaseMainFragment {
     /**
      * 检查更新,清除缓存
      */
-    @OnClick({R.id.update, R.id.huancun})
+    @OnClick({R.id.update, R.id.huancun, R.id.system_message})
     public void onClickCheckUpdate(View view) {
-        if (view.getId() == R.id.update) {
+        if (view.getId() == R.id.system_message) {
+            CustomSubmitDialog.Builder builder = new CustomSubmitDialog.Builder(_mActivity);
+            builder.setMessage("暂无系统消息");
+            builder.setButtonText("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        } else if (view.getId() == R.id.update) {
             CustomSubmitDialog.Builder builder = new CustomSubmitDialog.Builder(_mActivity);
             builder.setMessage("当前已经是最新版本");
             builder.setButtonText("确定", new DialogInterface.OnClickListener() {

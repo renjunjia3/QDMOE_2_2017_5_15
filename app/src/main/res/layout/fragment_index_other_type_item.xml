@@ -39,6 +39,7 @@
             android:background="#80000000"
             android:paddingBottom="2dp"
             android:paddingLeft="5dp"
+            android:visibility="gone"
             android:paddingRight="5dp"
             android:paddingTop="2dp"
             android:text="50:28"

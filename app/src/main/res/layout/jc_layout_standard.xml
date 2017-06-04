@@ -16,6 +16,7 @@
         android:id="@+id/sv_danmaku"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp" />
 
@@ -180,6 +181,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/close_damnu"
         android:background="@drawable/shape_round_bg_glod_big_corner"
         android:paddingBottom="3dp"
@@ -196,6 +199,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:padding="5dp"
+        android:visibility="gone"
         android:src="@drawable/ic_close_danmu"
         android:textColor="@android:color/white"
         android:textSize="16sp" />

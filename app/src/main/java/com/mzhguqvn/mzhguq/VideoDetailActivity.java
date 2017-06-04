@@ -173,7 +173,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         });
         getRecomendVideo();
         //获取评论的数据
-        getCommentData();
+        //getCommentData();
 
         progressDialog = new ProgressDialog(VideoDetailActivity.this);
         progressDialog.setMessage("正在获取支付结果...");

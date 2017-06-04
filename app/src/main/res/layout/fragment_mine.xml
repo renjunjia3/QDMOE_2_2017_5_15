@@ -186,10 +186,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#333333"
-                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -214,8 +214,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="gone"
-                android:background="#46433e" />
+                android:background="#46433e"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/voucher"
@@ -223,9 +223,9 @@
                 android:layout_height="wrap_content"
                 android:background="#333333"
                 android:gravity="center_vertical"
-                android:visibility="gone"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -249,9 +249,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:layout_height="1dp"
-                android:background="#46433e" />
+                android:background="#46433e"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/xieyi"
@@ -330,7 +330,8 @@
                 android:background="#333333"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -345,6 +346,36 @@
                     android:text="观看历史"
                     android:textColor="#f1d09e"
                     android:textSize="@dimen/text_size_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_glod" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/system_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#333333"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_lisi" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="系统消息"
+                    android:textColor="#f1d09e"
+                    android:textSize="@dimen/text_size_big" />
+
 
                 <ImageView
                     android:layout_width="wrap_content"
