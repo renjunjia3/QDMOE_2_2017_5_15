@@ -103,7 +103,7 @@ public class GlodVip1Fragment extends BaseMainFragment {
         TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
         if (App.role == 1 || App.role == 2) {
             footerText.setVisibility(View.VISIBLE);
-            footerText.setText("升级钻石顶级会员,加载更多精彩内容");
+            footerText.setText("升级钻石顶级会员,观看更多精彩内容");
         } else {
             footerText.setVisibility(View.GONE);
         }
@@ -225,9 +225,6 @@ public class GlodVip1Fragment extends BaseMainFragment {
                                 statusViewLayout.showContent();
                             }
                         }
-                        if(App.role>2){
-                            getTrySeeData1();
-                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                         if (isShowLoad) {
@@ -250,38 +247,6 @@ public class GlodVip1Fragment extends BaseMainFragment {
             } else {
                 ptrLayout.refreshComplete();
             }
-        }
-    }
-
-    private void getTrySeeData1() {
-        if (NetWorkUtils.isNetworkConnected(getContext())) {
-            HashMap<String, String> params = API.createParams();
-            params.put("position_id", "4");
-            getDataCall = OkHttpUtils.get().url(API.URL_PRE + API.VIP_INDEX).params(params).build();
-            getDataCall.execute(new StringCallback() {
-                @Override
-                public void onError(Call call, Exception e, int i) {
-                    ptrLayout.refreshComplete();
-                }
-
-                @Override
-                public void onResponse(String s, int i) {
-                    try {
-                        VipInfo vipInfo = JSON.parseObject(s, VipInfo.class);
-                        lists.addAll(vipInfo.getOther());
-                        adapter.notifyDataSetChanged();
-                        SharedPreferencesUtil.putString(getContext(), "NOTIFY_DATA", s);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        ptrLayout.refreshComplete();
-                    }
-                }
-            });
-
-        } else {
-            //网络未连接
-            ptrLayout.refreshComplete();
         }
     }
 

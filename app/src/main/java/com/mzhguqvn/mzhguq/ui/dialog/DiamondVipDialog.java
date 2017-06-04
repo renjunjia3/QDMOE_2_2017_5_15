@@ -57,6 +57,7 @@ public class DiamondVipDialog extends Dialog {
         private int vipType = 1;
 
         private TextView text1,text2;
+        private TextView diamondTitle;
         private TextView price1, price2;
         private TextView oldPrice1, oldPrice2;
         private RadioGroup radioGroup;
@@ -87,6 +88,7 @@ public class DiamondVipDialog extends Dialog {
             layoutVipYear = (LinearLayout) layout.findViewById(R.id.layout_vip_year);
             vipMonth = (ImageView) layout.findViewById(R.id.vipMonth);
             vipYear = (ImageView) layout.findViewById(R.id.vipYear);
+            diamondTitle= (TextView) layout.findViewById(R.id.diamond_title);
             switch (App.role) {
                 case 0:
                     //游客直接开通钻石会员
@@ -116,6 +118,7 @@ public class DiamondVipDialog extends Dialog {
                     text2.setText("升级");
                     price1.setText("￥30.00");
                     oldPrice1.setText("￥60.00");
+                    diamondTitle.setText("钻石包年");
                     layoutVipMonth.setVisibility(View.VISIBLE);
                     layoutVipYear.setVisibility(View.GONE);
                     break;
