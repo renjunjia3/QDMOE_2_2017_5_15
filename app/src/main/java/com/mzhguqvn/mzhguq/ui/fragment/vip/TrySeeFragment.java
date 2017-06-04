@@ -38,7 +38,6 @@ import com.zhy.http.okhttp.request.RequestCall;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,12 +69,8 @@ public class TrySeeFragment extends BaseMainFragment {
     //adapter
     private TrySeeAdapter adapter;
     private List<TrySeeContentInfo> lists;
-
     //banner
     private View bannerView;
-    //footer
-    private View footerView;
-    private TextView footerText;
 
     public static TrySeeFragment newInstance() {
         Bundle args = new Bundle();
@@ -103,16 +98,16 @@ public class TrySeeFragment extends BaseMainFragment {
     }
 
     private void addFooterView() {
-        footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
-        footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
         if (App.role == 0) {
-            footerText.setText("请开通会员开放更多影片资源");
+            footerText.setText("开通会员，观看更多精彩内容");
         }
         footerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (App.role == 0) {
-                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, PageConfig.TRY_SEE_POSITOTN_ID);
+                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0,  PageConfig.TRY_SEE_POSITOTN_ID);
                 }
             }
         });
@@ -159,7 +154,9 @@ public class TrySeeFragment extends BaseMainFragment {
             listView.removeHeaderView(bannerView);
         }
         listView.addHeaderView(bannerView);
-        banner = (Banner) bannerView.findViewById(R.id.banner);
+        if (banner == null) {
+            banner = (Banner) bannerView.findViewById(R.id.banner);
+        }
         banner.releaseBanner();
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
@@ -258,7 +255,7 @@ public class TrySeeFragment extends BaseMainFragment {
     private void toVideoDetail(VideoInfo videoInfo) {
         Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
         intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
-        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, true);
+        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, PageConfig.TRY_SEE_POSITOTN_ID);
         _mActivity.startActivityForResult(intent, 9999);
     }
 

@@ -468,8 +468,8 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 //                    }
                     if (App.role == 0) {
                         ToastUtils.getInstance(getContext()).showToast("请开通会员");
-                    } else if (App.role == 1 && App.role == 0) {
-                        ToastUtils.getInstance(getContext()).showToast("请开通CDN加速服务");
+                    } else if (App.role == 1 || App.role == 2) {
+                        ToastUtils.getInstance(getContext()).showToast("请升级钻石会员");
                     }
                     break;
             }
@@ -745,7 +745,8 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
             if (VideoConfig.isFromAnchor) {
                 duration = JCMediaManager.instance().mediaPlayer.getDuration();
             } else {
-                duration = JCMediaManager.instance().mediaPlayer.getDuration() * 50;
+                duration = JCMediaManager.instance().mediaPlayer.getDuration();
+                duration = duration > 5 * 60 * 1000 ? duration : duration * 50;
                 if (duration < 3600 * 1000) {
                     duration = duration + 1800 * 1000;
                 }

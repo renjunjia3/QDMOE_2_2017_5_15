@@ -56,16 +56,14 @@ public class GlodVipDialog extends Dialog {
     public static class Builder {
         private Context context;
         private int videoId;
-        private boolean isVideoDetailPage;
         private int pay_position_id;
 
-        private int type = 1;
-        private int vip_type = 1;
+        private int payWayType = 1;
+        private int vip_type = PayUtil.VIP_TYPE_OPEN_GLOD_MONTH;
 
-        public Builder(Context context, int videoId, boolean isVideoDetailPage, int pay_position_id) {
+        public Builder(Context context, int videoId, int pay_position_id) {
             this.context = context;
             this.videoId = videoId;
-            this.isVideoDetailPage = isVideoDetailPage;
             this.pay_position_id = pay_position_id;
         }
 
@@ -100,7 +98,7 @@ public class GlodVipDialog extends Dialog {
             layout.findViewById(R.id.layout_type_glod).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    vip_type = PayUtil.VIP_TYPE_1;
+                    vip_type = PayUtil.VIP_TYPE_OPEN_GLOD_MONTH;
                     glodChoosed.setImageResource(R.drawable.ic_vip_type_s);
                     diamondChoosed.setImageResource(R.drawable.ic_vip_type_d);
                 }
@@ -108,7 +106,7 @@ public class GlodVipDialog extends Dialog {
             layout.findViewById(R.id.layout_type_diamond).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    vip_type = PayUtil.VIP_TYPE_6;
+                    vip_type = PayUtil.VIP_TYPE_OPEN_GLOD_YEAR;
                     glodChoosed.setImageResource(R.drawable.ic_vip_type_d);
                     diamondChoosed.setImageResource(R.drawable.ic_vip_type_s);
                 }
@@ -118,14 +116,14 @@ public class GlodVipDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     if (radioGroup.getCheckedRadioButtonId() == R.id.type_wechat) {
-                        type = 1;
+                        payWayType = 1;
                     } else {
-                        type = 2;
+                        payWayType = 2;
                     }
-                    if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, vip_type, videoId, isVideoDetailPage, pay_position_id);
+                    if (payWayType == 1) {
+                        PayUtil.getInstance().payByWeChat(context, vip_type, videoId, pay_position_id);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, vip_type, videoId, isVideoDetailPage, pay_position_id);
+                        PayUtil.getInstance().payByAliPay(context, vip_type, videoId, pay_position_id);
                     }
 
                 }

@@ -4,12 +4,9 @@ import android.content.Context;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.app.App;
-import com.mzhguqvn.mzhguq.config.PageConfig;
-import com.mzhguqvn.mzhguq.ui.dialog.BackGlodVipDialog;
-import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
+import com.mzhguqvn.mzhguq.util.DialogUtil;
 
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
@@ -19,12 +16,6 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * Created by scene on 17/3/13.
  */
 public abstract class BaseMainFragment extends BaseFragment {
-    // 再点一次退出程序时间设置
-    private static final long WAIT_TIME = 2000L;
-    private long TOUCH_TIME = 0;
-    private BackGlodVipDialog dialog;
-    private BackGlodVipDialog.Builder builder;
-
 
     protected OnFragmentOpenDrawerListener mOpenDraweListener;
 
@@ -50,15 +41,7 @@ public abstract class BaseMainFragment extends BaseFragment {
     @Override
     public boolean onBackPressedSupport() {
         if (App.role == 0) {
-            if (builder == null) {
-                builder = new BackGlodVipDialog.Builder(_mActivity, 0, false, PageConfig.BACK_OPEN_VIP_POSITOTN_ID);
-            }
-            if (dialog == null) {
-                dialog = builder.create();
-            }
-            dialog.show();
-            MainFragment.clickWantPay();
-            MainActivity.upLoadPageInfo(PageConfig.BACK_OPEN_VIP_POSITOTN_ID, 0, 0);
+            DialogUtil.getInstance().showBackGlodVipDialog(getContext());
         }
         return true;
     }

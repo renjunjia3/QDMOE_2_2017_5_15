@@ -72,9 +72,6 @@ public class GlodVip1Fragment extends BaseMainFragment {
 
     //banner
     private View bannerView;
-    //footer
-    private View footerView;
-    private TextView footerText;
 
     public static GlodVip1Fragment newInstance() {
         Bundle args = new Bundle();
@@ -102,16 +99,19 @@ public class GlodVip1Fragment extends BaseMainFragment {
     }
 
     private void addFooterView() {
-        footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
-        footerText = (TextView) footerView.findViewById(R.id.footer_text);
-        if (App.role == 0) {
-            footerText.setText("请开通会员开放更多影片资源");
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
+        TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
+        if (App.role == 1 || App.role == 2) {
+            footerText.setVisibility(View.VISIBLE);
+            footerText.setText("升级钻石顶级会员,加载更多精彩内容");
+        } else {
+            footerText.setVisibility(View.GONE);
         }
         footerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (App.role == 0) {
-                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, PageConfig.GLOD_POSITOTN_ID);
+                if (App.role == 1 || App.role == 2) {
+                    DialogUtil.getInstance().showDiamondVipDialog(getContext(), 0, PageConfig.GLOD_POSITOTN_ID);
                 }
             }
         });
@@ -158,7 +158,9 @@ public class GlodVip1Fragment extends BaseMainFragment {
             listView.removeHeaderView(bannerView);
         }
         listView.addHeaderView(bannerView);
-        banner = (Banner) bannerView.findViewById(R.id.banner);
+        if (banner == null) {
+            banner = (Banner) bannerView.findViewById(R.id.banner);
+        }
         banner.releaseBanner();
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
@@ -223,6 +225,9 @@ public class GlodVip1Fragment extends BaseMainFragment {
                                 statusViewLayout.showContent();
                             }
                         }
+                        if(App.role>2){
+                            getTrySeeData1();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                         if (isShowLoad) {
@@ -248,6 +253,38 @@ public class GlodVip1Fragment extends BaseMainFragment {
         }
     }
 
+    private void getTrySeeData1() {
+        if (NetWorkUtils.isNetworkConnected(getContext())) {
+            HashMap<String, String> params = API.createParams();
+            params.put("position_id", "4");
+            getDataCall = OkHttpUtils.get().url(API.URL_PRE + API.VIP_INDEX).params(params).build();
+            getDataCall.execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int i) {
+                    ptrLayout.refreshComplete();
+                }
+
+                @Override
+                public void onResponse(String s, int i) {
+                    try {
+                        VipInfo vipInfo = JSON.parseObject(s, VipInfo.class);
+                        lists.addAll(vipInfo.getOther());
+                        adapter.notifyDataSetChanged();
+                        SharedPreferencesUtil.putString(getContext(), "NOTIFY_DATA", s);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        ptrLayout.refreshComplete();
+                    }
+                }
+            });
+
+        } else {
+            //网络未连接
+            ptrLayout.refreshComplete();
+        }
+    }
+
     /**
      * Case By:跳转到视频详情页
      * Author: scene on 2017/4/19 9:33
@@ -255,15 +292,10 @@ public class GlodVip1Fragment extends BaseMainFragment {
      * @param videoInfo 视频信息
      */
     private void toVideoDetail(VideoInfo videoInfo) {
-//        if (App.role == 0) {
-//            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该片为会员视频，请开通会员后观看", App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.GLOD_POSITOTN_ID);
-//        } else {
-            Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
-            intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
-            intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
-            _mActivity.startActivityForResult(intent, 9999);
-//        }
-
+        Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
+        intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
+        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, PageConfig.GLOD_POSITOTN_ID);
+        _mActivity.startActivityForResult(intent, 9999);
     }
 
 

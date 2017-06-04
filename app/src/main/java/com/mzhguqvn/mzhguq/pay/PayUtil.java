@@ -6,8 +6,6 @@ import android.content.Intent;
 
 import com.alibaba.fastjson.JSON;
 import com.mzhguqvn.mzhguq.AliPayActivity;
-import com.mzhguqvn.mzhguq.MainActivity;
-import com.mzhguqvn.mzhguq.VideoDetailActivity;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.bean.CreateGoodsOrderInfo;
 import com.mzhguqvn.mzhguq.bean.PayTokenResultInfo;
@@ -32,59 +30,56 @@ public class PayUtil {
     private ProgressDialog dialog;
 
     //VIP的类型对应下面的描述
-    public static final int VIP_TYPE_1 = 1;
-    public static final int VIP_TYPE_2 = 2;
-    public static final int VIP_TYPE_3 = 3;
-    public static final int VIP_TYPE_4 = 4;
-    public static final int VIP_TYPE_5 = 5;
-    public static final int VIP_TYPE_6 = 6;
-    public static final int VIP_TYPE_7 = 7;
+    // [1 => '开通黄金会员', 2 => '优惠开通黄金会员', 3 => '优惠开通包年黄金会员', 4 => '开通包年黄金会员',
+    // 5 => '直接开通钻石会员', 6 => '升级钻石会员', 7 => '直接开通包年钻石会员', 8 => '升级包年钻石会员']
+    public static final int VIP_TYPE_OPEN_GLOD_MONTH = 1;
+    public static final int VIP_TYPE_OPEN_GLOD_DISCOUNT_MONTH = 2;
+    public static final int VIP_TYPE_OPEN_GLOD_DISCOUNT_YEAR = 3;
+    public static final int VIP_TYPE_OPEN_GLOD_YEAR = 4;
+    public static final int VIP_TYPE_OPEN_DIAMOND_MONTH = 5;
+    public static final int VIP_TYPE_UPDATE_DIAMOND_MONTH = 6;
+    public static final int VIP_TYPE_OPEN_DIAMOND_YEAR = 7;
+    public static final int VIP_TYPE_UPDATE_DIAMOND_YEAR_FROM_MONTH = 8;
+    public static final int VIP_TYPE_UPDATE_DIAMOND_YEAR_FROM_YEAR = 9;
 
 
-    //开通黄金会员 3800
-    private static final int VIP_MONEY_TYPE_1 = 1;
-    //优惠开通黄金会员 2800
-    private static final int VIP_MONEY_TYPE_2 = 1;
-    //直接开通钻石会员 6800
-    private static final int VIP_MONEY_TYPE_3 = 1;
-    //升级钻石会员 3000
-    private static final int VIP_MONEY_TYPE_4 = 1;
-    //开通CDN海外会员 2800
-    private static final int VIP_MONEY_TYPE_5 = 1;
-    //开通黄金永久会员 6800
-    private static final int VIP_MONEY_TYPE_6 = 1;
-    //优惠开通黄金永久会员 5800
-    private static final int VIP_MONEY_TYPE_7 = 1;
+    //开通包月黄金会员 3800
+    private static final int VIP_MONEY_OPEN_GLOD_MONTH = 1;
+    //优惠开通包月黄金会员 2800
+    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_MONTH = 2;
+    //优惠开通包年黄金会员 5800
+    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_YEAR = 3;
+    //开通包年黄金会员 6800
+    private static final int VIP_MONEY_OPEN_GLOD_YEAR = 4;
+    //直接开通包月钻石会员 6800
+    private static final int VIP_MONEY_OPEN_DIAMOND_MONTH = 5;
+    //升级包月钻石会员 3000
+    private static final int VIP_MONEY_UPDATE_DIAMOND_MONTH = 6;
+    //直接开通包年钻石会员 9800
+    private static final int VIP_MONEY_OPEN_DIAMOND_YEAR = 7;
+    //黄金包月升级包年钻石会员 6000
+    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_MONTH = 8;
+    //黄金包年升级包年钻石 3000
+    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_YEAR = 9;
 
-//    //开通黄金会员 3800
-//    private static final int VIP_MONEY_TYPE_1 = 10;
-//    //优惠开通黄金会员 2800
-//    private static final int VIP_MONEY_TYPE_2 = 10;
-//    //直接开通钻石会员 6800
-//    private static final int VIP_MONEY_TYPE_3 = 10;
-//    //升级钻石会员 3000
-//    private static final int VIP_MONEY_TYPE_4 = 10;
-//    //开通VPN海外会员 2800
-//    private static final int VIP_MONEY_TYPE_5 = 10;
-//    //开通黄金永久会员 6800
-//    private static final int VIP_MONEY_TYPE_6 = 10;
-//    //优惠开通黄金永久会员 5800
-//    private static final int VIP_MONEY_TYPE_7 = 10;
-
-//    //开通黄金会员 3800
-//    private static final int VIP_MONEY_TYPE_1 = 3800;
-//    //优惠开通黄金会员 2800
-//    private static final int VIP_MONEY_TYPE_2 = 2800;
-//    //直接开通钻石会员 6800
-//    private static final int VIP_MONEY_TYPE_3 = 6800;
-//    //升级钻石会员 3000
-//    private static final int VIP_MONEY_TYPE_4 = 3000;
-//    //开通CDN海外会员 2800
-//    private static final int VIP_MONEY_TYPE_5 = 2800;
-//    //开通黄金永久会员 6800
-//    private static final int VIP_MONEY_TYPE_6 = 6800;
-//    //优惠开通黄金永久会员 5800
-//    private static final int VIP_MONEY_TYPE_7 = 5800;
+//    //开通包月黄金会员 3800
+//    private static final int VIP_MONEY_OPEN_GLOD_MONTH = 3800;
+//    //优惠开通包月黄金会员 2800
+//    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_MONTH = 2800;
+//    //优惠开通包年黄金会员 5800
+//    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_YEAR = 5800;
+//    //开通包年黄金会员 6800
+//    private static final int VIP_MONEY_OPEN_GLOD_YEAR = 6800;
+//    //直接开通包月钻石会员 6800
+//    private static final int VIP_MONEY_OPEN_DIAMOND_MONTH = 6800;
+//    //升级包月钻石会员 3000
+//    private static final int VIP_MONEY_UPDATE_DIAMOND_MONTH = 3000;
+//    //直接开通包年钻石会员 9800
+//    private static final int VIP_MONEY_OPEN_DIAMOND_YEAR = 9800;
+//    //黄金包月升级包年钻石会员 6000
+//    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_MONTH = 6000;
+//    //黄金包年升级包年钻石 3000
+//    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_YEAR = 3000;
 
     private static PayUtil instance = null;
 
@@ -102,25 +97,23 @@ public class PayUtil {
     /**
      * 微信去支付
      *
-     * @param context           上下文
-     * @param type              开通的服务类型
-     * @param videoId           视频id
-     * @param isVideoDetailPage 当前是否在视频详情页
+     * @param context 上下文
+     * @param viptype 开通的服务类型
+     * @param videoId 视频id
      */
-    public void payByWeChat(Context context, int type, int videoId, boolean isVideoDetailPage, int pay_position_id) {
-        getOrderNo(context, type, true, videoId, isVideoDetailPage, pay_position_id);
+    public void payByWeChat(Context context, int viptype, int videoId, int pay_position_id) {
+        getOrderNo(context, viptype, true, videoId, pay_position_id);
     }
 
     /**
      * 支付宝去支付
      *
-     * @param context           上下文
-     * @param type              要开通的服务类型
-     * @param videoId           视频id
-     * @param isVideoDetailPage 当前是否在视频详情页
+     * @param context 上下文
+     * @param viptype 要开通的服务类型
+     * @param videoId 视频id
      */
-    public void payByAliPay(Context context, int type, int videoId, boolean isVideoDetailPage, int pay_position_id) {
-        getOrderNo(context, type, false, videoId, isVideoDetailPage, pay_position_id);
+    public void payByAliPay(Context context, int viptype, int videoId, int pay_position_id) {
+        getOrderNo(context, viptype, false, videoId, pay_position_id);
     }
 
     /**
@@ -139,53 +132,61 @@ public class PayUtil {
     /**
      * 从服务器获取订单号
      *
-     * @param context           上下文
-     * @param type              1：vip，2：加速服务
-     * @param isWechat          支付类型true：微信，false：支付宝
-     * @param video_id          视频id
-     * @param isVideoDetailPage 当前是否在视频详情页
+     * @param context  上下文
+     * @param vipType  要开通的服务类型
+     * @param isWechat 支付类型true：微信，false：支付宝
+     * @param video_id 视频id
      */
-    private void getOrderNo(final Context context, final int type, final boolean isWechat, final int video_id, final boolean isVideoDetailPage, int pay_position_id) {
+    private void getOrderNo(final Context context, final int vipType, final boolean isWechat, final int video_id, int pay_position_id) {
         App.isGoodsPay = false;
         if (dialog != null && dialog.isShowing()) {
             dialog.cancel();
         }
         dialog = ProgressDialog.show(context, "", "订单提交中...");
         Map<String, String> params = API.createParams();
-        switch (type) {
-            case 1:
-                params.put("money", String.valueOf(VIP_MONEY_TYPE_1));
-                params.put("title", "开通会员");
+        switch (vipType) {
+            case VIP_TYPE_OPEN_GLOD_MONTH:
+                params.put("money", String.valueOf(VIP_MONEY_OPEN_GLOD_MONTH));
+                params.put("title", "开通黄金包月会员");
                 break;
-            case 2:
-                params.put("money", String.valueOf(VIP_MONEY_TYPE_2));
-                params.put("title", "优惠开通会员");
+            case VIP_TYPE_OPEN_GLOD_DISCOUNT_MONTH:
+                params.put("money", String.valueOf(VIP_MONEY_OPEN_GLOD_DISCOUNT_MONTH));
+                params.put("title", "开通黄金包月会员（优惠）");
                 break;
-            case 3:
-                params.put("money", String.valueOf(VIP_MONEY_TYPE_3));
-                params.put("title", "直接开通钻石会员");
+            case VIP_TYPE_OPEN_GLOD_DISCOUNT_YEAR:
+                params.put("money", String.valueOf(VIP_MONEY_OPEN_GLOD_DISCOUNT_YEAR));
+                params.put("title", "开通黄金包年会员（优惠）");
                 break;
-            case 4:
-                params.put("money", String.valueOf(VIP_MONEY_TYPE_4));
-                params.put("title", "升级钻石会员");
+            case VIP_TYPE_OPEN_GLOD_YEAR:
+                params.put("money", String.valueOf(VIP_MONEY_OPEN_GLOD_YEAR));
+                params.put("title", "开通黄金包年会员");
                 break;
-            case 5:
-                params.put("money", String.valueOf(VIP_MONEY_TYPE_5));
-                params.put("title", "开通CDN加速服务");
+            case VIP_TYPE_OPEN_DIAMOND_MONTH:
+                params.put("money", String.valueOf(VIP_MONEY_OPEN_DIAMOND_MONTH));
+                params.put("title", "开通钻石包月会员");
                 break;
-            case 6:
-                params.put("money", String.valueOf(VIP_MONEY_TYPE_6));
-                params.put("title", "开通永久会员");
+            case VIP_TYPE_UPDATE_DIAMOND_MONTH:
+                params.put("money", String.valueOf(VIP_MONEY_UPDATE_DIAMOND_MONTH));
+                params.put("title", "升级钻石包月会员");
                 break;
-            case 7:
-                params.put("money", String.valueOf(VIP_MONEY_TYPE_7));
-                params.put("title", "优惠开通永久会员");
+            case VIP_TYPE_OPEN_DIAMOND_YEAR:
+                params.put("money", String.valueOf(VIP_MONEY_OPEN_DIAMOND_YEAR));
+                params.put("title", "开通钻石包年会员");
+                break;
+            case VIP_TYPE_UPDATE_DIAMOND_YEAR_FROM_MONTH:
+                params.put("money", String.valueOf(VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_MONTH));
+                params.put("title", "黄金包月会员升级钻石包年会员");
+                break;
+            case VIP_TYPE_UPDATE_DIAMOND_YEAR_FROM_YEAR:
+                params.put("money", String.valueOf(VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_YEAR));
+                params.put("title", "黄金包年会员升级钻石包年会员");
                 break;
         }
+
         params.put("video_id", String.valueOf(video_id));
         params.put("position_id", String.valueOf(pay_position_id));
         params.put("pay_type", isWechat ? "1" : "2");
-        params.put("type", String.valueOf((type == 6 || type == 7) ? 1 : type));
+        params.put("type", String.valueOf(vipType));
 
         OkHttpUtils.post().url(API.URL_PRE + API.GET_ORDER_INFO_TYPE_2).params(params).build().execute(new StringCallback() {
             @Override
@@ -205,9 +206,7 @@ public class PayUtil {
                     final PayTokenResultInfo info = JSON.parseObject(s, PayTokenResultInfo.class);
                     if (info.getPay_type() == 1) {
                         //微信扫码
-                        WxQRCodePayDialog.Builder builder = new WxQRCodePayDialog.Builder(context, info.getCode_img_url());
-                        WxQRCodePayDialog wxQRCodePayDialog = builder.create();
-                        wxQRCodePayDialog.show();
+                       DialogUtil.getInstance().showWxQRCodePayDialog(context,info.getCode_img_url());
                         App.isNeedCheckOrder = true;
                         App.orderIdInt = info.getOrder_id_int();
                         DialogUtil.getInstance().showCustomSubmitDialog(context, "支付二维码已经保存到您的相册，请前往微信扫一扫付费");
@@ -302,37 +301,6 @@ public class PayUtil {
             }
         });
 
-    }
-
-    /**
-     * Case By:检查订单状态
-     * Author: scene on 2017/5/8 10:34
-     *
-     * @param context           上下文
-     * @param isVideoDetailPage 是否是视频详情页
-     */
-    private void checkOrder(Context context, boolean isVideoDetailPage) {
-        if (isVideoDetailPage) {
-            Intent intent = new Intent(VideoDetailActivity.ACTION_NAME_VIDEODETAILACTIVITY_CHECK_ORDER);
-            context.sendBroadcast(intent);
-        } else {
-            Intent intent = new Intent(MainActivity.ACTION_NAME_MAINACTIVITY_CHECK_ORDER);
-            context.sendBroadcast(intent);
-        }
-    }
-
-    /**
-     * Case By:检查订单状态
-     * Author: scene on 2017/5/8 10:34
-     *
-     * @param context        上下文
-     * @param isGoodsBuyPage 是否是单独的商品页来支付的
-     */
-    private void checkGoodsOrder(Context context, boolean isGoodsBuyPage) {
-        Intent intent = new Intent(MainActivity.ACTION_NAME_MAINACTIVITY_CHECK_ORDER);
-        intent.putExtra("IS_GOODS", true);
-        intent.putExtra("IS_GOODS_BUY_PAGE", isGoodsBuyPage);
-        context.sendBroadcast(intent);
     }
 
 }

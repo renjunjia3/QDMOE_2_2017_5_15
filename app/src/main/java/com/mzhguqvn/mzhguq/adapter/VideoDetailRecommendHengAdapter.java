@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
  * Author：scene on 2017/4/13 10:03
  */
 
-public class IndexItemAdapter extends BaseAdapter {
+public class VideoDetailRecommendHengAdapter extends BaseAdapter {
 
     private Context context;
     private List<VideoInfo> list;
@@ -36,9 +37,10 @@ public class IndexItemAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private String colors[] = {"#3399FF", "#FF3300", "#00CC66", "#9966FF"};
 
-    public IndexItemAdapter(Context context, List<VideoInfo> list) {
+    public VideoDetailRecommendHengAdapter(Context context, List<VideoInfo> list) {
         this.context = context;
         this.list = list;
+
         inflater = LayoutInflater.from(context);
     }
 
@@ -61,7 +63,7 @@ public class IndexItemAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_index_other_type_item, parent, false);
+            convertView = inflater.inflate(R.layout.activity_video_detail_recommend_item_heng, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {

@@ -69,7 +69,12 @@ public class MineFragment extends BaseMainFragment {
                 vipId.setText("游客ID" + App.user_id);
                 break;
             case 1:
+            case 2:
                 vipId.setText("黄金会员ID" + App.user_id);
+                break;
+            case 3:
+            case 4:
+                vipId.setText("钻石会员ID" + App.user_id);
                 break;
         }
         if (App.role == 0) {
@@ -77,7 +82,7 @@ public class MineFragment extends BaseMainFragment {
         } else {
             openVip.setImageResource(R.drawable.ic_mine_update_vip);
         }
-        if (App.role == 0) {
+        if (App.role <= 2) {
             openVip.setVisibility(View.VISIBLE);
         } else {
             openVip.setVisibility(View.GONE);
@@ -92,9 +97,15 @@ public class MineFragment extends BaseMainFragment {
      */
     @OnClick(R.id.open_vip)
     public void onClickOpenVip() {
-        if (App.role == 0) {
-            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, PageConfig.MINE_POSITOTN_ID);
-        }
+       switch (App.role){
+           case 0:
+               DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, PageConfig.MINE_POSITOTN_ID);
+               break;
+           case 1:
+           case 2:
+               DialogUtil.getInstance().showDiamondVipDialog(getContext(),0,PageConfig.MINE_POSITOTN_ID);
+               break;
+       }
     }
 
     /**
@@ -103,7 +114,7 @@ public class MineFragment extends BaseMainFragment {
     @OnClick({R.id.shoucang, R.id.download, R.id.lishi})
     public void onClick(View view) {
         if (App.role == 0) {
-            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, false, PageConfig.MINE_POSITOTN_ID);
+            DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, PageConfig.MINE_POSITOTN_ID);
         }
     }
 

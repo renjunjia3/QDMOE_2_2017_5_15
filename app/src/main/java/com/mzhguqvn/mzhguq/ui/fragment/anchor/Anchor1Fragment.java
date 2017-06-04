@@ -7,14 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.VideoDetailActivity;
 import com.mzhguqvn.mzhguq.adapter.TrySeeAdapter;
-import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseMainFragment;
 import com.mzhguqvn.mzhguq.bean.TrySeeContentInfo;
 import com.mzhguqvn.mzhguq.bean.VideoInfo;
@@ -24,7 +22,6 @@ import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
 import com.mzhguqvn.mzhguq.util.API;
-import com.mzhguqvn.mzhguq.util.DialogUtil;
 import com.mzhguqvn.mzhguq.util.GlideImageLoader;
 import com.mzhguqvn.mzhguq.util.NetWorkUtils;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
@@ -59,7 +56,6 @@ public class Anchor1Fragment extends BaseMainFragment {
     ListView listView;
 
     //banner
-    private Banner banner;
     private List<String> bannerImageUrls = new ArrayList<>();
     private List<String> bannerTitles = new ArrayList<>();
 
@@ -72,9 +68,7 @@ public class Anchor1Fragment extends BaseMainFragment {
 
     //banner
     private View bannerView;
-    //footer
-    private View footerView;
-    private TextView footerText;
+    private Banner banner;
 
     public static Anchor1Fragment newInstance() {
         Bundle args = new Bundle();
@@ -95,30 +89,9 @@ public class Anchor1Fragment extends BaseMainFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         statusViewLayout.showContent();
-        addFooterView();
         initView();
         getAnchorData(true);
         MainActivity.upLoadPageInfo(PageConfig.ANCHOR_POSITOTN_ID, 0, 0);
-    }
-
-    private void addFooterView() {
-        footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
-        footerText = (TextView) footerView.findViewById(R.id.footer_text);
-        if (App.cdn == 0) {
-            footerText.setVisibility(View.VISIBLE);
-            footerText.setText("请开通CDN开放更多影片资源");
-        } else {
-            footerText.setVisibility(View.GONE);
-        }
-        footerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (App.cdn == 0) {
-                    DialogUtil.getInstance().showCdnVipDialog(getContext(), 0, false, PageConfig.ANCHOR_POSITOTN_ID);
-                }
-            }
-        });
-        listView.addFooterView(footerView);
     }
 
     private void initView() {
@@ -161,7 +134,9 @@ public class Anchor1Fragment extends BaseMainFragment {
             listView.removeHeaderView(bannerView);
         }
         listView.addHeaderView(bannerView);
-        banner = (Banner) bannerView.findViewById(R.id.banner);
+        if (banner == null) {
+            banner = (Banner) bannerView.findViewById(R.id.banner);
+        }
         banner.releaseBanner();
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
@@ -198,7 +173,7 @@ public class Anchor1Fragment extends BaseMainFragment {
                 statusViewLayout.showLoading();
             }
             HashMap<String, String> params = API.createParams();
-            params.put("position_id", "4");
+            params.put("position_id", String.valueOf(PageConfig.ANCHOR_POSITOTN_ID));
             getDataCall = OkHttpUtils.get().url(API.URL_PRE + API.VIP_INDEX).params(params).build();
             getDataCall.execute(new StringCallback() {
                 @Override
@@ -258,15 +233,10 @@ public class Anchor1Fragment extends BaseMainFragment {
      * @param videoInfo 视频信息
      */
     private void toVideoDetail(VideoInfo videoInfo) {
-//        if (App.cdn == 0) {
-//            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "由于服务器开销较大，如需观看需缴纳CDN费用", App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.ANCHOR_POSITOTN_ID);
-//        } else {
         Intent intent = new Intent(_mActivity, VideoDetailActivity.class);
         intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoInfo);
-        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM_TRY_SEE, false);
-        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_ANCHOR,true);
+        intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, PageConfig.ANCHOR_POSITOTN_ID);
         _mActivity.startActivityForResult(intent, 9999);
-        // }
     }
 
 

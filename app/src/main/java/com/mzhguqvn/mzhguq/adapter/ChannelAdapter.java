@@ -50,7 +50,7 @@ public class ChannelAdapter extends RecyclerView.Adapter {
         viewHolder.updateNumber.setText("更新至" + info.getPeriod() + "期");
         viewHolder.updateNumber1.setText(info.getPeriod() + "期");
         viewHolder.hits.setText(info.getHits() + "人观看");
-        GlideUtils.loadImage(context, viewHolder.image, info.getThumb());
+        GlideUtils.loadImageWithHeng(context, viewHolder.image, info.getThumb());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

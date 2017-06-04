@@ -25,7 +25,14 @@ public class GlideUtils {
         if (url.endsWith("gif")) {
             Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(imageView);
         } else {
-            Glide.with(context).load(url).asBitmap().centerCrop().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).into(imageView);
+            Glide.with(context).load(url).asBitmap().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).centerCrop().into(imageView);
+        }
+    }
+    public static void loadImageWithHeng(Context context, ImageView imageView, String url) {
+        if (url.endsWith("gif")) {
+            Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).centerCrop().into(imageView);
+        } else {
+            Glide.with(context).load(url).asBitmap().placeholder(R.drawable.bg_loading_heng).error(R.drawable.bg_error_heng).centerCrop().into(imageView);
         }
     }
 

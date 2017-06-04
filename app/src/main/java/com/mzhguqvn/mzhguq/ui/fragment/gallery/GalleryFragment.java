@@ -12,7 +12,6 @@ import com.alibaba.fastjson.JSON;
 import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GalleryAdapter;
-import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseMainFragment;
 import com.mzhguqvn.mzhguq.bean.GalleryResultInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
@@ -22,7 +21,6 @@ import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
 import com.mzhguqvn.mzhguq.ui.dialog.BigImageDialog;
 import com.mzhguqvn.mzhguq.util.API;
-import com.mzhguqvn.mzhguq.util.DialogUtil;
 import com.mzhguqvn.mzhguq.util.NetWorkUtils;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -186,11 +184,7 @@ public class GalleryFragment extends BaseMainFragment implements GalleryAdapter.
 
     @Override
     public void onGalleryClick(int position) {
-        if (App.cdn == 0) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "由于服务器开销较大，如需观看需缴纳CDN费用", App.role, false, true, 0, false, PageConfig.GALLERY_POSITOTN_ID);
-        } else {
-            bigImageDialog.setUrl(list.get(position).getThumb());
-            bigImageDialog.show();
-        }
+        bigImageDialog.setUrl(list.get(position).getThumb());
+        bigImageDialog.show();
     }
 }

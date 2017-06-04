@@ -27,8 +27,7 @@ public class App extends Application {
     public static int user_id = 0;
     //会员等级
     public static int role = 0;
-    //cdn
-    public static int cdn = 0;
+    //试看次数
     public static int tryCount = 0;
 
     public static boolean isNeedCheckOrder = false;

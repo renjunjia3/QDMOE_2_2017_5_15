@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/footer_text"
@@ -12,94 +10,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="请升级成为会员开放更多影片资源"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:background="@drawable/shape_text_bg"
         android:textColor="#999999"
         android:textSize="@dimen/text_size_middle" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_text_bg"
-            android:gravity="center"
-            android:text="1"
-            android:textColor="#999999"
-            android:textSize="@dimen/text_size_middle" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_text_bg"
-            android:gravity="center"
-            android:text="2"
-            android:textColor="#999999"
-            android:textSize="@dimen/text_size_middle" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_text_bg"
-            android:gravity="center"
-            android:text="3"
-            android:textColor="#999999"
-            android:textSize="@dimen/text_size_middle" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_text_bg"
-            android:gravity="center"
-            android:text="4"
-            android:textColor="#999999"
-            android:textSize="@dimen/text_size_middle" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_text_bg"
-            android:gravity="center"
-            android:text="5"
-            android:textColor="#999999"
-            android:textSize="@dimen/text_size_middle" />
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_text_bg"
-            android:gravity="center"
-            android:text="6"
-            android:textColor="#999999"
-            android:textSize="@dimen/text_size_middle" />
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_text_bg"
-            android:gravity="center"
-            android:text="7"
-            android:textColor="#999999"
-            android:textSize="@dimen/text_size_middle" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/shape_text_bg"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="下一页"
-            android:textColor="#999999"
-            android:textSize="@dimen/text_size_middle" />
-    </LinearLayout>
 </LinearLayout>

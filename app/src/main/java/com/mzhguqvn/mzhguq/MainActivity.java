@@ -264,6 +264,12 @@ public class MainActivity extends SupportActivity {
         if (checkGoodsOrderRequestCall != null) {
             checkGoodsOrderRequestCall.cancel();
         }
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
+        if (timerTask != null) {
+            timerTask.cancel();
+        }
         unRegisterBoradcastReceiver();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
@@ -301,7 +307,7 @@ public class MainActivity extends SupportActivity {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-                        ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
+                        ToastUtils.getInstance(MainActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
                     }
 
                     @Override
@@ -313,83 +319,30 @@ public class MainActivity extends SupportActivity {
                             CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
                             if (checkOrderInfo.isStatus()) {
                                 MainActivity.onPaySuccess();
+                                String message1 = "";
+                                App.role = checkOrderInfo.getRole();
+                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
                                 switch (App.role) {
-                                    case 0:
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                App.role = 1;
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
-                                                String message1 = "黄金会员";
-                                                String message2 = "价值38元";
-                                                OpenVipNoticeDialog openVipNoticeDialog0 = DialogUtil.getInstance().showOpenVipNoticeDialog(MainActivity.this, message1, message2);
-                                                openVipNoticeDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                    @Override
-                                                    public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.role));
-                                                    }
-                                                });
-                                            }
-                                        });
-
-                                        break;
                                     case 1:
-//                                        runOnUiThread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                App.role = 2;
-//                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
-//                                                String message = "恭喜您成为钻石会员";
-//                                                CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-//                                                customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                                                    @Override
-//                                                    public void onDismiss(DialogInterface dialog) {
-//                                                        changeTab(new ChangeTabEvent(App.role));
-//                                                    }
-//                                                });
-//                                            }
-//                                        });
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                App.cdn = 1;
-                                                String message1 = "CDN加速";
-                                                String message2 = "价值28元";
-                                                SharedPreferencesUtil.putInt(MainActivity.this, App.CDN_KEY, App.cdn);
-                                                OpenVipNoticeDialog openVipNoticeDialog = DialogUtil.getInstance().showOpenVipNoticeDialog(MainActivity.this, message1, message2);
-                                                openVipNoticeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                    @Override
-                                                    public void onDismiss(DialogInterface dialog) {
-                                                        changeTab(new ChangeTabEvent(App.role));
-                                                    }
-                                                });
-                                            }
-                                        });
+                                    case 2:
+                                        message1 = "黄金会员";
                                         break;
-//                                    case 2:
-//                                        runOnUiThread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                App.cdn = 1;
-//                                                String message = "恭喜您成功开通CDN加速服务";
-//                                                SharedPreferencesUtil.putInt(MainActivity.this, App.ROLE_KEY, App.role);
-//                                                CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, message);
-//                                                customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                                                    @Override
-//                                                    public void onDismiss(DialogInterface dialog) {
-//                                                        changeTab(new ChangeTabEvent(App.role));
-//                                                    }
-//                                                });
-//                                            }
-//                                        });
-//                                        break;
+                                    case 3:
+                                    case 4:
+                                        message1 = "钻石会员";
+                                        break;
                                     default:
                                         break;
                                 }
-
-
+                                OpenVipNoticeDialog openVipNoticeDialog1 = DialogUtil.getInstance().showOpenVipNoticeDialog(MainActivity.this, message1);
+                                openVipNoticeDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        changeTab(null);
+                                    }
+                                });
                             } else {
-                                ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
+                                ToastUtils.getInstance(MainActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -429,7 +382,7 @@ public class MainActivity extends SupportActivity {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-                        ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
+                        ToastUtils.getInstance(MainActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
                     }
 
                     @Override
@@ -444,10 +397,11 @@ public class MainActivity extends SupportActivity {
                             if (checkOrderInfo.isStatus()) {
                                 EventBus.getDefault().post(new GoodsPaySuccessEvent(App.isGoodsBuyPage));
                             } else {
-                                ToastUtils.getInstance(MainActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
+                                ToastUtils.getInstance(MainActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
+                            ToastUtils.getInstance(MainActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
                         }
                     }
                 });

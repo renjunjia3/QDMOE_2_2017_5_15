@@ -92,25 +92,27 @@ public class MainFragment extends BaseFragment {
                     tabNames.add(getString(R.string.tab_channel));
                     tabNames.add(getString(R.string.tab_mine));
                     break;
-                case 1://黄金会员
-                    if (App.cdn == 0) {
-                        fragments.add(GlodVip1Fragment.newInstance());
-                        fragments.add(ChannelFragment.newInstance());
-                        fragments.add(MineFragment.newInstance());
+                case 1://黄金包月
+                case 2://黄金包年
+                    fragments.add(GlodVip1Fragment.newInstance());
+                    fragments.add(ChannelFragment.newInstance());
+                    fragments.add(MineFragment.newInstance());
 
-                        tabNames.add(getString(R.string.tab_glod));
-                        tabNames.add(getString(R.string.tab_channel));
-                        tabNames.add(getString(R.string.tab_mine));
-                    } else {
-                        fragments.add(Anchor1Fragment.newInstance());
-                        fragments.add(ChannelFragment.newInstance());
-                        fragments.add(MineFragment.newInstance());
+                    tabNames.add(getString(R.string.tab_glod_vip));
+                    tabNames.add(getString(R.string.tab_channel));
+                    tabNames.add(getString(R.string.tab_mine));
+                    break;
+                case 3://钻石包月
+                case 4://钻石包年
+                    fragments.add(GlodVip1Fragment.newInstance());
+                    fragments.add(Anchor1Fragment.newInstance());
+                    fragments.add(ChannelFragment.newInstance());
+                    fragments.add(MineFragment.newInstance());
 
-                        tabNames.add(getString(R.string.tab_anchor));
-                        tabNames.add(getString(R.string.tab_channel));
-                        tabNames.add(getString(R.string.tab_mine));
-                    }
-
+                    tabNames.add(getString(R.string.tab_glod_vip));
+                    tabNames.add(getString(R.string.tab_diamond_vip));
+                    tabNames.add(getString(R.string.tab_diamond_channel));
+                    tabNames.add(getString(R.string.tab_mine));
                     break;
             }
             if (fragments.size() == 3) {
@@ -141,16 +143,17 @@ public class MainFragment extends BaseFragment {
                     fragments.add(findChildFragment(MineFragment.class));
                     break;
                 case 1:
-                    if (App.cdn == 0) {
-                        fragments.add(findChildFragment(GlodVip1Fragment.class));
-                        fragments.add(findChildFragment(ChannelFragment.class));
-                        fragments.add(findChildFragment(MineFragment.class));
-                    } else {
-                        //已开通cdn
-                        fragments.add(findChildFragment(Anchor1Fragment.class));
-                        fragments.add(findChildFragment(ChannelFragment.class));
-                        fragments.add(findChildFragment(MineFragment.class));
-                    }
+                case 2:
+                    fragments.add(findChildFragment(GlodVip1Fragment.class));
+                    fragments.add(findChildFragment(ChannelFragment.class));
+                    fragments.add(findChildFragment(MineFragment.class));
+                    break;
+                case 3:
+                case 4:
+                    fragments.add(findChildFragment(GlodVip1Fragment.class));
+                    fragments.add(findChildFragment(Anchor1Fragment.class));
+                    fragments.add(findChildFragment(ChannelFragment.class));
+                    fragments.add(findChildFragment(MineFragment.class));
                     break;
             }
         }
@@ -167,7 +170,7 @@ public class MainFragment extends BaseFragment {
     private void initView() {
         EventBus.getDefault().register(this);
         switch (App.role) {
-            case 0:
+            case 0://游客
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_try_see);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see_d, R.drawable.ic_bottom_bar_try_see_s, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(1)));
@@ -175,17 +178,19 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
             case 1:
-                if (App.cdn == 0) {
-                    toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
-                } else {
-                    toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(0)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(1)));
-                    mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
-                }
+            case 2://黄金
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
+                break;
+            case 3:
+            case 4://钻石
+                toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_anchor_d, R.drawable.ic_bottom_bar_anchor_s, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_gallery_d, R.drawable.ic_bottom_bar_gallery_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
         }
 

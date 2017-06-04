@@ -185,12 +185,10 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
 
     @Override
     public void onClickChannelItem(int position) {
-        if (App.role == 0) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该频道为会员频道，请开通会员后观看", App.role, false, true, 0, false, PageConfig.CHANNEL_POSITION_ID);
-        } else if (App.role == 1 && App.cdn == 0) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "由于服务器开销较大，如需观看需缴纳CDN费用", App.role, false, true, 0, false, PageConfig.CHANNEL_POSITION_ID);
+        if (App.role <= 2) {
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目为钻石会员专享，请先升级钻石顶级会员", App.role, true, PageConfig.CHANNEL_POSITION_ID,true);
         } else {
-            EventBus.getDefault().post(new StartBrotherEvent(ChannelDetailFragment.newInstance(list.get(position).getId(),list.get(position).getTitle())));
+            EventBus.getDefault().post(new StartBrotherEvent(ChannelDetailFragment.newInstance(list.get(position).getId(), list.get(position).getTitle())));
         }
     }
 }

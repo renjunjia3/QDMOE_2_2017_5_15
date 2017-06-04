@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="包月"
+                android:text="黄金包月"
                 android:textColor="#F78650"
                 android:textSize="@dimen/text_size_big" />
 
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="永久"
+                android:text="黄金包年"
                 android:textColor="#EE313A"
                 android:textSize="@dimen/text_size_big" />
 

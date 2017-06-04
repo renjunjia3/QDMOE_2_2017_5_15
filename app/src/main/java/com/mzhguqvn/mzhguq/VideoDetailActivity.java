@@ -24,6 +24,7 @@ import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.mzhguqvn.mzhguq.adapter.CommentAdapter;
 import com.mzhguqvn.mzhguq.adapter.IndexItemAdapter;
+import com.mzhguqvn.mzhguq.adapter.VideoDetailRecommendHengAdapter;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.bean.CheckOrderInfo;
 import com.mzhguqvn.mzhguq.bean.CommentInfo;
@@ -71,8 +72,7 @@ import wiki.scene.statuslib.StatusViewLayout;
 public class VideoDetailActivity extends SwipeBackActivity {
 
     public static final String ARG_VIDEO_INFO = "arg_video_info";
-    public static final String ARG_IS_ENTER_FROM_TRY_SEE = "is_enter_from_try_see";
-    public static final String ARG_IS_ENTER_ANCHOR = "is_enter_anchor";
+    public static final String ARG_IS_ENTER_FROM = "is_enter_from";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.zan)
@@ -93,6 +93,8 @@ public class VideoDetailActivity extends SwipeBackActivity {
     TextView commendNumber;
     @BindView(R.id.aboutCommendGridView)
     CustomeGridView aboutCommendGridView;
+    @BindView(R.id.aboutCommendGridView2)
+    CustomeGridView aboutCommendGridView2;
     @BindView(R.id.statusViewLayout)
     StatusViewLayout statusViewLayout;
     @BindView(R.id.aboutCommendTextView)
@@ -111,18 +113,17 @@ public class VideoDetailActivity extends SwipeBackActivity {
     private Unbinder unbinder;
 
     private VideoInfo videoInfo;
-    private Boolean isEnterFromTrySee = false;
+    private int isEnterFrom = 0;
 
     private List<CommentInfo> commentInfoList;
-    private Random random;
     private CommentAdapter commentAdapter;
 
     //相关推荐
     private List<VideoInfo> videoRelateList = new ArrayList<>();
     private IndexItemAdapter videoRelateAdapter;
+    private List<VideoInfo> videoRelateList1 = new ArrayList<>();
+    private VideoDetailRecommendHengAdapter videoDetailRecommendHengAdapter;
 
-
-    private boolean isAnchor = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,8 +133,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         registerBoradcastReceiver();
         unbinder = ButterKnife.bind(this);
         videoInfo = (VideoInfo) getIntent().getSerializableExtra(ARG_VIDEO_INFO);
-        isAnchor = getIntent().getBooleanExtra(ARG_IS_ENTER_ANCHOR, false);
-        isEnterFromTrySee = getIntent().getBooleanExtra(ARG_IS_ENTER_FROM_TRY_SEE, false);
+        isEnterFrom = getIntent().getIntExtra(ARG_IS_ENTER_FROM, 0);
 
         initToolbarNav(toolbar);
         initView();
@@ -152,10 +152,10 @@ public class VideoDetailActivity extends SwipeBackActivity {
     }
 
     private void initView() {
-        random = new Random();
-        commendNumber.setText((random.nextInt(1000) + 580) + "");
+        Random random = new Random();
+        commendNumber.setText(String.valueOf((random.nextInt(1000) + 580)));
         toolbarTitle.setText(videoInfo.getTitle());
-        zan.setText(videoInfo.getHits() + "");
+        zan.setText(String.valueOf(videoInfo.getHits()));
         playCount.setText(videoInfo.getHits() + "次播放");
         Glide.with(this).load(videoInfo.getThumb_heng()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(detailPlayer);
         //相关推荐
@@ -166,7 +166,19 @@ public class VideoDetailActivity extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList.get(position));
-                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_ANCHOR, isAnchor);
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom);
+                startActivity(intent);
+                finish();
+            }
+        });
+        videoDetailRecommendHengAdapter = new VideoDetailRecommendHengAdapter(VideoDetailActivity.this, videoRelateList1);
+        aboutCommendGridView2.setAdapter(videoDetailRecommendHengAdapter);
+        aboutCommendGridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
+                intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList1.get(position));
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom);
                 startActivity(intent);
                 finish();
             }
@@ -184,7 +196,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
     public void onClick(View v) {
         if (App.role == 0) {
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
-                    "该功能为会员功能，请成为会员后使用", App.role, false, true, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
+                    "该功能为会员功能，请成为会员后使用", App.role, true, videoInfo.getVideo_id(), PageConfig.VIDEO_DETAIL_POSITION_ID, false);
         } else {
             if (v.getId() == R.id.sendComment) {
                 String content = commentContent.getText().toString().trim();
@@ -251,22 +263,22 @@ public class VideoDetailActivity extends SwipeBackActivity {
 
     @OnClick(R.id.play_video)
     public void onClickPlayVideo() {
-        if (isEnterFromTrySee && App.role == 0 && App.tryCount >= VideoConfig.TRY_COUNT_TIME) {
+        if (isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID && App.role == 0 && App.tryCount >= VideoConfig.TRY_COUNT_TIME) {
             //游客试看区进来的没有试看次数
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
-                    "游客只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请开通会员继续观看", App.role, false, true, videoInfo.getVideo_id(),
-                    true, PageConfig.VIDEO_DETAIL_POSITION_ID);
-        } else if (!isEnterFromTrySee && App.role == 0) {
-            //游客不是试看区进来的
+                    "游客只能试看" + VideoConfig.TRY_COUNT_TIME + "次，请开通会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                    PageConfig.VIDEO_DETAIL_POSITION_ID, false);
+        } else if (isEnterFrom == PageConfig.GLOD_POSITOTN_ID && App.role == 0) {
+            //试看区进来的但是不是会员
             DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
-                    "该片为会员视频，请开通会员继续观看", App.role, false, true, videoInfo.getVideo_id(),
-                    true, PageConfig.VIDEO_DETAIL_POSITION_ID);
-        } else if (isAnchor && App.cdn == 0) {
-            //主播进来的但是没开cdn
-            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false, "由于服务器开销较大，如需观看需缴纳CDN费用",
-                    App.role, false, true, videoInfo.getVideo_id(), false, PageConfig.VIDEO_DETAIL_POSITION_ID);
+                    "该片为会员视频，请开通会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                    PageConfig.VIDEO_DETAIL_POSITION_ID, false);
+        } else if (isEnterFrom == PageConfig.ANCHOR_POSITOTN_ID && App.role <= 2) {
+            //游客是从钻石区（主播）进来的但是不是钻石会员
+            DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                    "该片为钻石会员视频，请升级会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                    PageConfig.VIDEO_DETAIL_POSITION_ID, false);
         } else {
-            VideoConfig.isFromAnchor = isAnchor;
             App.tryCount += 1;
             SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.TRY_COUNT_KEY, App.tryCount);
             Intent intent = new Intent(VideoDetailActivity.this, JCFullScreenActivity.class);
@@ -288,17 +300,12 @@ public class VideoDetailActivity extends SwipeBackActivity {
             switch (dialogType) {
                 case JCFullScreenActivity.DIALOG_TYPE_GLOD:
                     //黄金
-                    DialogUtil.getInstance().showGoldVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
+                    DialogUtil.getInstance().showGoldVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), PageConfig.VIDEO_DETAIL_POSITION_ID);
                     break;
                 case JCFullScreenActivity.DIALOG_TYPE_DIAMOND:
                     //砖石
-                    DialogUtil.getInstance().showDiamondVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
+                    DialogUtil.getInstance().showDiamondVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), PageConfig.VIDEO_DETAIL_POSITION_ID);
                     break;
-                case JCFullScreenActivity.DIALOG_TYPE_CDN:
-                    //CDN
-                    DialogUtil.getInstance().showCdnVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), true, PageConfig.VIDEO_DETAIL_POSITION_ID);
-                    break;
-
             }
 
         }
@@ -313,8 +320,8 @@ public class VideoDetailActivity extends SwipeBackActivity {
         statusViewLayout.showLoading();
         if (NetWorkUtils.isNetworkConnected(VideoDetailActivity.this)) {
             HashMap<String, String> params = API.createParams();
-            params.put("video_id", videoInfo.getVideo_id() + "");
-            params.put("zhubo", isAnchor ? String.valueOf(1) : String.valueOf(0));
+            params.put("video_id", String.valueOf(videoInfo.getVideo_id()));
+            params.put("layout_id", String.valueOf(isEnterFrom));
             recommendRequestCall = OkHttpUtils.get().url(API.URL_PRE + API.VIDEO_RELATED).params(params).build();
             recommendRequestCall.execute(new StringCallback() {
                 @Override
@@ -345,6 +352,18 @@ public class VideoDetailActivity extends SwipeBackActivity {
                             aboutCommendTextView.setVisibility(View.GONE);
                             aboutCommendGridView.setVisibility(View.GONE);
                         }
+                        if (videoRelateList.size() > 3) {
+                            videoRelateList1.clear();
+                            for (int j = 3; j < videoRelateList.size(); j++) {
+                                videoRelateList1.add(videoRelateList.get(j));
+                            }
+                            videoDetailRecommendHengAdapter.notifyDataSetChanged();
+                            videoRelateList.clear();
+                            for (int j = 0; j < 3; j++) {
+                                videoRelateList.add(relateResultInfo.getData().get(j));
+                            }
+                            videoRelateAdapter.notifyDataSetChanged();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -368,9 +387,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (App.isGoodsPay && App.isNeedCheckOrder && App.goodsOrderId != 0) {
-
-        } else if (App.isNeedCheckOrder && App.orderIdInt != 0) {
+        if (App.isNeedCheckOrder && App.orderIdInt != 0) {
             checkOrder();
         }
         MobclickAgent.onResume(this);
@@ -467,7 +484,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         e.printStackTrace();
-                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
+                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
                         if (progressDialog != null && progressDialog.isShowing()) {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -489,66 +506,34 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                 MainActivity.onPaySuccess();
                                 MainActivity.isNeedChangeTab = true;
                                 String message1 = "";
-                                String message2 = "";
+                                App.role = checkOrderInfo.getRole();
+                                SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
                                 switch (App.role) {
-                                    case 0:
-                                        App.role = 1;
-                                        message1 = "黄金会员";
-                                        message2 = "价值38元";
-                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
-                                        OpenVipNoticeDialog openVipNoticeDialog0 = DialogUtil.getInstance().showOpenVipNoticeDialog(VideoDetailActivity.this, message1, message2);
-                                        openVipNoticeDialog0.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                            @Override
-                                            public void onDismiss(DialogInterface dialog) {
-                                                closeVideoDetail(new CloseVideoDetailEvent());
-                                            }
-                                        });
-                                        break;
                                     case 1:
-//                                        App.role = 2;
-//                                        message = "恭喜您成为钻石会员";
-//                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
-//                                        CustomSubmitDialog customSubmitDialog1 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
-//                                        customSubmitDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                                            @Override
-//                                            public void onDismiss(DialogInterface dialog) {
-//                                                closeVideoDetail(new CloseVideoDetailEvent());
-//                                            }
-//                                        });
-
-                                        App.cdn = 1;
-                                        message1 = "CDN加速";
-                                        message2 = "价值28元";
-                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.CDN_KEY, App.cdn);
-                                        OpenVipNoticeDialog openVipNoticeDialog1 = DialogUtil.getInstance().showOpenVipNoticeDialog(VideoDetailActivity.this, message1, message2);
-                                        openVipNoticeDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                            @Override
-                                            public void onDismiss(DialogInterface dialog) {
-                                                closeVideoDetail(new CloseVideoDetailEvent());
-                                            }
-                                        });
+                                    case 2:
+                                        message1 = "黄金会员";
                                         break;
-//                                    case 2:
-//                                        App.cdn = 1;
-//                                        message = "恭喜您成功开通CDN加速服务";
-//                                        SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
-//                                        CustomSubmitDialog customSubmitDialog2 = DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, message);
-//                                        customSubmitDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                                            @Override
-//                                            public void onDismiss(DialogInterface dialog) {
-//                                                closeVideoDetail(new CloseVideoDetailEvent());
-//                                            }
-//                                        });
-//                                        break;
+                                    case 3:
+                                    case 4:
+                                        message1 = "钻石会员";
+                                        break;
                                     default:
                                         break;
                                 }
+                                OpenVipNoticeDialog openVipNoticeDialog1 = DialogUtil.getInstance().showOpenVipNoticeDialog(VideoDetailActivity.this, message1);
+                                openVipNoticeDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        closeVideoDetail(new CloseVideoDetailEvent());
+                                    }
+                                });
                             } else {
-                                ToastUtils.getInstance(VideoDetailActivity.this).showToast("支付失败请重试，或者更换其他支付方式");
+                                ToastUtils.getInstance(VideoDetailActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
                             }
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            ToastUtils.getInstance(VideoDetailActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
                         }
                     }
                 });

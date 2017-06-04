@@ -63,17 +63,18 @@
                             android:drawableLeft="@drawable/ic_commend"
                             android:gravity="center_vertical"
                             android:text=""
-                            android:visibility="gone"
                             android:textColor="#333333"
-                            android:textSize="@dimen/text_size_middle" />
+                            android:textSize="@dimen/text_size_middle"
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/play_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_list_play_count"
+                            android:drawablePadding="5dp"
                             android:gravity="center_vertical"
                             android:text="0次"
-                            android:drawablePadding="5dp"
                             android:textColor="#333333"
                             android:textSize="@dimen/text_size_middle" />
 
@@ -97,9 +98,9 @@
                             android:layout_toLeftOf="@+id/download"
                             android:drawableLeft="@drawable/ic_collect"
                             android:gravity="center_vertical"
-                            android:visibility="gone"
                             android:text="收藏"
-                            android:textColor="#333333" />
+                            android:textColor="#333333"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/download"
@@ -107,11 +108,11 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginLeft="10dp"
-                            android:visibility="gone"
                             android:drawableLeft="@drawable/ic_download"
                             android:gravity="center_vertical"
                             android:text="下载"
-                            android:textColor="#333333" />
+                            android:textColor="#333333"
+                            android:visibility="gone" />
                     </RelativeLayout>
 
                     <ImageView
@@ -186,22 +187,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/white"
-                            android:horizontalSpacing="10dp"
+                            android:horizontalSpacing="3dp"
                             android:numColumns="3"
-                            android:padding="10dp"
-                            android:verticalSpacing="10dp" />
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:paddingRight="3dp"
+                            android:paddingLeft="3dp"
+                            android:verticalSpacing="3dp" />
+
+                        <com.mzhguqvn.mzhguq.ui.view.CustomeGridView
+                            android:id="@+id/aboutCommendGridView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/white"
+                            android:horizontalSpacing="3dp"
+                            android:numColumns="2"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:paddingBottom="10dp"
+                            android:verticalSpacing="3dp" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:visibility="gone"
-                            android:background="#D1D1D1" />
+                            android:background="#D1D1D1"
+                            android:visibility="gone" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -249,9 +265,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             android:background="#D1D1D1"
-                            android:visibility="gone"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:padding="10dp"
+                            android:visibility="gone">
 
                             <EditText
                                 android:id="@+id/comment_content"

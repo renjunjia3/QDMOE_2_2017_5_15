@@ -59,27 +59,16 @@ public class BackOpenVipDialog extends Dialog {
             LayoutInflater inflater = LayoutInflater.from(context);
             final BackOpenVipDialog dialog = new BackOpenVipDialog(context, R.style.Dialog);
             final View layout = inflater.inflate(R.layout.dialog_back_open_vip, null);
-            RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
-            if (radioGroup.getCheckedRadioButtonId() == R.id.weChatPay) {
-                type = 1;
-            } else {
-                type = 2;
-            }
-
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                    if (checkedId == R.id.weChatPay) {
-                        type = 1;
-                    } else {
-                        type = 2;
-                    }
-                }
-            });
+            final RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
 
             layout.findViewById(R.id.open_vip).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (radioGroup.getCheckedRadioButtonId() == R.id.weChatPay) {
+                        type = 1;
+                    } else {
+                        type = 2;
+                    }
                     if (type == 1) {
                         if (weChatPayClickListener != null) {
                             weChatPayClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);

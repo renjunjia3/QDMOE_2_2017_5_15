@@ -50,7 +50,6 @@ public class JCFullScreenActivity extends Activity {
     private final Handler mHandler = new MyHandler(this);
     public static final int DIALOG_TYPE_GLOD = 0;//黄金
     public static final int DIALOG_TYPE_DIAMOND = 1;//砖石
-    public static final int DIALOG_TYPE_CDN = 2;//CDN加速
 
     public static final String PARAM_CURRENT_TIME = "current_time";
     public static final String PARAM_DIALOG_TYPE = "dialog_type";
@@ -128,10 +127,10 @@ public class JCFullScreenActivity extends Activity {
             mJcVideoPlayer.text2.setText("开通会员观看完整视频");
             mJcVideoPlayer.text3.setText("开通会员观看完整视频");
             mJcVideoPlayer.openVip.setText("开通VIP会员");
-        } else if (App.role == 1 && App.cdn == 0) {
+        } else if (App.role == 1 || App.role == 2) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
-            mJcVideoPlayer.openVip.setText("开通CDN加速");
+            mJcVideoPlayer.openVip.setText("开通钻石会员观看更多内容");
         } else {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
@@ -148,7 +147,8 @@ public class JCFullScreenActivity extends Activity {
                         intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_GLOD);
                         break;
                     case 1:
-                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_CDN);
+                    case 2:
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
                         break;
                 }
                 setResult(RESULT_OK, intent);
@@ -280,7 +280,7 @@ public class JCFullScreenActivity extends Activity {
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
                         if (builder != null && dialog != null) {
-                            builder.setMessage("非会员只能试看体验，请成为会员继续观看");
+                            builder.setMessage("非会员只能试看体验，请成为黄金会员观看更多内容");
                             dialog.show();
                             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
@@ -294,12 +294,12 @@ public class JCFullScreenActivity extends Activity {
                                 }
                             });
                         }
-                    } else if (App.role == 1 && App.cdn == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 1000) {
+                    } else if ((App.role == 1 || App.role == 2) && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 1000) {
                         timerTask.cancel();
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
                         if (builder != null && dialog != null) {
-                            builder.setMessage("网络太慢了！由于目前观看用户太多。你的国内线路宽带太低.是否需要切换到CDN高速通道？");
+                            builder.setMessage("请升级钻石顶级会员，观看更多内容同时解锁钻石频道栏目");
                             dialog.show();
                             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
@@ -307,7 +307,7 @@ public class JCFullScreenActivity extends Activity {
                                     //砖石会员看完视频，提示开通VPN海外会员
                                     Intent intent = new Intent();
                                     intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
-                                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_CDN);
+                                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
                                     setResult(RESULT_OK, intent);
                                     finish();
                                 }
