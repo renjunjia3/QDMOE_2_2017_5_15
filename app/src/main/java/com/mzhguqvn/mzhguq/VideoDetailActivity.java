@@ -484,7 +484,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         e.printStackTrace();
-                        ToastUtils.getInstance(VideoDetailActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
+                        DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this,"如遇微信不能支付，请使用支付宝支付");
                         if (progressDialog != null && progressDialog.isShowing()) {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -528,12 +528,12 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                     }
                                 });
                             } else {
-                                ToastUtils.getInstance(VideoDetailActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
+                                DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this,"如遇微信不能支付，请使用支付宝支付");
                             }
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            ToastUtils.getInstance(VideoDetailActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
+                            DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this,"如遇微信不能支付，请使用支付宝支付");
                         }
                     }
                 });

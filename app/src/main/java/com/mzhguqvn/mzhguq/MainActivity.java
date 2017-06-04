@@ -307,7 +307,7 @@ public class MainActivity extends SupportActivity {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-                        ToastUtils.getInstance(MainActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
+                        DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this,"如遇微信不能支付，请使用支付宝支付");
                     }
 
                     @Override
@@ -342,10 +342,11 @@ public class MainActivity extends SupportActivity {
                                     }
                                 });
                             } else {
-                                ToastUtils.getInstance(MainActivity.this).showToast("如遇微信不能支付，请使用支付宝支付");
+                                DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this,"如遇微信不能支付，请使用支付宝支付");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
+                            DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this,"如遇微信不能支付，请使用支付宝支付");
                         }
                     }
                 });
