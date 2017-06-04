@@ -31,7 +31,7 @@ public class PayUtil {
 
     //VIP的类型对应下面的描述
     // [1 => '开通黄金会员', 2 => '优惠开通黄金会员', 3 => '优惠开通包年黄金会员', 4 => '开通包年黄金会员',
-    // 5 => '直接开通钻石会员', 6 => '升级钻石会员', 7 => '直接开通包年钻石会员', 8 => '升级包年钻石会员']
+    // 5 => '直接开通钻石会员', 6 => '升级钻石会员', 7 => '直接开通包年钻石会员', 8 => '升级包年钻石会员',9=>'包年黄金会员升级包年钻石会员']
     public static final int VIP_TYPE_OPEN_GLOD_MONTH = 1;
     public static final int VIP_TYPE_OPEN_GLOD_DISCOUNT_MONTH = 2;
     public static final int VIP_TYPE_OPEN_GLOD_DISCOUNT_YEAR = 3;

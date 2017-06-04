@@ -280,7 +280,7 @@ public class JCFullScreenActivity extends Activity {
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
                         if (builder != null && dialog != null) {
-                            builder.setMessage("非会员只能试看体验，请成为黄金会员观看更多内容");
+                            builder.setMessage("非会员只能试看体验，请开通黄金会员观看更多内容");
                             dialog.show();
                             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override

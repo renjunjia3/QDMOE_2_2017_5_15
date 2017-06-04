@@ -156,7 +156,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
         commendNumber.setText(String.valueOf((random.nextInt(1000) + 580)));
         toolbarTitle.setText(videoInfo.getTitle());
         zan.setText(String.valueOf(videoInfo.getHits()));
-        playCount.setText(videoInfo.getHits() + "次播放");
+        playCount.setText(videoInfo.getHits() + "次访问");
         Glide.with(this).load(videoInfo.getThumb_heng()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(detailPlayer);
         //相关推荐
         videoRelateAdapter = new IndexItemAdapter(VideoDetailActivity.this, videoRelateList);

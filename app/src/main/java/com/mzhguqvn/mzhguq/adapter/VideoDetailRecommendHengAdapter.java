@@ -73,7 +73,7 @@ public class VideoDetailRecommendHengAdapter extends BaseAdapter {
         holder.name.setText(info.getTitle());
         holder.tag.setBackgroundColor(Color.parseColor(colors[new Random().nextInt(4)]));
         Glide.with(context).load(TextUtils.isEmpty(info.getThumb()) ? info.getThumb_heng() : info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(holder.image);
-        holder.playTime.setText(info.getHits() + "次播放");
+        holder.playTime.setText(info.getHits() + "次访问");
         holder.time.setText(JCUtils.stringForTime(info.getDuration()));
         return convertView;
     }

@@ -117,7 +117,7 @@ public class TrySeeAdapter extends BaseAdapter {
             viewHolder1.name.setText(info.getTitle());
             try {
                 viewHolder1.vipName1.setText(info.getData().get(0).getTitle());
-                viewHolder1.vipPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
+                viewHolder1.vipPlayTime1.setText(info.getData().get(0).getHits() + "次访问");
                 GlideUtils.loadImage(context, viewHolder1.vipImage1, info.getData().get(0).getThumb());
                 viewHolder1.time1.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
                 if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
@@ -141,7 +141,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 });
 
                 viewHolder1.vipName2.setText(info.getData().get(1).getTitle());
-                viewHolder1.vipPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
+                viewHolder1.vipPlayTime2.setText(info.getData().get(1).getHits() + "次访问");
                 viewHolder1.time2.setText(JCUtils.stringForTime(info.getData().get(2).getDuration()));
                 if (info.getData().get(1).getTag() != null && !info.getData().get(1).getTag().isEmpty()) {
                     viewHolder1.vipTag2.setText(info.getData().get(1).getTag());
@@ -165,7 +165,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 });
 
                 viewHolder1.vipName3.setText(info.getData().get(2).getTitle());
-                viewHolder1.vipPlayTime3.setText(info.getData().get(2).getHits() + "次播放");
+                viewHolder1.vipPlayTime3.setText(info.getData().get(2).getHits() + "次访问");
                 viewHolder1.time3.setText(JCUtils.stringForTime(info.getData().get(2).getDuration()));
                 if (info.getData().get(2).getTag() != null && !info.getData().get(2).getTag().isEmpty()) {
                     viewHolder1.vipTag3.setText(info.getData().get(2).getTag());
@@ -189,7 +189,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 });
 
                 viewHolder1.vipName4.setText(info.getData().get(3).getTitle());
-                viewHolder1.vipPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
+                viewHolder1.vipPlayTime4.setText(info.getData().get(3).getHits() + "次访问");
                 viewHolder1.time4.setText(JCUtils.stringForTime(info.getData().get(3).getDuration()));
                 if (info.getData().get(3).getTag() != null && !info.getData().get(3).getTag().isEmpty()) {
                     viewHolder1.vipTag4.setText(info.getData().get(3).getTag());
@@ -213,7 +213,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 });
 
                 viewHolder1.vipName5.setText(info.getData().get(4).getTitle());
-                viewHolder1.vipPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
+                viewHolder1.vipPlayTime5.setText(info.getData().get(4).getHits() + "次访问");
                 viewHolder1.time5.setText(JCUtils.stringForTime(info.getData().get(5).getDuration()));
                 if (info.getData().get(4).getTag() != null && !info.getData().get(4).getTag().isEmpty()) {
                     viewHolder1.vipTag5.setText(info.getData().get(4).getTag());
@@ -236,7 +236,7 @@ public class TrySeeAdapter extends BaseAdapter {
                     }
                 });
                 viewHolder1.vipName6.setText(info.getData().get(5).getTitle());
-                viewHolder1.vipPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
+                viewHolder1.vipPlayTime6.setText(info.getData().get(5).getHits() + "次访问");
                 viewHolder1.time6.setText(JCUtils.stringForTime(info.getData().get(5).getDuration()));
                 if (info.getData().get(5).getTag() != null && !info.getData().get(5).getTag().isEmpty()) {
                     viewHolder1.vipTag6.setText(info.getData().get(5).getTag());
@@ -266,7 +266,7 @@ public class TrySeeAdapter extends BaseAdapter {
             viewHolder2.name.setText(info.getTitle());
             try {
                 viewHolder2.hotName1.setText(info.getData().get(0).getTitle());
-                viewHolder2.hotPlayTime1.setText(info.getData().get(0).getHits() + "次播放");
+                viewHolder2.hotPlayTime1.setText(info.getData().get(0).getHits() + "次访问");
                 viewHolder2.time1.setText(JCUtils.stringForTime(info.getData().get(0).getDuration()));
                 GlideUtils.loadImage(context, viewHolder2.hotImage1, info.getData().get(0).getThumb());
                 if (info.getData().get(0).getTag() != null && !info.getData().get(0).getTag().isEmpty()) {
@@ -292,7 +292,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 });
 
                 viewHolder2.hotName2.setText(info.getData().get(1).getTitle());
-                viewHolder2.hotPlayTime2.setText(info.getData().get(1).getHits() + "次播放");
+                viewHolder2.hotPlayTime2.setText(info.getData().get(1).getHits() + "次访问");
                 viewHolder2.time2.setText(JCUtils.stringForTime(info.getData().get(1).getDuration()));
                 GlideUtils.loadImage(context, viewHolder2.hotImage2, info.getData().get(1).getThumb());
                 if (info.getData().get(1).getTag() != null && !info.getData().get(1).getTag().isEmpty()) {
@@ -316,7 +316,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 });
 
                 viewHolder2.hotName3.setText(info.getData().get(2).getTitle());
-                viewHolder2.hotPlayTime3.setText(info.getData().get(2).getHits() + "次播放");
+                viewHolder2.hotPlayTime3.setText(info.getData().get(2).getHits() + "次访问");
                 viewHolder2.time3.setText(JCUtils.stringForTime(info.getData().get(2).getDuration()));
                 GlideUtils.loadImage(context, viewHolder2.hotImage3, info.getData().get(2).getThumb());
                 if (info.getData().get(2).getTag() != null && !info.getData().get(2).getTag().isEmpty()) {
@@ -341,7 +341,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
 
                 viewHolder2.hotName4.setText(info.getData().get(3).getTitle());
-                viewHolder2.hotPlayTime4.setText(info.getData().get(3).getHits() + "次播放");
+                viewHolder2.hotPlayTime4.setText(info.getData().get(3).getHits() + "次访问");
                 viewHolder2.time4.setText(JCUtils.stringForTime(info.getData().get(3).getDuration()));
                 GlideUtils.loadImage(context, viewHolder2.hotImage4, info.getData().get(3).getThumb());
                 if (info.getData().get(3).getTag() != null && !info.getData().get(3).getTag().isEmpty()) {
@@ -366,7 +366,7 @@ public class TrySeeAdapter extends BaseAdapter {
 
 
                 viewHolder2.hotName5.setText(info.getData().get(4).getTitle());
-                viewHolder2.hotPlayTime5.setText(info.getData().get(4).getHits() + "次播放");
+                viewHolder2.hotPlayTime5.setText(info.getData().get(4).getHits() + "次访问");
                 viewHolder2.time5.setText(JCUtils.stringForTime(info.getData().get(4).getDuration()));
                 GlideUtils.loadImage(context, viewHolder2.hotImage5, info.getData().get(4).getThumb());
                 if (info.getData().get(4).getTag() != null && !info.getData().get(4).getTag().isEmpty()) {
@@ -390,7 +390,7 @@ public class TrySeeAdapter extends BaseAdapter {
                 });
 
                 viewHolder2.hotName6.setText(info.getData().get(5).getTitle());
-                viewHolder2.hotPlayTime6.setText(info.getData().get(5).getHits() + "次播放");
+                viewHolder2.hotPlayTime6.setText(info.getData().get(5).getHits() + "次访问");
                 viewHolder2.time6.setText(JCUtils.stringForTime(info.getData().get(5).getDuration()));
                 GlideUtils.loadImage(context, viewHolder2.hotImage6, info.getData().get(5).getThumb());
                 if (info.getData().get(5).getTag() != null && !info.getData().get(5).getTag().isEmpty()) {

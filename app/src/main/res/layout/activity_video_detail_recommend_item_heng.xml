@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="1000次播放"
+        android:text="1000次访问"
         android:textColor="#999999"
         android:textSize="@dimen/text_size_small" />
 
