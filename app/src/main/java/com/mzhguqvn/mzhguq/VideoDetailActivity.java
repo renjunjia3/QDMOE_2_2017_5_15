@@ -166,7 +166,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList.get(position));
-                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom);
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom==PageConfig.TRY_SEE_POSITOTN_ID?PageConfig.GLOD_POSITOTN_ID:isEnterFrom);
                 startActivity(intent);
                 finish();
             }
@@ -178,7 +178,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList1.get(position));
-                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom);
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom==PageConfig.TRY_SEE_POSITOTN_ID?PageConfig.GLOD_POSITOTN_ID:isEnterFrom);
                 startActivity(intent);
                 finish();
             }
