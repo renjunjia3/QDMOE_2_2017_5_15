@@ -178,7 +178,7 @@
                             android:drawablePadding="3dp"
                             android:gravity="center_vertical"
                             android:paddingLeft="10dp"
-                            android:text="相关推荐"
+                            android:text="VIP推荐"
                             android:textColor="#333333"
                             android:textSize="@dimen/text_size_big" />
 
