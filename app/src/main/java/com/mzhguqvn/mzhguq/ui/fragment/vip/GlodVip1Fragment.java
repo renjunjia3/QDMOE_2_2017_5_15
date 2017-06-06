@@ -233,7 +233,8 @@ public class GlodVip1Fragment extends BaseMainFragment {
                             }
                         }
                     } finally {
-                        ptrLayout.refreshComplete();
+                        if (ptrLayout != null)
+                            ptrLayout.refreshComplete();
                     }
                 }
             });

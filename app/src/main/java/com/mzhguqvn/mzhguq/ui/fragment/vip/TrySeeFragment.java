@@ -107,7 +107,7 @@ public class TrySeeFragment extends BaseMainFragment {
             @Override
             public void onClick(View v) {
                 if (App.role == 0) {
-                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0,  PageConfig.TRY_SEE_POSITOTN_ID);
+                    DialogUtil.getInstance().showGoldVipDialog(getContext(), 0, PageConfig.TRY_SEE_POSITOTN_ID);
                 }
             }
         });
@@ -229,7 +229,8 @@ public class TrySeeFragment extends BaseMainFragment {
                             }
                         }
                     } finally {
-                        ptrLayout.refreshComplete();
+                        if (ptrLayout != null)
+                            ptrLayout.refreshComplete();
                     }
                 }
             });
@@ -241,7 +242,8 @@ public class TrySeeFragment extends BaseMainFragment {
                     statusViewLayout.showNetError(retryListener);
                 }
             } else {
-                ptrLayout.refreshComplete();
+                if (ptrLayout != null)
+                    ptrLayout.refreshComplete();
             }
         }
     }

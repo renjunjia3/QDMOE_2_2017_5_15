@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -37,14 +38,18 @@ public class AliPayActivity extends Activity {
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.contains("platformapi/startapp")) {
-                    startAlipayActivity(url);
-                    // android  6.0 两种方式获取intent都可以跳转支付宝成功,7.1测试不成功
-                } else if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
-                        && (url.contains("platformapi") && url.contains("startapp"))) {
-                    startAlipayActivity(url);
+                if (mWebView != null && !TextUtils.isEmpty(url)) {
+                    if (url.contains("platformapi/startapp")) {
+                        startAlipayActivity(url);
+                        // android  6.0 两种方式获取intent都可以跳转支付宝成功,7.1测试不成功
+                    } else if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
+                            && (url.contains("platformapi") && url.contains("startapp"))) {
+                        startAlipayActivity(url);
+                    } else {
+                        mWebView.loadUrl(url);
+                    }
                 } else {
-                    mWebView.loadUrl(url);
+                    finish();
                 }
                 return true;
             }

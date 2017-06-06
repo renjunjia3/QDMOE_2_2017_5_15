@@ -364,10 +364,9 @@ public class VideoDetailActivity extends SwipeBackActivity {
                             }
                             videoRelateAdapter.notifyDataSetChanged();
                         }
+                        statusViewLayout.showContent();
                     } catch (Exception e) {
                         e.printStackTrace();
-                    } finally {
-                        statusViewLayout.showContent();
                     }
                 }
             });
