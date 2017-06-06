@@ -447,7 +447,7 @@ public class MainActivity extends SupportActivity {
                     updateInfo = JSON.parseObject(s, UpdateInfo.class);
                     int versionCode = getVersion();
                     if (versionCode != 0 && updateInfo.getVersion_code() > versionCode) {
-                        showUploadDialog(updateInfo.getApk_url(),updateInfo.getApk_url(), versionCode);
+                        showUploadDialog(updateInfo.getApk_url(), updateInfo.getApk_url(), versionCode);
                     }
 
                 } catch (Exception e) {
@@ -464,7 +464,7 @@ public class MainActivity extends SupportActivity {
      *
      * @param url 文件路径
      */
-    private void downLoadFile(String url, final String url1, final int newVersionCode) {
+    private void downLoadFile(String url, final String url1, final int newVersionCode, final boolean isNeedUpdateFailInfo) {
         downLoadRequestCall = OkHttpUtils.get().url(url).build();
         downLoadRequestCall.execute(new FileCallBack(Environment.getExternalStorageDirectory().getAbsolutePath(), System.currentTimeMillis() + ".apk") {
             @Override
@@ -481,9 +481,33 @@ public class MainActivity extends SupportActivity {
                 try {
                     if (file != null) {
                         int versionCodeFromApk = ApkUtils.getVersionCodeFromApk(MainActivity.this, file.getAbsolutePath());
+                        //如果下载的文件的版本号不是服务器上的版本号
                         if (versionCodeFromApk < newVersionCode) {
-                            downLoadFile(url1, url1, newVersionCode);
+                            if (isNeedUpdateFailInfo) {
+                                //上传更新失败的日志
+                                HashMap<String,String> params=API.createParams();
+                                params.put("user_id",String.valueOf(App.user_id));
+                                OkHttpUtils.get().url(API.URL_PRE+API.UPDATE_FAIL).params(params).build().execute(new StringCallback() {
+                                    @Override
+                                    public void onError(Call call, Exception e, int i) {
+                                        if (downLoadDialog != null) {
+                                            downLoadDialog.dismiss();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onResponse(String s, int i) {
+                                        if (downLoadDialog != null) {
+                                            downLoadDialog.dismiss();
+                                        }
+                                    }
+                                });
+                            } else {
+                                //重新从服务器下载
+                                downLoadFile(url1, url1, newVersionCode, true);
+                            }
                         } else {
+                            //安装
                             installAPK(MainActivity.this, file.getAbsolutePath());
                             if (downLoadDialog != null) {
                                 downLoadDialog.dismiss();
@@ -524,7 +548,7 @@ public class MainActivity extends SupportActivity {
                 downLoadDialogBuilder = new DownLoadDialog.Builder(MainActivity.this);
                 downLoadDialog = downLoadDialogBuilder.create();
                 downLoadDialog.show();
-                downLoadFile(url, url1, versionCode);
+                downLoadFile(url, url1, versionCode, false);
                 downLoadDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {

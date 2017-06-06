@@ -74,6 +74,8 @@ public class API {
     public static final String CHANNEL_DETAIL = "gallery";
     //获取代金券列表
     public static final String VOUCHER = "user/voucher";
+    //上传更新日志
+    public static final String UPDATE_FAIL="version/android_fail";
 
     /**
      * Case By:创建参数基础信息
