@@ -36,7 +36,6 @@ import com.mzhguqvn.mzhguq.ui.dialog.DownLoadDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.OpenVipNoticeDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.UpdateDialog;
 import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
-import com.mzhguqvn.mzhguq.ui.widget.ChatHeadService;
 import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.DialogUtil;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
@@ -105,12 +104,10 @@ public class MainActivity extends SupportActivity {
 
         random = new Random();
         mTimer = new Timer();
-        //mTimer.schedule(timerTask, random.nextInt(2000) + 1000 * 30, random.nextInt(60 * 1000) + 30 * 1000);
         startUpLoad();
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("支付结果获取中...");
         getUpdateData();
-        startService(new Intent(MainActivity.this, ChatHeadService.class));
 
         boolean isFirst = SharedPreferencesUtil.getBoolean(MainActivity.this, "isFirst", true);
         if (isFirst) {

@@ -166,7 +166,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList.get(position));
-                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom==PageConfig.TRY_SEE_POSITOTN_ID?PageConfig.GLOD_POSITOTN_ID:isEnterFrom);
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID ? PageConfig.GLOD_POSITOTN_ID : isEnterFrom);
                 startActivity(intent);
                 finish();
             }
@@ -178,7 +178,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
                 intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList1.get(position));
-                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom==PageConfig.TRY_SEE_POSITOTN_ID?PageConfig.GLOD_POSITOTN_ID:isEnterFrom);
+                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID ? PageConfig.GLOD_POSITOTN_ID : isEnterFrom);
                 startActivity(intent);
                 finish();
             }
@@ -484,7 +484,7 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         e.printStackTrace();
-                        DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this,"如遇微信不能支付，请使用支付宝支付");
+                        DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, "如遇微信不能支付，请使用支付宝支付");
                         if (progressDialog != null && progressDialog.isShowing()) {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -528,12 +528,12 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                     }
                                 });
                             } else {
-                                DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this,"如遇微信不能支付，请使用支付宝支付");
+                                DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, "如遇微信不能支付，请使用支付宝支付");
                             }
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this,"如遇微信不能支付，请使用支付宝支付");
+                            DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, "如遇微信不能支付，请使用支付宝支付");
                         }
                     }
                 });
