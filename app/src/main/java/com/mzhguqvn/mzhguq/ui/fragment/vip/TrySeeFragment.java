@@ -101,7 +101,7 @@ public class TrySeeFragment extends BaseMainFragment {
         View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_vip_footer, null);
         TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
         if (App.role == 0) {
-            footerText.setText("开通黄金会员，观看更多精彩内容");
+            footerText.setBackgroundResource(R.drawable.ic_list_bottom);
         }
         footerView.setOnClickListener(new View.OnClickListener() {
             @Override

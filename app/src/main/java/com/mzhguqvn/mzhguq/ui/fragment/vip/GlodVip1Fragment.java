@@ -103,7 +103,7 @@ public class GlodVip1Fragment extends BaseMainFragment {
         TextView footerText = (TextView) footerView.findViewById(R.id.footer_text);
         if (App.role == 1 || App.role == 2) {
             footerText.setVisibility(View.VISIBLE);
-            footerText.setText("升级钻石顶级会员,观看更多精彩内容");
+            footerText.setBackgroundResource(R.drawable.ic_list_bottom_update_diamond);
         } else {
             footerText.setVisibility(View.GONE);
         }
