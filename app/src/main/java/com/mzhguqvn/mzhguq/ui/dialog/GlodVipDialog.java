@@ -20,7 +20,9 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.mzhguqvn.mzhguq.util.ViewUtils;
@@ -125,7 +127,9 @@ public class GlodVipDialog extends Dialog {
                     } else {
                         PayUtil.getInstance().payByAliPay(context, vip_type, videoId, pay_position_id);
                     }
-
+                    MainActivity.upLoadPageInfo(vip_type == PayUtil.VIP_TYPE_OPEN_GLOD_MONTH ?
+                                    PageConfig.CLICK_OPEN_VIP_GLOD_MONTH : PageConfig.CLICK_OPEN_VIP_GLOD_YEAR,
+                            videoId, pay_position_id);
                 }
             });
 

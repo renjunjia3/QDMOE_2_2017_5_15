@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
@@ -123,7 +124,9 @@ public class BackGlodVipDialog extends Dialog {
                     } else {
                         PayUtil.getInstance().payByAliPay(context, vip_type, 0, PageConfig.BACK_OPEN_VIP_POSITOTN_ID);
                     }
-
+                    MainActivity.upLoadPageInfo(vip_type == PayUtil.VIP_TYPE_OPEN_GLOD_DISCOUNT_MONTH ?
+                                    PageConfig.CLICK_OPEN_VIP_GLOD_MONTH_DIACOUNT : PageConfig.CLICK_OPEN_VIP_GLOD_YEAR_DIACOUNT,
+                            0, PageConfig.BACK_OPEN_VIP_POSITOTN_ID);
                 }
             });
 

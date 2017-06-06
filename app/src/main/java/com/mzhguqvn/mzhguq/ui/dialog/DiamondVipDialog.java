@@ -16,8 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.app.App;
+import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 
@@ -55,8 +57,9 @@ public class DiamondVipDialog extends Dialog {
         private int pay_position_id;
         private int payWaytype = 1;
         private int vipType = 1;
+        private int position_id = PageConfig.CLICK_OPEN_VIP_DIAMOND_MONTH;
 
-        private TextView text1,text2;
+        private TextView text1, text2;
         private TextView diamondTitle;
         private TextView price1, price2;
         private TextView oldPrice1, oldPrice2;
@@ -77,8 +80,8 @@ public class DiamondVipDialog extends Dialog {
             View layout = inflater.inflate(R.layout.dialog_diamond_vip, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             //获取id
-            text1= (TextView) layout.findViewById(R.id.text_1);
-            text2= (TextView) layout.findViewById(R.id.text_2);
+            text1 = (TextView) layout.findViewById(R.id.text_1);
+            text2 = (TextView) layout.findViewById(R.id.text_2);
             radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
             price1 = (TextView) layout.findViewById(R.id.price_1);
             price2 = (TextView) layout.findViewById(R.id.price_2);
@@ -88,7 +91,7 @@ public class DiamondVipDialog extends Dialog {
             layoutVipYear = (LinearLayout) layout.findViewById(R.id.layout_vip_year);
             vipMonth = (ImageView) layout.findViewById(R.id.vipMonth);
             vipYear = (ImageView) layout.findViewById(R.id.vipYear);
-            diamondTitle= (TextView) layout.findViewById(R.id.diamond_title);
+            diamondTitle = (TextView) layout.findViewById(R.id.diamond_title);
             switch (App.role) {
                 case 0:
                     //游客直接开通钻石会员
@@ -158,14 +161,17 @@ public class DiamondVipDialog extends Dialog {
                         case 0:
                             //直接开通包年或者包月钻石会员
                             realVipType = vipType == 1 ? PayUtil.VIP_TYPE_OPEN_DIAMOND_MONTH : PayUtil.VIP_TYPE_OPEN_DIAMOND_YEAR;
+                            position_id = vipType == 1 ? PageConfig.CLICK_OPEN_VIP_DIAMOND_MONTH_DIRECT : PageConfig.CLICK_OPEN_VIP_DIAMOND_YEAR_DIRECT;
                             break;
                         case 1:
                             //升级包年或者包月钻石
                             realVipType = vipType == 1 ? PayUtil.VIP_TYPE_UPDATE_DIAMOND_MONTH : PayUtil.VIP_TYPE_UPDATE_DIAMOND_YEAR_FROM_MONTH;
+                            position_id = vipType == 1 ? PageConfig.CLICK_OPEN_VIP_DIAMOND_MONTH : PageConfig.CLICK_OPEN_VIP_DIAMOND_YEAR;
                             break;
                         case 2:
                             //升级包年
                             realVipType = PayUtil.VIP_TYPE_UPDATE_DIAMOND_YEAR_FROM_YEAR;
+                            position_id = PageConfig.CLICK_OPEN_VIP_DIAMOND_YEAR;
                             break;
                     }
 
@@ -179,6 +185,8 @@ public class DiamondVipDialog extends Dialog {
                     } else {
                         PayUtil.getInstance().payByAliPay(context, realVipType, videoId, pay_position_id);
                     }
+
+                    MainActivity.upLoadPageInfo(position_id, videoId, pay_position_id);
 
                 }
             });

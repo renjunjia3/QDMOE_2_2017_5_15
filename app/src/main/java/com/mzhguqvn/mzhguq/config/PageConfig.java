@@ -30,5 +30,13 @@ public class PageConfig {
     public static final int MY_VOUCHER_POSITION_ID = 21;
     public static final int CHANNEL_POSITION_ID = 22;
     public static final int CHANNEL_DETAIL_POSITION_ID = 23;
+    public static final int CLICK_OPEN_VIP_GLOD_MONTH=24;
+    public static final int CLICK_OPEN_VIP_GLOD_YEAR=25;
+    public static final int CLICK_OPEN_VIP_GLOD_MONTH_DIACOUNT=26;
+    public static final int CLICK_OPEN_VIP_GLOD_YEAR_DIACOUNT=27;
+    public static final int CLICK_OPEN_VIP_DIAMOND_MONTH=28;
+    public static final int CLICK_OPEN_VIP_DIAMOND_YEAR=29;
+    public static final int CLICK_OPEN_VIP_DIAMOND_MONTH_DIRECT=30;
+    public static final int CLICK_OPEN_VIP_DIAMOND_YEAR_DIRECT=31;
 
 }
