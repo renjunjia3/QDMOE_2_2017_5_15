@@ -166,11 +166,16 @@ public class ChannelDetailFragment extends BaseBackFragment implements GalleryAd
             @Override
             public void onError(Call call, Exception e, int i) {
                 e.printStackTrace();
-                if (isShowLoading) {
-                    statusViewLayout.showNetError(retryListener);
-                } else {
-                    ptrLayout.refreshComplete();
+                try{
+                    if (isShowLoading) {
+                        statusViewLayout.showNetError(retryListener);
+                    } else {
+                        ptrLayout.refreshComplete();
+                    }
+                }catch (Exception e1){
+                    e1.printStackTrace();
                 }
+
             }
 
             @Override
