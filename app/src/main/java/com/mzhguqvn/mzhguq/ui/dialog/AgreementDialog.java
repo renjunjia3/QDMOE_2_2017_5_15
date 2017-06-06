@@ -8,6 +8,7 @@ import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mzhguqvn.mzhguq.R;
@@ -25,6 +26,7 @@ public class AgreementDialog extends Dialog implements View.OnClickListener {
     private CheckBox checkBox;
     private TextView agreement;
     private TextView cancel;
+    private ImageView close;
 
     public AgreementDialog(@NonNull Context context) {
         super(context);
@@ -50,9 +52,11 @@ public class AgreementDialog extends Dialog implements View.OnClickListener {
         content.setMovementMethod(new ScrollingMovementMethod());
         String str = GetAssestDataUtil.getString(getContext(), "agreement");
         content.setText(Html.fromHtml(str));
+        close = (ImageView) findViewById(R.id.close);
 
         agreement.setOnClickListener(this);
         cancel.setOnClickListener(this);
+        close.setOnClickListener(this);
 
         setCanceledOnTouchOutside(false);
 
