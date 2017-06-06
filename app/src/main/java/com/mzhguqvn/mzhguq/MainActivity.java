@@ -37,6 +37,7 @@ import com.mzhguqvn.mzhguq.ui.dialog.OpenVipNoticeDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.UpdateDialog;
 import com.mzhguqvn.mzhguq.ui.fragment.MainFragment;
 import com.mzhguqvn.mzhguq.util.API;
+import com.mzhguqvn.mzhguq.util.ApkUtils;
 import com.mzhguqvn.mzhguq.util.DialogUtil;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.mzhguqvn.mzhguq.util.SharedPreferencesUtil;
@@ -64,7 +65,6 @@ import java.util.TimerTask;
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import okhttp3.Call;
 import okhttp3.Request;
 
@@ -86,7 +86,6 @@ public class MainActivity extends SupportActivity {
     private UpdateInfo updateInfo;
     private DownLoadDialog downLoadDialog;
     private DownLoadDialog.Builder downLoadDialogBuilder;
-    private MaterialProgressBar progressBar;
     private RequestCall downLoadRequestCall;
     //版本更新的对话框
     private UpdateDialog updateDialog;
@@ -304,7 +303,7 @@ public class MainActivity extends SupportActivity {
                         if (progressDialog != null && progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-                        DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this,"如遇微信不能支付，请使用支付宝支付");
+                        DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, "如遇微信不能支付，请使用支付宝支付");
                     }
 
                     @Override
@@ -339,11 +338,11 @@ public class MainActivity extends SupportActivity {
                                     }
                                 });
                             } else {
-                                DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this,"如遇微信不能支付，请使用支付宝支付");
+                                DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, "如遇微信不能支付，请使用支付宝支付");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this,"如遇微信不能支付，请使用支付宝支付");
+                            DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, "如遇微信不能支付，请使用支付宝支付");
                         }
                     }
                 });
@@ -448,7 +447,7 @@ public class MainActivity extends SupportActivity {
                     updateInfo = JSON.parseObject(s, UpdateInfo.class);
                     int versionCode = getVersion();
                     if (versionCode != 0 && updateInfo.getVersion_code() > versionCode) {
-                        showUploadDialog(updateInfo.getApk_url());
+                        showUploadDialog(updateInfo.getApk_url(),updateInfo.getApk_url(), versionCode);
                     }
 
                 } catch (Exception e) {
@@ -465,14 +464,11 @@ public class MainActivity extends SupportActivity {
      *
      * @param url 文件路径
      */
-    private void downLoadFile(String url) {
+    private void downLoadFile(String url, final String url1, final int newVersionCode) {
         downLoadRequestCall = OkHttpUtils.get().url(url).build();
         downLoadRequestCall.execute(new FileCallBack(Environment.getExternalStorageDirectory().getAbsolutePath(), System.currentTimeMillis() + ".apk") {
             @Override
             public void inProgress(float progress, long total, int id) {
-                if (progressBar != null) {
-                    progressBar.setProgress((int) (100 * progress));
-                }
             }
 
             @Override
@@ -484,10 +480,16 @@ public class MainActivity extends SupportActivity {
             public void onResponse(File file, int i) {
                 try {
                     if (file != null) {
-                        installAPK(MainActivity.this, file.getAbsolutePath());
-                        if (downLoadDialog != null) {
-                            downLoadDialog.dismiss();
+                        int versionCodeFromApk = ApkUtils.getVersionCodeFromApk(MainActivity.this, file.getAbsolutePath());
+                        if (versionCodeFromApk < newVersionCode) {
+                            downLoadFile(url1, url1, newVersionCode);
+                        } else {
+                            installAPK(MainActivity.this, file.getAbsolutePath());
+                            if (downLoadDialog != null) {
+                                downLoadDialog.dismiss();
+                            }
                         }
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -504,7 +506,7 @@ public class MainActivity extends SupportActivity {
      * Case By:提示更新的对话框
      * Author: scene on 2017/4/27 16:52
      */
-    public void showUploadDialog(final String url) {
+    public void showUploadDialog(final String url, final String url1, final int versionCode) {
         if (updateDialog != null && updateDialog.isShowing()) {
             updateDialog.cancel();
         }
@@ -521,9 +523,8 @@ public class MainActivity extends SupportActivity {
                 }
                 downLoadDialogBuilder = new DownLoadDialog.Builder(MainActivity.this);
                 downLoadDialog = downLoadDialogBuilder.create();
-                progressBar = downLoadDialogBuilder.getProgressBar();
                 downLoadDialog.show();
-                downLoadFile(url);
+                downLoadFile(url, url1, versionCode);
                 downLoadDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -566,7 +567,6 @@ public class MainActivity extends SupportActivity {
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/NNY_1001.apk";
         intent.setDataAndType(Uri.parse("file://" + fileName), "application/vnd.android.package-archive");
         mContext.startActivity(intent);
     }

@@ -27,6 +27,7 @@ public class UpdateInfo implements Serializable {
     private String created_at;
     private String updated_at;
     private String apk_url;
+    private String apk_url1;
 
     public int getId() {
         return id;
@@ -82,5 +83,13 @@ public class UpdateInfo implements Serializable {
 
     public void setApk_url(String apk_url) {
         this.apk_url = apk_url;
+    }
+
+    public String getApk_url1() {
+        return apk_url1;
+    }
+
+    public void setApk_url1(String apk_url1) {
+        this.apk_url1 = apk_url1;
     }
 }

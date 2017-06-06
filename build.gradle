@@ -26,7 +26,7 @@ ext {
     buildToolsVersion = "25.0.1"
     minSdkVersion = 15
     targetSdkVersion = 22
-    versionCode =60
+    versionCode =45
     versionName ="2.1.0"
     //第三方包版本
     appcompat="25.1.0"

@@ -26,10 +26,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:padding="30dp"
+        android:indeterminate="true"
+        android:layout_margin="30dp"
+        app:mpb_indeterminateTint="#317EF3"
         app:mpb_progressBackgroundTint="#dddddd"
         app:mpb_progressStyle="horizontal"
         app:mpb_progressTint="#317EF3" />
-
 
 </LinearLayout>
