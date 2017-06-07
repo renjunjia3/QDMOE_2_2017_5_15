@@ -272,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="会员协议"
+                    android:text="用户协议"
                     android:textColor="#f1d09e"
                     android:textSize="@dimen/text_size_big" />
 
