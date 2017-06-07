@@ -187,9 +187,9 @@ public class MainFragment extends BaseFragment {
             case 4://钻石
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_channel_d, R.drawable.ic_bottom_bar_channel_s, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_channel_d, R.drawable.ic_bottom_bar_channel_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
         }
 

@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:base="horizontal"
+        android:scaleType="fitXY"
         app:horizontal_weight="6"
         app:vertical_weight="7" />
 
