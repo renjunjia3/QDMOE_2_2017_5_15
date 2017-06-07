@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.bean.ChannelResultInfo;
 import com.mzhguqvn.mzhguq.ui.view.RatioImageView;
@@ -47,10 +49,8 @@ public class ChannelAdapter extends RecyclerView.Adapter {
         ChannelViewHolder viewHolder = (ChannelViewHolder) holder;
         ChannelResultInfo.DataBean info = list.get(position);
         viewHolder.name.setText(info.getTitle());
-        viewHolder.updateNumber.setText("更新至" + info.getPeriod() + "期");
-        viewHolder.updateNumber1.setText(info.getPeriod() + "期");
-        viewHolder.hits.setText(info.getHits() + "人观看");
-        GlideUtils.loadImageWithHeng(context, viewHolder.image, info.getThumb());
+        viewHolder.hits.setText(String.format("%d人观看", info.getHits()));
+        Glide.with(context).load(info.getThumb()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(viewHolder.image);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,17 +67,12 @@ public class ChannelAdapter extends RecyclerView.Adapter {
     }
 
     static class ChannelViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.image)
-        RatioImageView image;
-        @BindView(R.id.hits)
-        TextView hits;
         @BindView(R.id.name)
         TextView name;
-        @BindView(R.id.update_number)
-        TextView updateNumber;
-        @BindView(R.id.update_number1)
-        TextView updateNumber1;
-
+        @BindView(R.id.hits)
+        TextView hits;
+        @BindView(R.id.image)
+        RatioImageView image;
         ChannelViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

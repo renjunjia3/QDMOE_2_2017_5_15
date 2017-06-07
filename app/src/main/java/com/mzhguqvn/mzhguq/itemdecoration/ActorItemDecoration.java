@@ -24,10 +24,12 @@ public class ActorItemDecoration extends RecyclerView.ItemDecoration {
         int childLayoutPosition = parent.getChildLayoutPosition(view);
 
         //设置每行最后一个的右间距
-        if (childLayoutPosition % 2 == 0) {
+        if (childLayoutPosition % 2 == 1) {
             outRect.right = space;
         }
-
+        if (childLayoutPosition < 2) {
+            outRect.top = space;
+        }
     }
 
 }

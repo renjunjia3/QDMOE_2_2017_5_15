@@ -3,7 +3,7 @@ package com.mzhguqvn.mzhguq.ui.fragment.channel;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +18,7 @@ import com.mzhguqvn.mzhguq.base.BaseMainFragment;
 import com.mzhguqvn.mzhguq.bean.ChannelResultInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
-import com.mzhguqvn.mzhguq.itemdecoration.CustomItemDecotation;
+import com.mzhguqvn.mzhguq.itemdecoration.ActorItemDecoration;
 import com.mzhguqvn.mzhguq.listener.OnTaskFinishedListener;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
@@ -92,8 +92,9 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
 
         list = new ArrayList<>();
         adapter = new ChannelAdapter(getContext(), list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new CustomItemDecotation(0, ScreenUtils.instance(getContext()).dp2px(10), 1, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        int space = ScreenUtils.instance(getContext()).dp2px(5);
+        recyclerView.addItemDecoration(new ActorItemDecoration(space));
         recyclerView.setAdapter(adapter);
         adapter.setOnClickChannelItemListener(this);
     }
@@ -186,7 +187,7 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
     @Override
     public void onClickChannelItem(int position) {
         if (App.role <= 2) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目为钻石会员专享，请先升级钻石顶级会员", App.role, true, PageConfig.CHANNEL_POSITION_ID,true);
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目为钻石会员专享，请先升级钻石顶级会员", App.role, true, PageConfig.CHANNEL_POSITION_ID, true);
         } else {
             EventBus.getDefault().post(new StartBrotherEvent(ChannelDetailFragment.newInstance(list.get(position).getId(), list.get(position).getTitle())));
         }
