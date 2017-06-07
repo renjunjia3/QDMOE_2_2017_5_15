@@ -100,7 +100,7 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
     }
 
     private void getdata(final boolean isShowLoading) {
-        HashMap params = API.createParams();
+        HashMap<String, String> params = API.createParams();
         OkHttpUtils.get().url(API.URL_PRE + API.CHANNEL).params(params).tag(TAG).build().execute(new StringCallback() {
             @Override
             public void onBefore(Request request, int id) {
@@ -187,7 +187,7 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
     @Override
     public void onClickChannelItem(int position) {
         if (App.role <= 2) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目为钻石会员专享，请先升级钻石顶级会员", App.role, true, PageConfig.CHANNEL_POSITION_ID, true);
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目为钻石会员专享，请先升级钻石会员", App.role, true, PageConfig.CHANNEL_POSITION_ID, true);
         } else {
             EventBus.getDefault().post(new StartBrotherEvent(ChannelDetailFragment.newInstance(list.get(position).getId(), list.get(position).getTitle())));
         }

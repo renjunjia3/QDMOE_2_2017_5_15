@@ -119,7 +119,9 @@ public class JCFullScreenActivity extends Activity {
 
         mTimer = new Timer();
         mTimer.schedule(timerTask, 50, 50);
-        getDanmuData();
+        if (App.role == 0) {
+            getDanmuData();
+        }
 
         if (App.role == 0) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
@@ -299,7 +301,7 @@ public class JCFullScreenActivity extends Activity {
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
                         if (builder != null && dialog != null) {
-                            builder.setMessage("请升级钻石顶级会员，观看更多内容同时解锁钻石频道栏目");
+                            builder.setMessage("请升级钻石会员，观看更多内容同时解锁钻石频道栏目");
                             dialog.show();
                             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
