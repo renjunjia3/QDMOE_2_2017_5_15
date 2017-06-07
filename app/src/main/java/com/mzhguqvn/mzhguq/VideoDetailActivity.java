@@ -164,11 +164,30 @@ public class VideoDetailActivity extends SwipeBackActivity {
         aboutCommendGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
-                intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList.get(position));
-                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID ? PageConfig.GLOD_POSITOTN_ID : isEnterFrom);
-                startActivity(intent);
-                finish();
+
+                if (isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID && App.role == 0) {
+                    //试看区进来的但是不是会员
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                            "该片为会员视频，请开通会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                            PageConfig.VIDEO_DETAIL_POSITION_ID, false);
+                } else if (isEnterFrom == PageConfig.GLOD_POSITOTN_ID && App.role == 0) {
+                    //黄金区进来的但是不是会员
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                            "该片为会员视频，请开通会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                            PageConfig.VIDEO_DETAIL_POSITION_ID, false);
+                } else if (isEnterFrom == PageConfig.ANCHOR_POSITOTN_ID && App.role <= 2) {
+                    //从钻石区（主播）进来的但是不是钻石会员
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                            "该片为钻石会员视频，请升级会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                            PageConfig.VIDEO_DETAIL_POSITION_ID, false);
+                } else {
+                    Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
+                    intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList.get(position));
+                    intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID ? PageConfig.GLOD_POSITOTN_ID : isEnterFrom);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
         videoDetailRecommendHengAdapter = new VideoDetailRecommendHengAdapter(VideoDetailActivity.this, videoRelateList1);
@@ -176,11 +195,28 @@ public class VideoDetailActivity extends SwipeBackActivity {
         aboutCommendGridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
-                intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList1.get(position));
-                intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID ? PageConfig.GLOD_POSITOTN_ID : isEnterFrom);
-                startActivity(intent);
-                finish();
+                if (isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID && App.role == 0) {
+                    //试看区进来的但是不是会员
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                            "该片为会员视频，请开通会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                            PageConfig.VIDEO_DETAIL_POSITION_ID, false);
+                } else if (isEnterFrom == PageConfig.GLOD_POSITOTN_ID && App.role == 0) {
+                    //黄金区进来的但是不是会员
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                            "该片为会员视频，请开通会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                            PageConfig.VIDEO_DETAIL_POSITION_ID, false);
+                } else if (isEnterFrom == PageConfig.ANCHOR_POSITOTN_ID && App.role <= 2) {
+                    //从钻石区（主播）进来的但是不是钻石会员
+                    DialogUtil.getInstance().showSubmitDialog(VideoDetailActivity.this, false,
+                            "该片为钻石会员视频，请升级会员继续观看", App.role, true, videoInfo.getVideo_id(),
+                            PageConfig.VIDEO_DETAIL_POSITION_ID, false);
+                } else {
+                    Intent intent = new Intent(VideoDetailActivity.this, VideoDetailActivity.class);
+                    intent.putExtra(VideoDetailActivity.ARG_VIDEO_INFO, videoRelateList.get(position));
+                    intent.putExtra(VideoDetailActivity.ARG_IS_ENTER_FROM, isEnterFrom == PageConfig.TRY_SEE_POSITOTN_ID ? PageConfig.GLOD_POSITOTN_ID : isEnterFrom);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         getRecomendVideo();

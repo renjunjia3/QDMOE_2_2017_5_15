@@ -254,7 +254,7 @@
                 android:visibility="gone" />
 
             <LinearLayout
-                android:id="@+id/xieyi"
+                android:id="@+id/hot_recommend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#333333"
@@ -265,14 +265,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_xieyi" />
+                    android:src="@drawable/ic_mine_hot_recommend" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="用户协议"
+                    android:text="热门推荐"
                     android:textColor="#f1d09e"
                     android:textSize="@dimen/text_size_big" />
 
@@ -281,6 +281,16 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_glod" />
             </LinearLayout>
+
+            <com.mzhguqvn.mzhguq.ui.view.CustomeGridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:background="#333333"
+                android:horizontalSpacing="3dp"
+                android:numColumns="3"
+                android:verticalSpacing="3dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -365,7 +375,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_lisi" />
+                    android:src="@drawable/ic_mine_system_message" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -497,6 +507,74 @@
                 android:layout_height="1dp"
                 android:background="#46433e" />
 
+            <LinearLayout
+                android:id="@+id/my_discount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#333333"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mine_voucher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="我的优惠"
+                    android:textColor="#f1d09e"
+                    android:textSize="@dimen/text_size_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_glod" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#46433e" />
+
+            <LinearLayout
+                android:id="@+id/xieyi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#333333"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_xieyi" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="用户协议"
+                    android:textColor="#f1d09e"
+                    android:textSize="@dimen/text_size_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_glod" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#46433e" />
+
             <TextView
                 android:id="@+id/tousu"
                 android:layout_width="match_parent"
@@ -509,7 +587,6 @@
                 android:text="求片/投诉/客服"
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
-
         </LinearLayout>
     </ScrollView>
 

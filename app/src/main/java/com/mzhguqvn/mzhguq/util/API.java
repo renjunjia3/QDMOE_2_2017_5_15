@@ -76,6 +76,8 @@ public class API {
     public static final String VOUCHER = "user/voucher";
     //上传更新日志
     public static final String UPDATE_FAIL="version/android_fail";
+    //获取开通会员的提示
+    public static final String TOP_NOTICE="user/pay_success";
 
     /**
      * Case By:创建参数基础信息

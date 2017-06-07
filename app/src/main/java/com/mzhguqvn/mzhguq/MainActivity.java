@@ -27,10 +27,12 @@ import com.alibaba.fastjson.JSON;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.app.CrashHandler;
 import com.mzhguqvn.mzhguq.bean.CheckOrderInfo;
+import com.mzhguqvn.mzhguq.bean.TopNoticeInfo;
 import com.mzhguqvn.mzhguq.bean.UpdateInfo;
 import com.mzhguqvn.mzhguq.event.ChangeTabEvent;
 import com.mzhguqvn.mzhguq.event.CheckOrderEvent;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
+import com.mzhguqvn.mzhguq.service.ChatHeadService;
 import com.mzhguqvn.mzhguq.ui.dialog.AgreementDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.DownLoadDialog;
 import com.mzhguqvn.mzhguq.ui.dialog.OpenVipNoticeDialog;
@@ -58,7 +60,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -73,9 +74,9 @@ import okhttp3.Request;
  * Created by scene on 16/6/2.
  */
 public class MainActivity extends SupportActivity {
+    private static final String NOTICE_TAG = "top_notice_tag";
     private TextView toasrContent;
     private Timer mTimer;
-    private Random random;
     private final Handler mHandler = new MyHandler(this);
     private Toast toast;
 
@@ -101,30 +102,30 @@ public class MainActivity extends SupportActivity {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
         }
 
-        random = new Random();
         mTimer = new Timer();
+        mTimer.schedule(timerTask, 60 * 1000, 60 * 1000);
         startUpLoad();
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("支付结果获取中...");
         getUpdateData();
-
+        startService(new Intent(MainActivity.this, ChatHeadService.class));
         boolean isFirst = SharedPreferencesUtil.getBoolean(MainActivity.this, "isFirst", true);
         if (isFirst) {
             AgreementDialog dialog = new AgreementDialog(this, R.style.Dialog);
             dialog.show();
         }
-
     }
 
-    private void showNoticeToast(int id) {
+    private void showNoticeToast(String message) {
         if (toast == null) {
             View v = LayoutInflater.from(MainActivity.this).inflate(R.layout.custom_toast, null);
             toasrContent = (TextView) v.findViewById(R.id.content);
             toast = new Toast(MainActivity.this);
             toast.setView(v);
             toast.setGravity(Gravity.TOP, 0, (int) ScreenUtils.instance(MainActivity.this).dip2px(80));
+            toast.setDuration(3000);
         }
-        toasrContent.setText("恭喜VIP" + id + (id % 2 == 0 ? "成功开通永久会员" : "成功开通会员"));
+        toasrContent.setText(message);
         toast.show();
     }
 
@@ -146,7 +147,26 @@ public class MainActivity extends SupportActivity {
         @Override
         public void handleMessage(Message msg) {
             if (!isApplicationBroughtToBackground(MainActivity.this)) {
-                showNoticeToast(random.nextInt(100000) + 10000);
+                HashMap<String, String> params = API.createParams();
+                OkHttpUtils.get().url(API.URL_PRE + API.TOP_NOTICE).params(params).tag(NOTICE_TAG).build().execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(String s, int i) {
+                        try {
+                            TopNoticeInfo topNoticeInfo = JSON.parseObject(s, TopNoticeInfo.class);
+                            if (topNoticeInfo.isStatus() && topNoticeInfo.getUser_id() > 0) {
+                                String message = "恭喜用户" + topNoticeInfo.getUser_id() + "成功开通VIP会员";
+                                showNoticeToast(message);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         }
     }
@@ -485,9 +505,9 @@ public class MainActivity extends SupportActivity {
                         if (versionCodeFromApk < newVersionCode) {
                             if (isNeedUpdateFailInfo) {
                                 //上传更新失败的日志
-                                HashMap<String,String> params=API.createParams();
-                                params.put("user_id",String.valueOf(App.user_id));
-                                OkHttpUtils.get().url(API.URL_PRE+API.UPDATE_FAIL).params(params).build().execute(new StringCallback() {
+                                HashMap<String, String> params = API.createParams();
+                                params.put("user_id", String.valueOf(App.user_id));
+                                OkHttpUtils.get().url(API.URL_PRE + API.UPDATE_FAIL).params(params).build().execute(new StringCallback() {
                                     @Override
                                     public void onError(Call call, Exception e, int i) {
                                         if (downLoadDialog != null) {

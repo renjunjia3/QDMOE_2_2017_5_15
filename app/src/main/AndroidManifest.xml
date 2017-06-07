@@ -38,7 +38,7 @@
             android:name="UMENG_CHANNEL"
             android:value="Channel ID" />
         <!--配置弹窗的service-->
-
+        <service android:name="com.mzhguqvn.mzhguq.service.ChatHeadService" />
         <activity
             android:name="com.mzhguqvn.mzhguq.LuncherActivity"
             android:screenOrientation="portrait">
