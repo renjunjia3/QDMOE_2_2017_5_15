@@ -104,12 +104,12 @@ public class MainFragment extends BaseFragment {
                     break;
                 case 3://钻石包月
                 case 4://钻石包年
-                    fragments.add(GlodVip1Fragment.newInstance());
+                    //fragments.add(GlodVip1Fragment.newInstance());
                     fragments.add(Anchor1Fragment.newInstance());
                     fragments.add(ChannelFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
-                    tabNames.add(getString(R.string.tab_glod_vip));
+                    //tabNames.add(getString(R.string.tab_glod_vip));
                     tabNames.add(getString(R.string.tab_diamond_vip));
                     tabNames.add(getString(R.string.tab_diamond_channel));
                     tabNames.add(getString(R.string.tab_mine));
@@ -150,7 +150,7 @@ public class MainFragment extends BaseFragment {
                     break;
                 case 3:
                 case 4:
-                    fragments.add(findChildFragment(GlodVip1Fragment.class));
+                   // fragments.add(findChildFragment(GlodVip1Fragment.class));
                     fragments.add(findChildFragment(Anchor1Fragment.class));
                     fragments.add(findChildFragment(ChannelFragment.class));
                     fragments.add(findChildFragment(MineFragment.class));
@@ -186,10 +186,10 @@ public class MainFragment extends BaseFragment {
             case 3:
             case 4://钻石
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_diamond);
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_channel_d, R.drawable.ic_bottom_bar_channel_s, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
+               // mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(0)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_channel_d, R.drawable.ic_bottom_bar_channel_s, tabNames.get(1)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
                 break;
         }
 

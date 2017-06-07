@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -13,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:background="@drawable/dialog_vip_top_bg"
+            android:background="@drawable/bg_back_vip_top"
             android:maxHeight="500dp" />
 
         <ImageView
@@ -26,16 +27,29 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/middle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_dialog_vip_bottom_bg"
+        android:layout_below="@+id/top"
+        android:background="@drawable/bg_back_vip_middle"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="恭喜获得优惠大礼包"
+            android:textColor="#ED2020"
+            android:textSize="@dimen/text_size_large" />
 
         <LinearLayout
             android:id="@+id/layout_type_glod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/dialog_vip_type_bg"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -178,6 +192,25 @@
 
         <include layout="@layout/dialog_pay_bottom" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="限时特惠，活动结束后将不在出现"
+            android:textColor="#ED2020"
+            android:textSize="@dimen/text_size_middle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/middle"
+        android:background="@drawable/bg_back_vip_bottom"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/open_vip"
             android:layout_width="match_parent"
@@ -188,14 +221,12 @@
             android:textSize="@dimen/text_size_big" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
             android:text="@string/vip_dialog_notice"
             android:textColor="#ED2020"
             android:textSize="@dimen/text_size_small" />
-
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

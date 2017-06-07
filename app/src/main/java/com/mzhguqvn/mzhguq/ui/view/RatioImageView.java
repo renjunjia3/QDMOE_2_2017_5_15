@@ -67,14 +67,14 @@ public class RatioImageView extends ImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int desiredWidth = 0, desiredHeight = 0;
+        float desiredWidth = 0, desiredHeight = 0;
         if (mBaseLine == WIDTH) {
             if (mSpecifiedWidth != 0) {
                 desiredWidth = mSpecifiedWidth;
             } else {
                 desiredWidth = MeasureSpec.getSize(widthMeasureSpec);
             }
-            desiredHeight = (int) ((float) desiredWidth / mHorizontalWeight * mVerticalWeight);
+            desiredHeight = desiredWidth / mHorizontalWeight * mVerticalWeight;
         }
 
         if (mBaseLine == HEIGHT) {
@@ -83,11 +83,12 @@ public class RatioImageView extends ImageView {
             } else {
                 desiredHeight = MeasureSpec.getSize(heightMeasureSpec);
             }
-            desiredWidth = (int) ((float) desiredHeight / mVerticalWeight * mHorizontalWeight);
+            desiredWidth = desiredHeight * mHorizontalWeight / mVerticalWeight;
         }
 
-        setMeasuredDimension(desiredWidth, desiredHeight);
+        setMeasuredDimension((int) desiredWidth, (int) desiredHeight);
     }
+
 
     /**
      * 设定View的宽度,此时View的基准会变为{@link #WIDTH}
