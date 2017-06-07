@@ -187,7 +187,7 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
     @Override
     public void onClickChannelItem(int position) {
         if (App.role <= 2) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目为钻石会员专享，请先升级钻石会员", App.role, true, PageConfig.CHANNEL_POSITION_ID, true);
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目为钻石会员专享，请先开通钻石会员", App.role, true, PageConfig.CHANNEL_POSITION_ID, true);
         } else {
             EventBus.getDefault().post(new StartBrotherEvent(ChannelDetailFragment.newInstance(list.get(position).getId(), list.get(position).getTitle())));
         }
