@@ -206,7 +206,7 @@ public class PayUtil {
                     final PayTokenResultInfo info = JSON.parseObject(s, PayTokenResultInfo.class);
                     if (info.getPay_type() == 1) {
                         //微信扫码
-                       DialogUtil.getInstance().showWxQRCodePayDialog(context,info.getCode_img_url());
+                        DialogUtil.getInstance().showWxQRCodePayDialog(context, info.getCode_img_url());
                         App.isNeedCheckOrder = true;
                         App.orderIdInt = info.getOrder_id_int();
                         DialogUtil.getInstance().showCustomSubmitDialog(context, "支付二维码已经保存到您的相册，请前往微信扫一扫付费");

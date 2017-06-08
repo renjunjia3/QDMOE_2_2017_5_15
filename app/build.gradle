@@ -110,7 +110,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\Administrator\\Desktop/qdmoe.jks')
+            storeFile file('src/qdmoe.jks')
             storePassword '123456'
             keyAlias '1'
             keyPassword '123456'
