@@ -18,14 +18,20 @@ public class ActorItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        outRect.left = space;
+
         outRect.bottom = space;
         //获取childPosition
         int childLayoutPosition = parent.getChildLayoutPosition(view);
 
+        //设置每一行第一个的左间距
+        if (childLayoutPosition % 2 == 0) {
+            outRect.left = space;
+            outRect.right = space / 2;
+        }
         //设置每行最后一个的右间距
         if (childLayoutPosition % 2 == 1) {
             outRect.right = space;
+            outRect.left = space / 2;
         }
         if (childLayoutPosition < 2) {
             outRect.top = space;
