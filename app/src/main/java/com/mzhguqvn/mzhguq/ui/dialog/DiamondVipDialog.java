@@ -66,7 +66,7 @@ public class DiamondVipDialog extends Dialog {
         private RadioGroup radioGroup;
         private LinearLayout layoutVipMonth, layoutVipYear;
         private ImageView vipMonth, vipYear;
-
+        private TextView zhekou1, zhekou2;
 
         public Builder(Context context, int videoId, int pay_position_id) {
             this.context = context;
@@ -92,38 +92,46 @@ public class DiamondVipDialog extends Dialog {
             vipMonth = (ImageView) layout.findViewById(R.id.vipMonth);
             vipYear = (ImageView) layout.findViewById(R.id.vipYear);
             diamondTitle = (TextView) layout.findViewById(R.id.diamond_title);
+            zhekou1 = (TextView) layout.findViewById(R.id.zhekou1);
+            zhekou2 = (TextView) layout.findViewById(R.id.zhekou2);
             switch (App.role) {
                 case 0:
                     //游客直接开通钻石会员
                     text1.setText("开通");
                     text2.setText("开通");
                     price1.setText("￥68.00");
-                    oldPrice1.setText("￥88.00");
+                    oldPrice1.setText("原价:108.00");
                     price2.setText("￥98.00");
-                    oldPrice2.setText("￥128.00");
+                    oldPrice2.setText("原价:148.00");
                     layoutVipMonth.setVisibility(View.VISIBLE);
                     layoutVipYear.setVisibility(View.VISIBLE);
+                    zhekou1.setText(String.valueOf(6.5));
+                    zhekou2.setText(String.valueOf(6.5));
                     break;
                 case 1:
                     //包月黄金升级钻石
                     text1.setText("升级");
                     text2.setText("升级");
                     price1.setText("￥30.00");
-                    oldPrice1.setText("￥60.00");
+                    oldPrice1.setText("原价:60.00");
                     price2.setText("￥60.00");
-                    oldPrice2.setText("￥90.00");
+                    oldPrice2.setText("原价:120.00");
                     layoutVipMonth.setVisibility(View.VISIBLE);
                     layoutVipYear.setVisibility(View.VISIBLE);
+                    zhekou1.setText(String.valueOf(5));
+                    zhekou2.setText(String.valueOf(5));
                     break;
                 case 2:
                     //包年黄金升级钻石
                     text1.setText("升级");
                     text2.setText("升级");
                     price1.setText("￥30.00");
-                    oldPrice1.setText("￥60.00");
+                    oldPrice1.setText("原价:60.00");
                     diamondTitle.setText("钻石包年");
                     layoutVipMonth.setVisibility(View.VISIBLE);
                     layoutVipYear.setVisibility(View.GONE);
+                    zhekou1.setText(String.valueOf(5));
+                    zhekou2.setText(String.valueOf(5));
                     break;
             }
             oldPrice1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);

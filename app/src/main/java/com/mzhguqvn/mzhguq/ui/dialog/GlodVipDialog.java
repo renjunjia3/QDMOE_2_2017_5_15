@@ -17,7 +17,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mzhguqvn.mzhguq.MainActivity;
@@ -77,14 +76,10 @@ public class GlodVipDialog extends Dialog {
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             final ImageView glodChoosed = (ImageView) layout.findViewById(R.id.glod_choosed);
             final ImageView diamondChoosed = (ImageView) layout.findViewById(R.id.diamond_choosed);
-            ImageView image = (ImageView) layout.findViewById(R.id.image);
             TextView oldPrice1 = (TextView) dialog.findViewById(R.id.old_price_1);
             TextView oldPrice2 = (TextView) dialog.findViewById(R.id.old_price_2);
             oldPrice1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             oldPrice2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.height = (int) ((ScreenUtils.instance(context).getScreenWidth() - ScreenUtils.instance(context).dip2px(50)) * 3f / 5f);
-            image.setLayoutParams(layoutParams);
             TextView discount = (TextView) dialog.findViewById(R.id.discount);
             SpannableStringBuilder builder = new SpannableStringBuilder(discount.getText().toString());
             ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.parseColor("#D3121A"));
