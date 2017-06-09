@@ -1,6 +1,7 @@
 package com.mzhguqvn.mzhguq.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mzhguqvn.mzhguq.R;
-import com.mzhguqvn.mzhguq.bean.RankInfo;
+import com.mzhguqvn.mzhguq.bean.RankResultInfo;
+import com.mzhguqvn.mzhguq.util.GlideUtils;
 
 import java.util.List;
 
@@ -19,22 +20,22 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 /**
- * Case By:
+ * Case By:排行榜
  * package:com.hfaufhreu.hjfeuio.adapter
  * Author：scene on 2017/4/19 21:05
  */
 
 public class RankAdapter extends BaseAdapter {
     private Context context;
-    private List<RankInfo> list;
+    private List<RankResultInfo.DataBean> list;
     private LayoutInflater inflater;
 
-    public RankAdapter(Context context, List<RankInfo> list) {
+    public RankAdapter(Context context, List<RankResultInfo.DataBean> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
-    }
 
+    }
 
     @Override
     public int getCount() {
@@ -53,32 +54,31 @@ public class RankAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        RankViewHolder rankViewHolder;
+        RankViewHolder viewHolder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_rank_item, null);
-            rankViewHolder = new RankViewHolder(convertView);
-            convertView.setTag(rankViewHolder);
+            convertView = inflater.inflate(R.layout.fragment_rank_item, parent, false);
+            viewHolder = new RankViewHolder(convertView);
+            convertView.setTag(viewHolder);
         } else {
-            rankViewHolder = (RankViewHolder) convertView.getTag();
+            viewHolder = (RankViewHolder) convertView.getTag();
         }
-        RankInfo info = list.get(position);
-
-        rankViewHolder.name.setText(info.getActor_name());
-        rankViewHolder.videos.setText(info.getVideos());
-        rankViewHolder.votes.setText(info.getVotes() + "票");
-        rankViewHolder.number.setText("NO" + (position + 4));
-        rankViewHolder.progressBar.setProgress(info.getPercent());
-        if (info.getTag() == null || info.getTag().isEmpty()) {
-            rankViewHolder.tag.setVisibility(View.GONE);
-        } else {
-            rankViewHolder.tag.setVisibility(View.VISIBLE);
-            rankViewHolder.tag.setText(info.getTag());
-        }
-        Glide.with(context).load(info.getThumb()).asBitmap().centerCrop().placeholder(R.drawable.bg_loading).error(R.drawable.bg_error).into(rankViewHolder.image);
+        RankResultInfo.DataBean dataBean = list.get(position);
+        viewHolder.number.setText("NO." + (position + 4));
+        viewHolder.name.setText(dataBean.getTitle());
+        viewHolder.tag.setText(dataBean.getTag());
+        viewHolder.tag.setVisibility(TextUtils.isEmpty(dataBean.getTag()) ? View.GONE : View.VISIBLE);
+        viewHolder.progressBar.setProgress(dataBean.getPercentage() < 50 ? dataBean.getPercentage() + 40 : dataBean.getPercentage());
+        viewHolder.votes.setText(dataBean.getScore() + "票");
+        viewHolder.videos.setText(dataBean.getDescription());
+        GlideUtils.loadImage(context, viewHolder.image, dataBean.getThumb());
         return convertView;
     }
 
     static class RankViewHolder {
+        @BindView(R.id.image)
+        ImageView image;
+        @BindView(R.id.number)
+        TextView number;
         @BindView(R.id.name)
         TextView name;
         @BindView(R.id.tag)
@@ -87,14 +87,8 @@ public class RankAdapter extends BaseAdapter {
         MaterialProgressBar progressBar;
         @BindView(R.id.votes)
         TextView votes;
-        @BindView(R.id.ding)
-        TextView ding;
         @BindView(R.id.videos)
         TextView videos;
-        @BindView(R.id.number)
-        TextView number;
-        @BindView(R.id.image)
-        ImageView image;
 
         RankViewHolder(View view) {
             ButterKnife.bind(this, view);

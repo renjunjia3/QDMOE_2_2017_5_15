@@ -75,9 +75,13 @@ public class API {
     //获取代金券列表
     public static final String VOUCHER = "user/voucher";
     //上传更新日志
-    public static final String UPDATE_FAIL="version/android_fail";
+    public static final String UPDATE_FAIL = "version/android_fail";
     //获取开通会员的提示
-    public static final String TOP_NOTICE="user/pay_success";
+    public static final String TOP_NOTICE = "user/pay_success";
+    //排行榜
+    public static final String RANK = "ranking";
+    //排行榜内容
+    public static final String RANK_DETAIL = "ranking/lists";
 
     /**
      * Case By:创建参数基础信息

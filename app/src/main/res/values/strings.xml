@@ -19,12 +19,14 @@
     <string name="no_url">No mUrl</string>
 
     <string name="tab_try_see">体验区</string>
-    <string name="tab_vip">VIP</string>
-    <string name="tab_glod_vip">黄金VIP</string>
+    <string name="tab_vip">精选</string>
+    <string name="tab_glod_vip">精选</string>
     <string name="tab_mine">我的</string>
-    <string name="tab_channel">频道</string>
+    <string name="tab_channel">分类</string>
     <string name="tab_diamond_vip">钻石VIP</string>
-    <string name="tab_diamond_channel">钻石频道</string>
+    <string name="tab_diamond_channel">分类</string>
+    <string name="tab_rank">人气排行</string>
+
 
     <string name="vip_dialog_notice">温馨提示：如遇微信支付不能使用 请使用支付宝继续支付</string>
     <string name="hot_line_notice">尊敬的客户，您有任何问题，可以咨询客服中心，我们将竭诚为你服务</string>

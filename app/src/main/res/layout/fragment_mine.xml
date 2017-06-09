@@ -583,7 +583,7 @@
                 android:background="#f1d09e"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="求片/投诉/客服"
+                android:text="客服"
                 android:textColor="#282828"
                 android:textSize="@dimen/text_size_big" />
         </LinearLayout>

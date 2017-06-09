@@ -19,6 +19,7 @@ import com.mzhguqvn.mzhguq.ui.fragment.anchor.Anchor1Fragment;
 import com.mzhguqvn.mzhguq.ui.fragment.channel.ChannelFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.HotLineFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.mine.MineFragment;
+import com.mzhguqvn.mzhguq.ui.fragment.rank.RankFragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.GlodVip1Fragment;
 import com.mzhguqvn.mzhguq.ui.fragment.vip.TrySeeFragment;
 import com.mzhguqvn.mzhguq.ui.view.BottomBar;
@@ -85,21 +86,25 @@ public class MainFragment extends BaseFragment {
                     fragments.add(TrySeeFragment.newInstance());
                     fragments.add(GlodVip1Fragment.newInstance());
                     fragments.add(ChannelFragment.newInstance());
+                    fragments.add(RankFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_try_see));
                     tabNames.add(getString(R.string.tab_vip));
                     tabNames.add(getString(R.string.tab_channel));
+                    tabNames.add(getString(R.string.tab_rank));
                     tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 1://黄金包月
                 case 2://黄金包年
                     fragments.add(GlodVip1Fragment.newInstance());
                     fragments.add(ChannelFragment.newInstance());
+                    fragments.add(RankFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_glod_vip));
                     tabNames.add(getString(R.string.tab_channel));
+                    tabNames.add(getString(R.string.tab_rank));
                     tabNames.add(getString(R.string.tab_mine));
                     break;
                 case 3://钻石包月
@@ -107,11 +112,13 @@ public class MainFragment extends BaseFragment {
                     fragments.add(GlodVip1Fragment.newInstance());
                     fragments.add(Anchor1Fragment.newInstance());
                     fragments.add(ChannelFragment.newInstance());
+                    fragments.add(RankFragment.newInstance());
                     fragments.add(MineFragment.newInstance());
 
                     tabNames.add(getString(R.string.tab_glod_vip));
                     tabNames.add(getString(R.string.tab_diamond_vip));
                     tabNames.add(getString(R.string.tab_diamond_channel));
+                    tabNames.add(getString(R.string.tab_rank));
                     tabNames.add(getString(R.string.tab_mine));
                     break;
             }
@@ -174,14 +181,16 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_try_see_d, R.drawable.ic_bottom_bar_try_see_s, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_channel_d, R.drawable.ic_bottom_bar_channel_s, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank_d, R.drawable.ic_bottom_bar_rank_s, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(4)));
                 break;
             case 1:
             case 2://黄金
                 toUser.setImageResource(R.drawable.ic_toolbar_vip_glod);
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_channel_d, R.drawable.ic_bottom_bar_channel_s, tabNames.get(1)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank_d, R.drawable.ic_bottom_bar_rank_s, tabNames.get(2)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
                 break;
             case 3:
             case 4://钻石
@@ -189,7 +198,8 @@ public class MainFragment extends BaseFragment {
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_glod_d, R.drawable.ic_bottom_bar_glod_s, tabNames.get(0)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_diamond_d, R.drawable.ic_bottom_bar_diamond_s, tabNames.get(1)));
                 mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_channel_d, R.drawable.ic_bottom_bar_channel_s, tabNames.get(2)));
-                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_rank_d, R.drawable.ic_bottom_bar_rank_s, tabNames.get(3)));
+                mBottomBar.addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottom_bar_mine_d, R.drawable.ic_bottom_bar_mine_s, tabNames.get(4)));
                 break;
         }
 
