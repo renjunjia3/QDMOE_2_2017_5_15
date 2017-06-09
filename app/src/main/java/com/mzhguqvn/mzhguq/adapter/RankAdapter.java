@@ -67,8 +67,7 @@ public class RankAdapter extends BaseAdapter {
         viewHolder.name.setText(dataBean.getTitle());
         viewHolder.tag.setText(dataBean.getTag());
         viewHolder.tag.setVisibility(TextUtils.isEmpty(dataBean.getTag()) ? View.GONE : View.VISIBLE);
-        viewHolder.progressBar.setProgress(dataBean.getPercentage() < 50 ? dataBean.getPercentage() + 40 : dataBean.getPercentage());
-        viewHolder.votes.setText(dataBean.getScore() + "票");
+        viewHolder.votes.setText(String.valueOf(dataBean.getScore()));
         viewHolder.videos.setText(dataBean.getDescription());
         GlideUtils.loadImage(context, viewHolder.image, dataBean.getThumb());
         return convertView;
@@ -83,8 +82,6 @@ public class RankAdapter extends BaseAdapter {
         TextView name;
         @BindView(R.id.tag)
         TextView tag;
-        @BindView(R.id.progressBar)
-        MaterialProgressBar progressBar;
         @BindView(R.id.votes)
         TextView votes;
         @BindView(R.id.videos)

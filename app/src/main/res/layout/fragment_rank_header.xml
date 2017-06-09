@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="bottom"
     android:background="#282828"
+    android:gravity="bottom"
+    android:orientation="horizontal"
     android:paddingBottom="10dp"
-    android:paddingTop="10dp"
-    android:orientation="horizontal">
+    android:paddingTop="10dp">
 
     <LinearLayout
         android:id="@+id/headerLayout_2"
@@ -23,13 +23,27 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_huangguan_2" />
 
-        <com.joooonho.SelectableRoundedImageView
-            android:id="@+id/headerImage2"
+        <RelativeLayout
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="centerCrop"
-            app:sriv_oval="true" />
+            android:layout_gravity="center_horizontal">
+
+            <com.joooonho.SelectableRoundedImageView
+                android:id="@+id/headerImage2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                app:sriv_oval="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_see_small" />
+        </RelativeLayout>
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -71,13 +85,26 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_huangguan_1" />
 
-        <com.joooonho.SelectableRoundedImageView
-            android:id="@+id/headerImage1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="centerCrop"
-            app:sriv_oval="true" />
+        <RelativeLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal">
+
+            <com.joooonho.SelectableRoundedImageView
+                android:id="@+id/headerImage1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                app:sriv_oval="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_see_small" />
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"
@@ -118,13 +145,26 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_huangguan_3" />
 
-        <com.joooonho.SelectableRoundedImageView
-            android:id="@+id/headerImage3"
+        <RelativeLayout
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="centerCrop"
-            app:sriv_oval="true" />
+            android:layout_gravity="center_horizontal">
+
+            <com.joooonho.SelectableRoundedImageView
+                android:id="@+id/headerImage3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                app:sriv_oval="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_see_small" />
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"

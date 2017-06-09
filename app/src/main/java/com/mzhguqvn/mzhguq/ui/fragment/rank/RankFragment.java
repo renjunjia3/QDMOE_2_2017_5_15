@@ -104,7 +104,9 @@ public class RankFragment extends BaseMainFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                itemClick(list.get(position-1));
+                if (position != 0) {
+                    itemClick(list.get(position - 1));
+                }
             }
         });
     }
