@@ -548,12 +548,12 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                     case 1:
                                     case 2:
                                         message1 = "黄金会员";
-                                        message2 = "价值28元";
+                                        message2 = "价值38元";
                                         break;
                                     case 3:
                                     case 4:
                                         message1 = "钻石会员";
-                                        message2 = "价值38元";
+                                        message2 = "价值28元";
                                         break;
                                     default:
                                         break;
