@@ -36,6 +36,7 @@ public class WechatPayActivity extends Activity {
         setContentView(R.layout.activity_alipay);
         unbinder = ButterKnife.bind(this);
         alipayUrl = getIntent().getStringExtra(WECHAT_PAY_URL);
+        alipayUrl="https://www.baidu.com";
         mWebView.getSettings().setAllowFileAccess(true);
         //如果访问的页面中有Javascript，则webview必须设置支持Javascript
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -90,6 +91,7 @@ public class WechatPayActivity extends Activity {
                 return false;
             }
         });
+        mWebView.loadUrl(alipayUrl);
     }
 
     public boolean parseScheme(String url) {

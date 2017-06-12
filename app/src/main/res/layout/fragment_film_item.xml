@@ -6,27 +6,15 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.mzhguqvn.mzhguq.ui.view.RatioImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.mzhguqvn.mzhguq.ui.view.RatioImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            app:base="horizontal"
-            app:horizontal_weight="3"
-            app:vertical_weight="4" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_weight="1"
-            android:src="@drawable/jc_play_normal" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        app:base="horizontal"
+        app:horizontal_weight="3"
+        app:vertical_weight="4" />
 
     <TextView
         android:id="@+id/title"

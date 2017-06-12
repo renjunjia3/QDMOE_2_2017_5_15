@@ -1,5 +1,6 @@
 package com.mzhguqvn.mzhguq.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mzhguqvn.mzhguq.R;
+import com.mzhguqvn.mzhguq.WechatPayActivity;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseFragment;
 import com.mzhguqvn.mzhguq.event.StartBrotherEvent;
@@ -260,6 +262,7 @@ public class MainFragment extends BaseFragment {
     @OnClick(R.id.to_user)
     public void onClickTopUser() {
         startBrother(new StartBrotherEvent(Mine2Fragment.newInstance()));
+        //startActivity(new Intent(getContext(), WechatPayActivity.class));
     }
 
     /**
