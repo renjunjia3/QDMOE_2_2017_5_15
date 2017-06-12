@@ -45,7 +45,7 @@ import wiki.scene.statuslib.StatusViewLayout;
  */
 
 public class ChannelDetailFragment extends BaseBackFragment implements GalleryAdapter.OnGalleryClickListener {
-    private static final String TAG = "GalleryFragment";
+    private static final String TAG = "ChannelDetailFragment";
     public static final String ARG_CATEID = "cate_id";
     public static final String ARG_CATENAME = "cate_name";
 

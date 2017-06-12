@@ -40,5 +40,7 @@ public class PageConfig {
     public static final int CLICK_OPEN_VIP_DIAMOND_YEAR_DIRECT = 31;
     public static final int RANK_POSITION_ID = 32;
     public static final int RANK_DETAIL_POSITION_ID = 33;
+    public static final int FILM_POSITION_ID = 34;
+    public static final int FILM_DETAIL_POSITION_ID = 35;
 
 }

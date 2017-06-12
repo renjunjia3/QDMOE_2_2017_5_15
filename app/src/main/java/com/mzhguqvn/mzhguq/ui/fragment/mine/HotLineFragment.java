@@ -38,7 +38,7 @@ public class HotLineFragment extends BaseBackFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine_hot_line, container, false);
         ButterKnife.bind(this, view);
-        toolbarTitle.setText("求片/投诉/客服");
+        toolbarTitle.setText("客服");
         initToolbarNav(toolbar);
         return attachToSwipeBack(view);
     }

@@ -82,6 +82,10 @@ public class API {
     public static final String RANK = "ranking";
     //排行榜内容
     public static final String RANK_DETAIL = "ranking/lists";
+    //片库
+    public static final String FILM = "library";
+    //片库内页
+    public static final String FILM_DETAIL = "library/lists";
 
     /**
      * Case By:创建参数基础信息

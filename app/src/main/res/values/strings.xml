@@ -26,6 +26,7 @@
     <string name="tab_diamond_vip">钻石VIP</string>
     <string name="tab_diamond_channel">分类</string>
     <string name="tab_rank">人气排行</string>
+    <string name="tab_film">片库</string>
 
 
     <string name="vip_dialog_notice">温馨提示：如遇微信支付不能使用 请使用支付宝继续支付</string>

@@ -52,6 +52,7 @@ public class RankResultInfo {
         private String description;
         private String tag;
         private int percentage;
+        private int hits;
 
         public int getId() {
             return id;
@@ -107,6 +108,14 @@ public class RankResultInfo {
 
         public void setPercentage(int percentage) {
             this.percentage = percentage;
+        }
+
+        public int getHits() {
+            return hits;
+        }
+
+        public void setHits(int hits) {
+            this.hits = hits;
         }
     }
 }

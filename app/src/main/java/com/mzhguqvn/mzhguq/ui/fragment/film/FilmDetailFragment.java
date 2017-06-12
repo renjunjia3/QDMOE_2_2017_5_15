@@ -1,11 +1,10 @@
-package com.mzhguqvn.mzhguq.ui.fragment.rank;
+package com.mzhguqvn.mzhguq.ui.fragment.film;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +39,13 @@ import okhttp3.Request;
 import wiki.scene.statuslib.StatusViewLayout;
 
 /**
- * Case By:排行榜内页
+ * Case By:图库
  * package:com.mzhguqvn.mzhguq.ui.fragment.gallery
  * Author：scene on 2017/5/19 10:13
  */
 
-public class RankDetailFragment extends BaseBackFragment implements GalleryAdapter.OnGalleryClickListener {
-    private static final String TAG = "RankDetailFragment";
+public class FilmDetailFragment extends BaseBackFragment implements GalleryAdapter.OnGalleryClickListener {
+    private static final String TAG = "FilmDetailFragment";
     public static final String ARG_CATEID = "cate_id";
     public static final String ARG_CATENAME = "cate_name";
 
@@ -68,11 +67,11 @@ public class RankDetailFragment extends BaseBackFragment implements GalleryAdapt
     private int cateId = 0;
     private String cateName = "";
 
-    public static RankDetailFragment newInstance(int cateId, String cateName) {
+    public static FilmDetailFragment newInstance(int cateId, String cateName) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_CATEID, cateId);
         bundle.putString(ARG_CATENAME, cateName);
-        RankDetailFragment fragment = new RankDetailFragment();
+        FilmDetailFragment fragment = new FilmDetailFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -104,7 +103,7 @@ public class RankDetailFragment extends BaseBackFragment implements GalleryAdapt
     @Override
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        MainActivity.upLoadPageInfo(PageConfig.RANK_DETAIL_POSITION_ID, 0, 0);
+        MainActivity.upLoadPageInfo(PageConfig.FILM_DETAIL_POSITION_ID, 0, 0);
         toolbarTitle.setText(cateName);
         initToolbarNav(toolbar);
         initView();
@@ -156,7 +155,7 @@ public class RankDetailFragment extends BaseBackFragment implements GalleryAdapt
 
         HashMap<String, String> params = API.createParams();
         params.put("cate_id", String.valueOf(cateId));
-        OkHttpUtils.get().url(API.URL_PRE + API.RANK_DETAIL).params(params).tag(TAG).build().execute(new StringCallback() {
+        OkHttpUtils.get().url(API.URL_PRE + API.FILM_DETAIL).params(params).tag(TAG).build().execute(new StringCallback() {
             @Override
             public void onBefore(Request request, int id) {
                 if (isShowLoading) {
@@ -182,7 +181,6 @@ public class RankDetailFragment extends BaseBackFragment implements GalleryAdapt
             @Override
             public void onResponse(String s, int i) {
                 try {
-                    Log.e("Tag",s);
                     GalleryResultInfo info = JSON.parseObject(s, GalleryResultInfo.class);
                     list.clear();
                     list.addAll(info.getData());

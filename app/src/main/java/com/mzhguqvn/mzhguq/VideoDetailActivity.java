@@ -541,21 +541,24 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                 MainActivity.onPaySuccess();
                                 MainActivity.isNeedChangeTab = true;
                                 String message1 = "";
+                                String message2 = "";
                                 App.role = checkOrderInfo.getRole();
                                 SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
                                 switch (App.role) {
                                     case 1:
                                     case 2:
                                         message1 = "黄金会员";
+                                        message2 = "价值28元";
                                         break;
                                     case 3:
                                     case 4:
                                         message1 = "钻石会员";
+                                        message2 = "价值38元";
                                         break;
                                     default:
                                         break;
                                 }
-                                OpenVipNoticeDialog openVipNoticeDialog1 = DialogUtil.getInstance().showOpenVipNoticeDialog(VideoDetailActivity.this, message1);
+                                OpenVipNoticeDialog openVipNoticeDialog1 = DialogUtil.getInstance().showOpenVipNoticeDialog(VideoDetailActivity.this, message1, message2);
                                 openVipNoticeDialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                     @Override
                                     public void onDismiss(DialogInterface dialog) {

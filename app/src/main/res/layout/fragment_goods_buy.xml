@@ -405,6 +405,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:background="#46433E" />
 
@@ -414,6 +415,7 @@
                 android:layout_height="match_parent"
                 android:background="#333333"
                 android:orientation="vertical"
+                android:visibility="gone"
                 android:padding="10dp">
 
                 <TextView
@@ -437,6 +439,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:background="#46433E" />
 
             <TextView
@@ -448,6 +451,7 @@
                 android:layout_marginTop="20dp"
                 android:background="#F1D09D"
                 android:paddingBottom="10dp"
+                android:visibility="gone"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
                 android:paddingTop="10dp"

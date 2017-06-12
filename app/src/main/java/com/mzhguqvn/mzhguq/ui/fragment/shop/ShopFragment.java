@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GoodsCommentAdapter;
 import com.mzhguqvn.mzhguq.app.App;
-import com.mzhguqvn.mzhguq.base.BaseMainFragment;
+import com.mzhguqvn.mzhguq.base.BaseBackFragment;
 import com.mzhguqvn.mzhguq.bean.CreateGoodsOrderInfo;
 import com.mzhguqvn.mzhguq.bean.GoodsCommentInfo;
 import com.mzhguqvn.mzhguq.bean.GoodsCommentsResultInfo;
@@ -81,7 +82,7 @@ import wiki.scene.statuslib.StatusViewLayout;
  * Author：scene on 2017/5/9 10:11
  */
 
-public class ShopFragment extends BaseMainFragment {
+public class ShopFragment extends BaseBackFragment {
     private static final int MSG_LOAD_SUCCESS = 10000;
 
     @BindView(R.id.image1)
@@ -186,6 +187,10 @@ public class ShopFragment extends BaseMainFragment {
     ImageView bottomBg;
     @BindView(R.id.layout_bottom_buy_now)
     RelativeLayout layoutBottomBuyNow;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
 
     private RequestCall dataRequestCall;
     private RequestCall commentRequestCall;
@@ -207,8 +212,6 @@ public class ShopFragment extends BaseMainFragment {
     private int positionArea = 0;
     //数量和价格
     private int buyNumber = 1;
-    //支付方式
-    //private int paywayType = 1;
     //滚动的文本
     private List<String> noticeList = new ArrayList<>();
     //评论
@@ -244,15 +247,23 @@ public class ShopFragment extends BaseMainFragment {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         unbinder = ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
-        return view;
+        return attachToSwipeBack(view);
+    }
+
+    @Override
+    protected void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        toolbarTitle.setText("商城");
+        initToolbarNav(toolbar);
+        initView();
+        initAddressData();
+        MainActivity.upLoadPageInfo(PageConfig.SHOP_GOODS_DETAIL_POSITOTN_ID, 0, 0);
     }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        initView();
-        initAddressData();
-        MainActivity.upLoadPageInfo(PageConfig.SHOP_GOODS_DETAIL_POSITOTN_ID, 0, 0);
+
     }
 
     private void initView() {
@@ -313,7 +324,8 @@ public class ShopFragment extends BaseMainFragment {
                     try {
                         goodsInfo = JSON.parseObject(s, GoodsInfo.class);
                         initData(isShowLoading);
-                        getCommentData(isShowLoading);
+                        statusViewLayout.showContent();
+                        //getCommentData(isShowLoading);
                     } catch (Exception e) {
                         e.printStackTrace();
                         if (isShowLoading) {

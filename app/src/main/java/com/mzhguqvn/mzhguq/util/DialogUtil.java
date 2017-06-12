@@ -225,12 +225,13 @@ public class DialogUtil {
      * @param context  上下文
      * @param message1 文字内容
      */
-    public OpenVipNoticeDialog showOpenVipNoticeDialog(Context context, String message1) {
+    public OpenVipNoticeDialog showOpenVipNoticeDialog(Context context, String message1, String message2) {
         if (openVipNoticeDialog != null && openVipNoticeDialog.isShowing()) {
             openVipNoticeDialog.cancel();
         }
         openVipNoticeDialogBuidler = new OpenVipNoticeDialog.Builder(context);
         openVipNoticeDialogBuidler.setMessage1(message1);
+        openVipNoticeDialogBuidler.setMessage2(message2);
         openVipNoticeDialogBuidler.setButtonText(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -289,7 +290,7 @@ public class DialogUtil {
         return backGlodVipDialog;
     }
 
-    public WxQRCodePayDialog showWxQRCodePayDialog(Context context,String qrCodeUrl){
+    public WxQRCodePayDialog showWxQRCodePayDialog(Context context, String qrCodeUrl) {
         WxQRCodePayDialog.Builder builder = new WxQRCodePayDialog.Builder(context, qrCodeUrl);
         wxQRCodePayDialog = builder.create();
         wxQRCodePayDialog.show();
@@ -317,10 +318,10 @@ public class DialogUtil {
             if (openVipNoticeDialog != null && openVipNoticeDialog.isShowing()) {
                 openVipNoticeDialog.cancel();
             }
-            if(backGlodVipDialog!=null&&backGlodVipDialog.isShowing()){
+            if (backGlodVipDialog != null && backGlodVipDialog.isShowing()) {
                 backGlodVipDialog.cancel();
             }
-            if(wxQRCodePayDialog!=null&&wxQRCodePayDialog.isShowing()){
+            if (wxQRCodePayDialog != null && wxQRCodePayDialog.isShowing()) {
                 wxQRCodePayDialog.cancel();
             }
 
