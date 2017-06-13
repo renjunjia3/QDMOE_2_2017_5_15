@@ -186,7 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="如果对我们的服务不满意可联系客服退款"
+            android:text="郑重承诺：不满意可退款，不满意可退款，不满意全额退款"
             android:textColor="#888888"
             android:textSize="@dimen/text_size_small" />
 
