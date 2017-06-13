@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -39,6 +40,7 @@ public class AliPayActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (mWebView != null && !TextUtils.isEmpty(url)) {
+                    Log.e("AliPayActivity",url);
                     if (url.contains("platformapi/startapp")) {
                         startAlipayActivity(url);
                         // android  6.0 两种方式获取intent都可以跳转支付宝成功,7.1测试不成功
