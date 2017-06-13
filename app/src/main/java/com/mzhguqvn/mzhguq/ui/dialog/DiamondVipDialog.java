@@ -100,13 +100,13 @@ public class DiamondVipDialog extends Dialog {
                     text1.setText("开通");
                     text2.setText("开通");
                     price1.setText("￥68.00");
-                    oldPrice1.setText("原价:108.00");
+                    oldPrice1.setText("原价:136.00");
                     price2.setText("￥98.00");
-                    oldPrice2.setText("原价:148.00");
+                    oldPrice2.setText("原价:196.00");
                     layoutVipMonth.setVisibility(View.VISIBLE);
                     layoutVipYear.setVisibility(View.VISIBLE);
-                    zhekou1.setText(String.valueOf(6.5));
-                    zhekou2.setText(String.valueOf(6.5));
+                    zhekou1.setText(String.valueOf(5));
+                    zhekou2.setText(String.valueOf(5));
                     break;
                 case 1:
                     //包月黄金升级钻石
