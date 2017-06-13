@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_toast"
+    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/content"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#AA000000"
-        android:drawableLeft="@drawable/ic_notice"
+        android:background="@drawable/shape_black_round_bg"
         android:drawablePadding="5dp"
+        android:gravity="center"
         android:inAnimation="@anim/slide_in_top"
         android:outAnimation="@anim/slide_out_top"
         android:padding="5dp"
         android:text="恭喜VIP4541554成功开通永久会员"
-        android:textColor="#fe2c8b" />
+        android:textColor="#FFFF00" />
 </LinearLayout>
