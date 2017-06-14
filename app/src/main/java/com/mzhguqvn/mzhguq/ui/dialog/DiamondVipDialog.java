@@ -20,6 +20,7 @@ import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.config.PageConfig;
+import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 
@@ -55,7 +56,7 @@ public class DiamondVipDialog extends Dialog {
         private Context context;
         private int videoId;
         private int pay_position_id;
-        private int payWaytype = 1;
+        private int payWaytype = PayConfig.DEFAULT_PAY_WAY;
         private int vipType = 1;
         private int position_id = PageConfig.CLICK_OPEN_VIP_DIAMOND_MONTH;
 
@@ -68,6 +69,7 @@ public class DiamondVipDialog extends Dialog {
         private ImageView vipMonth, vipYear;
         private TextView zhekou1, zhekou2;
         private TextView openVip;
+        private ImageView imageNotice;
 
         public Builder(Context context, int videoId, int pay_position_id) {
             this.context = context;
@@ -96,6 +98,12 @@ public class DiamondVipDialog extends Dialog {
             zhekou1 = (TextView) layout.findViewById(R.id.zhekou1);
             zhekou2 = (TextView) layout.findViewById(R.id.zhekou2);
             openVip = (TextView) layout.findViewById(R.id.open_vip);
+            imageNotice = (ImageView) layout.findViewById(R.id.image_notice);
+            if (payWaytype == PayConfig.PAY_BY_WECHAT) {
+                radioGroup.check(R.id.type_wechat);
+            } else {
+                radioGroup.check(R.id.type_alipay);
+            }
             switch (App.role) {
                 case 0:
                     //游客直接开通钻石会员
@@ -109,6 +117,7 @@ public class DiamondVipDialog extends Dialog {
                     layoutVipYear.setVisibility(View.VISIBLE);
                     zhekou1.setText(String.valueOf(5));
                     zhekou2.setText(String.valueOf(5));
+                    imageNotice.setImageResource(R.drawable.ic_dialog_diamond_notice_open);
                     break;
                 case 1:
                     //包月黄金升级钻石
@@ -123,6 +132,7 @@ public class DiamondVipDialog extends Dialog {
                     zhekou1.setText(String.valueOf(5));
                     zhekou2.setText(String.valueOf(5));
                     openVip.setText("立即升级");
+                    imageNotice.setImageResource(R.drawable.ic_dialog_diamond_notice);
                     break;
                 case 2:
                     //包年黄金升级钻石
@@ -136,6 +146,7 @@ public class DiamondVipDialog extends Dialog {
                     zhekou1.setText(String.valueOf(5));
                     zhekou2.setText(String.valueOf(5));
                     openVip.setText("立即升级");
+                    imageNotice.setImageResource(R.drawable.ic_dialog_diamond_notice);
                     break;
             }
             oldPrice1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -188,11 +199,11 @@ public class DiamondVipDialog extends Dialog {
                     }
 
                     if (radioGroup.getCheckedRadioButtonId() == R.id.type_wechat) {
-                        payWaytype = 1;
+                        payWaytype = PayConfig.PAY_BY_WECHAT;
                     } else {
-                        payWaytype = 2;
+                        payWaytype = PayConfig.PAY_BY_ALIPAY;
                     }
-                    if (payWaytype == 1) {
+                    if (payWaytype == PayConfig.PAY_BY_WECHAT) {
                         PayUtil.getInstance().payByWeChat(context, realVipType, videoId, pay_position_id);
                     } else {
                         PayUtil.getInstance().payByAliPay(context, realVipType, videoId, pay_position_id);

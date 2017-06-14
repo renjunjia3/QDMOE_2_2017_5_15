@@ -29,11 +29,12 @@
             android:layout_weight="1" />
 
         <RadioButton
+            android:id="@+id/type_alipay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:checked="true"
             android:button="@drawable/ic_pay_type_selector"
+            android:checked="true"
             android:drawableLeft="@drawable/ic_alipay"
             android:drawablePadding="5dp"
             android:padding="5dp"

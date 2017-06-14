@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.joooonho.SelectableRoundedImageView;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.bean.VoucherInfo;
+import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.util.DecimalUtils;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ConfirmOrderPopupWindow extends PopupWindow {
     private TextView voucherContent;
     private TextView totalPrice;
 
-    private int payWayType = 1;
+    private int payWayType = PayConfig.DEFAULT_PAY_WAY;
     private int buyNumber = 1;
     private double payTotalPrice = 0D;
     private double price = 0D;
@@ -66,7 +67,14 @@ public class ConfirmOrderPopupWindow extends PopupWindow {
             }
         });
         mView.findViewById(R.id.confirm_pay).setOnClickListener(clickConfirmOrderListener);
-        ((RadioGroup) mView.findViewById(R.id.radio_group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        RadioGroup radioGroup=((RadioGroup) mView.findViewById(R.id.radio_group));
+
+        if (payWayType==PayConfig.PAY_BY_WECHAT){
+            radioGroup.check(R.id.type_wechat);
+        }else{
+            radioGroup.check(R.id.type_alipay);
+        }
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 payWayType = checkedId == R.id.type_wechat ? 1 : 2;

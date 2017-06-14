@@ -50,7 +50,7 @@ public class WechatPayActivity extends Activity {
             }
         });
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("http://www.iqingqing.cn/ltPayBusiness/link.jsp?ticket=t4afd25cd484c796cb8a51a70e690ade2");
+        mWebView.loadUrl(weChatPayUrl);
     }
 
     @Override

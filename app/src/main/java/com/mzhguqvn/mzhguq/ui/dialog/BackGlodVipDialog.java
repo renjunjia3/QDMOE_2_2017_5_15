@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.config.PageConfig;
+import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 import com.mzhguqvn.mzhguq.util.ViewUtils;
@@ -58,7 +59,7 @@ public class BackGlodVipDialog extends Dialog {
     public static class Builder {
         private Context context;
 
-        private int type = 1;
+        private int payWayType = PayConfig.DEFAULT_PAY_WAY;
         private int vip_type = PayUtil.VIP_TYPE_OPEN_GLOD_DISCOUNT_MONTH;
 
         public Builder(Context context) {
@@ -111,15 +112,20 @@ public class BackGlodVipDialog extends Dialog {
                 }
             });
             final RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
+            if (payWayType == PayConfig.PAY_BY_WECHAT) {
+                radioGroup.check(R.id.type_wechat);
+            } else {
+                radioGroup.check(R.id.type_alipay);
+            }
             layout.findViewById(R.id.open_vip).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (radioGroup.getCheckedRadioButtonId() == R.id.type_wechat) {
-                        type = 1;
+                        payWayType = PayConfig.PAY_BY_WECHAT;
                     } else {
-                        type = 2;
+                        payWayType = PayConfig.PAY_BY_ALIPAY;
                     }
-                    if (type == 1) {
+                    if (payWayType == PayConfig.PAY_BY_WECHAT) {
                         PayUtil.getInstance().payByWeChat(context, vip_type, 0, PageConfig.BACK_OPEN_VIP_POSITOTN_ID);
                     } else {
                         PayUtil.getInstance().payByAliPay(context, vip_type, 0, PageConfig.BACK_OPEN_VIP_POSITOTN_ID);

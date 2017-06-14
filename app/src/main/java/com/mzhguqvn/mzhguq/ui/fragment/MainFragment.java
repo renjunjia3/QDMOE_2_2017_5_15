@@ -263,7 +263,6 @@ public class MainFragment extends BaseFragment {
     @OnClick(R.id.to_user)
     public void onClickTopUser() {
         startBrother(new StartBrotherEvent(Mine2Fragment.newInstance()));
-        //startActivity(new Intent(getContext(), WechatPayActivity.class));
     }
 
     /**

@@ -3,9 +3,12 @@ package com.mzhguqvn.mzhguq.pay;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.mzhguqvn.mzhguq.AliPayActivity;
+import com.mzhguqvn.mzhguq.WechatPayActivity;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.bean.CreateGoodsOrderInfo;
 import com.mzhguqvn.mzhguq.bean.PayTokenResultInfo;
@@ -217,6 +220,32 @@ public class PayUtil {
                         context.startActivity(intent);
                         App.isNeedCheckOrder = true;
                         App.orderIdInt = info.getOrder_id_int();
+                    } else if (info.getPay_type() == 3) {
+                        //微信wap
+                        if (TextUtils.isEmpty(info.getWx_url())) {
+                            if (!TextUtils.isEmpty(info.getPay_info())) {
+                                Intent intent = new Intent(context, WechatPayActivity.class);
+                                intent.putExtra(WechatPayActivity.WECHAT_PAY_URL, info.getPay_info());
+                                context.startActivity(intent);
+                                App.isNeedCheckOrder = true;
+                                App.orderIdInt = info.getOrder_id_int();
+                            } else {
+                                ToastUtils.getInstance(context).showToast("订单信息获取失败，请重试");
+                            }
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(info.getWx_url()));
+                            context.startActivity(intent);
+                            App.isNeedCheckOrder = true;
+                            App.orderIdInt = info.getOrder_id_int();
+                        }
+                    } else if (info.getPay_type() == 4) {
+                        //微信公众号二维码
+                        DialogUtil.getInstance().showWxQRCodePayDialog(context, info.getCode_img_url());
+                        App.isNeedCheckOrder = true;
+                        App.orderIdInt = info.getOrder_id_int();
+                        DialogUtil.getInstance().showCustomSubmitDialog(context, "支付二维码已经保存到您的相册，请前往微信扫一扫付费");
                     } else {
                         ToastUtils.getInstance(context).showToast("订单信息获取失败，请重试");
                     }
@@ -291,6 +320,28 @@ public class PayUtil {
                         App.isNeedCheckOrder = true;
                         App.isGoodsBuyPage = isGoodsBuyPage;
                         App.goodsOrderId = info.getOrder_id_int();
+                    } else if (info.getPay_type() == 3) {
+                        //微信wap
+                        if (TextUtils.isEmpty(info.getWx_url())) {
+                            if (!TextUtils.isEmpty(info.getPay_info())) {
+                                Intent intent = new Intent(context, WechatPayActivity.class);
+                                intent.putExtra(WechatPayActivity.WECHAT_PAY_URL, info.getPay_info());
+                                context.startActivity(intent);
+                                App.isNeedCheckOrder = true;
+                                App.goodsOrderId = info.getOrder_id_int();
+                                App.isGoodsBuyPage = isGoodsBuyPage;
+                            } else {
+                                ToastUtils.getInstance(context).showToast("订单信息获取失败，请重试");
+                            }
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(info.getWx_url()));
+                            context.startActivity(intent);
+                            App.isNeedCheckOrder = true;
+                            App.goodsOrderId = info.getOrder_id_int();
+                            App.isGoodsBuyPage = isGoodsBuyPage;
+                        }
                     } else {
                         ToastUtils.getInstance(context).showToast("购买失败，请重试");
                     }
