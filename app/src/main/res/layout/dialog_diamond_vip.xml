@@ -13,7 +13,7 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_dialog_diamond_top"
+            android:background="@drawable/bg_dialog_all_top"
             app:base="horizontal"
             app:horizontal_weight="13"
             app:vertical_weight="7" />
@@ -267,7 +267,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_dialog_notice" />
+            android:src="@drawable/ic_dialog_diamond_notice" />
 
         <include layout="@layout/dialog_pay_bottom" />
 
