@@ -16,5 +16,5 @@ public class PayConfig {
     //支付宝支付
     public static final int PAY_BY_ALIPAY = 2;
     //默认支付方式
-    public static int DEFAULT_PAY_WAY = PAY_BY_WECHAT;
+    public static int DEFAULT_PAY_WAY = PAY_BY_ALIPAY;
 }
