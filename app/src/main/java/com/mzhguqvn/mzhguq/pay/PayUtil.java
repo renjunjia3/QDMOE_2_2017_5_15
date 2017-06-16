@@ -46,43 +46,43 @@ public class PayUtil {
     public static final int VIP_TYPE_UPDATE_DIAMOND_YEAR_FROM_YEAR = 9;
 
 
-    //开通包月黄金会员 3800
-    private static final int VIP_MONEY_OPEN_GLOD_MONTH = 1;
-    //优惠开通包月黄金会员 2800
-    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_MONTH = 2;
-    //优惠开通包年黄金会员 5800
-    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_YEAR = 3;
-    //开通包年黄金会员 6800
-    private static final int VIP_MONEY_OPEN_GLOD_YEAR = 4;
-    //直接开通包月钻石会员 6800
-    private static final int VIP_MONEY_OPEN_DIAMOND_MONTH = 5;
-    //升级包月钻石会员 3000
-    private static final int VIP_MONEY_UPDATE_DIAMOND_MONTH = 6;
-    //直接开通包年钻石会员 9800
-    private static final int VIP_MONEY_OPEN_DIAMOND_YEAR = 7;
-    //黄金包月升级包年钻石会员 6000
-    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_MONTH = 8;
-    //黄金包年升级包年钻石 3000
-    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_YEAR = 9;
-
 //    //开通包月黄金会员 3800
-//    private static final int VIP_MONEY_OPEN_GLOD_MONTH = 3800;
+//    private static final int VIP_MONEY_OPEN_GLOD_MONTH = 1;
 //    //优惠开通包月黄金会员 2800
-//    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_MONTH = 2800;
+//    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_MONTH = 2;
 //    //优惠开通包年黄金会员 5800
-//    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_YEAR = 5800;
+//    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_YEAR = 3;
 //    //开通包年黄金会员 6800
-//    private static final int VIP_MONEY_OPEN_GLOD_YEAR = 6800;
+//    private static final int VIP_MONEY_OPEN_GLOD_YEAR = 4;
 //    //直接开通包月钻石会员 6800
-//    private static final int VIP_MONEY_OPEN_DIAMOND_MONTH = 6800;
+//    private static final int VIP_MONEY_OPEN_DIAMOND_MONTH = 5;
 //    //升级包月钻石会员 3000
-//    private static final int VIP_MONEY_UPDATE_DIAMOND_MONTH = 3000;
+//    private static final int VIP_MONEY_UPDATE_DIAMOND_MONTH = 6;
 //    //直接开通包年钻石会员 9800
-//    private static final int VIP_MONEY_OPEN_DIAMOND_YEAR = 9800;
+//    private static final int VIP_MONEY_OPEN_DIAMOND_YEAR = 7;
 //    //黄金包月升级包年钻石会员 6000
-//    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_MONTH = 6000;
+//    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_MONTH = 8;
 //    //黄金包年升级包年钻石 3000
-//    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_YEAR = 3000;
+//    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_YEAR = 9;
+
+    //开通包月黄金会员 3800
+    private static final int VIP_MONEY_OPEN_GLOD_MONTH = 3800;
+    //优惠开通包月黄金会员 2800
+    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_MONTH = 2800;
+    //优惠开通包年黄金会员 5800
+    private static final int VIP_MONEY_OPEN_GLOD_DISCOUNT_YEAR = 5800;
+    //开通包年黄金会员 6800
+    private static final int VIP_MONEY_OPEN_GLOD_YEAR = 6800;
+    //直接开通包月钻石会员 6800
+    private static final int VIP_MONEY_OPEN_DIAMOND_MONTH = 6800;
+    //升级包月钻石会员 3000
+    private static final int VIP_MONEY_UPDATE_DIAMOND_MONTH = 3000;
+    //直接开通包年钻石会员 9800
+    private static final int VIP_MONEY_OPEN_DIAMOND_YEAR = 9800;
+    //黄金包月升级包年钻石会员 6000
+    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_MONTH = 6000;
+    //黄金包年升级包年钻石 3000
+    private static final int VIP_MONEY_UPDATE_DIAMOND_YEAR_FROM_YEAR = 3000;
 
     private static PayUtil instance = null;
 
