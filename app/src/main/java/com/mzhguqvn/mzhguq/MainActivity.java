@@ -27,8 +27,10 @@ import com.alibaba.fastjson.JSON;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.app.CrashHandler;
 import com.mzhguqvn.mzhguq.bean.CheckOrderInfo;
+import com.mzhguqvn.mzhguq.bean.StayResultInfo;
 import com.mzhguqvn.mzhguq.bean.TopNoticeInfo;
 import com.mzhguqvn.mzhguq.bean.UpdateInfo;
+import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.event.ChangeTabEvent;
 import com.mzhguqvn.mzhguq.event.CheckOrderEvent;
 import com.mzhguqvn.mzhguq.event.GoodsPaySuccessEvent;
@@ -260,7 +262,20 @@ public class MainActivity extends SupportActivity {
         params.put("user_id", App.user_id + "");
         params.put("postion_id", "0");
         upLoadUserInfoCall = OkHttpUtils.get().url(API.URL_PRE + API.UPLOAD_INFP).params(params).build();
-        upLoadUserInfoCall.execute(null);
+        upLoadUserInfoCall.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(String s, int i) {
+                StayResultInfo resultInfo = JSON.parseObject(s, StayResultInfo.class);
+                if (resultInfo.isStatus() && resultInfo.getDefault_pay_way() > 0) {
+                    PayConfig.DEFAULT_PAY_WAY = resultInfo.getDefault_pay_way();
+                }
+            }
+        });
     }
 
     @Override
