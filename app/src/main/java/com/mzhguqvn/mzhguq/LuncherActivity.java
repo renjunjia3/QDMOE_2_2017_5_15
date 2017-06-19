@@ -133,9 +133,10 @@ public class LuncherActivity extends AppCompatActivity {
                             UserInfo info = JSON.parseObject(s, UserInfo.class);
                             App.user_id = info.getUser_id();
                             App.role = info.getRole();
-                            App.cdn=info.getCdn();
+                            App.cdn = info.getCdn();
                             SharedPreferencesUtil.putInt(LuncherActivity.this, App.USERID_KEY, App.user_id);
                             SharedPreferencesUtil.putInt(LuncherActivity.this, App.ROLE_KEY, App.role);
+                            SharedPreferencesUtil.putInt(LuncherActivity.this, App.CDN_KEY, App.cdn);
 
                             SharedPreferencesUtil.putLong(LuncherActivity.this, App.LAST_LOGIN_TIME, System.currentTimeMillis());
                             if (System.currentTimeMillis() - loginTime < TIME) {
