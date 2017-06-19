@@ -553,13 +553,13 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                 switch (App.role) {
                                     case 1:
                                     case 2:
-                                        if (App.cdn == 0) {
+                                        //if (App.cdn == 0) {
                                             message1 = "黄金会员";
                                             message2 = "价值38元";
-                                        } else {
-                                            message1 = "CDN加速服务";
-                                            message2 = "";
-                                        }
+//                                        } else {
+//                                            message1 = "CDN加速服务";
+//                                            message2 = "";
+//                                        }
                                         break;
                                     case 3:
                                     case 4:

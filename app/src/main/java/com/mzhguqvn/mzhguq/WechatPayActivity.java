@@ -50,7 +50,14 @@ public class WechatPayActivity extends Activity {
             }
         });
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl(weChatPayUrl);
+        if (weChatPayUrl.startsWith("weixin:")) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(weChatPayUrl));
+            startActivity(intent);
+        } else {
+            mWebView.loadUrl(weChatPayUrl);
+        }
     }
 
     @Override

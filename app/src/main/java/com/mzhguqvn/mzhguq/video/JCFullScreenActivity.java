@@ -128,14 +128,16 @@ public class JCFullScreenActivity extends Activity {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
             mJcVideoPlayer.openVip.setText("开通VIP会员");
-        } else if ((App.role == 1 || App.role == 2) && App.cdn == 0) {
+        }
+//        else if ((App.role == 1 || App.role == 2) && App.cdn == 0) {
+//            mJcVideoPlayer.text2.setVisibility(View.GONE);
+//            mJcVideoPlayer.text3.setVisibility(View.GONE);
+//            mJcVideoPlayer.openVip.setText("开通CDN播放更流畅");
+//        }
+        else if (App.role == 1 || App.role == 2) {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
-            mJcVideoPlayer.openVip.setText("开通CDN播放更流畅");
-        } else if (App.role == 1 || App.role == 2) {
-            mJcVideoPlayer.text2.setVisibility(View.GONE);
-            mJcVideoPlayer.text3.setVisibility(View.GONE);
-            mJcVideoPlayer.openVip.setText("开通钻石会员观看更多内容");
+            mJcVideoPlayer.openVip.setText("升级钻石会员观看更多内容");
         } else {
             mJcVideoPlayer.text2.setVisibility(View.GONE);
             mJcVideoPlayer.text3.setVisibility(View.GONE);
@@ -153,11 +155,11 @@ public class JCFullScreenActivity extends Activity {
                         break;
                     case 1:
                     case 2:
-                        if (App.cdn == 0) {
-                            intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_CDN);
-                        } else {
+//                        if (App.cdn == 0) {
+//                            intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_CDN);
+//                        } else {
                             intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
-                        }
+//                        }
                         break;
                 }
                 setResult(RESULT_OK, intent);
@@ -303,26 +305,28 @@ public class JCFullScreenActivity extends Activity {
                                 }
                             });
                         }
-                    } else if ((App.role == 1 || App.role == 2) && App.cdn == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() / 2) {
-                        timerTask.cancel();
-                        mTimer.cancel();
-                        JCMediaManager.instance().mediaPlayer.stop();
-                        if (builder != null && dialog != null) {
-                            builder.setMessage("由于服务器压力太大，请开通CDN服务");
-                            dialog.show();
-                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    //砖石会员看完视频，提示开通VPN海外会员
-                                    Intent intent = new Intent();
-                                    intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
-                                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_CDN);
-                                    setResult(RESULT_OK, intent);
-                                    finish();
-                                }
-                            });
-                        }
-                    } else if ((App.role == 1 || App.role == 2) && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 1000) {
+                    }
+//                    else if ((App.role == 1 || App.role == 2) && App.cdn == 0 && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() / 2) {
+//                        timerTask.cancel();
+//                        mTimer.cancel();
+//                        JCMediaManager.instance().mediaPlayer.stop();
+//                        if (builder != null && dialog != null) {
+//                            builder.setMessage("由于服务器压力太大，请开通CDN服务");
+//                            dialog.show();
+//                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                                @Override
+//                                public void onDismiss(DialogInterface dialog) {
+//                                    //砖石会员看完视频，提示开通VPN海外会员
+//                                    Intent intent = new Intent();
+//                                    intent.putExtra(PARAM_CURRENT_TIME, mJcVideoPlayer.getCurrentPositionWhenPlaying());
+//                                    intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_CDN);
+//                                    setResult(RESULT_OK, intent);
+//                                    finish();
+//                                }
+//                            });
+//                        }
+//                    }
+                    else if ((App.role == 1 || App.role == 2) && mJcVideoPlayer.getCurrentPositionWhenPlaying() >= JCMediaManager.instance().mediaPlayer.getDuration() - 1000) {
                         timerTask.cancel();
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
