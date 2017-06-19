@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mzhguqvn.mzhguq.R;
+import com.mzhguqvn.mzhguq.config.PayConfig;
 import com.mzhguqvn.mzhguq.pay.PayUtil;
 import com.mzhguqvn.mzhguq.util.ScreenUtils;
 
@@ -57,7 +58,7 @@ public class CDNVipDialog extends Dialog {
         private int videoId;
         private int pay_position_id;
 
-        private int type = 1;
+        private int payWayType = PayConfig.DEFAULT_PAY_WAY;
 
         public Builder(Context context, int videoId, int pay_position_id) {
             this.context = context;
@@ -94,18 +95,23 @@ public class CDNVipDialog extends Dialog {
             });
 
             final RadioGroup radioGroup = (RadioGroup) layout.findViewById(R.id.radio_group);
+            if (payWayType == PayConfig.PAY_BY_WECHAT) {
+                radioGroup.check(R.id.type_wechat);
+            } else {
+                radioGroup.check(R.id.type_alipay);
+            }
             layout.findViewById(R.id.open_vip).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (radioGroup.getCheckedRadioButtonId() == R.id.type_wechat) {
-                        type = 1;
+                        payWayType = PayConfig.PAY_BY_WECHAT;
                     } else {
-                        type = 2;
+                        payWayType = PayConfig.PAY_BY_ALIPAY;
                     }
-                    if (type == 1) {
-                        PayUtil.getInstance().payByWeChat(context, 0, videoId, pay_position_id);
+                    if (payWayType == PayConfig.PAY_BY_WECHAT) {
+                        PayUtil.getInstance().payByWeChat(context, PayUtil.VIP_TYPE_CDN, videoId, pay_position_id);
                     } else {
-                        PayUtil.getInstance().payByAliPay(context, 0, videoId, pay_position_id);
+                        PayUtil.getInstance().payByAliPay(context, PayUtil.VIP_TYPE_CDN, videoId, pay_position_id);
                     }
 
                 }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class CheckOrderInfo implements Serializable {
     private boolean status;
-    private int is_heijin;
+    private int cdn;
     private int role;
 
     public boolean isStatus() {
@@ -21,12 +21,12 @@ public class CheckOrderInfo implements Serializable {
         this.status = status;
     }
 
-    public int getIs_heijin() {
-        return is_heijin;
+    public int getCdn() {
+        return cdn;
     }
 
-    public void setIs_heijin(int is_heijin) {
-        this.is_heijin = is_heijin;
+    public void setCdn(int cdn) {
+        this.cdn = cdn;
     }
 
     public int getRole() {

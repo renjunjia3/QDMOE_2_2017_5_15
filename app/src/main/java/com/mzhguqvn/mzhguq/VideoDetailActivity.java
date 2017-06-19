@@ -342,6 +342,10 @@ public class VideoDetailActivity extends SwipeBackActivity {
                     //砖石
                     DialogUtil.getInstance().showDiamondVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), PageConfig.VIDEO_DETAIL_POSITION_ID);
                     break;
+                case JCFullScreenActivity.DIALOG_TYPE_CDN:
+                    //cdn
+                    DialogUtil.getInstance().showCdnVipDialog(VideoDetailActivity.this, videoInfo.getVideo_id(), PageConfig.VIDEO_DETAIL_POSITION_ID);
+                    break;
             }
 
         }
@@ -543,12 +547,19 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                 String message1 = "";
                                 String message2 = "";
                                 App.role = checkOrderInfo.getRole();
+                                App.cdn = checkOrderInfo.getCdn();
                                 SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.ROLE_KEY, App.role);
+                                SharedPreferencesUtil.putInt(VideoDetailActivity.this, App.CDN_KEY, App.cdn);
                                 switch (App.role) {
                                     case 1:
                                     case 2:
-                                        message1 = "黄金会员";
-                                        message2 = "价值38元";
+                                        if (App.cdn == 0) {
+                                            message1 = "黄金会员";
+                                            message2 = "价值38元";
+                                        } else {
+                                            message1 = "CDN加速服务";
+                                            message2 = "";
+                                        }
                                         break;
                                     case 3:
                                     case 4:
