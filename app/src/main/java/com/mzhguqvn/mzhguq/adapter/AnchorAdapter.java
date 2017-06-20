@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Case By:
+ * Case By:主播
  * package:com.mzhguqvn.mzhguq.adapter
  * Author：scene on 2017/5/24 09:56
  */
