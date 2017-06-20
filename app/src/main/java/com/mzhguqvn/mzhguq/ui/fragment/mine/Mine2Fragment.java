@@ -118,7 +118,7 @@ public class Mine2Fragment extends BaseBackFragment {
         } else {
             openVip.setImageResource(R.drawable.ic_mine_update_vip);
         }
-        if (App.role >= 2) {
+        if (App.role > 2) {
             openVip.setVisibility(View.GONE);
         } else {
             openVip.setVisibility(View.VISIBLE);
