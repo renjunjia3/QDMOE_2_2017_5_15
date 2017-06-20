@@ -349,10 +349,10 @@ public class MainActivity extends SupportActivity {
 
                     @Override
                     public void onResponse(String s, int i) {
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
                         try {
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
                             CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
                             if (checkOrderInfo.isStatus()) {
                                 MainActivity.onPaySuccess();

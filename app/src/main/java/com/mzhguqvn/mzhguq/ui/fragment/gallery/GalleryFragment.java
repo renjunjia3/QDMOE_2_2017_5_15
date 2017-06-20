@@ -152,10 +152,14 @@ public class GalleryFragment extends BaseMainFragment implements GalleryAdapter.
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    if (isShowLoading) {
-                        statusViewLayout.showFailed(retryListener);
-                    } else {
-                        ptrLayout.refreshComplete();
+                    try{
+                        if (isShowLoading) {
+                            statusViewLayout.showFailed(retryListener);
+                        } else {
+                            ptrLayout.refreshComplete();
+                        }
+                    }catch (Exception e1){
+                        e1.printStackTrace();
                     }
                 }
 

@@ -262,7 +262,11 @@ public class MineFragment extends BaseMainFragment {
                         gridView.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        gridView.setVisibility(View.GONE);
+                        try{
+                            gridView.setVisibility(View.GONE);
+                        }catch (Exception e1){
+                            e1.printStackTrace();
+                        }
                     }
                 }
             });

@@ -140,8 +140,13 @@ public class RankFragment extends BaseMainFragment {
             OkHttpUtils.get().url(API.URL_PRE + API.RANK).params(params).tag(TAG).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                    e.printStackTrace();
-                    showLoadStatus(3, isShowLoading);
+                    try{
+                        e.printStackTrace();
+                        showLoadStatus(3, isShowLoading);
+                    }catch (Exception e1){
+                        e1.printStackTrace();
+                    }
+
                 }
 
                 @Override

@@ -182,7 +182,7 @@ public class RankDetailFragment extends BaseBackFragment implements GalleryAdapt
             @Override
             public void onResponse(String s, int i) {
                 try {
-                    Log.e("Tag",s);
+                    Log.e("Tag", s);
                     GalleryResultInfo info = JSON.parseObject(s, GalleryResultInfo.class);
                     list.clear();
                     list.addAll(info.getData());
@@ -194,13 +194,16 @@ public class RankDetailFragment extends BaseBackFragment implements GalleryAdapt
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    if (isShowLoading) {
-                        statusViewLayout.showFailed(retryListener);
-                    } else {
-                        ptrLayout.refreshComplete();
+                    try {
+                        if (isShowLoading) {
+                            statusViewLayout.showFailed(retryListener);
+                        } else {
+                            ptrLayout.refreshComplete();
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
                 }
-
             }
         });
 

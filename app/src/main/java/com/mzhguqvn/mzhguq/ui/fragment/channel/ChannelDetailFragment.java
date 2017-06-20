@@ -158,21 +158,24 @@ public class ChannelDetailFragment extends BaseBackFragment implements GalleryAd
         OkHttpUtils.get().url(API.URL_PRE + API.CHANNEL_DETAIL).params(params).tag(TAG).build().execute(new StringCallback() {
             @Override
             public void onBefore(Request request, int id) {
-                if (isShowLoading) {
-                    statusViewLayout.showLoading();
+                try {
+                    if (isShowLoading) {
+                        statusViewLayout.showLoading();
+                    }
+                } catch (Exception e1) {
                 }
             }
 
             @Override
             public void onError(Call call, Exception e, int i) {
                 e.printStackTrace();
-                try{
+                try {
                     if (isShowLoading) {
                         statusViewLayout.showNetError(retryListener);
                     } else {
                         ptrLayout.refreshComplete();
                     }
-                }catch (Exception e1){
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
 
@@ -192,10 +195,14 @@ public class ChannelDetailFragment extends BaseBackFragment implements GalleryAd
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    if (isShowLoading) {
-                        statusViewLayout.showFailed(retryListener);
-                    } else {
-                        ptrLayout.refreshComplete();
+                    try {
+                        if (isShowLoading) {
+                            statusViewLayout.showFailed(retryListener);
+                        } else {
+                            ptrLayout.refreshComplete();
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
                 }
 

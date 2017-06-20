@@ -202,12 +202,16 @@ public class GlodVip1Fragment extends BaseMainFragment {
             getDataCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                    if (isShowLoad) {
-                        if (statusViewLayout != null) {
-                            statusViewLayout.showFailed(retryListener);
+                    try {
+                        if (isShowLoad) {
+                            if (statusViewLayout != null) {
+                                statusViewLayout.showFailed(retryListener);
+                            }
+                        } else {
+                            ptrLayout.refreshComplete();
                         }
-                    } else {
-                        ptrLayout.refreshComplete();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
                 }
 
@@ -227,14 +231,23 @@ public class GlodVip1Fragment extends BaseMainFragment {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        if (isShowLoad) {
-                            if (statusViewLayout != null) {
-                                statusViewLayout.showFailed(retryListener);
+                        try {
+                            if (isShowLoad) {
+                                if (statusViewLayout != null) {
+                                    statusViewLayout.showFailed(retryListener);
+                                }
                             }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
                         }
+
                     } finally {
-                        if (ptrLayout != null)
-                            ptrLayout.refreshComplete();
+                        try {
+                            if (ptrLayout != null)
+                                ptrLayout.refreshComplete();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });

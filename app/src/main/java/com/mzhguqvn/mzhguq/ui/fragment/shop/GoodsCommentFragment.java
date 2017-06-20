@@ -12,18 +12,12 @@ import android.widget.TextView;
 import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.GoodsComment2Adapter;
-import com.mzhguqvn.mzhguq.adapter.GoodsCommentAdapter;
-import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseBackFragment;
 import com.mzhguqvn.mzhguq.bean.GoodsCommentInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
-import com.mzhguqvn.mzhguq.util.API;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -114,7 +114,7 @@ public class VoucherFragment extends BaseBackFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (enterPage !=0) {
+                if (enterPage != 0) {
                     EventBus.getDefault().post(new ChoosedVoucherBackEvent(list.get(position - 1), enterPage));
                     pop();
                 }
@@ -138,13 +138,13 @@ public class VoucherFragment extends BaseBackFragment {
             OkHttpUtils.get().url(API.URL_PRE + API.VOUCHER).params(params).tag(TAG).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                    try{
+                    try {
                         if (isShowLoading) {
                             statusViewLayout.showFailed(retryListener);
                         } else {
                             ptrLayout.refreshComplete();
                         }
-                    }catch (Exception e1){
+                    } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                 }
@@ -166,10 +166,14 @@ public class VoucherFragment extends BaseBackFragment {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        if (isShowLoading) {
-                            statusViewLayout.showFailed(retryListener);
-                        } else {
-                            ptrLayout.refreshComplete();
+                        try {
+                            if (isShowLoading) {
+                                statusViewLayout.showFailed(retryListener);
+                            } else {
+                                ptrLayout.refreshComplete();
+                            }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
                         }
                     }
                 }

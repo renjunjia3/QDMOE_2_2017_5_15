@@ -192,11 +192,14 @@ public class FilmDetailFragment extends BaseBackFragment implements GalleryAdapt
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    if (isShowLoading) {
-                        statusViewLayout.showFailed(retryListener);
-                    } else {
-                        ptrLayout.refreshComplete();
-                    }
+                    try{
+                        if (isShowLoading) {
+                            statusViewLayout.showFailed(retryListener);
+                        } else {
+                            ptrLayout.refreshComplete();
+                        }
+                    }catch (Exception e1){}
+
                 }
 
             }

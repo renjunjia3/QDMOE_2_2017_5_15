@@ -178,12 +178,15 @@ public class Anchor1Fragment extends BaseMainFragment {
             getDataCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                    if (isShowLoad) {
-                        if (statusViewLayout != null) {
-                            statusViewLayout.showFailed(retryListener);
+                    try {
+                        if (isShowLoad) {
+                            if (statusViewLayout != null) {
+                                statusViewLayout.showFailed(retryListener);
+                            }
+                        } else {
+                            ptrLayout.refreshComplete();
                         }
-                    } else {
-                        ptrLayout.refreshComplete();
+                    } catch (Exception e1) {
                     }
                 }
 

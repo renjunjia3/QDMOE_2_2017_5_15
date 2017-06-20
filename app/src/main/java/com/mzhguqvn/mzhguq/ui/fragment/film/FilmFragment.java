@@ -158,25 +158,29 @@ public class FilmFragment extends BaseMainFragment implements FilmAdapter.OnClic
     }
 
     private void showStatus(int status) {
-        switch (status) {
-            case 1:
-                //正常
-                statusViewLayout.showContent();
-                break;
-            case 2:
-                //失败
-                statusViewLayout.showFailed(retryListener);
-                break;
-            case 3:
-                //无网
-                statusViewLayout.showNetError(retryListener);
-                break;
-            case 4:
-                //无内容
-                statusViewLayout.showNone(retryListener);
-                break;
+        try {
+            switch (status) {
+                case 1:
+                    //正常
+                    statusViewLayout.showContent();
+                    break;
+                case 2:
+                    //失败
+                    statusViewLayout.showFailed(retryListener);
+                    break;
+                case 3:
+                    //无网
+                    statusViewLayout.showNetError(retryListener);
+                    break;
+                case 4:
+                    //无内容
+                    statusViewLayout.showNone(retryListener);
+                    break;
+            }
+            ptrLayout.refreshComplete();
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
-        ptrLayout.refreshComplete();
     }
 
     @Override

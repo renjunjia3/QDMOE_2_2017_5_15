@@ -276,8 +276,10 @@ public class Mine2Fragment extends BaseBackFragment {
                         gridView.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        if (gridView.isActivated()) {
+                        try {
                             gridView.setVisibility(View.GONE);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
                         }
                     }
                 }

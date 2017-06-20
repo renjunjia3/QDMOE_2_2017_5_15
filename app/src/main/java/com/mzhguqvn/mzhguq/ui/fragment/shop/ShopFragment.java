@@ -363,10 +363,14 @@ public class ShopFragment extends BaseBackFragment {
             @Override
             public void onError(Call call, Exception e, int i) {
                 e.printStackTrace();
-                if (isShowLoading) {
-                    statusViewLayout.showFailed(retryListener);
-                } else {
-                    ptrLayout.refreshComplete();
+                try{
+                    if (isShowLoading) {
+                        statusViewLayout.showFailed(retryListener);
+                    } else {
+                        ptrLayout.refreshComplete();
+                    }
+                }catch (Exception e1){
+                    e1.printStackTrace();
                 }
             }
 
@@ -397,11 +401,16 @@ public class ShopFragment extends BaseBackFragment {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    if (isShowLoading) {
-                        statusViewLayout.showNetError(retryListener);
-                    } else {
-                        ptrLayout.refreshComplete();
+                    try{
+                        if (isShowLoading) {
+                            statusViewLayout.showNetError(retryListener);
+                        } else {
+                            ptrLayout.refreshComplete();
+                        }
+                    }catch (Exception e1){
+                        e1.printStackTrace();
                     }
+
                 }
             }
         });

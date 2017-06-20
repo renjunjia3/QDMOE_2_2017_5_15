@@ -13,7 +13,7 @@
         android:text="正在为你跳转到微信..."
         android:textColor="#FF0000"
         android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:textSize="@dimen/text_size_big"
         android:layout_height="wrap_content" />
 </RelativeLayout>

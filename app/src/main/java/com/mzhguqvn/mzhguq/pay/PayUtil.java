@@ -202,10 +202,13 @@ public class PayUtil {
         OkHttpUtils.post().url(API.URL_PRE + API.GET_ORDER_INFO_TYPE_2).params(params).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
+                try {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    ToastUtils.getInstance(context).showToast("订单信息获取失败，请重试");
+                } catch (Exception e1) {
                 }
-                ToastUtils.getInstance(context).showToast("订单信息获取失败，请重试");
             }
 
             @Override
@@ -291,10 +294,13 @@ public class PayUtil {
         OkHttpUtils.post().url(API.URL_PRE + API.GOODS_CREATE_ORDER).params(params).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
+                try {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    ToastUtils.getInstance(context).showToast("购买失败，请重试");
+                } catch (Exception e1) {
                 }
-                ToastUtils.getInstance(context).showToast("购买失败，请重试");
             }
 
             @Override
