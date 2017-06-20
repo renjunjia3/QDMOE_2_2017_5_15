@@ -31,4 +31,7 @@
     <string name="vip_dialog_notice">温馨提示：如遇微信支付不能使用 请使用支付宝继续支付</string>
     <string name="hot_line_notice">尊敬的客户，您有任何问题，可以咨询客服中心，我们将竭诚为你服务</string>
 
+    <string name="other_channer_open_vip_notice">开通钻石会员，畅享所有栏目内容</string>
+    <string name="try_see_play_open_vip_notice">非会员只能试看体验，开通会员观看更多内容</string>
+    <string name="glod_play_open_vip_notice">请升级钻石会员，观看更多内容，畅享所有栏目</string>
 </resources>

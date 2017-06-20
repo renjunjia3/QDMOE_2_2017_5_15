@@ -258,7 +258,7 @@ public class RankFragment extends BaseMainFragment {
      */
     private void itemClick(RankResultInfo.DataBean dataBean) {
         if (App.role <= 2) {
-            DialogUtil.getInstance().showSubmitDialog(getContext(), false, "该栏目为钻石会员专享，请先开通钻石会员", App.role, true, PageConfig.RANK_POSITION_ID, true);
+            DialogUtil.getInstance().showSubmitDialog(getContext(), false, getString(R.string.other_channer_open_vip_notice), App.role, true, PageConfig.RANK_POSITION_ID, true);
         } else {
             EventBus.getDefault().post(new StartBrotherEvent(RankDetailFragment.newInstance(dataBean.getId(), dataBean.getTitle())));
         }

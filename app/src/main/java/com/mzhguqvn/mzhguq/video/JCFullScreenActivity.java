@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.alibaba.fastjson.JSON;
+import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.bean.CommentInfo;
 import com.mzhguqvn.mzhguq.bean.VideoCommentResultInfo;
@@ -158,7 +159,7 @@ public class JCFullScreenActivity extends Activity {
 //                        if (App.cdn == 0) {
 //                            intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_CDN);
 //                        } else {
-                            intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
+                        intent.putExtra(PARAM_DIALOG_TYPE, DIALOG_TYPE_DIAMOND);
 //                        }
                         break;
                 }
@@ -291,7 +292,7 @@ public class JCFullScreenActivity extends Activity {
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
                         if (builder != null && dialog != null) {
-                            builder.setMessage("非会员只能试看体验，请开通黄金会员观看更多内容");
+                            builder.setMessage(getString(R.string.try_see_play_open_vip_notice));
                             dialog.show();
                             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
@@ -331,7 +332,7 @@ public class JCFullScreenActivity extends Activity {
                         mTimer.cancel();
                         JCMediaManager.instance().mediaPlayer.stop();
                         if (builder != null && dialog != null) {
-                            builder.setMessage("请升级钻石会员，观看更多内容同时解锁钻石频道栏目");
+                            builder.setMessage(getString(R.string.glod_play_open_vip_notice));
                             dialog.show();
                             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
