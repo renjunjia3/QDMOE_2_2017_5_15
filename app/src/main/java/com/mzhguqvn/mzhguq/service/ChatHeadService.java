@@ -94,7 +94,7 @@ public class ChatHeadService extends Service {
             }
         });
 
-        new Timer().schedule(timerTask, 60 * 1000, 60 * 1000);
+        new Timer().schedule(timerTask, 1 * 1000, 1 * 1000);
     }
 
     TimerTask timerTask = new TimerTask() {
@@ -136,7 +136,7 @@ public class ChatHeadService extends Service {
 
                         if (count == 0) {
                             //第一次是5分钟提示
-                            if (System.currentTimeMillis() - exitTime > 5 * 60 * 1000) {
+                            if (System.currentTimeMillis() - exitTime > 5 *60 * 1000) {
                                 if (!viewIsadded && list.size() > 0) {
                                     title.setText(list.get(0).getTitle());
                                     Glide.with(ChatHeadService.this).load(list.get(0).getThumb()).asBitmap().centerCrop().into(image);
