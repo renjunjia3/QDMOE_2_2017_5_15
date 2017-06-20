@@ -312,29 +312,35 @@ public class ShopFragment extends BaseBackFragment {
             dataRequestCall.execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                    if (isShowLoading) {
-                        statusViewLayout.showFailed(retryListener);
-                    } else {
-                        ptrLayout.refreshComplete();
+                    try {
+                        if (isShowLoading) {
+                            statusViewLayout.showFailed(retryListener);
+                        } else {
+                            ptrLayout.refreshComplete();
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
                 }
 
                 @Override
                 public void onResponse(String s, int i) {
                     try {
-                        goodsInfo = JSON.parseObject(s, GoodsInfo.class);
-                        initData(isShowLoading);
-                        statusViewLayout.showContent();
-                        //getCommentData(isShowLoading);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        if (isShowLoading) {
-                            statusViewLayout.showFailed(retryListener);
-                        } else {
-                            ptrLayout.refreshComplete();
+                        try {
+                            goodsInfo = JSON.parseObject(s, GoodsInfo.class);
+                            initData(isShowLoading);
+                            statusViewLayout.showContent();
+                            //getCommentData(isShowLoading);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            if (isShowLoading) {
+                                statusViewLayout.showFailed(retryListener);
+                            } else {
+                                ptrLayout.refreshComplete();
+                            }
                         }
+                    } catch (Exception eq) {
                     }
-
                 }
             });
         } else {

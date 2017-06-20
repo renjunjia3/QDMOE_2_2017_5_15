@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -156,7 +157,7 @@ public class BuyFragment extends BaseBackFragment {
                 case MSG_LOAD_SUCCESS:
                     isAddressDataSuccess = true;
                     //显示默认的地址
-                    receiverAddress.setText(strAddress);
+                    receiverAddress.setText(TextUtils.isEmpty(strAddress) ? "" : strAddress);
                     province.setText(strProvince);
                     city.setText(strCity);
                     area.setText(strArea);

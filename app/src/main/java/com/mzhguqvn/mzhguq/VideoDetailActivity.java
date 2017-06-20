@@ -522,24 +522,28 @@ public class VideoDetailActivity extends SwipeBackActivity {
                 requestCall.execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int i) {
-                        e.printStackTrace();
-                        DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, "如遇微信不能支付，请使用支付宝支付");
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressDialog.dismiss();
-                                }
-                            });
+                        try {
+                            e.printStackTrace();
+                            DialogUtil.getInstance().showCustomSubmitDialog(VideoDetailActivity.this, "如遇微信不能支付，请使用支付宝支付");
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressDialog.dismiss();
+                                    }
+                                });
+                            }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onResponse(String s, int i) {
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
                         try {
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
                             CheckOrderInfo checkOrderInfo = JSON.parseObject(s, CheckOrderInfo.class);
                             if (checkOrderInfo.isStatus()) {
                                 MainActivity.onPaySuccess();
@@ -554,8 +558,8 @@ public class VideoDetailActivity extends SwipeBackActivity {
                                     case 1:
                                     case 2:
                                         //if (App.cdn == 0) {
-                                            message1 = "黄金会员";
-                                            message2 = "价值38元";
+                                        message1 = "黄金会员";
+                                        message2 = "价值38元";
 //                                        } else {
 //                                            message1 = "CDN加速服务";
 //                                            message2 = "";

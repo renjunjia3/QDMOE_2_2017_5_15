@@ -270,9 +270,13 @@ public class MainActivity extends SupportActivity {
 
             @Override
             public void onResponse(String s, int i) {
-                StayResultInfo resultInfo = JSON.parseObject(s, StayResultInfo.class);
-                if (resultInfo.isStatus() && resultInfo.getDefault_pay_way() > 0) {
-                    PayConfig.DEFAULT_PAY_WAY = resultInfo.getDefault_pay_way();
+                try {
+                    StayResultInfo resultInfo = JSON.parseObject(s, StayResultInfo.class);
+                    if (resultInfo.isStatus() && resultInfo.getDefault_pay_way() > 0) {
+                        PayConfig.DEFAULT_PAY_WAY = resultInfo.getDefault_pay_way();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -334,11 +338,13 @@ public class MainActivity extends SupportActivity {
                 requestCall.execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int i) {
-                        e.printStackTrace();
-                        if (progressDialog != null && progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                        DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, "如遇微信不能支付，请使用支付宝支付");
+                        try{
+                            e.printStackTrace();
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            DialogUtil.getInstance().showCustomSubmitDialog(MainActivity.this, "如遇微信不能支付，请使用支付宝支付");
+                        }catch (Exception e1){}
                     }
 
                     @Override

@@ -9,6 +9,8 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.mzhguqvn.mzhguq.util.ToastUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -26,14 +28,13 @@ public class WechatPayActivity extends Activity {
     private boolean isNeedFinish = false;
 
     public static final String WECHAT_PAY_URL = "wechat_pay_url";
-    private String weChatPayUrl;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alipay);
         unbinder = ButterKnife.bind(this);
-        weChatPayUrl = getIntent().getStringExtra(WECHAT_PAY_URL);
+        String weChatPayUrl = getIntent().getStringExtra(WECHAT_PAY_URL);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -50,11 +51,17 @@ public class WechatPayActivity extends Activity {
             }
         });
         mWebView.getSettings().setJavaScriptEnabled(true);
+
         if (weChatPayUrl.startsWith("weixin:")) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(weChatPayUrl));
-            startActivity(intent);
+            try {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(weChatPayUrl));
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+                ToastUtils.getInstance(WechatPayActivity.this).showToast("请先安装或打开微信");
+            }
         } else {
             mWebView.loadUrl(weChatPayUrl);
         }

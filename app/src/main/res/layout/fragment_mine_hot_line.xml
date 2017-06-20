@@ -9,11 +9,11 @@
 
 
     <ImageView
+        android:id="@+id/top_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:maxHeight="500dp"
-        android:src="@drawable/bg_hot_line_top" />
+        android:maxHeight="500dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

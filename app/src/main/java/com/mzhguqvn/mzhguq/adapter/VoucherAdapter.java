@@ -53,7 +53,7 @@ public class VoucherAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         OrderViewHolder viewHolder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_voucher_item, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_voucher_item, null);
             viewHolder = new OrderViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {

@@ -84,9 +84,14 @@ public class Mine2Fragment extends BaseBackFragment {
     @Override
     protected void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        toolbarTitle.setText("我的");
-        initView();
-        MainActivity.upLoadPageInfo(PageConfig.MINE_POSITOTN_ID, 0, 0);
+        try {
+            toolbarTitle.setText("我的");
+            initView();
+            MainActivity.upLoadPageInfo(PageConfig.MINE_POSITOTN_ID, 0, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -271,7 +276,9 @@ public class Mine2Fragment extends BaseBackFragment {
                         gridView.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        gridView.setVisibility(View.GONE);
+                        if (gridView.isActivated()) {
+                            gridView.setVisibility(View.GONE);
+                        }
                     }
                 }
             });

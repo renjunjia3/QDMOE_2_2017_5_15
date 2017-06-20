@@ -138,10 +138,14 @@ public class VoucherFragment extends BaseBackFragment {
             OkHttpUtils.get().url(API.URL_PRE + API.VOUCHER).params(params).tag(TAG).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                    if (isShowLoading) {
-                        statusViewLayout.showFailed(retryListener);
-                    } else {
-                        ptrLayout.refreshComplete();
+                    try{
+                        if (isShowLoading) {
+                            statusViewLayout.showFailed(retryListener);
+                        } else {
+                            ptrLayout.refreshComplete();
+                        }
+                    }catch (Exception e1){
+                        e1.printStackTrace();
                     }
                 }
 
