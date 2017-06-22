@@ -22,7 +22,6 @@ import com.mzhguqvn.mzhguq.itemdecoration.FilmItemDecoration;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrDefaultHandler;
 import com.mzhguqvn.mzhguq.pull_loadmore.PtrFrameLayout;
-import com.mzhguqvn.mzhguq.ui.fragment.channel.ChannelDetailFragment;
 import com.mzhguqvn.mzhguq.util.API;
 import com.mzhguqvn.mzhguq.util.DialogUtil;
 import com.mzhguqvn.mzhguq.util.NetWorkUtils;
@@ -104,7 +103,7 @@ public class FilmFragment extends BaseMainFragment implements FilmAdapter.OnClic
             @Override
             public void onBefore(Request request, int id) {
                 if (!NetWorkUtils.isNetworkConnected(getContext())) {
-                    showStatus(3);
+                    showStatus(isShowLoading, 3);
                     OkHttpUtils.getInstance().cancelTag(TAG);
                 } else {
                     if (isShowLoading) {
@@ -120,26 +119,26 @@ public class FilmFragment extends BaseMainFragment implements FilmAdapter.OnClic
                     RankResultInfo info = JSON.parseObject(s, RankResultInfo.class);
                     if (info.isStatus()) {
                         if (info.getData() != null && info.getData().size() > 0) {
-                            showStatus(1);
+                            showStatus(isShowLoading, 1);
                             list.clear();
                             list.addAll(info.getData());
                             adapter.notifyDataSetChanged();
                         } else {
-                            showStatus(4);
+                            showStatus(isShowLoading, 4);
                         }
                     } else {
-                        showStatus(2);
+                        showStatus(isShowLoading, 2);
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    showStatus(2);
+                    showStatus(isShowLoading, 2);
                 }
             }
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                showStatus(2);
+                showStatus(isShowLoading, 2);
             }
         });
     }
@@ -157,27 +156,30 @@ public class FilmFragment extends BaseMainFragment implements FilmAdapter.OnClic
         super.onDestroyView();
     }
 
-    private void showStatus(int status) {
+    private void showStatus(boolean isShowLoading, int status) {
         try {
-            switch (status) {
-                case 1:
-                    //正常
-                    statusViewLayout.showContent();
-                    break;
-                case 2:
-                    //失败
-                    statusViewLayout.showFailed(retryListener);
-                    break;
-                case 3:
-                    //无网
-                    statusViewLayout.showNetError(retryListener);
-                    break;
-                case 4:
-                    //无内容
-                    statusViewLayout.showNone(retryListener);
-                    break;
+            if (isShowLoading) {
+                switch (status) {
+                    case 1:
+                        //正常
+                        statusViewLayout.showContent();
+                        break;
+                    case 2:
+                        //失败
+                        statusViewLayout.showFailed(retryListener);
+                        break;
+                    case 3:
+                        //无网
+                        statusViewLayout.showNetError(retryListener);
+                        break;
+                    case 4:
+                        //无内容
+                        statusViewLayout.showNone(retryListener);
+                        break;
+                }
+            } else {
+                ptrLayout.refreshComplete();
             }
-            ptrLayout.refreshComplete();
         } catch (Exception e1) {
             e1.printStackTrace();
         }
