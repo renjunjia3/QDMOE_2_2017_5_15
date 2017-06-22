@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class API {
 
     //正式环境
-    public static final String URL_PRE = "http://api.alpv.pw/video/";
+    public static final String URL_PRE = "http://api2.alpv.pw/video/";
 //    //测试环境
 //    public static final String URL_PRE = "http://tapi.alpv.pw/video/";
 
@@ -25,7 +25,7 @@ public class API {
     public static final String PAY_CLICK = "pay/click/";
     //视频详情页相关推荐
     public static final String VIDEO_RELATED = "video/related";
-    //检查支付状态http://api.18kam.net/video/pay/is_success?order_id=12&imei=860635035819277
+    //检查支付状态
     public static final String CHECK_ORDER = "pay/is_success";
     //获取订单信息方式2
     public static final String GET_ORDER_INFO_TYPE_2 = "pay/get_token";

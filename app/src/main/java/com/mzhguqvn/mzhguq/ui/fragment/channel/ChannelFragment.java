@@ -105,7 +105,7 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
             @Override
             public void onBefore(Request request, int id) {
                 if (!NetWorkUtils.isNetworkConnected(getContext())) {
-                    showStatus(3);
+                    showStatus(isShowLoading,3);
                     OkHttpUtils.getInstance().cancelTag(TAG);
                 } else {
                     if (isShowLoading) {
@@ -123,28 +123,28 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
                         public void onTaskFinished(ChannelResultInfo data) {
                             if (data.isStatus()) {
                                 if (data.getData() != null && data.getData().size() > 0) {
-                                    showStatus(1);
+                                    showStatus(isShowLoading,1);
                                     list.clear();
                                     list.addAll(data.getData());
                                     adapter.notifyDataSetChanged();
                                 } else {
-                                    showStatus(4);
+                                    showStatus(isShowLoading,4);
                                 }
                             } else {
-                                showStatus(2);
+                                showStatus(isShowLoading,2);
                             }
                         }
                     }, s).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    showStatus(2);
+                    showStatus(isShowLoading,2);
                 }
             }
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                showStatus(2);
+                showStatus(isShowLoading,2);
             }
         });
     }
@@ -162,27 +162,30 @@ public class ChannelFragment extends BaseMainFragment implements ChannelAdapter.
         super.onDestroyView();
     }
 
-    private void showStatus(int status) {
+    private void showStatus(boolean isShowLoading, int status) {
         try {
-            switch (status) {
-                case 1:
-                    //正常
-                    statusViewLayout.showContent();
-                    break;
-                case 2:
-                    //失败
-                    statusViewLayout.showFailed(retryListener);
-                    break;
-                case 3:
-                    //无网
-                    statusViewLayout.showNetError(retryListener);
-                    break;
-                case 4:
-                    //无内容
-                    statusViewLayout.showNone(retryListener);
-                    break;
+            if (isShowLoading) {
+                switch (status) {
+                    case 1:
+                        //正常
+                        statusViewLayout.showContent();
+                        break;
+                    case 2:
+                        //失败
+                        statusViewLayout.showFailed(retryListener);
+                        break;
+                    case 3:
+                        //无网
+                        statusViewLayout.showNetError(retryListener);
+                        break;
+                    case 4:
+                        //无内容
+                        statusViewLayout.showNone(retryListener);
+                        break;
+                }
+            } else {
+                ptrLayout.refreshComplete();
             }
-            ptrLayout.refreshComplete();
         } catch (Exception e) {
             e.printStackTrace();
         }
