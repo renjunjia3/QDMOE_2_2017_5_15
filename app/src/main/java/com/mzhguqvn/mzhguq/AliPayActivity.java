@@ -41,12 +41,11 @@ public class AliPayActivity extends Activity {
         setContentView(R.layout.activity_alipay);
         unbinder = ButterKnife.bind(this);
         alipayUrl = getIntent().getStringExtra(ALIPAY_URL);
-        noticeTextView.setText("正在为你跳转到支付宝");
+        noticeTextView.setText("正在为你跳转到支付宝...");
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (mWebView != null && !TextUtils.isEmpty(url)) {
-                    Log.e("AliPayActivity", url);
                     if (url.contains("platformapi/startapp")) {
                         startAlipayActivity(url);
                         // android  6.0 两种方式获取intent都可以跳转支付宝成功,7.1测试不成功

@@ -39,7 +39,6 @@ public class WechatPayActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // 如下方案可在非微信内部WebView的H5页面中调出微信支付
-                Log.e("-------------->", url);
                 if (url.startsWith("weixin:")) {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
