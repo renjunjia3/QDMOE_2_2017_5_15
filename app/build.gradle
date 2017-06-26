@@ -134,8 +134,8 @@ android {
         variant.outputs.each { output ->
             def file = output.outputFile
             def flavorFlag = "${variant.productFlavors.get(0).name}"
-            //def file_pre=flavorFlag.replace("NNY","米咪快播")
-            output.outputFile = new File(file.parent, flavorFlag +"_"+ rootProject.versionCode + ".apk")
+            def file_pre=flavorFlag.replace("NNY","米咪快播")
+            output.outputFile = new File(file.parent, file_pre +"_"+ rootProject.versionCode + ".apk")
         }
     }
 
