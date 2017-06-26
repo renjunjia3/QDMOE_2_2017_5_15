@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mzhguqvn.mzhguq.R;
-import com.mzhguqvn.mzhguq.base.LogisticInfo;
+import com.mzhguqvn.mzhguq.bean.LogisticInfo;
 import com.mzhguqvn.mzhguq.ui.view.timelineview.TimelineView;
 
 import java.util.List;

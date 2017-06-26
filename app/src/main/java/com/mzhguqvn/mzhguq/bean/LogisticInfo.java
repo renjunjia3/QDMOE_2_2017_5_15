@@ -1,4 +1,4 @@
-package com.mzhguqvn.mzhguq.base;
+package com.mzhguqvn.mzhguq.bean;
 
 import java.io.Serializable;
 import java.util.List;

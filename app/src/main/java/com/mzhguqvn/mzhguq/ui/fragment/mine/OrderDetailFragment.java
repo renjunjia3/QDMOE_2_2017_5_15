@@ -17,9 +17,8 @@ import com.bumptech.glide.Glide;
 import com.mzhguqvn.mzhguq.MainActivity;
 import com.mzhguqvn.mzhguq.R;
 import com.mzhguqvn.mzhguq.adapter.OrderLogisticAdapter;
-import com.mzhguqvn.mzhguq.app.App;
 import com.mzhguqvn.mzhguq.base.BaseBackFragment;
-import com.mzhguqvn.mzhguq.base.LogisticInfo;
+import com.mzhguqvn.mzhguq.bean.LogisticInfo;
 import com.mzhguqvn.mzhguq.bean.OrderInfo;
 import com.mzhguqvn.mzhguq.config.PageConfig;
 import com.mzhguqvn.mzhguq.pull_loadmore.recyclerview.RecyclerAdapterWithHF;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
