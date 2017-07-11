@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout
+        <com.cl.cltv.pull_loadmore.PtrClassicFrameLayout
             android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,7 +24,7 @@
                 android:divider="@android:color/transparent"
                 android:dividerHeight="10dp" />
 
-        </com.mzhguqvn.mzhguq.pull_loadmore.PtrClassicFrameLayout>
+        </com.cl.cltv.pull_loadmore.PtrClassicFrameLayout>
 
     </wiki.scene.statuslib.StatusViewLayout>
 

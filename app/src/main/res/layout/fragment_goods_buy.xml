@@ -385,7 +385,7 @@
                 android:background="#46433E" />
 
 
-            <com.mzhguqvn.mzhguq.ui.view.verticalrollingtextview.VerticalRollingTextView
+            <com.cl.cltv.ui.view.verticalrollingtextview.VerticalRollingTextView
                 android:id="@+id/notice_textView"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -426,7 +426,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/text_size_large" />
 
-                <com.mzhguqvn.mzhguq.ui.view.CustomListView
+                <com.cl.cltv.ui.view.CustomListView
                     android:id="@+id/comment_listView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

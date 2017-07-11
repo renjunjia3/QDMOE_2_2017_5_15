@@ -6,7 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <com.mzhguqvn.mzhguq.ui.view.RatioImageView
+    <com.cl.cltv.ui.view.RatioImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

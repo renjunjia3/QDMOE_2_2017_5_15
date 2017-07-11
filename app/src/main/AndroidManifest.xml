@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.mzhguqvn.mzhguq">
+    package="com.cl.cltv">
 
     <uses-sdk tools:overrideLibrary="com.liangfeizc.flowlayout" />
 
@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
-        android:name="com.mzhguqvn.mzhguq.app.App"
+        android:name="com.cl.cltv.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,10 +38,10 @@
             android:name="UMENG_CHANNEL"
             android:value="Channel ID" />
         <!--配置弹窗的service-->
-        <service android:name="com.mzhguqvn.mzhguq.service.ChatHeadService" />
+        <service android:name="com.cl.cltv.service.ChatHeadService" />
 
         <activity
-            android:name="com.mzhguqvn.mzhguq.LuncherActivity"
+            android:name="com.cl.cltv.LuncherActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,21 +50,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mzhguqvn.mzhguq.MainActivity"
+            android:name="com.cl.cltv.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.mzhguqvn.mzhguq.VideoDetailActivity"
+            android:name="com.cl.cltv.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.mzhguqvn.mzhguq.video.JCFullScreenActivity"
+            android:name="com.cl.cltv.video.JCFullScreenActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
 
-        <activity android:name="com.mzhguqvn.mzhguq.AliPayActivity" />
+        <activity android:name="com.cl.cltv.AliPayActivity" />
 
-        <activity android:name="com.mzhguqvn.mzhguq.WechatPayActivity" />
+        <activity android:name="com.cl.cltv.WechatPayActivity" />
 
         <!--配置渠道-->
         <meta-data
