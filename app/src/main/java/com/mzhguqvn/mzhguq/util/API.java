@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class API {
 
     //正式环境
-    public static final String URL_PRE = "http://api2.alpv.pw/video/";
+    public static final String URL_PRE = "http://api.wuzhouk.com/video/";
 //    //测试环境
 //    public static final String URL_PRE = "http://tapi.alpv.pw/video/";
 
