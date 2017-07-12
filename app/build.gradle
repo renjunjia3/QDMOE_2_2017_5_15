@@ -105,6 +105,36 @@ android {
         NNY_1030 {
             manifestPlaceholders = [CHANNEL_ID: 1030]
         }
+        NNY_1031 {
+            manifestPlaceholders = [CHANNEL_ID: 1031]
+        }
+        NNY_1032 {
+            manifestPlaceholders = [CHANNEL_ID: 1032]
+        }
+        NNY_1033 {
+            manifestPlaceholders = [CHANNEL_ID: 1033]
+        }
+        NNY_1034 {
+            manifestPlaceholders = [CHANNEL_ID: 1034]
+        }
+        NNY_1035 {
+            manifestPlaceholders = [CHANNEL_ID: 1035]
+        }
+        NNY_1036 {
+            manifestPlaceholders = [CHANNEL_ID: 1036]
+        }
+        NNY_1037 {
+            manifestPlaceholders = [CHANNEL_ID: 1037]
+        }
+        NNY_1038 {
+            manifestPlaceholders = [CHANNEL_ID: 1038]
+        }
+        NNY_1039 {
+            manifestPlaceholders = [CHANNEL_ID: 1039]
+        }
+        NNY_1040 {
+            manifestPlaceholders = [CHANNEL_ID: 1040]
+        }
 
     }
 
